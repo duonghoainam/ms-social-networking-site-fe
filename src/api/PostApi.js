@@ -1,5 +1,5 @@
 import axiosClient from "./AxiosClient";
-import { URL } from "../const/index";
+import { URL } from "../constants/index";
 class PostAPI {
   getPosts = () => {
     const url = URL + "/home/post";

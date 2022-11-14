@@ -17,20 +17,22 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object({
-  email: Yup.string().required('Enter your email').email('Invalid email foramt'),
+  email: Yup.string().required('Enter your email').email('Invalid email format'),
   pass: Yup.string().required('Enter your password')
 });
 
 const RegisterForm = (): ReactElement => {
   const params = useParams();
+  console.log(params);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (values: any) => {
     try {
-      const result = await dispatch(Register(values)).unwrap();
-      alert(result.message);
-      navigate('/auth/login');
+      console.log(params);
+      // const result = await dispatch(Register(values)).unwrap();
+      // alert(result.message);
+      // navigate('/auth/login');
     } catch (error) {
       alert(error.message);
     }

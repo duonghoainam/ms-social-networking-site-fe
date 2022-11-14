@@ -4,7 +4,6 @@ import postAPI from '../../api/PostApi';
 import userAPI from '../../api/UserApi';
 import storage from 'redux-persist/lib/storage';
 import { RegisterParams } from '../../api/auth/type/register.type';
-import { ApiResponse } from '../../api/api-response.type';
 
 export const LoginUser = createAsyncThunk('auth/LoginUser', async (params, thunkAPI) => {
   try {
@@ -29,21 +28,24 @@ export const getPosts = createAsyncThunk('post/getPosts', async () => {
   const listPosts = await postAPI.getPosts();
   return listPosts;
 });
-export const Register = createAsyncThunk('auth/Register', async (args: RegisterParams, thunkAPI) => {
-  try {
-    const response = await authAPI.createAccount(args);
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const Register = createAsyncThunk(
+  'auth/register',
+  async (args: RegisterParams, thunkAPI) => {
+    try {
+      // const response = await authAPI.createAccount(args);
+      // return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 export const getAllUsers = createAsyncThunk('user/getAll', async (args, thunkAPI) => {
   try {
     const response = await userAPI.getAllUsers();
     return response;
   } catch (error) {
-    return thunkAPI.rejectWithValue(`${error}`);
+    return thunkAPI.rejectWithValue(error);
   }
 });
 
@@ -62,6 +64,7 @@ const AuthSlice = createSlice({
     }
   },
   extraReducers: {
+    // Login
     [LoginUser.pending.toString()]: (state: any) => {
       state.loading = true;
       console.log('Đang load');
@@ -95,6 +98,8 @@ const AuthSlice = createSlice({
       state.listUser = action.payload.listUser;
     },
     [getAllUsers.rejected.toString()]: (state: any, action: any) => {},
+
+    // Register
     [Register.pending.toString()]: (state: any) => {
       state.loading = true;
       console.log('Đang load');
@@ -109,6 +114,7 @@ const AuthSlice = createSlice({
     [Register.fulfilled.toString()]: (state: any, action: any) => {
       state.loading = false;
     },
+    // Logout
 
     [Logout.fulfilled.toString()]: (state: any, action: any) => {
       state.loading = false;

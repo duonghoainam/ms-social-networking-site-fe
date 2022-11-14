@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import CommentItem from "./commons/commentItem";
-import { useSelector, useDispatch } from "react-redux";
-import { getCommentsByPostID } from "../homeSlice";
-import { socket } from "../../../App";
+import React, { useEffect } from 'react';
+import CommentItem from './commons/commentItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCommentsByPostID } from '../homeSlice';
+import { socket } from '../../../App';
 
 const ListComment = () => {
   const dispach = useDispatch();
   const { listComment, activePostId } = useSelector((state) => state.home);
 
   useEffect(async () => {
-    socket.off("receive_message").on("receive_message", (data) => {
+    socket.off('receive_message').on('receive_message', (data) => {
       try {
-        console.log("Dô trong này để lấy comment");
+        console.log('Dô trong này để lấy comment');
         const action1 = getCommentsByPostID(activePostId);
         dispach(action1);
       } catch (err) {
