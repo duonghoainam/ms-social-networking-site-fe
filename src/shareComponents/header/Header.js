@@ -18,7 +18,7 @@ import {
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Logout } from '../../features/auth/authSlice';
+import { logout } from '../../features/auth/authSlice';
 import { Button, Col } from 'react-bootstrap';
 import Usecloseoutsidetoclose from '../../hooks/useCloseOutSideToClose';
 import {
@@ -81,7 +81,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const result = await dispatch(Logout()).unwrap();
+      const result = await dispatch(logout()).unwrap();
       console.log(result);
     } catch (error) {
       console.log(error);

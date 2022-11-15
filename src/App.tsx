@@ -31,13 +31,6 @@ function App(): ReactElement {
           }></Route>
 
         <Route
-          path="/messenger/*"
-          element={
-            <PrivateRout>
-              <IndexChat />
-            </PrivateRout>
-          }></Route>
-        <Route
           path="/account/*"
           element={
             <PrivateRout>
@@ -47,14 +40,19 @@ function App(): ReactElement {
         <Route path="video_call/:id" element={<VideoCall />} />
 
         <Route
+          path="/messenger/*"
+          element={
+            <PrivateRout>
+              <IndexChat />
+            </PrivateRout>
+          }></Route>
+        <Route
           path="/new/*"
           element={
             <PrivateRout>
               <NewIndex />
             </PrivateRout>
           }></Route>
-        {/* <Route path="/*" element={<IndexHome />}></Route> */}
-        {/* <Route path="/messenger/*" element={<IndexChat />}></Route> */}
         <Route
           path="/auth/*"
           element={

@@ -1,18 +1,16 @@
-import queryString from "query-string";
-import jwt_decode from "jwt-decode";
-import dayjs from "dayjs";
-import axios from "axios";
+import queryString from 'query-string';
+import axios from 'axios';
 
 const axiosClient = axios.create({
   headers: {
-    "Content-type": "application/json",
+    'Content-type': 'application/json'
   },
-  paramsSerializer: (params) => queryString.stringify(params),
+  paramsSerializer: (params) => queryString.stringify(params)
 });
 
 axiosClient.interceptors.request.use(async (req) => {
-  let authTokens = localStorage.getItem("authTokens")
-    ? JSON.parse(localStorage.getItem("authTokens"))
+  const authTokens = localStorage.getItem('authTokens')
+    ? JSON.parse(localStorage.getItem('authTokens'))
     : null;
 
   if (authTokens) {
@@ -44,7 +42,6 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    //handle error
     throw error;
   }
 );
