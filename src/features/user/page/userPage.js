@@ -6,7 +6,7 @@ import { InsertEmoticonOutlined } from '@material-ui/icons';
 import '../components/style.scss';
 
 import UserProfile from '../components/UserProfile';
-import Header from '../../../shareComponents/header/Header';
+import Header from '../../../components/header/Header';
 
 const UserPage = () => {
     useEffect(() => {

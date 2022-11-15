@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
-import "../formikCustom/form.css";
+import "./form.css";
 import FormikControl from "./FormikControl";
 
 

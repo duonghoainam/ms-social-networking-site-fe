@@ -1,43 +1,40 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Col, Container, Row, Toast } from 'react-bootstrap';
-import Header from '../../../shareComponents/header/Header';
+import Header from '../../../components/header/Header';
 import Category from '../components/category';
 import PostItem from '../components/postItem';
 import { useSelector } from 'react-redux';
-import { getListRecommendFriends, getNotification, getPosts } from '../homeSlice';
 import './homePage.scss';
-import ErrorFetch from '../../../shareComponents/fetchfail/error';
+import ErrorFetch from '../../../components/fetchfail/error';
 import AlllikesPopup from '../components/commons/allLikesPopup';
-import { socket } from '../../../App';
-import HomeSkeleton from '../../../shareComponents/skeletonLoading/HomeSkeleton';
-import { useAppDispatch } from '../../../app/store';
+import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
 import { AppState } from '../../../app/state.type';
 
 const HomePage = (): ReactElement => {
   const [showB, setShowB] = useState(false);
-  const [refresh, setRefresh] = useState(false);
-  const [isShowPopup, setIsShowPopup] = useState(false);
+  // const [refresh, setRefresh] = useState(false);
+  // const [isShowPopup, setIsShowPopup] = useState(false);
 
   const toggleShowB = (): void => setShowB(!showB);
-  const current = JSON.parse(localStorage.getItem('login') ?? '');
-  const dispatch = useAppDispatch();
+  // const current = JSON.parse(localStorage.getItem('login') ?? '');
+  // const dispatch = useAppDispatch();
   const { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
 
-  useEffect(async (): Promise<void> => {
-    document.title = 'Midori';
-    const action = getPosts();
-    await dispatch(action).unwrap();
+  // useEffect(async () => {
+  //   document.title = 'Midori';
+  //   const action = getPosts();
+  //   await dispatch(action).unwrap();
 
-    const action2 = getNotification();
-    await dispatch(action2).unwrap();
+  //   const action2 = getNotification();
+  //   await dispatch(action2).unwrap();
 
-    const action1 = getListRecommendFriends();
-    await dispatch(action1).unwrap();
+  //   const action1 = getListRecommendFriends();
+  //   await dispatch(action1).unwrap();
 
-    setRefresh(!refresh);
+  //   setRefresh(!refresh);
 
-    socket.emit('joinNotificationRoom', current._id);
-  }, []);
+  //   socket.emit('joinNotificationRoom', current._id);
+  // }, []);
 
   return (
     <>
@@ -74,8 +71,8 @@ const HomePage = (): ReactElement => {
                         key={post._id}
                         postId={post._id}
                         content={post}
-                        isShowPopup={isShowPopup}
-                        setIsShowPopup={setIsShowPopup}
+                        // isShowPopup={isShowPopup}
+                        // setIsShowPopup={setIsShowPopup}
                       />
                     );
                   })}

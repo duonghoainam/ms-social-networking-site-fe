@@ -1,6 +1,6 @@
 import { Close } from '@material-ui/icons';
 import React from 'react';
-import PopupOverlay from '../../../shareComponents/PopupOverlay/PopupOverlay';
+import PopupOverlay from '../../../components/PopupOverlay/PopupOverlay';
 
 const ImagePopup = ({ src, setOpen }) => {
     return (

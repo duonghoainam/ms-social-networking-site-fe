@@ -164,10 +164,10 @@ const HomeSlice = createSlice({
     HideReportModal: (state, action) => {
       state.isShowReportModal = false;
     },
-    ShowAllLikesModal: (state, action) => {
+    ShowAllLikesModal: (state: any, action) => {
       state.isShowAlllikeModal = true;
     },
-    HideAllLikesModal: (state, action) => {
+    HideAllLikesModal: (state: any, action) => {
       state.listLikeCmt = {
         isShowAlllikeModal: false,
         listUsers: []
@@ -226,8 +226,8 @@ const HomeSlice = createSlice({
       console.log('like thất bại');
     },
     [handleLike.fulfilled.toString()]: (state, action) => {
-      const loginId = JSON.parse(localStorage.getItem('login'));
-      state.listPosts = state.listPosts.map((post) => {
+      const loginId = JSON.parse(localStorage.getItem('login') ?? '');
+      state.listPosts = state.listPosts.map((post: any) => {
         if (post._id === action.payload) {
           post.likes.push(loginId._id);
         }
@@ -236,10 +236,10 @@ const HomeSlice = createSlice({
     },
 
     [handleUnLike.fulfilled.toString()]: (state, action) => {
-      const loginId = JSON.parse(localStorage.getItem('login'));
-      state.listPosts = state.listPosts.map((post) => {
+      const loginId = JSON.parse(localStorage.getItem('login') ?? '');
+      state.listPosts = state.listPosts.map((post: any) => {
         if (post._id === action.payload) {
-          post.likes = post.likes.filter((item) => {
+          post.likes = post.likes.filter((item: any) => {
             return item !== loginId._id;
           });
         }
@@ -324,7 +324,7 @@ const HomeSlice = createSlice({
     [seenNotification.fulfilled.toString()]: (state, action) => {
       // console.log(action.payload);
       // xử lý đã xem tin nhắn
-      state.listNotification = state.listNotification.map((item, index) => {
+      state.listNotification = state.listNotification.map((item: any, index: any) => {
         if (item._id === action.payload.seenNoti._id) {
           item.isSeen = true;
         }
@@ -333,7 +333,7 @@ const HomeSlice = createSlice({
     },
 
     [seenAllNotification.fulfilled.toString()]: (state, action) => {
-      state.listNotification = state.listNotification.map((item, index) => {
+      state.listNotification = state.listNotification.map((item: any, index: any) => {
         item.isSeen = true;
         return item;
       });
@@ -370,7 +370,6 @@ const HomeSlice = createSlice({
 const { reducer: HomeReducer, actions } = HomeSlice;
 export const {
   ShowDetail,
-  HideDetailEdit,
   HideDetailReducer,
   ShowReportModal,
   HideReportModal,

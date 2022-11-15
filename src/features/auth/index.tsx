@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Route, Routes, Outlet } from 'react-router-dom';
-import NotFound from '../../shareComponents/notfound/NotFound';
+import NotFound from '../../components/notfound/NotFound';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 

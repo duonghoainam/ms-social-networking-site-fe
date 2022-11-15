@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Auth from './features/auth';
 import IndexHome from './features/home';
-import PrivateRout from './shareComponents/privateRout/privateRout';
-import BruhRoute from './shareComponents/privateRout/BruhRoute';
+import PrivateRoute from './components/ControlRoute/PrivateRoute';
+import AuthRoute from './components/ControlRoute/AuthRoute';
 import IndexChat from './features/chat';
 import NewIndex from './features/newpost/newIndex';
 import VideoCall from './features/chat/components/VideoCall';
@@ -25,40 +25,40 @@ function App(): ReactElement {
         <Route
           path="/*"
           element={
-            <PrivateRout>
+            <PrivateRoute>
               <IndexHome />
-            </PrivateRout>
+            </PrivateRoute>
           }></Route>
 
         <Route
           path="/account/*"
           element={
-            <PrivateRout>
+            <PrivateRoute>
               <UserIndex />
-            </PrivateRout>
+            </PrivateRoute>
           }></Route>
         <Route path="video_call/:id" element={<VideoCall />} />
 
         <Route
           path="/messenger/*"
           element={
-            <PrivateRout>
+            <PrivateRoute>
               <IndexChat />
-            </PrivateRout>
+            </PrivateRoute>
           }></Route>
         <Route
           path="/new/*"
           element={
-            <PrivateRout>
+            <PrivateRoute>
               <NewIndex />
-            </PrivateRout>
+            </PrivateRoute>
           }></Route>
         <Route
           path="/auth/*"
           element={
-            <BruhRoute>
+            <AuthRoute>
               <Auth />
-            </BruhRoute>
+            </AuthRoute>
           }></Route>
       </Routes>
       <Outlet></Outlet>

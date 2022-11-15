@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
 import './auth.scss';
 import { Button, Spinner } from 'react-bootstrap';
-import FormikControl from '../../../shareComponents/formikCustom/FormikControl';
+import FormikControl from '../../../components/formikCustom/FormikControl';
 import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
 import { useSelector } from 'react-redux';
@@ -23,12 +23,12 @@ const LoginForm = (): ReactElement => {
   const dispatch = useAppDispatch();
   const onSubmit = async (values: LoginParams): Promise<void> => {
     try {
-      const result: any = await dispatch(login(values)).unwrap();
-      console.log(result);
+      const response: any = await dispatch(login(values)).unwrap();
+      console.log(response);
       // handle user
       // await dispatch(getAllUsers()).unwrap();
-      // const addUserIdAction = addActiveId(result.user.id);
-      // dispatch(addUserIdAction);
+      const addUserIdAction = addActiveId(response.data.id);
+      dispatch(addUserIdAction);
       navigate('/');
     } catch (error) {
       alert(error.message);

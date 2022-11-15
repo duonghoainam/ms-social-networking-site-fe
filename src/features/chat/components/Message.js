@@ -2,7 +2,7 @@ import { DeleteOutline, Favorite, FavoriteBorder, Reply } from '@material-ui/ico
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import WarningPopup from '../../../shareComponents/WarningPopup/WarningPopup';
+import WarningPopup from '../../../components/WarningPopup/WarningPopup';
 import { getPostById, getCommentsByPostID, ShowDetail } from '../../home/homeSlice';
 
 import MessagePopup from './MessagePopup';

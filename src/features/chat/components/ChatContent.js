@@ -20,7 +20,7 @@ import Picker from 'emoji-picker-react';
 import ChatSetting from './ChatSetting';
 import ImagePopup from './ImagePopup';
 import useImageUpload from '../../../hooks/useImageUpload';
-import WarningPopup from '../../../shareComponents/WarningPopup/WarningPopup';
+import WarningPopup from '../../../components/WarningPopup/WarningPopup';
 import Message from './Message';
 import { socket } from '../../../App';
 import useVideoUpload from '../../../hooks/useVideoUpload';

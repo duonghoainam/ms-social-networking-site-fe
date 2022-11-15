@@ -2,7 +2,7 @@ import { Info } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import WarningPopup from '../../../shareComponents/WarningPopup/WarningPopup';
+import WarningPopup from '../../../components/WarningPopup/WarningPopup';
 import { changeConversationAvatar, changeConversationName, deleteCon, removeUserInCon } from '../ChatSlice';
 import ChatMember from './ChatMember';
 import useImageUpload from '../../../hooks/useImageUpload';

@@ -7,7 +7,7 @@ import { addUserIntoCon, createConversation, createMessage, getUserContact } fro
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { resetTag } from '../ChatSlice';
-import PopupOverlay from '../../../shareComponents/PopupOverlay/PopupOverlay';
+import PopupOverlay from '../../../components/PopupOverlay/PopupOverlay';
 import { socket } from '../../../App';
 
 const MessagePopup = ({ setIsShowPopup, type = 'create', listUserId = [], setIsOpenSetting, content = {} }) => {
