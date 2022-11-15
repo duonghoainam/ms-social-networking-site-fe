@@ -1,47 +1,39 @@
 import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import './auth.scss';
 import { Button } from 'react-bootstrap';
 import FormikControl from '../../../shareComponents/formikCustom/FormikControl';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
-import { Register } from '../authSlice';
+import { register } from '../authSlice';
 import { useAppDispatch } from '../../../app/store';
+import { RegisterParams } from '../../../api/auth/type/register.type';
 
 const initialValues = {
-  email: 'giathai1505@gmail.com',
-  pass: 'my16022001',
+  username: 'giathai1505@gmail.com',
+  password: 'my16022001',
   name: 'Gia Thái',
-  phone: '0355794027'
+  gender: 'male'
 };
 
-const validationSchema = Yup.object({
-  email: Yup.string().required('Enter your email').email('Invalid email format'),
-  pass: Yup.string().required('Enter your password')
-});
-
 const RegisterForm = (): ReactElement => {
-  const params = useParams();
-  console.log(params);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = async (values: any) => {
+  const handleSubmit = async (values: RegisterParams): Promise<void> => {
     try {
-      console.log(params);
-      // const result = await dispatch(Register(values)).unwrap();
-      // alert(result.message);
-      // navigate('/auth/login');
+      const result = await dispatch(register(values)).unwrap();
+      alert(result.message);
+      navigate('/auth/login');
     } catch (error) {
       alert(error.message);
     }
   };
 
   const radioOptions = [
-    { key: '1', value: 'Nam' },
-    { key: '2', value: 'Nữ' },
-    { key: '3', value: 'Khác' }
+    { key: '1', value: 'male' },
+    { key: '2', value: 'female' },
+    { key: '3', value: 'other' }
   ];
 
   return (
@@ -56,22 +48,17 @@ const RegisterForm = (): ReactElement => {
 
         <div className="loginForm__right__header">REGISTER</div>
         <div className="loginForm__right__content">
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}>
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {(formik) => {
               return (
                 <Form>
                   <div className="rowform">
                     <FormikControl control="input" label="Name" type="text" name="name" />
-                    <FormikControl control="input" label="Phone" type="text" name="phone" />
                   </div>
 
                   <div className="rowform">
-                    <FormikControl control="input" type="email" label="Email" name="email" />
-
-                    <FormikControl control="datetime" label="Chọn ngày sinh" name="BirthDay" />
+                    <FormikControl control="input" type="email" label="Username" name="username" />
+                    <FormikControl control="datetime" label="Chọn ngày sinh" name="dateOfBirth" />
                   </div>
                   <FormikControl
                     control="radio"
@@ -81,16 +68,15 @@ const RegisterForm = (): ReactElement => {
                   />
 
                   <div className="rowform">
-                    <FormikControl control="input" label="Password" type="password" name="pass" />
                     <FormikControl
                       control="input"
-                      label="Confirm Password"
+                      label="Password"
                       type="password"
-                      name="confirmpass"
+                      name="password"
                     />
                   </div>
 
-                  <Button variant="primary" type="submit" disabled={!formik.isValid}>
+                  <Button variant="primary" type="submit">
                     Register
                   </Button>
                 </Form>

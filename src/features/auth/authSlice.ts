@@ -4,17 +4,19 @@ import postAPI from '../../api/PostApi';
 import userAPI from '../../api/UserApi';
 import storage from 'redux-persist/lib/storage';
 import { RegisterParams } from '../../api/auth/type/register.type';
+import { LoginParams } from '../../api/auth/type/login.type';
+import { ApiResponse } from '../../api/api-response.type';
 
-export const LoginUser = createAsyncThunk('auth/LoginUser', async (params, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (params: LoginParams, thunkAPI) => {
   try {
-    const response = await authAPI.getAccount(params);
+    const response: ApiResponse = await authAPI.login(params);
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
-export const Logout = createAsyncThunk('auth/logout', async (params, thunkAPI) => {
+export const logout = createAsyncThunk('auth/logout', async (params, thunkAPI) => {
   try {
     const response: any = await authAPI.logout(params);
     return response;
@@ -23,22 +25,21 @@ export const Logout = createAsyncThunk('auth/logout', async (params, thunkAPI) =
   }
 });
 
-export const getPosts = createAsyncThunk('post/getPosts', async () => {
-  console.log('Lấy post của thái');
-  const listPosts = await postAPI.getPosts();
-  return listPosts;
-});
-export const Register = createAsyncThunk(
+export const register = createAsyncThunk(
   'auth/register',
   async (args: RegisterParams, thunkAPI) => {
     try {
-      // const response = await authAPI.createAccount(args);
-      // return response;
+      const response: ApiResponse = await authAPI.createAccount(args);
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
+export const getPosts = createAsyncThunk('post/getPosts', async () => {
+  const listPosts = await postAPI.getPosts();
+  return listPosts;
+});
 
 export const getAllUsers = createAsyncThunk('user/getAll', async (args, thunkAPI) => {
   try {
@@ -65,30 +66,26 @@ const AuthSlice = createSlice({
   },
   extraReducers: {
     // Login
-    [LoginUser.pending.toString()]: (state: any) => {
+    [login.pending.toString()]: (state: any) => {
       state.loading = true;
-      console.log('Đang load');
     },
 
-    [LoginUser.rejected.toString()]: (state: any, action: any) => {
+    [login.rejected.toString()]: (state: any, action: any) => {
       state.loading = false;
       state.isLogin = true;
-      console.log('Đăng nhập thất bại');
       state.error = 'Đăng nhập thất bại !';
     },
 
-    [LoginUser.fulfilled.toString()]: (state: any, action: any) => {
+    [login.fulfilled.toString()]: (state: any, action: any) => {
       state.loading = false;
       state.isLogin = true;
       state.error = '';
       localStorage.setItem('authTokens', JSON.stringify(action.payload.tokens));
       state.current = action.payload.currentUser;
-      localStorage.setItem('LoginUser', JSON.stringify(action.payload.currentUser));
+      localStorage.setItem('login', JSON.stringify(action.payload.currentUser));
     },
 
-    [getPosts.fulfilled.toString()]: (state: any, action: any) => {
-      console.log(action.payload);
-    },
+    [getPosts.fulfilled.toString()]: (state: any, action: any) => {},
     [getAllUsers.pending.toString()]: (state: any, action: any) => {
       state.isLogin = true;
     },
@@ -99,35 +96,33 @@ const AuthSlice = createSlice({
     },
     [getAllUsers.rejected.toString()]: (state: any, action: any) => {},
 
-    // Register
-    [Register.pending.toString()]: (state: any) => {
+    // register
+    [register.pending.toString()]: (state: any) => {
       state.loading = true;
-      console.log('Đang load');
     },
 
-    [Register.rejected.toString()]: (state: any, action: any) => {
+    [register.rejected.toString()]: (state: any, action: any) => {
       state.loading = false;
-      console.log('Đăng ký thất bại');
       state.error = 'Đăng ký thất bại !';
     },
 
-    [Register.fulfilled.toString()]: (state: any, action: any) => {
+    [register.fulfilled.toString()]: (state: any, action: string) => {
       state.loading = false;
     },
-    // Logout
+    // logout
 
-    [Logout.fulfilled.toString()]: (state: any, action: any) => {
+    [logout.fulfilled.toString()]: (state: any, action: any) => {
       state.loading = false;
       state.isLogin = false;
       state.current = {};
       state.listUser = [];
       state.error = '';
       localStorage.removeItem('authTokens');
-      localStorage.removeItem('LoginUser');
+      localStorage.removeItem('login');
       storage.removeItem('persist:root');
     },
 
-    [Logout.rejected.toString()]: (state: any, action: any) => {
+    [logout.rejected.toString()]: (state: any, action: any) => {
       state.isLogin = true;
       // localStorage.removeItem('authTokens');
       // localStorage.removeItem('LoginUser');
@@ -138,5 +133,5 @@ const AuthSlice = createSlice({
 
 export const { reducer: AuthReducer, actions } = AuthSlice;
 export const { updateCurrentUser } = AuthSlice.actions;
-// export const { Logout } = actions;
+// export const { logout } = actions;
 export default AuthReducer;

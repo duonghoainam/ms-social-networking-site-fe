@@ -1,103 +1,96 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import './auth.scss';
 import { Button, Spinner } from 'react-bootstrap';
 import FormikControl from '../../../shareComponents/formikCustom/FormikControl';
 import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers, LoginUser } from '../authSlice';
+import { useSelector } from 'react-redux';
+import { getAllUsers, login } from '../authSlice';
 import { addActiveId } from '../../user/profileSlice';
 import { useAppDispatch } from '../../../app/store';
+import { AppState } from '../../../app/state.type';
+import { LoginParams } from '../../../api/auth/type/login.type';
 
-const initialValues = {
-  email: 'thai@gmail.com',
-  password: '123'
+const initialValues: LoginParams = {
+  username: 'giathai1505@gmail.com',
+  password: 'my16022001'
 };
 
-const validationSchema = Yup.object({
-  email: Yup.string().required('Enter your email'),
-  password: Yup.string().required('Enter your password')
-  // .matches(
-  //   /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-  //   "Password must contain at least 8 characters, one uppercase, one number and one special case character"
-  // ),
-});
-
-const LoginForm = () => {
+const LoginForm = (): ReactElement => {
   const navigate = useNavigate();
-  const { loading } = useSelector((state: {auth: any}) => state.auth);
+  const { loading } = useSelector((state: AppState) => state.auth);
   const dispatch = useAppDispatch();
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: LoginParams): Promise<void> => {
     try {
-      const result: any = await dispatch(LoginUser()).unwrap();
-      await dispatch(getAllUsers()).unwrap();
-      const action1 = addActiveId(result.currentUser._id);
-      dispatch(action1);
-      navigate('/');
+      const result: any = await dispatch(login(values)).unwrap();
       console.log(result);
+      // handle user
+      // await dispatch(getAllUsers()).unwrap();
+      // const addUserIdAction = addActiveId(result.user.id);
+      // dispatch(addUserIdAction);
+      navigate('/');
     } catch (error) {
       alert(error.message);
     }
-    // const action = LoginUser(values);
-    // await dispatch(action);
-
-    // const current = JSON.parse(localStorage.getItem('LoginUser'));
   };
 
   return (
-    <div className="loginForm">
-      <div className="loginForm__left">
-        <img src={IMAGES.login.phone} alt="" />
+    <>
+      <div className="loginForm">
+        <div className="loginForm__left">
+          <img src={IMAGES.login.phone} alt="" />
+        </div>
+        <div className="loginForm__right">
+          <div className="loginForm__right__user">
+            <img src={IMAGES.login.avatar} alt="" />
+          </div>
+
+          <div className="loginForm__right__header">WELCOME</div>
+          <div className="loginForm__right__content">
+            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+              {(formik) => {
+                return (
+                  <Form>
+                    <FormikControl control="input" type="text" label="Email" name="username" />
+
+                    <FormikControl
+                      control="input"
+                      label="Password"
+                      type="password"
+                      name="password"
+                    />
+
+                    <Button variant="primary" type="submit">
+                      {(loading as boolean) ? (
+                        <div>
+                          {' '}
+                          <Spinner
+                            as="span"
+                            animation="grow"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            style={{ marginRight: '10px' }}
+                          />
+                          Loading...
+                        </div>
+                      ) : (
+                        'Login'
+                      )}
+                    </Button>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
+
+          <div className="loginForm__right__footer">
+            Do you have account? <Link to="/auth/register">Register Now</Link>
+          </div>
+        </div>
       </div>
-      <div className="loginForm__right">
-        <div className="loginForm__right__user">
-          <img src={IMAGES.login.avatar} alt="" />
-        </div>
-
-        <div className="loginForm__right__header">WELCOME</div>
-        <div className="loginForm__right__content">
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}>
-            {(formik) => {
-              return (
-                <Form>
-                  <FormikControl control="input" type="email" label="Email" name="email" />
-
-                  <FormikControl control="input" label="Password" type="password" name="password" />
-
-                  <Button variant="primary" type="submit" disabled={!formik.isValid}>
-                    {loading ? (
-                      <div>
-                        {' '}
-                        <Spinner
-                          as="span"
-                          animation="grow"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          style={{ marginRight: '10px' }}
-                        />
-                        Loading...
-                      </div>
-                    ) : (
-                      'Login'
-                    )}
-                  </Button>
-                </Form>
-              );
-            }}
-          </Formik>
-        </div>
-
-        <div className="loginForm__right__footer">
-          Do you have account? <Link to="/auth/register">Register Now</Link>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
