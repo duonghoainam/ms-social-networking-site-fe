@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import Header from '../../../components/header/Header';
+import Header from '../../../components/Header/Header';
 import { getNotification, HideDetailEdit, HideDetailReducer } from '../../home/homeSlice';
 import NewpostContent from '../components/newPostContent';
 import NewpostHeader from '../components/newPostHeader';

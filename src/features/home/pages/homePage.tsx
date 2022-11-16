@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { Col, Container, Row, Toast } from 'react-bootstrap';
-import Header from '../../../components/header/Header';
+import Header from '../../../components/Header/Header';
 import Category from '../components/category';
 import PostItem from '../components/postItem';
 import { useSelector } from 'react-redux';
@@ -43,7 +43,7 @@ const HomePage = (): ReactElement => {
           <Header></Header>
         </Row>
       </Container>
-      <div className="toastMessage">
+      {/* <div className="toastMessage">
         <Toast onClose={toggleShowB} show={showB}>
           <Toast.Header>
             <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
@@ -85,7 +85,7 @@ const HomePage = (): ReactElement => {
           </Row>
         )}
       </Container>
-      <AlllikesPopup />
+      <AlllikesPopup /> */}
     </>
   );
 };

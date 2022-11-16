@@ -6,7 +6,7 @@ import FormikControl from '../../../components/formikCustom/FormikControl';
 import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
 import { useSelector } from 'react-redux';
-import { getAllUsers, login } from '../authSlice';
+import { login } from '../authSlice';
 import { addActiveId } from '../../user/profileSlice';
 import { useAppDispatch } from '../../../app/store';
 import { AppState } from '../../../app/state.type';
@@ -24,7 +24,6 @@ const LoginForm = (): ReactElement => {
   const onSubmit = async (values: LoginParams): Promise<void> => {
     try {
       const response: any = await dispatch(login(values)).unwrap();
-      console.log(response);
       // handle user
       // await dispatch(getAllUsers()).unwrap();
       const addUserIdAction = addActiveId(response.data.id);

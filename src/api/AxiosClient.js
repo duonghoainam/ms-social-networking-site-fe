@@ -9,15 +9,15 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (req) => {
-  const authTokens = localStorage.getItem('authTokens')
-    ? JSON.parse(localStorage.getItem('authTokens'))
+  const accessToken = localStorage.getItem('accessToken')
+    ? JSON.parse(localStorage.getItem('accessToken'))
     : null;
 
-  if (authTokens) {
-    req.headers.Authorization = `Bearer ${authTokens.accessToken}`;
+  if (accessToken) {
+    req.headers.Authorization = `Bearer ${accessToken.accessToken}`;
   }
 
-  // const user = jwt_decode(authTokens.accessToken);
+  // const user = jwt_decode(accessToken.accessToken);
 
   // const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
   // console.log(isExpired);
@@ -25,10 +25,10 @@ axiosClient.interceptors.request.use(async (req) => {
   // if (!isExpired) return req;
 
   // const response = await axios.post(`/resfresh`, {
-  //   resfresh: authTokens.refreshToken,
+  //   resfresh: accessToken.refreshToken,
   // });
 
-  // localStorage.setItem("authTokens", JSON.stringify(response.data));
+  // localStorage.setItem("accessToken", JSON.stringify(response.data));
   // req.headers.Authorization = `Bearer ${response.data.accessToken}`;
 
   return req;

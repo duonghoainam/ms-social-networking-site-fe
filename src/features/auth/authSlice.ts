@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authAPI from '../../api/auth/AuthApi';
 import postAPI from '../../api/PostApi';
 import userAPI from '../../api/UserApi';
-import storage from 'redux-persist/lib/storage';
 import { RegisterParams } from '../../api/auth/type/register.type';
 import { LoginParams } from '../../api/auth/type/login.type';
 import { ApiResponse } from '../../api/api-response.type';
+import { AuthState } from './state.type';
 
 export const login = createAsyncThunk('auth/login', async (params: LoginParams, thunkAPI) => {
   try {
@@ -53,81 +53,81 @@ export const getAllUsers = createAsyncThunk('user/getAll', async (args, thunkAPI
 const AuthSlice = createSlice({
   name: 'auth',
   initialState: {
-    current: {},
+    currentUser: {},
     listUser: [],
     loading: false,
     error: '',
     isLogin: false
   },
   reducers: {
-    updateCurrentUser: (state, action) => {
-      state.current = action.payload;
+    updateCurrentUser: (state: AuthState, action: any) => {
+      state.currentUser = action.payload;
     }
   },
   extraReducers: {
     // Login
-    [login.pending.toString()]: (state: any) => {
+    [login.pending.toString()]: (state: AuthState) => {
       state.loading = true;
     },
 
-    [login.rejected.toString()]: (state: any, action: any) => {
+    [login.rejected.toString()]: (state: AuthState, action: any) => {
       state.loading = false;
       state.isLogin = true;
       state.error = 'Đăng nhập thất bại !';
     },
 
-    [login.fulfilled.toString()]: (state: any, action: any) => {
+    [login.fulfilled.toString()]: (state: AuthState, action: any) => {
       state.loading = false;
       state.isLogin = true;
       state.error = '';
-      localStorage.setItem('authTokens', JSON.stringify(action.payload.tokens));
-      state.current = action.payload.currentUser;
-      localStorage.setItem('login', JSON.stringify(action.payload.currentUser));
+      localStorage.setItem('accessToken', JSON.stringify(action.payload.data.accessToken));
+      state.currentUser = action.payload.currentUser;
+      localStorage.setItem('currentUser', JSON.stringify(action.payload.data.user));
     },
 
-    [getPosts.fulfilled.toString()]: (state: any, action: any) => {},
-    [getAllUsers.pending.toString()]: (state: any, action: any) => {
+    [getPosts.fulfilled.toString()]: (state: AuthState, action: any) => {},
+    [getAllUsers.pending.toString()]: (state: AuthState, action: any) => {
       state.isLogin = true;
     },
-    [getAllUsers.fulfilled.toString()]: (state: any, action: any) => {
+    [getAllUsers.fulfilled.toString()]: (state: AuthState, action: any) => {
       state.isLogin = false;
 
       state.listUser = action.payload.listUser;
     },
-    [getAllUsers.rejected.toString()]: (state: any, action: any) => {},
+    [getAllUsers.rejected.toString()]: (state: AuthState, action: any) => {},
 
     // register
-    [register.pending.toString()]: (state: any) => {
+    [register.pending.toString()]: (state: AuthState) => {
       state.loading = true;
     },
 
-    [register.rejected.toString()]: (state: any, action: any) => {
+    [register.rejected.toString()]: (state: AuthState, action: any) => {
       state.loading = false;
       state.error = 'Đăng ký thất bại !';
     },
 
-    [register.fulfilled.toString()]: (state: any, action: string) => {
+    [register.fulfilled.toString()]: (state: AuthState, action: string) => {
       state.loading = false;
     },
     // logout
 
-    [logout.fulfilled.toString()]: (state: any, action: any) => {
+    [logout.fulfilled.toString()]: (state: AuthState, action: any) => {
       state.loading = false;
       state.isLogin = false;
-      state.current = {};
+      state.currentUser = {};
       state.listUser = [];
       state.error = '';
-      localStorage.removeItem('authTokens');
-      localStorage.removeItem('login');
-      storage.removeItem('persist:root');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('persist:root');
     },
 
-    [logout.rejected.toString()]: (state: any, action: any) => {
+    [logout.rejected.toString()]: (state: AuthState, action: any) => {
       state.isLogin = true;
-      // localStorage.removeItem('authTokens');
+      // localStorage.removeItem('accessToken');
       // localStorage.removeItem('LoginUser');
     },
-    [getPosts.fulfilled.toString()]: (state: any, action: any) => {}
+    [getPosts.fulfilled.toString()]: (state: AuthState, action: any) => {}
   }
 });
 

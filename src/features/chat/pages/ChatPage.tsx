@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
-import Header from '../../../components/header/Header';
+import Header from '../../../components/Header/Header';
 import ChatContent from '../components/ChatContent';
 import DefaultContent from '../components/DefaultContent';
 import ListChat from '../components/ListChat';
