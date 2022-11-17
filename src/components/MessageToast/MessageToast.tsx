@@ -4,10 +4,10 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import ErrorIcon from '../../assets/icons/error.png';
 import SuccessIcon from '../../assets/icons/success.png';
 import WarningIcon from '../../assets/icons/warning.png';
-import { MessageToastProps, MessageToastType } from './typings';
+import { MessageToastProps, MessageToastType } from './typings.d';
 
 const MessageToast = ({ message, type }: MessageToastProps): ReactElement => {
-  const [show] = useState(false);
+  const [show] = useState(true);
   const typeIcon = getIconType(type);
 
   return (

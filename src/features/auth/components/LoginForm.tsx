@@ -11,6 +11,10 @@ import { addActiveId } from '../../user/profileSlice';
 import { useAppDispatch } from '../../../app/store';
 import { AppState } from '../../../app/state.type';
 import { LoginParams } from '../../../api/auth/type/login.type';
+import { ToastContainer } from 'react-toastify';
+import { showToastMessage } from '../../../utils/toast.util';
+import { MessageToastType } from '../../../components/MessageToast/typings.d';
+import { ApiResponse } from '../../../api/api-response.type';
 
 const initialValues: LoginParams = {
   username: 'giathai1505@gmail.com',
@@ -23,14 +27,16 @@ const LoginForm = (): ReactElement => {
   const dispatch = useAppDispatch();
   const onSubmit = async (values: LoginParams): Promise<void> => {
     try {
-      const response: any = await dispatch(login(values)).unwrap();
+      const response: ApiResponse = await dispatch(login(values)).unwrap();
+      if (response.code < 300) {
+        showToastMessage('Login success', MessageToastType.SUCCESS);
+      }
       // handle user
-      // await dispatch(getAllUsers()).unwrap();
       const addUserIdAction = addActiveId(response.data.id);
       dispatch(addUserIdAction);
       navigate('/');
     } catch (error) {
-      alert(error.message);
+      showToastMessage(error.message, MessageToastType.ERROR);
     }
   };
 
@@ -89,6 +95,7 @@ const LoginForm = (): ReactElement => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

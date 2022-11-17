@@ -7,14 +7,17 @@ import { LoginParams } from '../../api/auth/type/login.type';
 import { ApiResponse } from '../../api/api-response.type';
 import { AuthState } from './state.type';
 
-export const login = createAsyncThunk('auth/login', async (params: LoginParams, thunkAPI) => {
-  try {
-    const response: ApiResponse = await authAPI.login(params);
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const login = createAsyncThunk(
+  'auth/login',
+  async (params: LoginParams, thunkAPI): Promise<ApiResponse> => {
+    try {
+      const response: ApiResponse = await authAPI.login(params);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data) as unknown as ApiResponse;
+    }
   }
-});
+);
 
 export const logout = createAsyncThunk('auth/logout', async (params, thunkAPI) => {
   try {

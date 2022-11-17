@@ -1,24 +1,17 @@
-import React, { ReactElement, useState } from 'react';
-import { Col, Container, Row, Toast } from 'react-bootstrap';
-import Header from '../../../components/Header/Header';
-import Category from '../components/category';
-import PostItem from '../components/postItem';
-import { useSelector } from 'react-redux';
-import './homePage.scss';
-import AlllikesPopup from '../components/commons/allLikesPopup';
-import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
-import { AppState } from '../../../app/state.type';
-import MessageToast from '../../../components/MessageToast/MessageToast';
+import React, { ReactElement } from 'react';
+import { Container, Row } from 'react-bootstrap';
+import './HomePage.scss';
+import { ToastContainer } from 'react-toastify';
 
 const HomePage = (): ReactElement => {
-  const [showB, setShowB] = useState(false);
+  // const [showB, setShowB] = useState(false);
   // const [refresh, setRefresh] = useState(false);
   // const [isShowPopup, setIsShowPopup] = useState(false);
 
-  const toggleShowB = (): void => setShowB(!showB);
+  // const toggleShowB = (): void => setShowB(!showB);
   // const current = JSON.parse(localStorage.getItem('login') ?? '');
   // const dispatch = useAppDispatch();
-  const { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
+  // const { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
 
   // useEffect(async () => {
   //   document.title = 'Midori';
@@ -41,8 +34,9 @@ const HomePage = (): ReactElement => {
       <Container fluid>
         <Row>
           {/* <Header></Header> */}
-          <MessageToast message="test toast" />
+          {/* <MessageToast message="test toast" type={MessageToastType.ERROR} /> */}
         </Row>
+        <ToastContainer />
       </Container>
       {/* <div className="toastMessage">
         <Toast onClose={toggleShowB} show={showB}>
