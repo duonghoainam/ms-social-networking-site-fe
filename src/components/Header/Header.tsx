@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import './Header.scss';
 import {
   HomeOutlined,
@@ -7,17 +7,13 @@ import {
   AccountCircleOutlined,
   LocalDiningOutlined,
   SearchOutlined,
-  NotificationsOutlined,
   Close
 } from '@material-ui/icons';
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
-import Usecloseoutsidetoclose from '../../hooks/useCloseOutSideToClose';
-import { seenAllNotification } from '../../features/home/homeSlice';
 import SingleDestination from '../../features/chat/components/SingleDestination';
-import NotificationItem from './NotificationItem';
 import { addActiveId } from '../../features/user/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';

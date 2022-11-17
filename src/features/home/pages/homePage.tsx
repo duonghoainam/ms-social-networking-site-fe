@@ -5,10 +5,10 @@ import Category from '../components/category';
 import PostItem from '../components/postItem';
 import { useSelector } from 'react-redux';
 import './homePage.scss';
-import ErrorFetch from '../../../components/fetchfail/error';
 import AlllikesPopup from '../components/commons/allLikesPopup';
 import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
 import { AppState } from '../../../app/state.type';
+import MessageToast from '../../../components/MessageToast/MessageToast';
 
 const HomePage = (): ReactElement => {
   const [showB, setShowB] = useState(false);
@@ -40,7 +40,8 @@ const HomePage = (): ReactElement => {
     <>
       <Container fluid>
         <Row>
-          <Header></Header>
+          {/* <Header></Header> */}
+          <MessageToast message="test toast" />
         </Row>
       </Container>
       {/* <div className="toastMessage">
