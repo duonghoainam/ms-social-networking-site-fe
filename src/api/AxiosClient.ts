@@ -8,13 +8,12 @@ const axiosClient = axios.create({
   paramsSerializer: (params) => queryString.stringify(params)
 });
 
-axiosClient.interceptors.request.use(async (req) => {
-  const accessToken = localStorage.getItem('accessToken')
-    ? JSON.parse(localStorage.getItem('accessToken'))
-    : null;
+axiosClient.interceptors.request.use(async (req: any) => {
+  let accessToken: string = localStorage.getItem('accessToken') ?? '';
+  accessToken = JSON.parse(accessToken);
 
-  if (accessToken) {
-    req.headers.Authorization = `Bearer ${accessToken.accessToken}`;
+  if (accessToken !== '') {
+    req.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   // const user = jwt_decode(accessToken.accessToken);
@@ -35,8 +34,8 @@ axiosClient.interceptors.request.use(async (req) => {
 });
 
 axiosClient.interceptors.response.use(
-  (response) => {
-    if (response && response.data) {
+  (response: any) => {
+    if (response?.data as boolean) {
       return response.data;
     }
     return response;
