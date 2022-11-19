@@ -19,7 +19,7 @@ import ErrToast from "../../../components/MessageToast/MessageToast";
 import { socket } from "../../../App";
 
 const AddComment = ({ postId, userPostId }) => {
-  const current = JSON.parse(localStorage.getItem("LoginUser"));
+  const current = JSON.parse(localStorage.getItem("currentUser"));
   const { replingCmt, isLoadingAddCmt, editingCmt } = useSelector(
     (state) => state.home
   );

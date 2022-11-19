@@ -128,7 +128,7 @@ const AuthSlice = createSlice({
     [logout.rejected.toString()]: (state: AuthState, action: any) => {
       state.isLogin = true;
       // localStorage.removeItem('accessToken');
-      // localStorage.removeItem('LoginUser');
+      // localStorage.removeItem('currentUser');
     },
     [getPosts.fulfilled.toString()]: (state: AuthState, action: any) => {}
   }

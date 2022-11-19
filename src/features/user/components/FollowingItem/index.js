@@ -23,7 +23,7 @@ const FollowingItem = ({ user, setShowModal }) => {
 
     const [IsFollow, setIsFollow] = useState(true);
 
-    const current = JSON.parse(localStorage.getItem('LoginUser'));
+    const current = JSON.parse(localStorage.getItem('currentUser'));
 
     const handleFollow = async (id) => {
         if (IsFollow) {

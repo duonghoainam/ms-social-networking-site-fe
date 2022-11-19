@@ -18,7 +18,7 @@ import { socket } from "../../../App";
 
 const ReactIcon = ({ postId }) => {
   const { listPosts } = useSelector((state) => state.home);
-  const current = JSON.parse(localStorage.getItem("LoginUser"));
+  const current = JSON.parse(localStorage.getItem("currentUser"));
 
   //get list like of the post
   const activePost = listPosts.find((post) => post._id == postId);

@@ -24,7 +24,7 @@ import MessagePopup from '../../chat/components/MessagePopup';
 const PostComment = () => {
     const dispatch = useDispatch();
 
-    const current = JSON.parse(localStorage.getItem('LoginUser'));
+    const current = JSON.parse(localStorage.getItem('currentUser'));
     const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
 
     const { isShowDetail, isLoadCmt, activePostId, listPosts, post } = useSelector((state) => state.home);

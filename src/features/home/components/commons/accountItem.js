@@ -7,7 +7,7 @@ import "./common.scss";
 
 const AccountItem = ({ user }) => {
   const dispatch = useDispatch();
-  const current = JSON.parse(localStorage.getItem("LoginUser"));
+  const current = JSON.parse(localStorage.getItem("currentUser"));
 
   var isfollow = user[0].followers.includes(current._id);
 

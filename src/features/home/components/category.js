@@ -6,7 +6,7 @@ import RecommendItem from "./recommendItem";
 
 const Category = () => {
   const { listRecommend } = useSelector((state) => state.home);
-  const current = JSON.parse(localStorage.getItem("LoginUser"));
+  const current = JSON.parse(localStorage.getItem("currentUser"));
 
   return (
     <Row>

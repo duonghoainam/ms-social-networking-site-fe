@@ -66,7 +66,7 @@ const UserSlice = createSlice({
     },
     [updateUser.fulfilled]: (state, action) => {
       state.userInfo = action.payload.user;
-      localStorage.setItem('LoginUser', JSON.stringify(state.userInfo));
+      localStorage.setItem('currentUser', JSON.stringify(state.userInfo));
     },
     [updateUser.rejected]: (state, action) => {
       state.isLoading = false;
@@ -76,7 +76,7 @@ const UserSlice = createSlice({
     },
     [updateAvt.fulfilled]: (state, action) => {
       state.userInfo = action.payload.user;
-      localStorage.setItem('LoginUser', JSON.stringify(state.userInfo));
+      localStorage.setItem('currentUser', JSON.stringify(state.userInfo));
     },
     [updateAvt.rejected]: (state, action) => {
       state.isLoading = false;

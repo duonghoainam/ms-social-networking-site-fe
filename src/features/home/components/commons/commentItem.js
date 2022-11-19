@@ -26,8 +26,8 @@ import { socket } from "../../../../App";
 const CommentItem = ({ CmtItem }) => {
   const dispatch = useDispatch();
   const timeAgo = new TimeAgo("en-US");
-  const LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
-  let islike = CmtItem.likes.includes(LoginUser._id);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  let islike = CmtItem.likes.includes(currentUser._id);
 
   //state use in this component
   let [NumLikes, setNumLikes] = useState(CmtItem.likes.length);
@@ -48,8 +48,8 @@ const CommentItem = ({ CmtItem }) => {
   }
 
   const isDelete =
-    CmtItem?.user?._id === LoginUser?._id ||
-    LoginUser?._id === activePost?.user?._id;
+    CmtItem?.user?._id === currentUser?._id ||
+    currentUser?._id === activePost?.user?._id;
 
   const ShowAlllikesModal = async (a) => {
     const action = getListUser(a);
@@ -78,13 +78,13 @@ const CommentItem = ({ CmtItem }) => {
       const actionCreateNoti = createNotification(paramsCreate);
       await dispatch(actionCreateNoti).unwrap();
 
-      if (LoginUser._id !== CmtItem.user._id) {
+      if (currentUser._id !== CmtItem.user._id) {
         let notification = {
           postId: activePost._id,
           userId: CmtItem.user._id,
           type: 6,
-          senderName: LoginUser.name,
-          img: LoginUser.avatar,
+          senderName: currentUser.name,
+          img: currentUser.avatar,
         };
         socket.emit("send_notificaton", notification);
       }

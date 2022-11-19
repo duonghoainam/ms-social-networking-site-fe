@@ -1,7 +1,12 @@
 import React, { ReactElement } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import './HomePage.scss';
 import { ToastContainer } from 'react-toastify';
+import Header from '../../../components/Header/Header';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../app/state.type';
+import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
+import PostItem from '../components/PostItem/PostItem';
 
 const HomePage = (): ReactElement => {
   // const [showB, setShowB] = useState(false);
@@ -11,7 +16,8 @@ const HomePage = (): ReactElement => {
   // const toggleShowB = (): void => setShowB(!showB);
   // const current = JSON.parse(localStorage.getItem('login') ?? '');
   // const dispatch = useAppDispatch();
-  // const { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
+  const { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
+  console.log(listPosts);
 
   // useEffect(async () => {
   //   document.title = 'Midori';
@@ -33,25 +39,14 @@ const HomePage = (): ReactElement => {
     <>
       <Container fluid>
         <Row>
-          {/* <Header></Header> */}
-          {/* <MessageToast message="test toast" type={MessageToastType.ERROR} /> */}
+          <Header></Header>
         </Row>
         <ToastContainer />
       </Container>
-      {/* <div className="toastMessage">
-        <Toast onClose={toggleShowB} show={showB}>
-          <Toast.Header>
-            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-            <strong className="me-auto">Thông báo</strong>
-            <small>11s ago</small>
-          </Toast.Header>
-          <Toast.Body>Có ai đó mới comment bài viết của bạn</Toast.Body>
-        </Toast>
-      </div>
       <Container style={{ marginTop: '100px' }}>
         {(loadListPostFail as boolean) ? (
           <Row>
-            <ErrorFetch />
+            <div>Error</div>
           </Row>
         ) : (
           <Row>
@@ -72,15 +67,13 @@ const HomePage = (): ReactElement => {
                     );
                   })}
                 </Col>
-                <Col md={{ span: 4, offset: 1 }}>
-                  <Category />
-                </Col>
+                <Col md={{ span: 4, offset: 1 }}>{/* <Category /> */}</Col>
               </>
             )}
           </Row>
         )}
       </Container>
-      <AlllikesPopup /> */}
+      {/* <AlllikesPopup /> */}
     </>
   );
 };

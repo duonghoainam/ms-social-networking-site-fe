@@ -8,7 +8,7 @@ import { addActiveId } from "../../user/profileSlice";
 
 const RecommendItem = ({ user }) => {
   const navigate = useNavigate();
-  const current = JSON.parse(localStorage.getItem("LoginUser"));
+  const current = JSON.parse(localStorage.getItem("currentUser"));
   const [isShowRecommend, setIsShowRecommend] = useState(false);
   const dispatch = useDispatch();
   const [IsFollow, setIsFollow] = useState(false);
