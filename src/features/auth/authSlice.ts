@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authAPI from '../../api/auth/AuthApi';
-import postAPI from '../../api/PostApi';
+import postAPI from '../../api/post/PostApi';
 import userAPI from '../../api/UserApi';
 import { RegisterParams } from '../../api/auth/type/register.type';
 import { LoginParams } from '../../api/auth/type/login.type';

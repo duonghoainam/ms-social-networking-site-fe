@@ -5,20 +5,20 @@ import { format } from 'timeago.js';
 
 import './Header.scss';
 import { Col, Row } from 'react-bootstrap';
-import {
-  getCommentsByPostID,
-  getPostById,
-  seenNotification,
-  ShowDetail
-} from '../../features/home/homeSlice';
-import { socket } from '../../App';
-import { useNavigate } from 'react-router-dom';
-import { addActiveId } from '../../features/user/profileSlice';
-import { useAppDispatch } from '../../app/store';
+// import {
+//   getCommentsByPostID,
+//   getPostById,
+//   seenNotification,
+//   ShowDetail
+// } from '../../features/home/homeSlice';
+// import { socket } from '../../App';
+// import { useNavigate } from 'react-router-dom';
+// import { addActiveId } from '../../features/user/profileSlice';
+// import { useAppDispatch } from '../../app/store';
 
 const NotificationItem = ({ info, handleNum }: any): ReactElement => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
   const { notiType, sender } = info;
   let content = '';
   let icon;
@@ -88,13 +88,13 @@ const NotificationItem = ({ info, handleNum }: any): ReactElement => {
             className="seePost"
             // onClick={() => showPostDetail(info.desId, info._id)}
           >
-            {info.notiType == 3 ? 'Xem trang cá nhân' : 'Xem bài viết'}
+            {info.notiType === 3 ? 'Xem trang cá nhân' : 'Xem bài viết'}
           </div>
           <Row>
             <Col md={10}>
               <div className="time">{format(info.createdAt)}</div>
             </Col>
-            {info.isSeen ? (
+            {(info.isSeen as boolean) ? (
               <></>
             ) : (
               <Col md={2}>

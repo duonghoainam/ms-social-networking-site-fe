@@ -11,7 +11,7 @@ import UserIndex from './features/user';
 
 // import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
-import PostComment from './features/home/components/postComment';
+import PostComment from './features/home/components/PostComment';
 
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 export const socket = null;

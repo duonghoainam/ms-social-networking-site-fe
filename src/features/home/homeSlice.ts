@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import NotificationAPI from '../../api/NotificationApi';
-import postAPI from '../../api/PostApi';
+// import NotificationAPI from '../../api/NotificationApi';
+import postAPI from '../../api/post/PostApi';
 
 // hàm lấy tất cả bài post khi vào trang chủ
 export const getPosts = createAsyncThunk('post/getPosts', async () => {
@@ -9,21 +9,21 @@ export const getPosts = createAsyncThunk('post/getPosts', async () => {
 });
 
 // hàm lấy tất cả comment của bài post
-export const getCommentsByPostID = createAsyncThunk('post/getComments', async (params) => {
-  const listComment = await postAPI.getCommentByPostID(params);
+export const getCommentsByPostID = createAsyncThunk('post/getComments', async (postId: any) => {
+  const listComment = await postAPI.getCommentByPostID(postId);
   return listComment;
 });
 
 // hàm xử lý like hay bỏ like bài post
 
-export const handleLike = createAsyncThunk('post/Like', async (params) => {
-  await postAPI.likePost(params);
-  return params;
+export const handleLike = createAsyncThunk('post/Like', async (postId: any) => {
+  await postAPI.likePost(postId);
+  return postId;
 });
 
-export const handleUnLike = createAsyncThunk('post/UnLike', async (params) => {
-  await postAPI.unLikePost(params);
-  return params;
+export const handleUnLike = createAsyncThunk('post/UnLike', async (postId: any) => {
+  await postAPI.unLikePost(postId);
+  return postId;
 });
 
 // hàm lấy danh sách gợi ý kết bạn
@@ -35,89 +35,89 @@ export const getListRecommendFriends = createAsyncThunk(
   }
 );
 
-// hàm add comment
-export const addNewComment = createAsyncThunk('home/addNewComments', async (params) => {
-  const listRecommend = await postAPI.addComment(params);
-  return listRecommend;
-});
+// // hàm add comment
+// export const addNewComment = createAsyncThunk('home/addNewComments', async (params) => {
+//   const listRecommend = await postAPI.addComment(params);
+//   return listRecommend;
+// });
 
-// like or unlike comment
-export const likeOrUnlikeCmt = createAsyncThunk('comment/likeOrUnlikeCmt', async (params) => {
-  const listRecommend = await postAPI.handleLikeCmt(params);
-  return listRecommend;
-});
+// // like or unlike comment
+// export const likeOrUnlikeCmt = createAsyncThunk('comment/likeOrUnlikeCmt', async (params) => {
+//   const listRecommend = await postAPI.handleLikeCmt(params);
+//   return listRecommend;
+// });
 
-// editcomment
-export const editComment = createAsyncThunk('comment/edit', async (params) => {
-  const listRecommend = await postAPI.editCmt(params);
-  return listRecommend;
-});
+// // editcomment
+// export const editComment = createAsyncThunk('comment/edit', async (params) => {
+//   const listRecommend = await postAPI.editCmt(params);
+//   return listRecommend;
+// });
 
-// delete comment
-export const deleteComment = createAsyncThunk('comment/delete', async (params) => {
-  const listRecommend = await postAPI.deleteCmt(params);
-  return listRecommend;
-});
+// // delete comment
+// export const deleteComment = createAsyncThunk('comment/delete', async (params) => {
+//   const listRecommend = await postAPI.deleteCmt(params);
+//   return listRecommend;
+// });
 
-// unfollow
-export const unFollow = createAsyncThunk('user/unfollow', async (params) => {
-  await postAPI.unnFollowFriends(params);
-});
-// unfollow
-export const follow = createAsyncThunk('user/follow', async (params) => {
-  await postAPI.followFriends(params);
-});
+// // unfollow
+// export const unFollow = createAsyncThunk('user/unfollow', async (params) => {
+//   await postAPI.unnFollowFriends(params);
+// });
+// // unfollow
+// export const follow = createAsyncThunk('user/follow', async (params) => {
+//   await postAPI.followFriends(params);
+// });
 
-// getListLike
-export const getListUser = createAsyncThunk('user/getlistLike', async (params) => {
-  return await postAPI.getlistLike(params);
-});
+// // getListLike
+// export const getListUser = createAsyncThunk('user/getlistLike', async (params) => {
+//   return await postAPI.getlistLike(params);
+// });
 
-export const createPost = createAsyncThunk('post/createNew', async (args, thunkAPI) => {
-  try {
-    const response = await postAPI.createNewPost(args);
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
-  }
-});
+// export const createPost = createAsyncThunk('post/createNew', async (args, thunkAPI) => {
+//   try {
+//     const response = await postAPI.createNewPost(args);
+//     return response;
+//   } catch (error) {
+//     return thunkAPI.rejectWithValue(error);
+//   }
+// });
 
-export const updatePost = createAsyncThunk('post/updatePost', async (params) => {
-  const response = await postAPI.updatePost(params);
-  return response;
-});
+// export const updatePost = createAsyncThunk('post/updatePost', async (params) => {
+//   const response = await postAPI.updatePost(params);
+//   return response;
+// });
 
-export const deletePost = createAsyncThunk('post/deletePost', async (params) => {
-  console.log(params);
-  const response = await postAPI.deletePost(params);
-  console.log(response);
-  return response;
-});
+// export const deletePost = createAsyncThunk('post/deletePost', async (params) => {
+//   console.log(params);
+//   const response = await postAPI.deletePost(params);
+//   console.log(response);
+//   return response;
+// });
 
-export const getPostById = createAsyncThunk('post/getPostById', async (params) => {
-  const post = await postAPI.getPostById(params);
-  console.log(post);
-  return post;
-});
+// export const getPostById = createAsyncThunk('post/getPostById', async (params) => {
+//   const post = await postAPI.getPostById(params);
+//   console.log(post);
+//   return post;
+// });
 
-export const getNotification = createAsyncThunk('notification/get', async () => {
-  const listNotification = await NotificationAPI.getNotification();
-  return listNotification;
-});
+// export const getNotification = createAsyncThunk('notification/get', async () => {
+//   const listNotification = await NotificationAPI.getNotification();
+//   return listNotification;
+// });
 
-export const createNotification = createAsyncThunk('notification/create', async (params) => {
-  return await NotificationAPI.createNotification(params);
-});
+// export const createNotification = createAsyncThunk('notification/create', async (params) => {
+//   return await NotificationAPI.createNotification(params);
+// });
 
-export const seenNotification = createAsyncThunk('notification/seen', async (params) => {
-  const Notification = await NotificationAPI.seenNotification(params);
-  return Notification;
-});
+// export const seenNotification = createAsyncThunk('notification/seen', async (params) => {
+//   const Notification = await NotificationAPI.seenNotification(params);
+//   return Notification;
+// });
 
-export const seenAllNotification = createAsyncThunk('notification/seenAll', async () => {
-  const Notification = await NotificationAPI.seenAllNotification();
-  return Notification;
-});
+// export const seenAllNotification = createAsyncThunk('notification/seenAll', async () => {
+//   const Notification = await NotificationAPI.seenAllNotification();
+//   return Notification;
+// });
 
 const HomeSlice = createSlice({
   name: 'home',
@@ -252,117 +252,117 @@ const HomeSlice = createSlice({
     [getListRecommendFriends.rejected.toString()]: (state, action) => {},
     [getListRecommendFriends.fulfilled.toString()]: (state, action) => {
       state.listRecommend = action.payload.relateUser;
-    },
-
-    // create comment
-    [addNewComment.pending.toString()]: (state, action) => {
-      state.isLoadingAddCmt = true;
-    },
-    [addNewComment.rejected.toString()]: (state, action) => {
-      state.isLoadingAddCmt = false;
-    },
-    [addNewComment.fulfilled.toString()]: (state, action) => {
-      state.isLoadingAddCmt = false;
-      state.replingCmt = {
-        CmtID: null,
-        CmtUserName: ''
-      };
-      // state.listComment = action.payload.newComment;
-    },
-
-    [likeOrUnlikeCmt.pending.toString()]: (state, action) => {},
-    [likeOrUnlikeCmt.rejected.toString()]: (state, action) => {},
-    [likeOrUnlikeCmt.fulfilled.toString()]: (state, action) => {},
-
-    // edit comment
-    [editComment.pending.toString()]: (state, action) => {},
-    [editComment.rejected.toString()]: (state, action) => {},
-    [editComment.fulfilled.toString()]: (state, action) => {},
-
-    [deleteComment.pending.toString()]: (state, action) => {},
-    [deleteComment.rejected.toString()]: (state, action) => {
-      console.log('xóa thất bại');
-    },
-    [deleteComment.fulfilled.toString()]: (state, action) => {
-      console.log('Xóa thành công');
-    },
-
-    // unfollow
-    // delete comment
-    [unFollow.pending.toString()]: (state, action) => {},
-    [unFollow.rejected.toString()]: (state, action) => {
-      console.log('unfollow thất bại');
-    },
-    [unFollow.fulfilled.toString()]: (state, action) => {
-      console.log('Unfollow thành công');
-      state.isShowReportModal = false;
-    },
-    // get post by id
-
-    [getPostById.pending.toString()]: (state, action) => {},
-    [getPostById.rejected.toString()]: (state, action) => {},
-    [getPostById.fulfilled.toString()]: (state, action) => {
-      console.log(action.payload.post[0]);
-      state.post = action.payload.post[0];
-    },
-
-    // get list notification
-    [getNotification.pending.toString()]: (state, action) => {},
-    [getNotification.rejected.toString()]: (state, action) => {},
-    [getNotification.fulfilled.toString()]: (state, action) => {
-      state.listNotification = action.payload.notifications;
-    },
-
-    // create notification
-    [createNotification.pending.toString()]: (state, action) => {},
-    [createNotification.rejected.toString()]: (state, action) => {},
-    [createNotification.fulfilled.toString()]: (state, action) => {
-      // state.listNotification = action.payload;
-      console.log('Tạo notification thành công');
-    },
-
-    [seenNotification.fulfilled.toString()]: (state, action) => {
-      // console.log(action.payload);
-      // xử lý đã xem tin nhắn
-      state.listNotification = state.listNotification.map((item: any, index: any) => {
-        if (item._id === action.payload.seenNoti._id) {
-          item.isSeen = true;
-        }
-        return item;
-      });
-    },
-
-    [seenAllNotification.fulfilled.toString()]: (state, action) => {
-      state.listNotification = state.listNotification.map((item: any, index: any) => {
-        item.isSeen = true;
-        return item;
-      });
-    },
-
-    [follow.fulfilled.toString()]: (state, action) => {
-      // state.isShowReportModal = false;
-    },
-    [getListUser.pending.toString()]: (state, action) => {
-      state.listLikeCmt = {
-        isShowAlllikeModal: true,
-        isLoad: true,
-        listUsers: []
-      };
-    },
-    [getListUser.fulfilled.toString()]: (state, action) => {
-      state.listLikeCmt = {
-        isShowAlllikeModal: true,
-        listUsers: action.payload.users
-      };
-    },
-
-    [getListUser.fulfilled.toString()]: (state, action) => {
-      state.listLikeCmt = {
-        isShowAlllikeModal: true,
-        isLoad: false,
-        listUsers: action.payload.users
-      };
     }
+
+    // // create comment
+    // [addNewComment.pending.toString()]: (state, action) => {
+    //   state.isLoadingAddCmt = true;
+    // },
+    // [addNewComment.rejected.toString()]: (state, action) => {
+    //   state.isLoadingAddCmt = false;
+    // },
+    // [addNewComment.fulfilled.toString()]: (state, action) => {
+    //   state.isLoadingAddCmt = false;
+    //   state.replingCmt = {
+    //     CmtID: null,
+    //     CmtUserName: ''
+    //   };
+    //   // state.listComment = action.payload.newComment;
+    // },
+
+    // [likeOrUnlikeCmt.pending.toString()]: (state, action) => {},
+    // [likeOrUnlikeCmt.rejected.toString()]: (state, action) => {},
+    // [likeOrUnlikeCmt.fulfilled.toString()]: (state, action) => {},
+
+    // // edit comment
+    // [editComment.pending.toString()]: (state, action) => {},
+    // [editComment.rejected.toString()]: (state, action) => {},
+    // [editComment.fulfilled.toString()]: (state, action) => {},
+
+    // [deleteComment.pending.toString()]: (state, action) => {},
+    // [deleteComment.rejected.toString()]: (state, action) => {
+    //   console.log('xóa thất bại');
+    // },
+    // [deleteComment.fulfilled.toString()]: (state, action) => {
+    //   console.log('Xóa thành công');
+    // },
+
+    // // unfollow
+    // // delete comment
+    // [unFollow.pending.toString()]: (state, action) => {},
+    // [unFollow.rejected.toString()]: (state, action) => {
+    //   console.log('unfollow thất bại');
+    // },
+    // [unFollow.fulfilled.toString()]: (state, action) => {
+    //   console.log('Unfollow thành công');
+    //   state.isShowReportModal = false;
+    // },
+    // // get post by id
+
+    // [getPostById.pending.toString()]: (state, action) => {},
+    // [getPostById.rejected.toString()]: (state, action) => {},
+    // [getPostById.fulfilled.toString()]: (state, action) => {
+    //   console.log(action.payload.post[0]);
+    //   state.post = action.payload.post[0];
+    // },
+
+    // // get list notification
+    // [getNotification.pending.toString()]: (state, action) => {},
+    // [getNotification.rejected.toString()]: (state, action) => {},
+    // [getNotification.fulfilled.toString()]: (state, action) => {
+    //   state.listNotification = action.payload.notifications;
+    // },
+
+    // // create notification
+    // [createNotification.pending.toString()]: (state, action) => {},
+    // [createNotification.rejected.toString()]: (state, action) => {},
+    // [createNotification.fulfilled.toString()]: (state, action) => {
+    //   // state.listNotification = action.payload;
+    //   console.log('Tạo notification thành công');
+    // },
+
+    // [seenNotification.fulfilled.toString()]: (state, action) => {
+    //   // console.log(action.payload);
+    //   // xử lý đã xem tin nhắn
+    //   state.listNotification = state.listNotification.map((item: any, index: any) => {
+    //     if (item._id === action.payload.seenNoti._id) {
+    //       item.isSeen = true;
+    //     }
+    //     return item;
+    //   });
+    // },
+
+    // [seenAllNotification.fulfilled.toString()]: (state, action) => {
+    //   state.listNotification = state.listNotification.map((item: any, index: any) => {
+    //     item.isSeen = true;
+    //     return item;
+    //   });
+    // },
+
+    // [follow.fulfilled.toString()]: (state, action) => {
+    //   // state.isShowReportModal = false;
+    // },
+    // [getListUser.pending.toString()]: (state, action) => {
+    //   state.listLikeCmt = {
+    //     isShowAlllikeModal: true,
+    //     isLoad: true,
+    //     listUsers: []
+    //   };
+    // },
+    // [getListUser.fulfilled.toString()]: (state, action) => {
+    //   state.listLikeCmt = {
+    //     isShowAlllikeModal: true,
+    //     listUsers: action.payload.users
+    //   };
+    // },
+
+    // [getListUser.fulfilled.toString()]: (state, action) => {
+    //   state.listLikeCmt = {
+    //     isShowAlllikeModal: true,
+    //     isLoad: false,
+    //     listUsers: action.payload.users
+    //   };
+    // }
   }
 });
 

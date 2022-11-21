@@ -16,9 +16,26 @@ const HomePage = (): ReactElement => {
   // const toggleShowB = (): void => setShowB(!showB);
   // const current = JSON.parse(localStorage.getItem('login') ?? '');
   // const dispatch = useAppDispatch();
-  const { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
-  console.log(listPosts);
-
+  let { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
+  listPosts = [
+    {
+      _id: 1,
+      content: 'my post',
+      images: [
+        'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+      ],
+      likes: [],
+      comments: [],
+      user: {
+        _id: 1,
+        avatar:
+          'https://images.pexels.com/photos/1554613/pexels-photo-1554613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        name: 'thuan'
+      },
+      createdAt: Date.now()
+    }
+  ];
   // useEffect(async () => {
   //   document.title = 'Midori';
   //   const action = getPosts();
@@ -59,8 +76,7 @@ const HomePage = (): ReactElement => {
                     return (
                       <PostItem
                         key={post._id}
-                        postId={post._id}
-                        content={post}
+                        post={post}
                         // isShowPopup={isShowPopup}
                         // setIsShowPopup={setIsShowPopup}
                       />
