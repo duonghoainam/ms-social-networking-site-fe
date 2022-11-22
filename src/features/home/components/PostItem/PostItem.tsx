@@ -2,14 +2,10 @@ import React, { ReactElement, useState } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import './PostItem.scss';
 // import { useSelector } from 'react-redux';
-// import {
-//   createNotification,
-//   getCommentsByPostID,
-//   getListUser,
-//   handleLike,
-//   handleUnLike,
-//   ShowDetail
-// } from '../../homeSlice';
+import {
+  getCommentsByPostID,
+  showPostDetail
+} from '../../homeSlice';
 
 import {
   FavoriteBorderOutlined,
@@ -28,11 +24,11 @@ import MessagePopup from '../../../chat/components/MessagePopup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { handleLike, handleUnLike } from '../../homeSlice';
 // import { AppState } from '../../../../app/state.type';
-// import { useAppDispatch } from '../../../../app/store';
+import { useAppDispatch } from '../../../../app/store';
 import ReportModal from '../ReportModal';
 
 const PostItem = ({ post }: any): ReactElement => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   // const captionRef = useRef();
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
@@ -41,15 +37,15 @@ const PostItem = ({ post }: any): ReactElement => {
 
   // hàm xử lý show phần comment khi show tất cả phần comment
 
-  // const showDetail = (a): void => {
+  // const showDetail = (postId: string): void => {
   //   const action1 = getCommentsByPostID(post._id);
   //   dispatch(action1);
 
-  //   const action = ShowDetail(post._id);
+  //   const action = showPostDetail(post._id);
   //   dispatch(action);
 
-  //   // const message = { room: a };
-  //   // socket.emit('joinComment', a);
+  //   // const message = { room: postId };
+  //   // socket.emit('joinComment', postId);
   // };
   // phần react
   // const { listPosts } = useSelector((state: AppState) => state.home);

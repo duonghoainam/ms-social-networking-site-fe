@@ -47,7 +47,7 @@ export const getListRecommendFriends = createAsyncThunk(
 //   return listRecommend;
 // });
 
-// // editcomment
+// // edit comment
 // export const editComment = createAsyncThunk('comment/edit', async (params) => {
 //   const listRecommend = await postAPI.editCmt(params);
 //   return listRecommend;
@@ -149,7 +149,7 @@ const HomeSlice = createSlice({
     loadListPostFail: false
   },
   reducers: {
-    ShowDetail: (state, action) => {
+    showPostDetail: (state, action) => {
       state.isShowDetail = true;
       state.activePostId = action.payload;
     },
@@ -369,7 +369,7 @@ const HomeSlice = createSlice({
 // Action creators are generated for each case reducer function
 const { reducer: HomeReducer, actions } = HomeSlice;
 export const {
-  ShowDetail,
+  showPostDetail,
   HideDetailReducer,
   ShowReportModal,
   HideReportModal,

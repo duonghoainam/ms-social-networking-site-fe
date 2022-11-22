@@ -7,16 +7,12 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../app/state.type';
 import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
 import PostItem from '../components/PostItem/PostItem';
-import PostComment from '../components/PostComment';
 import Category from '../components/Category';
 import AllLikesPopup from '../components/commons/AllLikesPopup';
 
 const HomePage = (): ReactElement => {
-  // const [showB, setShowB] = useState(false);
-  // const [refresh, setRefresh] = useState(false);
   // const [isShowPopup, setIsShowPopup] = useState(false);
 
-  // const toggleShowB = (): void => setShowB(!showB);
   // const current = JSON.parse(localStorage.getItem('login') ?? '');
   // const dispatch = useAppDispatch();
   let { listPosts, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
@@ -49,8 +45,6 @@ const HomePage = (): ReactElement => {
 
   //   const action1 = getListRecommendFriends();
   //   await dispatch(action1).unwrap();
-
-  //   setRefresh(!refresh);
 
   //   socket.emit('joinNotificationRoom', current._id);
   // }, []);
@@ -85,7 +79,6 @@ const HomePage = (): ReactElement => {
                       />
                     );
                   })}
-                  {/* <PostComment /> */}
                 </Col>
                 <Col md={{ span: 4, offset: 1 }}>
                   <Category />

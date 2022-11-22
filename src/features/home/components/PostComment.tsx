@@ -30,23 +30,39 @@ import { useAppDispatch } from '../../../app/store';
 const PostComment = (): ReactElement => {
   const dispatch = useAppDispatch();
 
-  const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
 
-  const { isShowDetail, isLoadCmt, activePostId, listPosts, post } = useSelector(
-    (state: AppState) => state.home
-  );
+  // const { isShowDetail, isLoadCmt, activePostId, listPosts, post } = useSelector(
+  //   (state: AppState) => state.home
+  // );
 
-  let activePost: any = {};
-  if (Object.keys(post).length === 0) {
-    console.log('Lấy post trong main');
-    activePost = listPosts.find((post: any) => post._id === activePostId);
-    console.log(activePost);
-  } else {
-    activePost = post;
-  }
+  const activePost: any = {
+    _id: 1,
+    content: 'my post',
+    images: [
+      'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    likes: [],
+    comments: [],
+    user: {
+      _id: 1,
+      avatar:
+        'https://images.pexels.com/photos/1554613/pexels-photo-1554613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      name: 'thuan'
+    },
+    createdAt: Date.now()
+  };
+  // if (Object.keys(post).length === 0) {
+  //   console.log('Lấy post trong main');
+  //   activePost = listPosts.find((post: any) => post._id === activePostId);
+  //   console.log(activePost);
+  // } else {
+  //   activePost = post;
+  // }
 
-  const [isLike]: [boolean, any] = useState(activePost.likes.includes(current._id));
+  const [isLike]: [boolean, any] = useState(true);
   const [numLikes]: [number, any] = useState(activePost.likes.length);
 
   const HideDetail = (): void => {
@@ -65,7 +81,7 @@ const PostComment = (): ReactElement => {
   //     const action1 = handleLike(id);
   //     await dispatch(action1).unwrap();
 
-  //     if (userId !== current._id) {
+  //     if (userId !== currentUser._id) {
   //       const paramsCreate = {
   //         receiver: userId,
   //         notiType: 2,
@@ -77,8 +93,8 @@ const PostComment = (): ReactElement => {
   //         postId: activePostId,
   //         userId: userId, // cái này là id của thằng cần gửi thông báo tới
   //         type: 2,
-  //         senderName: current.name,
-  //         img: current.avatar
+  //         senderName: currentUser.name,
+  //         img: currentUser.avatar
   //       };
   //       socket.emit('send_notificaton', notification);
   //     }
@@ -91,8 +107,14 @@ const PostComment = (): ReactElement => {
   // };
 
   return (
-    <div className="detail" style={{ display: (isShowDetail as boolean) ? '' : 'none' }}>
-      <div className="detail__layout" onClick={HideDetail}></div>
+    <div
+      className="detail"
+      // style={{ display: (isShowDetail as boolean) ? '' : 'none' }}
+    >
+      <div
+        className="detail__layout"
+        // onClick={HideDetail}
+      ></div>
       <div className="detail__content">
         <div className="detail__content__img">
           <Carousel
@@ -117,10 +139,10 @@ const PostComment = (): ReactElement => {
         </div>
         <div className="detail__content__comment">
           <div className="detail__content__comment__header postItem__header">
-            <PostHeader postId={activePostId} postUser={activePost.user} />
+            <PostHeader post={null} />
           </div>
           <div className="detail__content__comment__body">
-            {!(isLoadCmt as boolean) ? <ListComment /> : <CommentSkeleton />}
+            {activePost !== null ? <ListComment /> : <CommentSkeleton />}
           </div>
 
           <div className="detail__content__comment__footer">
@@ -155,7 +177,7 @@ const PostComment = (): ReactElement => {
             <div className="postItem__content__caption">{activePost.content}</div>
 
             <div className="postItem__content__time">{format(activePost.createdAt)}</div>
-            <AddComment postId={activePostId} userPostId={activePost.user._id} />
+            <AddComment postId={1} userPostId={activePost.user._id} />
           </div>
         </div>
       </div>
@@ -167,7 +189,7 @@ const PostComment = (): ReactElement => {
         <MessagePopup
           setIsShowPopup={setIsShowMessagePopup}
           type="forward"
-          content={{ text: activePostId, messType: 'post' }}
+          content={{ text: 1, messType: 'post' }}
           setIsOpenSetting={undefined}
         />
       )}
