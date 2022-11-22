@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../app/state.type';
 import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
 import PostItem from '../components/PostItem/PostItem';
+import PostComment from '../components/PostComment';
 
 const HomePage = (): ReactElement => {
   // const [showB, setShowB] = useState(false);
@@ -72,7 +73,7 @@ const HomePage = (): ReactElement => {
             ) : (
               <>
                 <Col md={{ span: 7 }}>
-                  {listPosts.map((post: any) => {
+                  {/* {listPosts.map((post: any) => {
                     return (
                       <PostItem
                         key={post._id}
@@ -81,7 +82,8 @@ const HomePage = (): ReactElement => {
                         // setIsShowPopup={setIsShowPopup}
                       />
                     );
-                  })}
+                  })} */}
+                  <PostComment />
                 </Col>
                 <Col md={{ span: 4, offset: 1 }}>{/* <Category /> */}</Col>
               </>

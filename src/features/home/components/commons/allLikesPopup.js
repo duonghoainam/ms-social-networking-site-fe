@@ -7,7 +7,7 @@ import { Spinner } from "react-bootstrap";
 
 const AlllikesPopup = () => {
   const dispatch = useDispatch();
-  const { listLikeCmt } = useSelector((state) => state.home);
+  const { listLikeComment } = useSelector((state) => state.home);
   const HideAlllikesModal = () => {
     const action = HideAllLikesModal();
     dispatch(action);
@@ -15,22 +15,22 @@ const AlllikesPopup = () => {
   return (
     <div
       className="alllikes"
-      style={{ display: listLikeCmt.isShowAlllikeModal ? "" : "none" }}
+      style={{ display: listLikeComment.isShowAllLikeModal ? "" : "none" }}
     >
       <div className="alllikes_overlay" onClick={HideAlllikesModal}></div>
       <div className="alllikes_content">
         <div className="alllikes_content_header">
-          <p>Lượt thích ({listLikeCmt.listUsers.length})</p>
+          <p>Lượt thích ({listLikeComment.listUsers.length})</p>
           <Close onClick={HideAlllikesModal} />
         </div>
         <div className="alllikes_content_content">
-          {listLikeCmt.isLoad ? (
+          {listLikeComment.isLoad ? (
             <div className="spinner_wrap">
               <Spinner className="spinner" animation="border" size="sm" />
             </div>
           ) : (
             <>
-              {listLikeCmt.listUsers.map((user, index) => {
+              {listLikeComment.listUsers.map((user, index) => {
                 return <AccountItem key={index} user={user} />;
               })}
             </>

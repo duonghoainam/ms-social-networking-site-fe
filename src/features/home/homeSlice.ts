@@ -122,21 +122,21 @@ export const getListRecommendFriends = createAsyncThunk(
 const HomeSlice = createSlice({
   name: 'home',
   initialState: {
-    replingCmt: {
-      CmtID: null,
-      CmtUserName: '',
-      CmtUserId: ''
+    replyingComment: {
+      id: null,
+      username: '',
+      userId: ''
     },
-    editingCmt: {},
+    editingComment: {},
     post: {},
-    listLikeCmt: {
-      isShowAlllikeModal: false,
+    listLikeComment: {
+      isShowAllLikeModal: false,
       isLoad: true,
       listUsers: []
     },
     listNotification: [],
     isLoadingAddCmt: false,
-    likepost: false,
+    likePost: false,
     listPosts: [],
     listComment: [],
     listRecommend: [],
@@ -165,29 +165,29 @@ const HomeSlice = createSlice({
       state.isShowReportModal = false;
     },
     ShowAllLikesModal: (state: any, action) => {
-      state.isShowAlllikeModal = true;
+      state.isShowAllLikeModal = true;
     },
     HideAllLikesModal: (state: any, action) => {
-      state.listLikeCmt = {
-        isShowAlllikeModal: false,
+      state.listLikeComment = {
+        isShowAllLikeModal: false,
         listUsers: []
       };
     },
     SetReplyCmd: (state, action) => {
-      state.replingCmt.CmtID = action.payload.cmtId;
-      state.replingCmt.CmtUserName = action.payload.userName;
-      state.replingCmt.CmtUserId = action.payload.userId;
+      state.replyingComment.id = action.payload.cmtId;
+      state.replyingComment.username = action.payload.userName;
+      state.replyingComment.userId = action.payload.userId;
     },
     CancelReplyCmd: (state, action) => {
-      state.replingCmt = {
-        CmtID: null,
-        CmtUserName: '',
-        CmtUserId: ''
+      state.replyingComment = {
+        id: null,
+        username: '',
+        userId: ''
       };
     },
 
     editCmt: (state, action) => {
-      state.editingCmt = action.payload;
+      state.editingComment = action.payload;
     }
   },
   extraReducers: {
@@ -214,11 +214,11 @@ const HomeSlice = createSlice({
       state.isLoadCmt = false;
     },
     [getCommentsByPostID.fulfilled.toString()]: (state, action) => {
-      state.listComment = action.payload.cmts;
+      state.listComment = action.payload.comments;
       state.isLoadCmt = false;
     },
 
-    // handlelike
+    // handle like
     [handleLike.pending.toString()]: (state, action) => {
       console.log('Đang like');
     },
@@ -247,7 +247,7 @@ const HomeSlice = createSlice({
       });
     },
 
-    // get list recommend frieds
+    // get list recommend friends
     [getListRecommendFriends.pending.toString()]: (state, action) => {},
     [getListRecommendFriends.rejected.toString()]: (state, action) => {},
     [getListRecommendFriends.fulfilled.toString()]: (state, action) => {
@@ -263,9 +263,9 @@ const HomeSlice = createSlice({
     // },
     // [addNewComment.fulfilled.toString()]: (state, action) => {
     //   state.isLoadingAddCmt = false;
-    //   state.replingCmt = {
-    //     CmtID: null,
-    //     CmtUserName: ''
+    //   state.replyingComment = {
+    //     id: null,
+    //     username: ''
     //   };
     //   // state.listComment = action.payload.newComment;
     // },
@@ -343,22 +343,22 @@ const HomeSlice = createSlice({
     //   // state.isShowReportModal = false;
     // },
     // [getListUser.pending.toString()]: (state, action) => {
-    //   state.listLikeCmt = {
-    //     isShowAlllikeModal: true,
+    //   state.listLikeComment = {
+    //     isShowAllLikeModal: true,
     //     isLoad: true,
     //     listUsers: []
     //   };
     // },
     // [getListUser.fulfilled.toString()]: (state, action) => {
-    //   state.listLikeCmt = {
-    //     isShowAlllikeModal: true,
+    //   state.listLikeComment = {
+    //     isShowAllLikeModal: true,
     //     listUsers: action.payload.users
     //   };
     // },
 
     // [getListUser.fulfilled.toString()]: (state, action) => {
-    //   state.listLikeCmt = {
-    //     isShowAlllikeModal: true,
+    //   state.listLikeComment = {
+    //     isShowAllLikeModal: true,
     //     isLoad: false,
     //     listUsers: action.payload.users
     //   };

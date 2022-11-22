@@ -1,16 +1,16 @@
 import React, { ReactElement, useState } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  createNotification,
-  handleLike,
-  handleUnLike,
-  HideDetailReducer,
-  getListUser
+  // createNotification,
+  // handleLike,
+  // handleUnLike,
+  HideDetailReducer
+  // getListUser
 } from '../homeSlice';
 
-import AddComment from './addComment';
+import AddComment from './AddComment';
 import {
   faCircleChevronRight,
   faCircleChevronLeft,
@@ -22,91 +22,93 @@ import AllLikesPopup from './commons/allLikesPopup';
 import CommentSkeleton from '../../../components/skeletonLoading/CommentSkeleton';
 import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
-import { socket } from '../../../App';
+// import { socket } from '../../../App';
 import MessagePopup from '../../chat/components/MessagePopup';
+import { AppState } from '../../../app/state.type';
+import { useAppDispatch } from '../../../app/store';
 
 const PostComment = (): ReactElement => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const current = JSON.parse(localStorage.getItem('currentUser'));
+  const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
 
   const { isShowDetail, isLoadCmt, activePostId, listPosts, post } = useSelector(
-    (state) => state.home
+    (state: AppState) => state.home
   );
 
-  let activePost = {};
+  let activePost: any = {};
   if (Object.keys(post).length === 0) {
     console.log('Lấy post trong main');
-    activePost = listPosts.find((post) => post._id === activePostId);
+    activePost = listPosts.find((post: any) => post._id === activePostId);
     console.log(activePost);
   } else {
     activePost = post;
   }
 
-  const [isLike, setisLike] = useState(activePost.likes.includes(current._id));
-  let [numLikes, setnumLikes] = useState(activePost.likes.length);
+  const [isLike]: [boolean, any] = useState(activePost.likes.includes(current._id));
+  const [numLikes]: [number, any] = useState(activePost.likes.length);
 
-  const HideDetail = () => {
-    const action = HideDetailReducer();
+  const HideDetail = (): void => {
+    const action = HideDetailReducer(null);
     dispatch(action);
   };
 
-  const HandleLikePost = async (id, userid) => {
-    setisLike(!isLike);
-    if (isLike) {
-      setnumLikes(--numLikes);
-      const action1 = handleUnLike(id);
-      await dispatch(action1).unwrap();
-    } else {
-      setnumLikes(++numLikes);
-      const action1 = handleLike(id);
-      await dispatch(action1).unwrap();
+  // const handleLikePost = async (id: string, userId: string): Promise<void> => {
+  //   setIsLike(!isLike);
+  //   if (isLike) {
+  //     setNumLikes(--numLikes);
+  //     const action1 = handleUnLike(id);
+  //     await dispatch(action1).unwrap();
+  //   } else {
+  //     setNumLikes(++numLikes);
+  //     const action1 = handleLike(id);
+  //     await dispatch(action1).unwrap();
 
-      if (userid !== current._id) {
-        const paramsCreate = {
-          receiver: userid,
-          notiType: 2,
-          desId: activePostId
-        };
-        const action = createNotification(paramsCreate);
-        await dispatch(action).unwrap();
-        const notification = {
-          postId: activePostId,
-          userId: userid, // cái này là id của thằng cần gửi thông báo tới
-          type: 2,
-          senderName: current.name,
-          img: current.avatar
-        };
-        socket.emit('send_notificaton', notification);
-      }
-    }
-  };
+  //     if (userId !== current._id) {
+  //       const paramsCreate = {
+  //         receiver: userId,
+  //         notiType: 2,
+  //         desId: activePostId
+  //       };
+  //       const action = createNotification(paramsCreate);
+  //       await dispatch(action).unwrap();
+  //       const notification = {
+  //         postId: activePostId,
+  //         userId: userId, // cái này là id của thằng cần gửi thông báo tới
+  //         type: 2,
+  //         senderName: current.name,
+  //         img: current.avatar
+  //       };
+  //       socket.emit('send_notificaton', notification);
+  //     }
+  //   }
+  // };
 
-  const ShowAlllikesModal = async (a) => {
-    const action = getListUser(a);
-    await dispatch(action).unwrap();
-  };
+  // const showAlllikesModal = async (a) => {
+  //   const action = getListUser(a);
+  //   await dispatch(action).unwrap();
+  // };
 
   return (
-    <div className="detail" style={{ display: isShowDetail ? '' : 'none' }}>
+    <div className="detail" style={{ display: (isShowDetail as boolean) ? '' : 'none' }}>
       <div className="detail__layout" onClick={HideDetail}></div>
       <div className="detail__content">
         <div className="detail__content__img">
           <Carousel
             prevIcon={<FontAwesomeIcon icon={faCircleChevronLeft} />}
             nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
-            {activePost.images?.map((contenItem, index) => {
+            {activePost.images?.map((image: any, index: number) => {
               return (
                 <Carousel.Item key={index} style={{ display: 'grid', placeItems: 'center' }}>
-                  {contenItem.split('.')[contenItem.split('.').length - 1] === 'mp4' ? (
+                  {image.split('.')[image.split('.').length - 1] === 'mp4' ? (
                     <video
                       style={{ display: 'grid', placeItems: 'center', maxHeight: '100%' }}
                       controls>
-                      <source src={contenItem} type="video/mp4"></source>
+                      <source src={image} type="video/mp4"></source>
                     </video>
                   ) : (
-                    <img className="d-block w-100" src={contenItem} alt="First slide" />
+                    <img className="d-block w-100" src={image} alt="First slide" />
                   )}
                 </Carousel.Item>
               );
@@ -118,7 +120,7 @@ const PostComment = (): ReactElement => {
             <PostHeader postId={activePostId} postUser={activePost.user} />
           </div>
           <div className="detail__content__comment__body">
-            {!isLoadCmt ? <ListComment /> : <CommentSkeleton />}
+            {!(isLoadCmt as boolean) ? <ListComment /> : <CommentSkeleton />}
           </div>
 
           <div className="detail__content__comment__footer">
@@ -127,14 +129,14 @@ const PostComment = (): ReactElement => {
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {isLike === true ? (
+                      {isLike ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          onClick={() => HandleLikePost(activePostId)}
+                          // onClick={() => handleLikePost(activePostId, null)}
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                          onClick={() => HandleLikePost(activePostId, activePost.user._id)}
+                        // onClick={() => handleLikePost(activePostId, activePost.user._id)}
                         />
                       )}
 
@@ -146,7 +148,8 @@ const PostComment = (): ReactElement => {
             </div>
             <div
               className="postItem__content__likes"
-              onClick={() => ShowAlllikesModal(activePost.likes)}>
+              // onClick={() => showAlllikesModal(activePost.likes)}
+            >
               {numLikes} lượt thích
             </div>
             <div className="postItem__content__caption">{activePost.content}</div>
@@ -165,6 +168,7 @@ const PostComment = (): ReactElement => {
           setIsShowPopup={setIsShowMessagePopup}
           type="forward"
           content={{ text: activePostId, messType: 'post' }}
+          setIsOpenSetting={undefined}
         />
       )}
     </div>
