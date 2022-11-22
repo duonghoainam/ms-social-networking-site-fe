@@ -8,7 +8,11 @@ import { Spinner } from 'react-bootstrap';
 const AllLikesPopup = (): ReactElement => {
   // const dispatch = useDispatch();
   // const { listLikeComment } = useSelector((state) => state.home);
-  const listLikeComment: any = {};
+  const listLikeComment: any = {
+    listUsers: [],
+    isLoad: true,
+    showModal: false
+  };
   // const hideModal = () => {
   //   const action = HideAllLikesModal();
   //   dispatch(action);
@@ -16,8 +20,7 @@ const AllLikesPopup = (): ReactElement => {
   return (
     <div
       className="alllikes"
-      // style={{ display: listLikeComment.isShowAllLikeModal ? '' : 'none' }}
-    >
+      style={{ display: (listLikeComment.showModal as boolean) ? '' : 'none' }}>
       <div
         className="alllikes_overlay"
         // onClick={hideModal}

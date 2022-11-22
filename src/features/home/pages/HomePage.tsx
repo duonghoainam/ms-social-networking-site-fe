@@ -8,6 +8,8 @@ import { AppState } from '../../../app/state.type';
 import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
 import PostItem from '../components/PostItem/PostItem';
 import PostComment from '../components/PostComment';
+import Category from '../components/Category';
+import AllLikesPopup from '../components/commons/AllLikesPopup';
 
 const HomePage = (): ReactElement => {
   // const [showB, setShowB] = useState(false);
@@ -73,7 +75,7 @@ const HomePage = (): ReactElement => {
             ) : (
               <>
                 <Col md={{ span: 7 }}>
-                  {/* {listPosts.map((post: any) => {
+                  {listPosts.map((post: any) => {
                     return (
                       <PostItem
                         key={post._id}
@@ -82,16 +84,18 @@ const HomePage = (): ReactElement => {
                         // setIsShowPopup={setIsShowPopup}
                       />
                     );
-                  })} */}
-                  <PostComment />
+                  })}
+                  {/* <PostComment /> */}
                 </Col>
-                <Col md={{ span: 4, offset: 1 }}>{/* <Category /> */}</Col>
+                <Col md={{ span: 4, offset: 1 }}>
+                  <Category />
+                </Col>
               </>
             )}
           </Row>
         )}
       </Container>
-      {/* <AllLikesPopup /> */}
+      <AllLikesPopup />
     </>
   );
 };
