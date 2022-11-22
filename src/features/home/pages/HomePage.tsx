@@ -91,7 +91,7 @@ const HomePage = (): ReactElement => {
           </Row>
         )}
       </Container>
-      {/* <AlllikesPopup /> */}
+      {/* <AllLikesPopup /> */}
     </>
   );
 };

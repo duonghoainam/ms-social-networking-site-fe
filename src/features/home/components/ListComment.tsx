@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import CommentItem from './commons/commentItem';
+import CommentItem from './commons/CommentItem';
 import { useSelector } from 'react-redux';
 // import { getCommentsByPostID } from '../homeSlice';
 // import { socket } from '../../../App';

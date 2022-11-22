@@ -18,7 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import PostHeader from './PostHeader';
 import ListComment from './ListComment';
-import AllLikesPopup from './commons/allLikesPopup';
+import AllLikesPopup from './commons/AllLikesPopup';
 import CommentSkeleton from '../../../components/skeletonLoading/CommentSkeleton';
 import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
