@@ -1,11 +1,11 @@
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import axios from 'axios';
 
 const axiosClient = axios.create({
   headers: {
     'Content-type': 'application/json'
-  },
-  paramsSerializer: (params) => queryString.stringify(params)
+  }
+  // paramsSerializer: (params: any) => queryString.stringify(params)
 });
 
 axiosClient.interceptors.request.use(async (req: any) => {

@@ -2,10 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import './PostItem.scss';
 // import { useSelector } from 'react-redux';
-import {
-  getCommentsByPostID,
-  showPostDetail
-} from '../../homeSlice';
+import { getCommentsByPostID, showPostDetail } from '../../homeSlice';
 
 import {
   FavoriteBorderOutlined,
@@ -37,16 +34,16 @@ const PostItem = ({ post }: any): ReactElement => {
 
   // hàm xử lý show phần comment khi show tất cả phần comment
 
-  // const showDetail = (postId: string): void => {
-  //   const action1 = getCommentsByPostID(post._id);
-  //   dispatch(action1);
+  const showDetail = async (): Promise<void> => {
+    const getComment = getCommentsByPostID(post._id);
+    await dispatch(getComment);
 
-  //   const action = showPostDetail(post._id);
-  //   dispatch(action);
+    const showPost = showPostDetail(post._id);
+    dispatch(showPost);
 
-  //   // const message = { room: postId };
-  //   // socket.emit('joinComment', postId);
-  // };
+    // const message = { room: postId };
+    // socket.emit('joinComment', postId);
+  };
   // phần react
   // const { listPosts } = useSelector((state: AppState) => state.home);
 
@@ -157,10 +154,7 @@ const PostItem = ({ post }: any): ReactElement => {
               Xem thêm
             </span>
           )} */}
-          <div
-            className="postItem__post__allCmt"
-            // onClick={() => showDetail(post._id)}
-          >
+          <div className="postItem__post__allCmt" onClick={showDetail}>
             Xem tất cả {post.comments.length} bình luận
           </div>
           <div className="postItem__post__time">{format(post.createdAt)}</div>

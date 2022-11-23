@@ -12,7 +12,6 @@ class AuthAPI {
 
   createAccount = async (params: RegisterParams): Promise<ApiResponse> => {
     const url = getApiUrl() + '/api/users/register';
-    console.log(params);
     return await axiosClient.post(url, params);
   };
 

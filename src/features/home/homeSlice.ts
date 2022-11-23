@@ -122,47 +122,26 @@ export const getListRecommendFriends = createAsyncThunk(
 const HomeSlice = createSlice({
   name: 'home',
   initialState: {
-    replyingComment: {
-      id: null,
-      username: '',
-      userId: ''
-    },
-    editingComment: {},
-    post: {},
-    listLikeComment: {
-      isShowAllLikeModal: false,
-      isLoad: true,
-      listUsers: []
-    },
-    listNotification: [],
-    isLoadingAddCmt: false,
-    likePost: false,
-    listPosts: [],
-    listComment: [],
-    listRecommend: [],
-    activePostId: '',
-    isShowDetail: false,
-    isShowReportModal: false,
-
+    listPosts: [{ _id: '1', title: 'test', content: 'hello world' }],
     isLoading: false,
-    isLoadCmt: false,
-    loadListPostFail: false
+    test: true,
+    second: 'fsdh'
   },
   reducers: {
     showPostDetail: (state, action) => {
-      state.isShowDetail = true;
-      state.activePostId = action.payload;
+      // state.isShowDetail = true;
+      // state.activePostId = action.payload;
     },
     HideDetailReducer: (state, action) => {
-      state.isShowDetail = false;
-      state.activePostId = '';
-      state.post = {};
+      // state.isShowDetail = false;
+      // state.activePostId = '';
+      // state.post = {};
     },
     ShowReportModal: (state, action) => {
-      state.isShowReportModal = true;
+      // state.isShowReportModal = true;
     },
     HideReportModal: (state, action) => {
-      state.isShowReportModal = false;
+      // state.isShowReportModal = false;
     },
     ShowAllLikesModal: (state: any, action) => {
       state.isShowAllLikeModal = true;
@@ -174,37 +153,36 @@ const HomeSlice = createSlice({
       };
     },
     SetReplyCmd: (state, action) => {
-      state.replyingComment.id = action.payload.cmtId;
-      state.replyingComment.username = action.payload.userName;
-      state.replyingComment.userId = action.payload.userId;
-    },
-    CancelReplyCmd: (state, action) => {
-      state.replyingComment = {
-        id: null,
-        username: '',
-        userId: ''
-      };
-    },
-
-    editCmt: (state, action) => {
-      state.editingComment = action.payload;
+      // state.replyingComment.id = action.payload.cmtId;
+      // state.replyingComment.username = action.payload.userName;
+      // state.replyingComment.userId = action.payload.userId;
     }
+    // CancelReplyCmd: (state, action) => {
+    //   state.replyingComment = {
+    //     id: null,
+    //     username: '',
+    //     userId: ''
+    //   };
+    // },
+
+    // editCmt: (state, action) => {
+    //   state.editingComment = action.payload;
+    // }
   },
   extraReducers: {
     // get all post when login successful
     [getPosts.pending.toString()]: (state) => {
       state.isLoading = true;
-      state.listNotification = [];
+      // state.listNotification = [];
     },
     [getPosts.rejected.toString()]: (state) => {
-      console.log('Lỗi không lấy được post');
       state.isLoading = false;
-      state.loadListPostFail = true;
+      // state.loadListPostFail = true;
     },
     [getPosts.fulfilled.toString()]: (state, action) => {
       state.listPosts = action.payload.posts;
       state.isLoading = false;
-      state.loadListPostFail = false;
+      // state.loadListPostFail = false;
     },
     // get all comment of post
     [getCommentsByPostID.pending.toString()]: (state, action) => {
@@ -375,9 +353,9 @@ export const {
   HideReportModal,
   ShowAllLikesModal,
   HideAllLikesModal,
-  SetReplyCmd,
-  CancelReplyCmd,
-  editCmt
+  SetReplyCmd
+  // CancelReplyCmd,
+  // editCmt
 } = actions;
 
 export default HomeReducer;

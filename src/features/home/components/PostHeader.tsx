@@ -55,7 +55,6 @@ const PostHeader = ({ post }: any): ReactElement => {
   //   closeDialog();
   //   hideDetail();
   // };
-  console.log(post);
   return (
     <Row>
       <Col md={1} onClick={() => handleShowProfile(post.user._id)}>

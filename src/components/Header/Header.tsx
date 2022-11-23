@@ -68,7 +68,6 @@ const Header = (): ReactElement => {
   const handleLogout = async (): Promise<void> => {
     try {
       const result = await dispatch(logout()).unwrap();
-      console.log(result);
     } catch (error) {
       console.log(error);
     }

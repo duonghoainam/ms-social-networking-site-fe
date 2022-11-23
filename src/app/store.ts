@@ -11,7 +11,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['auth', 'chat', 'user']
+  whitelist: ['home', 'auth', 'chat', 'user']
 };
 
 const rootReducer = combineReducers({

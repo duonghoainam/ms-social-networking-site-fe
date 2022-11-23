@@ -180,11 +180,12 @@ const AddComment = ({ postId, userPostId }: any): ReactElement => {
           // ref={domNode}
           // className="addComment_emoji"
           onEmojiClick={() => {}}
-          pickerStyle={{
-            width: '100%',
-            outerHeight: '100%',
-            innerHeight: '100px'
-          }}></Picker>
+          // pickerStyle={{
+          //   width: '100%',
+          //   outerHeight: '100%',
+          //   innerHeight: '100px'
+          // }}
+          ></Picker>
       )}
       <Col md={9} className="reply">
         {replyingComment.username === '' ? (

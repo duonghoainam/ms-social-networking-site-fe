@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import NotFound from '../../components/notfound/NotFound';
+import NotFound from '../../components/Notfound/NotFound';
 import HomePage from './pages/HomePage';
 
 const IndexHome = (): ReactElement => {
