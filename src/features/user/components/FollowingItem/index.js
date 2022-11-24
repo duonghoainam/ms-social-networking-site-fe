@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { socket } from '../../../../App';
-import { createNotification, follow } from '../../../home/homeSlice';
+import { createNotification, follow } from '../../../home/state/homeSlice';
 import { unFollow, addActiveId } from '../../profileSlice';
 import './styles.scss';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updatePost } from '../../home/homeSlice';
+import { updatePost } from '../../home/state/homeSlice';
 import './newcomponent.scss';
 
 const UpdatePostHeader = ({ listImg, content, postId }) => {

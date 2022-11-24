@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import AuthReducer from '../features/auth/authSlice';
 import chatSlice from '../features/chat/ChatSlice';
-import HomeReducer from '../features/home/homeSlice';
+import HomeReducer from '../features/home/state/homeSlice';
 import userReducer from '../features/user/profileSlice';
 // import { persistStore, persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';

@@ -2,8 +2,8 @@ import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 class PostAPI {
   getPosts = (): any => {
-    const url = getApiUrl() + '/api/posts';
-    return axiosClient.get(url, {});
+    const url = `${getApiUrl()}/api/posts`;
+    return axiosClient.get(url);
   };
 
   getCommentByPostID = (postId: string): any => {

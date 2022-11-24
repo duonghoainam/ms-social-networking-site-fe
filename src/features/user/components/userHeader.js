@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createConversation } from '../../chat/ChatSlice';
 import { socket } from '../../../App';
-import { createNotification, follow, unFollow } from '../../home/homeSlice';
+import { createNotification, follow, unFollow } from '../../home/state/homeSlice';
 
 const UserHeader = () => {
     const current = useSelector((state) => state.auth.current);

@@ -23,9 +23,9 @@ const ListComment = (): ReactElement => {
 
   return (
     <>
-      {listComment.map((comment: any) => {
+      {/* {listComment.map((comment: any) => {
         return <CommentItem key={comment._id} CmtItem={comment} />;
-      })}
+      })} */}
     </>
   );
 };

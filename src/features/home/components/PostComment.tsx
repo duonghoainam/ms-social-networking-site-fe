@@ -2,13 +2,6 @@ import React, { ReactElement, useState } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import {
-  // createNotification,
-  // handleLike,
-  // handleUnLike,
-  HideDetailReducer
-  // getListUser
-} from '../homeSlice';
 
 import AddComment from './AddComment';
 import {
@@ -66,8 +59,8 @@ const PostComment = (): ReactElement => {
   const [numLikes]: [number, any] = useState(activePost.likes.length);
 
   const HideDetail = (): void => {
-    const action = HideDetailReducer(null);
-    dispatch(action);
+    // const action = HideDetailReducer(null);
+    // dispatch(action);
   };
 
   // const handleLikePost = async (id: string, userId: string): Promise<void> => {
