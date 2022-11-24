@@ -13,11 +13,11 @@ import { AppState } from '../../../app/state.type';
 // import { socket } from "../../../App";
 
 const ReactIcon = ({ postId }: any): ReactElement => {
-  const { listPosts } = useSelector((state: AppState) => state.home);
+  const { listPost } = useSelector((state: AppState) => state.home);
   const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
   // get list like of the post
-  const activePost = listPosts.find((post: any) => post._id === postId);
+  const activePost = listPost.find((post: any) => post._id === postId);
   const likes = activePost.likes;
 
   const [isLike] = useState(likes.includes(current._id));

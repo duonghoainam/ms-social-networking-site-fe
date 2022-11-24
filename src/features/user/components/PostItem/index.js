@@ -5,7 +5,7 @@ import { getCommentsByPostID, getPostById, ShowDetail } from '../../../home/stat
 
 import { Favorite, ChatBubble } from '@material-ui/icons';
 
-import PostComment from '../../../home/components/PostComment';
+import PostComment from '../../../home/components/PostComment/PostComment';
 
 import './styles.scss';
 import { socket } from '../../../../App';

@@ -37,13 +37,13 @@ const CommentItem = ({ comment }: any): ReactElement => {
   // const [isShowCmtOption, setisShowCmtOption] = useState(false);
 
   // // get state from redux store
-  const { activePostId, listPosts, post } = useSelector((state: AppState) => state.home);
+  const { activePostId, listPost, post } = useSelector((state: AppState) => state.home);
 
   // // variable
   // const { reply } = comment;
   let activePost: any = {};
   if (Object.keys(post).length === 0) {
-    activePost = listPosts.find((post: any) => post._id === activePostId);
+    activePost = listPost.find((post: any) => post._id === activePostId);
   } else {
     activePost = post;
   }

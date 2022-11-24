@@ -11,13 +11,13 @@ import UserIndex from './features/user';
 
 // import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
-import PostComment from './features/home/components/PostComment';
+import PostComment from './features/home/components/PostComment/PostComment';
 
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 export const socket = null;
 
 function App(): ReactElement {
-  const { activePostId } = useSelector((state: any) => state.home);
+  // const { activePostId } = useSelector((state: any) => state.home);
 
   return (
     <div className="App">
@@ -62,7 +62,7 @@ function App(): ReactElement {
           }></Route>
       </Routes>
       <Outlet></Outlet>
-      {activePostId === '' ? '' : <PostComment />}
+      {/* {activePostId === '' ? '' : <PostComment />} */}
     </div>
   );
 }

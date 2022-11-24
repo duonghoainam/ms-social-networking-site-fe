@@ -1,25 +1,43 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { reducers, extraReducers } from './homeReducers';
+import { Post } from '../../../api/post/type/post.type';
+import { extraReducers } from './homeReducers';
 
 interface HomeState {
-  listPosts: any[];
+  listPost: any[];
+  listComment: any[];
+  isLoadComment: boolean;
+  showPostDetail: boolean;
+  selectedPost: Post;
   isLoading: boolean;
   loadListPostFail: boolean;
 }
 const initialState: HomeState = {
-  listPosts: [{}],
-  isLoading: false,
+  listPost: [],
+  listComment: [],
+  isLoading: true,
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  selectedPost: {} as Post,
+  showPostDetail: false,
+  isLoadComment: true,
   loadListPostFail: false
 };
 
 const HomeSlice = createSlice({
   name: 'home',
   initialState,
-  reducers,
+  reducers: {
+    setSelectedPost: (state: any, action: any): void => {
+      return { ...state, selectedPost: action.payload };
+    },
+    setShowPostDetail: (state: any, action: any): void => {
+      return { ...state, showPostDetail: action.payload };
+    }
+  },
   extraReducers
 });
-
 // Action creators are generated for each case reducer function
-const { reducer: HomeReducer } = HomeSlice;
+const { reducer: HomeReducer, actions } = HomeSlice;
+
+export const { setSelectedPost, setShowPostDetail } = actions;
 
 export default HomeReducer;

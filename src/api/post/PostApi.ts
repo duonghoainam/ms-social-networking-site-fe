@@ -2,18 +2,8 @@ import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 class PostAPI {
   getPosts = (): any => {
-    const url = `${getApiUrl()}/api/posts`;
-    return axiosClient.get(url);
-  };
-
-  getCommentByPostID = (postId: string): any => {
-    const url = `${getApiUrl()}/comments/${postId}`;
+    const url = `${getApiUrl()}/posts`;
     return axiosClient.get(url, {});
-  };
-
-  likePost = (postId: string): any => {
-    const url = `${getApiUrl()}/posts/post/${postId}/like`;
-    return axiosClient.patch(url, { postId });
   };
 
   getPostById = (postId: string): any => {
@@ -21,8 +11,18 @@ class PostAPI {
     return axiosClient.get(url, {});
   };
 
+  getPostComments = (postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/`;
+    return axiosClient.get(url, {});
+  };
+
+  likePost = (postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/like`;
+    return axiosClient.patch(url, {});
+  };
+
   unLikePost = (postId: string): any => {
-    const url = `${getApiUrl()}/posts/post/${postId}/unlike`;
+    const url = `${getApiUrl()}/posts/${postId}/unlike`;
     return axiosClient.patch(url, {});
   };
 

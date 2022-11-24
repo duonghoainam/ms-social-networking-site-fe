@@ -40,8 +40,8 @@ export const register = createAsyncThunk(
   }
 );
 export const getPosts = createAsyncThunk('post/getPosts', async () => {
-  const listPosts = await postAPI.getPosts();
-  return listPosts;
+  const listPost = await postAPI.getPosts();
+  return listPost;
 });
 
 export const getAllUsers = createAsyncThunk('user/getAll', async (args, thunkAPI) => {
