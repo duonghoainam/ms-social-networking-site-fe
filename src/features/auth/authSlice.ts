@@ -122,7 +122,7 @@ const AuthSlice = createSlice({
       state.error = '';
       localStorage.removeItem('accessToken');
       localStorage.removeItem('currentUser');
-      localStorage.removeItem('persist:root');
+      // localStorage.removeItem('persist:root');
     },
 
     [logout.rejected.toString()]: (state: AuthState, action: any) => {

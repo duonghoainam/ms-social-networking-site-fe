@@ -3,16 +3,16 @@ import AuthReducer from '../features/auth/authSlice';
 import chatSlice from '../features/chat/ChatSlice';
 import HomeReducer from '../features/home/homeSlice';
 import userReducer from '../features/user/profileSlice';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 import { useDispatch } from 'react-redux';
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-  whitelist: ['home', 'auth', 'chat', 'user']
-};
+// const persistConfig = {
+//   key: 'root',
+//   version: 1,
+//   storage
+//   // whitelist: ['home', 'auth', 'chat', 'user']
+// };
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -21,10 +21,10 @@ const rootReducer = combineReducers({
   user: userReducer
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -32,7 +32,7 @@ export const store = configureStore({
     })
 });
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
