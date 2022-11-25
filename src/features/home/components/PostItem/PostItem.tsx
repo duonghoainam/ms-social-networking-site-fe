@@ -8,7 +8,7 @@ import {
   Favorite,
   BookmarkBorderOutlined
 } from '@material-ui/icons';
-import PostHeader from '../PostHeader';
+import PostHeader from '../PostHeader/PostHeader';
 import { format } from 'timeago.js';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import MessagePopup from '../../../chat/components/MessagePopup';
