@@ -33,3 +33,8 @@ export const getListRecommendFriends = createAsyncThunk(
     return listRecommend;
   }
 );
+
+export const addNewComment = createAsyncThunk('home/addNewComment', async (params: any) => {
+  const comment = await postAPI.addComment(params.postId, params.comment);
+  return comment;
+});

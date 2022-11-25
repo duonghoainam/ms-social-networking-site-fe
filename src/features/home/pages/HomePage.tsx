@@ -6,7 +6,7 @@ import Header from '../../../components/Header/Header';
 import HomeSkeleton from '../../../components/skeletonLoading/HomeSkeleton';
 import PostItem from '../components/PostItem/PostItem';
 import Category from '../components/Category';
-import AllLikesPopup from '../components/commons/AllLikesPopup';
+import AllLikesPopup from '../components/AllLikesPopup/AllLikesPopup';
 import { useHomePage } from './useHomePage';
 import PostComment from '../components/PostComment/PostComment';
 import { useSelector } from 'react-redux';

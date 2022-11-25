@@ -31,17 +31,12 @@ class PostAPI {
     return axiosClient.get(url, {});
   };
 
-  // addComment = (params): any => {
-  //   let url = '';
-  //   if (params.commentId == null || params.commentId === '') {
-  //     url = `${getApiUrl()}/comments/${params.postId}/`;
-  //   } else {
-  //     url = `${getApiUrl()}/comments/${params.postId}/${params.commentId}`;
-  //   }
+  addComment = (postId: string, params: any): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/`;
 
-  //   const content = params.content;
-  //   return axiosClient.post(url, { content });
-  // };
+    const content = params.content;
+    return axiosClient.post(url, { content });
+  };
 
   // handleLikeCmt = (params: any): any => {
   //   const url = getApiUrl() + '/comments/ul/' + params;

@@ -1,22 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../../app/state.type';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getPostsByUserId } from '../../../user/profileSlice';
 
 const UserSummary = ({ user }: any): ReactElement => {
-  // const posts: any = {};
-  const { posts, isLoading } = useSelector((state: AppState) => state.user);
-  // const dispatch = useDispatch();
-  // useEffect(async () => {
-  //   // get list post by user id
-  //   const action = getPostsByUserId(user._id);
-  //   await dispatch(action).unwrap();
-  // }, []);
-
-  // hàm xử lý khi nhấn follow
-
+  const posts: any[] = [];
+  const isLoading = true;
   return (
     <div className="summary">
       <Row className="summary_header">

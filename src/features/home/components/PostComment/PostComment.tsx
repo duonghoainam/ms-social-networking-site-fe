@@ -3,7 +3,7 @@ import { Carousel, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 
-import AddComment from '../AddComment';
+import AddComment from '../AddComment/AddComment';
 import {
   faCircleChevronRight,
   faCircleChevronLeft,
@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import PostHeader from '../PostHeader/PostHeader';
 import ListComment from '../ListComment';
-import AllLikesPopup from '../commons/AllLikesPopup';
+import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import CommentSkeleton from '../../../../components/skeletonLoading/CommentSkeleton';
 import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
