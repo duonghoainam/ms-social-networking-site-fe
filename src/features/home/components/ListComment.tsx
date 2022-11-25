@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
-import CommentItem from './commons/CommentItem';
+import CommentItem from './CommentItem/CommentItem';
 import { useSelector } from 'react-redux';
-// import { getCommentsByPostID } from '../homeSlice';
 // import { socket } from '../../../App';
 import { AppState } from '../../../app/state.type';
 
@@ -23,9 +22,9 @@ const ListComment = (): ReactElement => {
 
   return (
     <>
-      {/* {listComment.map((comment: any) => {
-        return <CommentItem key={comment._id} CmtItem={comment} />;
-      })} */}
+      {listComment.map((comment: any) => {
+        return <CommentItem key={comment._id} comment={comment} />;
+      })}
     </>
   );
 };

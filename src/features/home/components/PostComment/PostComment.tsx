@@ -9,7 +9,7 @@ import {
   faCircleChevronLeft,
   faCircleXmark
 } from '@fortawesome/free-solid-svg-icons';
-import PostHeader from '../PostHeader';
+import PostHeader from '../PostHeader/PostHeader';
 import ListComment from '../ListComment';
 import AllLikesPopup from '../commons/AllLikesPopup';
 import CommentSkeleton from '../../../../components/skeletonLoading/CommentSkeleton';
