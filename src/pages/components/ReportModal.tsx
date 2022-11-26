@@ -1,12 +1,8 @@
 import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../../app/state.type';
 import './PostItem/PostItem.scss';
 
 const ReportModal = ({ postId }: any): ReactElement => {
-  const dispatch = useDispatch();
-  const isShow = useSelector((state: AppState) => state.home.isShowReportModal);
-
+  const isShow = false;
   const HideModal = (): void => {
     // const action = hideReportModal(null);
     // dispatch(action);
