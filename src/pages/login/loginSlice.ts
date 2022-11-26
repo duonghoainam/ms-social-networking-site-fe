@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authAPI from '../../api/auth/AuthApi';
-import postAPI from '../../api/post/PostApi';
-import userAPI from '../../api/UserApi';
-import { RegisterParams } from '../../api/auth/type/register.type';
 import { LoginParams } from '../../api/auth/type/login.type';
 import { ApiResponse } from '../../api/api-response.type';
 import { AuthState } from './state.type';
@@ -28,33 +25,8 @@ export const logout = createAsyncThunk('auth/logout', async (params, thunkAPI) =
   }
 });
 
-export const register = createAsyncThunk(
-  'auth/register',
-  async (args: RegisterParams, thunkAPI) => {
-    try {
-      const response: ApiResponse = await authAPI.createAccount(args);
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-export const getPosts = createAsyncThunk('post/getPosts', async () => {
-  const listPost = await postAPI.getPosts();
-  return listPost;
-});
-
-export const getAllUsers = createAsyncThunk('user/getAll', async (args, thunkAPI) => {
-  try {
-    const response = await userAPI.getAllUsers();
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
-  }
-});
-
-const AuthSlice = createSlice({
-  name: 'auth',
+const LoginSlice = createSlice({
+  name: 'login',
   initialState: {
     currentUser: {},
     listUser: [],
@@ -88,30 +60,6 @@ const AuthSlice = createSlice({
       localStorage.setItem('currentUser', JSON.stringify(action.payload.data.user));
     },
 
-    [getPosts.fulfilled.toString()]: (state: AuthState, action: any) => {},
-    [getAllUsers.pending.toString()]: (state: AuthState, action: any) => {
-      state.isLogin = true;
-    },
-    [getAllUsers.fulfilled.toString()]: (state: AuthState, action: any) => {
-      state.isLogin = false;
-
-      state.listUser = action.payload.listUser;
-    },
-    [getAllUsers.rejected.toString()]: (state: AuthState, action: any) => {},
-
-    // register
-    [register.pending.toString()]: (state: AuthState) => {
-      state.loading = true;
-    },
-
-    [register.rejected.toString()]: (state: AuthState, action: any) => {
-      state.loading = false;
-      state.error = 'Đăng ký thất bại !';
-    },
-
-    [register.fulfilled.toString()]: (state: AuthState, action: string) => {
-      state.loading = false;
-    },
     // logout
 
     [logout.fulfilled.toString()]: (state: AuthState, action: any) => {
@@ -129,12 +77,11 @@ const AuthSlice = createSlice({
       state.isLogin = true;
       // localStorage.removeItem('accessToken');
       // localStorage.removeItem('currentUser');
-    },
-    [getPosts.fulfilled.toString()]: (state: AuthState, action: any) => {}
+    }
   }
 });
 
-export const { reducer: AuthReducer, actions } = AuthSlice;
-export const { updateCurrentUser } = AuthSlice.actions;
+export const { reducer: LoginReducer, actions } = LoginSlice;
+export const { updateCurrentUser } = LoginSlice.actions;
 // export const { logout } = actions;
-export default AuthReducer;
+export default LoginReducer;

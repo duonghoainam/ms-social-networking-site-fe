@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
-import './auth.scss';
+import './Auth.scss';
 import { Button } from 'react-bootstrap';
-import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
-import { register } from '../authSlice';
 import { useAppDispatch } from '../../../app/store';
 import { RegisterParams } from '../../../api/auth/type/register.type';
+import FormikControl from '../../../components/FormikCustom/FormikControl';
+import { register } from '../registerSlice';
 
 const initialValues = {
   username: 'giathai1505@gmail.com',
@@ -24,7 +24,7 @@ const RegisterForm = (): ReactElement => {
     try {
       const result = await dispatch(register(values)).unwrap();
       alert(result.message);
-      navigate('/auth/login');
+      navigate('/login');
     } catch (error) {
       alert(error.message);
     }
@@ -86,7 +86,7 @@ const RegisterForm = (): ReactElement => {
         </div>
 
         <div className="loginForm__right__footer">
-          Do you have account? <Link to="/auth/login">Login now</Link>
+          Do you have account? <Link to="/login">Login now</Link>
         </div>
       </div>
     </div>

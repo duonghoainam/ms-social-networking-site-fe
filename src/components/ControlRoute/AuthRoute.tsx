@@ -4,7 +4,6 @@ import useAuth from '../../hooks/useAuth';
 
 const AuthRoute = ({ children, ...rest }: any): ReactElement => {
   const auth = useAuth();
-
   return !auth ? children : <Navigate to="/" />;
 };
 

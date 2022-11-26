@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
-import './auth.scss';
+import './Auth.scss';
 import { Button, Spinner } from 'react-bootstrap';
-import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
 import { useSelector } from 'react-redux';
-import { login } from '../authSlice';
+import { login } from '../loginSlice';
 import { addActiveId } from '../../user/profileSlice';
 import { useAppDispatch } from '../../../app/store';
 import { AppState } from '../../../app/state.type';
@@ -14,6 +13,7 @@ import { LoginParams } from '../../../api/auth/type/login.type';
 import { ToastContainer } from 'react-toastify';
 import { showToastMessage } from '../../../utils/toast.util';
 import { ApiResponse } from '../../../api/api-response.type';
+import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const initialValues: LoginParams = {
@@ -23,7 +23,7 @@ const initialValues: LoginParams = {
 
 const LoginForm = (): ReactElement => {
   const navigate = useNavigate();
-  const { loading } = useSelector((state: AppState) => state.auth);
+  const { loading } = useSelector((state: AppState) => state.login);
   const dispatch = useAppDispatch();
   const onSubmit = async (values: LoginParams): Promise<void> => {
     try {
@@ -91,7 +91,7 @@ const LoginForm = (): ReactElement => {
           </div>
 
           <div className="loginForm__right__footer">
-            Do you have account? <Link to="/auth/register">Register Now</Link>
+            Do you have account? <Link to="/register">Register Now</Link>
           </div>
         </div>
       </div>

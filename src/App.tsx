@@ -1,13 +1,14 @@
 import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Auth from './pages/auth';
-import IndexHome from './pages/home';
 import PrivateRoute from './components/ControlRoute/PrivateRoute';
-import AuthRoute from './components/ControlRoute/AuthRoute';
 import IndexChat from './pages/chat';
 import NewIndex from './pages/newpost/newIndex';
 import VideoCall from './pages/chat/components/VideoCall';
 import UserIndex from './pages/user';
+import HomePage from './pages/home/HomePage';
+import LoginPage from './pages/login/LoginPage';
+import AuthRoute from './components/ControlRoute/AuthRoute';
+import RegisterPage from './pages/register/RegisterPage';
 
 // import io from 'socket.io-client';
 
@@ -24,7 +25,9 @@ function App(): ReactElement {
           path="/*"
           element={
             <PrivateRoute>
-              <IndexHome />
+              <Routes>
+                <Route index element={<HomePage />}></Route>
+              </Routes>
             </PrivateRoute>
           }></Route>
 
@@ -52,10 +55,21 @@ function App(): ReactElement {
             </PrivateRoute>
           }></Route>
         <Route
-          path="/auth/*"
+          path="/login/*"
           element={
             <AuthRoute>
-              <Auth />
+              <Routes>
+                <Route index element={<LoginPage />} />
+              </Routes>
+            </AuthRoute>
+          }></Route>
+        <Route
+          path="/register/*"
+          element={
+            <AuthRoute>
+              <Routes>
+                <Route index element={<RegisterPage />} />
+              </Routes>
             </AuthRoute>
           }></Route>
       </Routes>
