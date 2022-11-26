@@ -13,11 +13,11 @@ import {
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import SingleDestination from '../../pages/chat/components/SingleDestination';
-import { addActiveId } from '../../pages/user/profileSlice';
+import SingleDestination from '../../pages/Chat/components/SingleDestination';
+import { addActiveId } from '../../pages/User/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
-import { logout } from '../../pages/login/loginSlice';
+import { logout } from '../../pages/Login/loginSlice';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './styles.scss';
 
 import { updateUser } from '../../profileSlice';
-import { updateCurrentUser } from '../../../login/loginSlice';
+import { updateCurrentUser } from '../../../Login/loginSlice';
 
 import useImageUpload from '../../../../hooks/useImageUpload';
 

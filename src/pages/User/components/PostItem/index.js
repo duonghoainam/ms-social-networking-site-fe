@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
-import { getCommentsByPostID, getPostById, ShowDetail } from '../../../home/state/homeSlice';
+import { getCommentsByPostID, getPostById, ShowDetail } from '../../../Home/state/homeSlice';
 
 import { Favorite, ChatBubble } from '@material-ui/icons';
 

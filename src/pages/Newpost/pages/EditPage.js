@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../components/Header/Header';
-import { getNotification } from '../../home/state/homeSlice';
+import { getNotification } from '../../Home/state/homeSlice';
 import UpdatePostHeader from '../components/EditPostHeader';
 import NewpostContent from '../components/newPostContent';
 import NewpostImage from '../components/newPostImage';

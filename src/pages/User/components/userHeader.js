@@ -6,9 +6,9 @@ import { Button } from 'react-bootstrap';
 import Dialog from './Dialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createConversation } from '../../chat/ChatSlice';
+import { createConversation } from '../../Chat/ChatSlice';
 import { socket } from '../../../App';
-import { createNotification, follow, unFollow } from '../../home/state/homeSlice';
+import { createNotification, follow, unFollow } from '../../Home/state/homeSlice';
 
 const UserHeader = () => {
     const current = useSelector((state) => state.auth.current);

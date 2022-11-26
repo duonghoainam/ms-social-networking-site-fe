@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import PrivateRoute from './components/ControlRoute/PrivateRoute';
-import IndexChat from './pages/chat';
-import NewIndex from './pages/newpost/newIndex';
-import VideoCall from './pages/chat/components/VideoCall';
-import UserIndex from './pages/user';
-import HomePage from './pages/home/HomePage';
-import LoginPage from './pages/login/LoginPage';
+import IndexChat from './pages/Chat';
+import NewIndex from './pages/Newpost/newIndex';
+import VideoCall from './pages/Chat/components/VideoCall';
+import UserIndex from './pages/User';
+import HomePage from './pages/Home/HomePage';
+import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
-import RegisterPage from './pages/register/RegisterPage';
+import RegisterPage from './pages/Register/RegisterPage';
 
 // import io from 'socket.io-client';
 
