@@ -1,0 +1,11 @@
+{
+  "_id": "123",
+  "content": "comment 1",
+  "reply": [],
+  "parent": "comment parent",
+  "likes": [],
+  "user": {},
+  "postId": "1",
+  "postUserId": {},
+  "createdAt": 1669303696334
+}

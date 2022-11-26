@@ -1,0 +1,1 @@
+export const useAllLikesPopup = (): any => {};
