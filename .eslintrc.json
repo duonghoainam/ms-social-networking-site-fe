@@ -7,9 +7,9 @@
 	"extends": [
 		"plugin:react/recommended",
 		"standard-with-typescript",
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:prettier/recommended"
+		"eslint:recommended"
+		// "plugin:react/recommended",
+		// "plugin:prettier/recommended"
 	],
 	"overrides": [],
 	"parserOptions": {
@@ -22,5 +22,6 @@
 	],
 	"rules": {
 		"react/react-in-jsx-scope": "off",
+		"semi": [2, "never"]
 	}
 }

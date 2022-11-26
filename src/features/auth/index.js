@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Route, Routes, Outlet } from 'react-router-dom';
 import NotFound from '../../shareComponents/notfound/NotFound';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
-const Auth = (): ReactElement => {
+const Auth = () => {
   return (
     <div>
       <Routes>
