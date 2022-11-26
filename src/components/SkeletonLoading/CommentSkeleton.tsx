@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from 'react';
 
-const CommentSkeleton = () => {
+const CommentSkeleton = (): ReactElement => {
   return (
     <div className="commentSleleton">
       <div className="commentSkeleton">

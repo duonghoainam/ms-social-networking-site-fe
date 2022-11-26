@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Formik, Form } from 'formik';
 import './auth.scss';
 import { Button } from 'react-bootstrap';
-import FormikControl from '../../../components/formikCustom/FormikControl';
+import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
 import { register } from '../authSlice';

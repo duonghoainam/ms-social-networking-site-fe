@@ -1,8 +1,8 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
-import "./skeleton.scss";
+import React, { ReactElement } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import './Skeleton.scss';
 
-const HomeSkeleton = () => {
+const HomeSkeleton = (): ReactElement => {
   return (
     <Col md={{ span: 12 }} className="hompageSkeleton">
       <Row>

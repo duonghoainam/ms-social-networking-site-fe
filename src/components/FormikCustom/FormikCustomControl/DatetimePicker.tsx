@@ -1,17 +1,17 @@
-import React from "react";
-import { ErrorMessage, Field } from "formik";
-import DateView from 'react-datepicker'
-import TextError from "./TextError";
-import 'react-datepicker/dist/react-datepicker.css'
+import React, { ReactElement } from 'react';
+import { ErrorMessage, Field } from 'formik';
+import DateView from 'react-datepicker';
+import TextError from './TextError';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const Datetimepicker = (props) => {
+const DatetimePicker = (props: any): ReactElement => {
   const { label, name, options, ...rest } = props;
   return (
     <div>
       <div className="form_control">
         <label htmlFor={name}>{label}</label>
         <Field name={name}>
-          {({ form, field }) => {
+          {({ form, field }: any) => {
             const { setFieldValue } = form;
             const { value } = field;
             return (
@@ -20,7 +20,7 @@ const Datetimepicker = (props) => {
                 {...field}
                 {...rest}
                 selected={value}
-                onChange={val => setFieldValue(name, val)}
+                onChange={(val) => setFieldValue(name, val)}
               />
             );
           }}
@@ -31,4 +31,4 @@ const Datetimepicker = (props) => {
   );
 };
 
-export default Datetimepicker;
+export default DatetimePicker;

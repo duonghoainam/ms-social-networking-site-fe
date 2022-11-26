@@ -18,7 +18,7 @@ const StyledVideo = styled.video`
   width: 50%;
 `;
 
-const Video = (props) => {
+const Video = (props: any): ReactElement => {
   const ref = useRef();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const videoConstraints = {
   width: window.innerWidth / 2,
 };
 
-const VideoCall = (props) => {
+const VideoCall = (props: any): ReactElement => {
   const params = useParams();
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();

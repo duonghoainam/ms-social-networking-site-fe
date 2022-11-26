@@ -5,7 +5,7 @@ import { updateAvt } from '../../profileSlice';
 
 
 
-const ChangePhotoPopup = (props) => {
+const ChangePhotoPopup = (props: any): ReactElement => {
   const currentUser = useSelector((state) => state.auth.current);
   const uploadImage = useImageUpload();
   const dispatch = useDispatch();

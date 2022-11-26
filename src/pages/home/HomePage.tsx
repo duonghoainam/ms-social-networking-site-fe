@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
-import HomeSkeleton from '../../components/skeletonLoading/HomeSkeleton';
+import HomeSkeleton from '../../components/SkeletonLoading/HomeSkeleton';
 import PostItem from '../components/PostItem/PostItem';
 import Category from '../components/Category';
 import PostComment from '../components/PostComment/PostComment';
