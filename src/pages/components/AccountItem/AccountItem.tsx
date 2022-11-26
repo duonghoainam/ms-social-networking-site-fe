@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
+import './AccountItem.scss';
 // import { useDispatch } from 'react-redux';
 // import { socket } from '../../../../App';
 // import { createNotification, follow, unFollow } from '../../homeSlice';
-// import './common.scss';
 
 const AccountItem = ({ user }: any): ReactElement => {
   // const dispatch = useDispatch();

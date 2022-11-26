@@ -12,11 +12,13 @@ import PostComment from '../components/PostComment/PostComment';
 import AllLikesPopup from '../components/AllLikesPopup/AllLikesPopup';
 import { useHomePage } from './hooks/useHomePage';
 import { usePostItem } from './hooks/usePostItem';
+import { usePostComment } from './hooks/usePostComment';
 
 const HomePage = (): ReactElement => {
-  const { showPostDetail } = useSelector((state: AppState) => state.home);
+  const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { listPost, isLoading, loadListPostFail } = useHomePage();
   const { showDetail, handleLikePost } = usePostItem();
+  const { hideDetail, handleLikePostComment } = usePostComment();
   return (
     <>
       <Container fluid>
@@ -56,7 +58,14 @@ const HomePage = (): ReactElement => {
           </Row>
         )}
       </Container>
-      {(showPostDetail as boolean) && <PostComment />}
+      {(isShowPostDetail as boolean) && (
+        <PostComment
+          isShowPostDetail={isShowPostDetail}
+          selectedPost={selectedPost}
+          hideDetail={hideDetail}
+          handleLikePost={handleLikePostComment}
+        />
+      )}
       <AllLikesPopup />
     </>
   );

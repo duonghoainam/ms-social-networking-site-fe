@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Close } from '@material-ui/icons';
 import AccountItem from '../AccountItem/AccountItem';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { HideAllLikesModal } from '../../homeSlice';
 import { Spinner } from 'react-bootstrap';
+import './AllLikesPopup.scss';
 
 const AllLikesPopup = (): ReactElement => {
   // const dispatch = useDispatch();

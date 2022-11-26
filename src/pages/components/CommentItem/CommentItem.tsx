@@ -4,15 +4,13 @@ import {
   FavoriteBorderOutlined,
   CheckCircle,
   Favorite,
-  // ReplyRounded,
   ChatBubbleOutlineOutlined
 } from '@material-ui/icons';
-// import '../commons/common.scss';
 import TimeAgo from 'javascript-time-ago';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useCommentItem } from './useCommentItem';
-// import useCloseOutSideToClose from '../../../../hooks/useCloseOutSideToClose';
+import './CommentItem.scss';
 // import { socket } from '../../../../App';
 
 const CommentItem = ({ comment }: any): ReactElement => {

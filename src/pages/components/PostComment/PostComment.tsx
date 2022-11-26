@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
 
 import AddComment from '../AddComment/AddComment';
 import {
@@ -14,18 +13,22 @@ import ListComment from '../ListComment';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
-import { AppState } from '../../../app/state.type';
 import CommentSkeleton from '../../../components/skeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
 import MessagePopup from '../../chat/components/MessagePopup';
 // import { socket } from '../../../App';
 
-const PostComment = (): ReactElement => {
-  const { selectedPost, showPostDetail } = useSelector((state: AppState) => state.home);
-  const { isLike, likeCount, isShowMessagePopup, setIsShowMessagePopup, hideDetail } =
-    usePostComment({ selectedPost });
+const PostComment = ({
+  isShowPostDetail,
+  hideDetail,
+  selectedPost,
+  handleLikePost
+}: any): ReactElement => {
+  const { isLike, setIsLike, likeCount, setLikeCount, isShowMessagePopup, setIsShowMessagePopup } =
+    usePostComment(selectedPost);
+  const postState = { isLike, setIsLike, likeCount, setLikeCount };
   return (
-    <div className="detail" style={{ display: (showPostDetail as boolean) ? '' : 'none' }}>
+    <div className="detail" style={{ display: (isShowPostDetail as boolean) ? '' : 'none' }}>
       <div className="detail__layout" onClick={hideDetail}></div>
       <div className="detail__content">
         <div className="detail__content__img">
@@ -66,7 +69,7 @@ const PostComment = (): ReactElement => {
                       {(isLike as boolean) ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          // onClick={() => handleLikePost(selectedPostId, null)}
+                          onClick={() => handleLikePost('id', postState)}
                         />
                       ) : (
                         <FavoriteBorderOutlined

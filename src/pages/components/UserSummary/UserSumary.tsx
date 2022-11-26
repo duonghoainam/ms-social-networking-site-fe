@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
+import './UserSummary.scss';
 
 const UserSummary = ({ user }: any): ReactElement => {
   const posts: any[] = [];

@@ -6,7 +6,7 @@ interface HomeState {
   listPost: any[];
   listComment: any[];
   isLoadComment: boolean;
-  showPostDetail: boolean;
+  isShowPostDetail: boolean;
   selectedPost: Post;
   isLoading: boolean;
   loadListPostFail: boolean;
@@ -17,7 +17,7 @@ const initialState: HomeState = {
   isLoading: true,
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   selectedPost: {} as Post,
-  showPostDetail: false,
+  isShowPostDetail: false,
   isLoadComment: true,
   loadListPostFail: false
 };
@@ -30,7 +30,7 @@ const HomeSlice = createSlice({
       return { ...state, selectedPost: action.payload };
     },
     setShowPostDetail: (state: any, action: any): void => {
-      return { ...state, showPostDetail: action.payload };
+      return { ...state, isShowPostDetail: action.payload };
     }
   },
   extraReducers
