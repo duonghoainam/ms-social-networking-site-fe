@@ -4,32 +4,19 @@ import AccountItem from '../AccountItem/AccountItem';
 import { Spinner } from 'react-bootstrap';
 import './AllLikesPopup.scss';
 
-const AllLikesPopup = (): ReactElement => {
-  // const dispatch = useDispatch();
-  // const { listLikeComment } = useSelector((state) => state.home);
+const AllLikesPopup = ({ isShow, hidePopup }: any): ReactElement => {
   const listLikeComment: any = {
     listUsers: [],
     isLoad: true,
     showModal: false
   };
-  // const hideModal = () => {
-  //   const action = HideAllLikesModal();
-  //   dispatch(action);
-  // };
   return (
-    <div
-      className="alllikes"
-      style={{ display: (listLikeComment.showModal as boolean) ? '' : 'none' }}>
-      <div
-        className="alllikes_overlay"
-        // onClick={hideModal}
-      ></div>
+    <div className="alllikes" style={{ display: (isShow as boolean) ? '' : 'none' }}>
+      <div className="alllikes_overlay" onClick={hidePopup}></div>
       <div className="alllikes_content">
         <div className="alllikes_content_header">
           <p>Lượt thích ({listLikeComment.listUsers.length})</p>
-          <Close
-          // onClick={hideModal}
-          />
+          <Close onClick={hidePopup} />
         </div>
         <div className="alllikes_content_content">
           {(listLikeComment.isLoad as boolean) ? (

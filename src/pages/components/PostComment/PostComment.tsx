@@ -24,8 +24,17 @@ const PostComment = ({
   selectedPost,
   handleLikePost
 }: any): ReactElement => {
-  const { isLike, setIsLike, likeCount, setLikeCount, isShowMessagePopup, setIsShowMessagePopup } =
-    usePostComment(selectedPost);
+  const {
+    isLike,
+    setIsLike,
+    likeCount,
+    setLikeCount,
+    isShowMessagePopup,
+    setIsShowMessagePopup,
+    isShowAllLikesPopup,
+    showAllLikesPopup,
+    hideAllLikesPopup
+  } = usePostComment(selectedPost);
   const postState = { isLike, setIsLike, likeCount, setLikeCount };
   return (
     <div className="detail" style={{ display: (isShowPostDetail as boolean) ? '' : 'none' }}>
@@ -83,10 +92,7 @@ const PostComment = ({
                 </Col>
               </Row>
             </div>
-            <div
-              className="postItem__content__likes"
-              // onClick={() => showAlllikesModal(selectedPost.likes)}
-            >
+            <div className="postItem__content__likes" onClick={showAllLikesPopup}>
               {likeCount} lượt thích
             </div>
             <div className="postItem__content__caption">{selectedPost.content}</div>
@@ -99,7 +105,9 @@ const PostComment = ({
       <div className="detail__icon" onClick={hideDetail}>
         <FontAwesomeIcon icon={faCircleXmark} />
       </div>
-      <AllLikesPopup />
+      {(isShowAllLikesPopup as boolean) && (
+        <AllLikesPopup isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
+      )}
       {(isShowMessagePopup as boolean) && (
         <MessagePopup
           setIsShowPopup={setIsShowMessagePopup}
