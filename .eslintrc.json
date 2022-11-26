@@ -22,6 +22,12 @@
 	],
 	"rules": {
 		"react/react-in-jsx-scope": "off",
-		"semi": [2, "never"]
+		"semi": 0,
+		"@typescript-eslint/semi": 0,
+		"prefer-const": ["warn", {
+			"destructuring": "any",
+			"ignoreReadBeforeAssign": false
+		}],
+		"no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
 	}
 }

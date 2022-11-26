@@ -12,8 +12,8 @@ import { getListRecommendFriends } from '../../home/homeSlice';
 import { addActiveId } from '../../user/profileSlice';
 
 const initialValues = {
-    email: 'thai@gmail.com',
-    password: '123',
+    email: 'minh2@gmail.com',
+    password: '123456',
 };
 
 const validationSchema = Yup.object({
