@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { AppState } from '../../../../app/state.type';
+import { AppState } from '../../../app/state.type';
 
 export const useCommentItem = (comment: any): any => {
   // const dispatch = useDispatch();

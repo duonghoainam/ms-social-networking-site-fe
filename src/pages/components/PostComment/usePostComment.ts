@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../../../app/store';
-import { handleLike, handleUnLike } from '../../state/homeActions';
-import { setShowPostDetail } from '../../state/homeSlice';
+import { useAppDispatch } from '../../../app/store';
+import { handleLike, handleUnLike } from '../../home/state/homeActions';
+import { setShowPostDetail } from '../../home/state/homeSlice';
 
 export const usePostComment = ({ selectedPost }: any): any => {
   const dispatch = useAppDispatch();

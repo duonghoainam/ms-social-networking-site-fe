@@ -13,8 +13,8 @@ import { AppState } from '../../../app/state.type';
 import { LoginParams } from '../../../api/auth/type/login.type';
 import { ToastContainer } from 'react-toastify';
 import { showToastMessage } from '../../../utils/toast.util';
-import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { ApiResponse } from '../../../api/api-response.type';
+import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const initialValues: LoginParams = {
   username: 'giathai1505@gmail.com',

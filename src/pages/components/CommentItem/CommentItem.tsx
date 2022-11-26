@@ -7,7 +7,7 @@ import {
   // ReplyRounded,
   ChatBubbleOutlineOutlined
 } from '@material-ui/icons';
-import '../commons/common.scss';
+// import '../commons/common.scss';
 import TimeAgo from 'javascript-time-ago';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';

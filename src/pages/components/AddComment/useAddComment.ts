@@ -1,7 +1,7 @@
 import { EmojiClickData } from 'emoji-picker-react';
 import { useState } from 'react';
-import { useAppDispatch } from '../../../../app/store';
-import { addNewComment } from '../../state/homeActions';
+import { useAppDispatch } from '../../../app/store';
+import { addNewComment } from '../../home/state/homeActions';
 
 export const useAddComment = (): any => {
   // const current = JSON.parse(localStorage.getItem("currentUser"));

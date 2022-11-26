@@ -12,12 +12,12 @@ import {
 import PostHeader from '../PostHeader/PostHeader';
 import ListComment from '../ListComment';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
-import CommentSkeleton from '../../../../components/skeletonLoading/CommentSkeleton';
 import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
-import MessagePopup from '../../../chat/components/MessagePopup';
-import { AppState } from '../../../../app/state.type';
+import { AppState } from '../../../app/state.type';
+import CommentSkeleton from '../../../components/skeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
+import MessagePopup from '../../chat/components/MessagePopup';
 // import { socket } from '../../../App';
 
 const PostComment = (): ReactElement => {

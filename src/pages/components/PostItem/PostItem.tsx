@@ -11,14 +11,20 @@ import {
 import PostHeader from '../PostHeader/PostHeader';
 import { format } from 'timeago.js';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
-import MessagePopup from '../../../chat/components/MessagePopup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReportModal from '../ReportModal';
 import { usePostItem } from './usePostItem';
+import MessagePopup from '../../chat/components/MessagePopup';
 
-const PostItem = ({ post, showPostComment, setShowPostComment }: any): ReactElement => {
-  const { currentUser, handleLikePost, showDetail, setIsShowMessagePopup, isShowMessagePopup } =
-    usePostItem({ post, showPostComment, setShowPostComment });
+/**
+ * post params are logic for to manage state, call data for a post item
+ * @param post post data
+ * @param setSelectedPost set current post to state
+ * @param setShowPostDetail show/hide post detail
+ * @param getPostComments call api to get post comments and set state
+ * @returns
+ */
+const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
+  const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem({ post });
   return (
     <>
       <Row className="postItem">
@@ -64,7 +70,7 @@ const PostItem = ({ post, showPostComment, setShowPostComment }: any): ReactElem
                 />
               )}
 
-              <AddCommentOutlined onClick={showDetail} />
+              <AddCommentOutlined onClick={() => showDetail(post)} />
 
               <SendOutlined onClick={() => setIsShowMessagePopup(true)} />
             </Col>
@@ -81,12 +87,12 @@ const PostItem = ({ post, showPostComment, setShowPostComment }: any): ReactElem
               Xem thêm
             </span>
           )} */}
-          <div className="postItem__post__allCmt" onClick={showDetail}>
+          <div className="postItem__post__allCmt" onClick={() => showDetail(post)}>
             Xem tất cả {post.comments.length} bình luận
           </div>
           <div className="postItem__post__time">{format(post.createdAt)}</div>
         </Col>
-        <ReportModal postId={post.user._id} />
+        {/* <ReportModal postId={post.user._id} /> */}
       </Row>
       {(isShowMessagePopup as boolean) && (
         <MessagePopup

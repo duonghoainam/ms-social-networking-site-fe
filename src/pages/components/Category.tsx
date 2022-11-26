@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { AppState } from '../../../app/state.type';
+import { AppState } from '../../app/state.type';
 import FriendRecommendItem from './FriendRecommendItem/FriendRecommendItem';
 
 const Category = (): ReactElement => {

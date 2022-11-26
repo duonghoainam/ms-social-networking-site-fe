@@ -5,7 +5,7 @@ import { getCommentsByPostID, getPostById, ShowDetail } from '../../../home/stat
 
 import { Favorite, ChatBubble } from '@material-ui/icons';
 
-import PostComment from '../../../home/components/PostComment/PostComment';
+// import PostComment from '../../../home/components/PostComment/PostComment';
 
 import './styles.scss';
 import { socket } from '../../../../App';
@@ -30,7 +30,7 @@ const PostItem = ({ post }) => {
 
     return (
         <>
-            {isShowDetail && <PostComment />}
+            {/* {isShowDetail && <PostComment />} */}
             <Col sm={4} className="flex" onClick={() => showDialog(post._id)}>
                 <Row>
                     <Col className="post-item">

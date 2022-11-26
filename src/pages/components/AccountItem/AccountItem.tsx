@@ -3,7 +3,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 // import { useDispatch } from 'react-redux';
 // import { socket } from '../../../../App';
 // import { createNotification, follow, unFollow } from '../../homeSlice';
-import './common.scss';
+// import './common.scss';
 
 const AccountItem = ({ user }: any): ReactElement => {
   // const dispatch = useDispatch();

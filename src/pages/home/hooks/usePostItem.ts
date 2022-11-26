@@ -1,16 +1,12 @@
-import { useState } from 'react';
-import { getPostComments } from '../../state/homeActions';
-import { useAppDispatch } from '../../../../app/store';
-import { setSelectedPost, setShowPostDetail } from '../../state/homeSlice';
+import { Post } from '../../../api/post/type/post.type';
+import { useAppDispatch } from '../../../app/store';
+import { getPostComments } from '../state/homeActions';
+import { setSelectedPost, setShowPostDetail } from '../state/homeSlice';
 
-export const usePostItem = ({ post }: any): any => {
+export const usePostItem = (): any => {
   const dispatch = useAppDispatch();
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-
-  const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
-
-  const showDetail = async (): Promise<void> => {
+  const showDetail = async (post: Post): Promise<void> => {
     const setPost = setSelectedPost(post);
     await dispatch(setPost);
 
@@ -62,10 +58,7 @@ export const usePostItem = ({ post }: any): any => {
   //   e.target.style.display = 'none';
   // };
   return {
-    currentUser,
     showDetail,
-    handleLikePost,
-    isShowMessagePopup,
-    setIsShowMessagePopup
+    handleLikePost
   };
 };
