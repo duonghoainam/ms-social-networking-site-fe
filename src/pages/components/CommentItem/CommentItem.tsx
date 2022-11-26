@@ -7,15 +7,13 @@ import {
   ChatBubbleOutlineOutlined
 } from '@material-ui/icons';
 import TimeAgo from 'javascript-time-ago';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useCommentItem } from './useCommentItem';
 import './CommentItem.scss';
 // import { socket } from '../../../../App';
 
 const CommentItem = ({ comment }: any): ReactElement => {
   const timeAgo = new TimeAgo('en-US');
-  const { isLike, isDelete, showChildrenComment, likeCount } = useCommentItem(comment);
+  const { isLike, likeCount, showChildrenComment } = useCommentItem(comment);
 
   return (
     <Row className="comment">
@@ -49,7 +47,7 @@ const CommentItem = ({ comment }: any): ReactElement => {
 
             <p
               className="comment_content_interact_likes"
-              // onClick={async () => await ShowAlllikesModal(comment.likes)}
+              // onClick={async () => await ShowAllLikesModal(comment.likes)}
             >
               {likeCount}
             </p>
@@ -61,48 +59,9 @@ const CommentItem = ({ comment }: any): ReactElement => {
               <ChatBubbleOutlineOutlined className="rep"></ChatBubbleOutlineOutlined>
               Trả lời
             </p>
-            {(isDelete as boolean) && (
-              <div className="comment_content_interact_more">
-                <FontAwesomeIcon
-                  // className="comment_content_interact_more"
-                  icon={faEllipsis}
-                  // onClick={() => setisShowCmtOption(!isShowCmtOption)}
-                />
-                <div
-                  // ref={domNode1}
-                  className="comment_content_interact_more_option"
-                  // style={{ display: isShowCmtOption ? '' : 'none' }}
-                >
-                  <ul>
-                    {/* <li
-                  className={isEdit == true ? "" : "disabled"}
-                  onClick={() => handleEditCmt(comment._id)}
-                >
-                  Sửa
-                </li> */}
-                    <li
-                      className={(isDelete as boolean) ? '' : 'disabled'}
-                      // onClick={async () => await handleDeleteCmt(comment._id)}
-                    >
-                      Xóa
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </Col>
-      {/* <Col md={{ span: 1 }} className="comment_like">
-        {isLike ? (
-          <Favorite
-            className="likeActive"
-            onClick={() => handleLikeCmt(comment._id, comment.user._id)}
-          />
-        ) : (
-          <FavoriteBorderOutlined onClick={() => handleLikeCmt(comment._id)} />
-        )}
-      </Col> */}
       {comment.reply.length > 0 ? (
         <Col
           className="comment_childrenStatus"
