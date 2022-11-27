@@ -11,11 +11,11 @@ import {
     getPostById,
     seenNotification,
     ShowDetail,
-} from '../../features/home/homeSlice';
+} from '../../pages/home/homeSlice';
 import { socket } from '../../App';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addActiveId } from '../../features/user/profileSlice';
+import { addActiveId } from '../../pages/user/profileSlice';
 
 const NotificationItem = ({ info, handleNum }) => {
     const dispatch = useDispatch();

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Auth from './features/auth';
-import IndexHome from './features/home';
+import Auth from './pages/auth';
+import IndexHome from './pages/home';
 import PrivateRout from './shareComponents/privateRout/privateRout';
 import BruhRoute from './shareComponents/privateRout/BruhRoute';
-import IndexChat from './features/chat';
-import NewIndex from './features/newpost/newIndex';
-import VideoCall from './features/chat/components/VideoCall';
-import UserIndex from './features/user';
+import IndexChat from './pages/chat';
+import NewIndex from './pages/newpost/newIndex';
+import VideoCall from './pages/chat/components/VideoCall';
+import UserIndex from './pages/user';
 
 import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
-import PostComment from './features/home/components/postComment';
+import PostComment from './pages/home/components/postComment';
 
 export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 

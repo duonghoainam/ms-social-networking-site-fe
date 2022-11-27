@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import AuthReducer from '../features/auth/authSlice';
-import chatSlice from '../features/chat/ChatSlice';
-import HomeReducer from '../features/home/homeSlice';
-import userReducer from '../features/user/profileSlice';
+import AuthReducer from '../pages/auth/authSlice';
+import chatSlice from '../pages/chat/ChatSlice';
+import HomeReducer from '../pages/home/homeSlice';
+import userReducer from '../pages/user/profileSlice';
 import {
   persistStore,
   persistReducer,
