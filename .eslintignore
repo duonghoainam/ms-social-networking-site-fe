@@ -1,4 +1,5 @@
 src/features/chat/*
 src/features/newpost/*
 src/features/post/*
+src/features/home/*
 # src/features/user/*

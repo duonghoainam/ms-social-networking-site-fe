@@ -1,30 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useImageUpload from '../../../../hooks/useImageUpload';
-import { updateAvt } from '../../profileSlice';
 import { useChangeProfilePopup } from './useChangeProfilePhotoPopup';
 
-const ChangePhotoPopup = ({ props }: any): ReactElement => {
-  // const currentUser = useSelector((state) => state.auth.current);
-  // const uploadImage = useImageUpload();
-  // const dispatch = useDispatch();
-  // const handleFileChange = async (e) => {
-  //   const image = await uploadImage(e.target.files[0]);
-  //   await dispatch(updateAvt({ avatar: image }));
-  //   props.setShowModal(false);
-  // };
-
-  // const handleCancle = () => {
-  //   props.setShowModal(false);
-  // };
-
+const ChangeProfilePhotoPopup = ({ props }: any): ReactElement => {
+  const { handleFileChange, handleCancle } = useChangeProfilePopup(props);
   return (
     <div className="report">
       <div
         className="report__layout"
-        // onClick={props.handlePopup}
+        onClick={props.handlePopup}
       ></div>
       <div className="report__content">
         <ul>
@@ -34,14 +17,14 @@ const ChangePhotoPopup = ({ props }: any): ReactElement => {
               <input
                 type="file"
                 id="files"
-                // onChange={handleFileChange}
+                onChange={handleFileChange}
               />{' '}
               Update Photo
             </label>
           </li>
           <li style={{ color: 'red' }}> Remove Current Photo</li>
           <li
-            // onClick={() => handleCancle()}
+            onClick={() => handleCancle()}
             style={{ cursor: 'pointer' }}>
             Cancel
           </li>
@@ -51,4 +34,4 @@ const ChangePhotoPopup = ({ props }: any): ReactElement => {
   );
 };
 
-export default ChangePhotoPopup;
+export default ChangeProfilePhotoPopup;

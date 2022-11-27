@@ -4,33 +4,18 @@ import './styles.scss';
 import { useFollowerItem } from './useFollowerItem';
 
 const FollowerItem = (user: any, setShowModal: any): ReactElement => {
-  // const { _id, name, avatar, email } = user;
-  // const dispatch = useDispatch();
-
-  // const authUserId = useSelector((state) => state.auth.current._id);
-  // const currentUserId = useSelector((state) => state.user.userInfo._id);
-
-  // const handleRemoveFollow = async (e) => {
-  //   e.stopPropagation();
-  //   console.log(_id);
-  //   const action = removeFollow(_id);
-  //   await dispatch(action);
-  // };
-
-  // const handleDirectToAccount = (e) => {
-  //   e.stopPropagation();
-  //   setShowModal(false);
-  //   const action = addActiveId(_id);
-  //   dispatch(action);
-  // };
-
-  const { name, avatar, email, authUserId, currentUserId } = useFollowerItem(user, setShowModal);
+  const {
+    name,
+    avatar,
+    email,
+    authUserId,
+    currentUserId,
+    handleRemoveFollow,
+    handleDirectToAccount
+  } = useFollowerItem(user, setShowModal);
 
   return (
-    <Row
-      className="accountItem"
-      // onClick={(e) => handleDirectToAccount(e)}
-    >
+    <Row className="accountItem" onClick={(e) => handleDirectToAccount(e)}>
       <Col md={{ span: 1 }}>
         <img src={avatar} alt="" />
       </Col>
@@ -42,9 +27,7 @@ const FollowerItem = (user: any, setShowModal: any): ReactElement => {
       </Col>
       <Col md={{ span: 4 }}>
         {authUserId === currentUserId && (
-          <Button
-            // onClick={(e) => handleRemoveFollow(e)}
-            size="sm">
+          <Button onClick={(e) => handleRemoveFollow(e)} size="sm">
             Hủy theo dõi
           </Button>
         )}

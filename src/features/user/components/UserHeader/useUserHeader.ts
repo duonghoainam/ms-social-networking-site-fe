@@ -1,8 +1,14 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { AppState } from '../../../../app/state.type';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { createConversation } from '../../../chat/ChatSlice';
+import { useAppDispatch } from '../../../../app/store';
+import { createNotification, follow, unFollow } from '../../../home/homeSlice';
+import { socket } from '../../../../App';
 
 export const useUserHeader = (): any => {
   const current = useSelector((state: AppState) => state.auth.current);
@@ -15,92 +21,105 @@ export const useUserHeader = (): any => {
   const UserInfo = useSelector((state: AppState) => state.user.userInfo);
   const posts = useSelector((state: AppState) => state.user.posts);
 
-  const isfollow = UserInfo?.followers
-    ?.map((item: any) => {
-      return item._id;
-    })
-    .includes(current?._id);
+  // const isfollow = UserInfo?.followers
+  //   ?.map((item: any) => {
+  //     return item._id;
+  //   })
+  //   .includes(current?._id);
+  const isfollow = (): boolean => {
+    return UserInfo?.followers
+      ?.map((item: any) => {
+        return item._id;
+      })
+      .includes(current?._id);
+  };
 
-  //   const [IsFollow, setIsFollow] = useState(isfollow);
-  const [IsFollow, setIsFollow] = useState(false);
+  const [IsFollow, setIsFollow] = useState(isfollow);
 
   const { name, avatar, _id } = UserInfo;
   const totalFollower = UserInfo.followers?.length;
   const totalFollowing = UserInfo.following?.length;
 
   const conversations = useSelector((state: AppState) => state.chat.conversations);
-  //   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  //   const handleShowFollow = (isFollowers) => {
-  //     setIsShowFollowers(isFollowers);
-  //     setShowModalFollow(true);
-  //   };
+  const handleShowFollow = (isFollowers: boolean): any => {
+    setIsShowFollowers(isFollowers);
+    setShowModalFollow(true);
+  };
 
-  //   const handleChangeAvt = () => {
-  //     setIsShowChangeAvataPopup(true);
-  //   };
-  //   const handleGuiTinNhan = (currentUser, destinationUser) => {
-  //     let exist = [];
-  //     console.log({ currentUser, destinationUser });
-  //     console.log(conversations);
-  //     if (conversations.length !== 0) {
-  //       exist = conversations.filter((conversation) => {
-  //         if (conversation.members.length === 2) {
-  //           const listIds = conversation.members.map((member) => {
-  //             return member._id;
-  //           });
-  //           if (listIds.includes(currentUser._id) && listIds.includes(destinationUser._id)) {
-  //             return true;
-  //           }
-  //         }
-  //         return false;
-  //       });
-  //     }
-  //     if (exist.length !== 0) {
-  //       navigate(`/messenger/${exist[0]._id}`);
-  //     } else {
-  //       dispatch(createConversation({ users: [destinationUser] }))
-  //         .unwrap()
-  //         .then((resultValue) => {
-  //           navigate(`/messenger/${resultValue.conversation._id}`);
-  //         })
-  //         .catch((rejectedValue) => console.log(rejectedValue));
-  //     }
-  //   };
+  const handleChangeAvt = (): any => {
+    setIsShowChangeAvataPopup(true);
+  };
 
-  //   const handleFollow = async (id) => {
-  //     if (IsFollow) {
-  //       const action = unFollow(id);
-  //       await dispatch(action).unwrap();
-  //       setIsFollow(false);
-  //     } else {
-  //       const action1 = follow(id);
-  //       await dispatch(action1).unwrap();
-  //       setIsFollow(true);
-  //       let notification = {
-  //         postId: current._id,
-  //         userId: UserInfo._id,
-  //         type: 3,
-  //         senderName: current.name,
-  //         img: current.avatar
-  //       };
-  //       socket.emit('send_notificaton', notification);
-  //       let paramsCreate = {
-  //         receiver: id,
-  //         notiType: 3,
-  //         desId: current._id
-  //       };
-  //       const actionCreateNoti = createNotification(paramsCreate);
-  //       await dispatch(actionCreateNoti).unwrap();
-  //     }
-  //   };
+  const handleGuiTinNhan = (currentUser: any, destinationUser: any): any => {
+    let exist = [];
+    if (conversations.length !== 0) {
+      exist = conversations.filter((conversation: any) => {
+        if (conversation.members.length === 2) {
+          const listIds = conversation.members.map((member: any) => {
+            return member._id;
+          });
+          if (
+            Boolean(listIds.includes(currentUser._id)) &&
+            Boolean(listIds.includes(destinationUser._id))
+          ) {
+            return true;
+          }
+        }
+        return false;
+      });
+    }
+    if (exist.length !== 0) {
+      navigate(`/messenger/${exist[0]._id}`);
+    } else {
+      dispatch(createConversation({ users: [destinationUser] }))
+        .unwrap()
+        .then((resultValue: any) => {
+          navigate(`/messenger/${resultValue.conversation._id}`);
+        })
+        .catch((rejectedValue: any) => console.log(rejectedValue));
+    }
+  };
+
+  const handleFollow = async (id: any): Promise<void> => {
+    if (IsFollow) {
+      const action = unFollow(id);
+      await dispatch(action).unwrap();
+      setIsFollow(false);
+    } else {
+      const action1 = follow(id);
+      await dispatch(action1).unwrap();
+      setIsFollow(true);
+      const notification = {
+        postId: current._id,
+        userId: UserInfo._id,
+        type: 3,
+        senderName: current.name,
+        img: current.avatar
+      };
+      socket.emit('send_notificaton', notification);
+      const paramsCreate = {
+        receiver: id,
+        notiType: 3,
+        desId: current._id
+      };
+      const actionCreateNoti = createNotification(paramsCreate);
+      await dispatch(actionCreateNoti).unwrap();
+    }
+  };
   return {
     current,
     showModal,
+    setShowModal,
+    setShowModalFollow,
     showModalFollow,
     isShowFollowers,
+    setIsShowFollowers,
     isShowChangeAvataPopup,
+    setIsShowChangeAvataPopup,
     authUserId,
     UserInfo,
     posts,
@@ -110,6 +129,10 @@ export const useUserHeader = (): any => {
     _id,
     totalFollower,
     totalFollowing,
-    conversations
+    conversations,
+    handleFollow,
+    handleShowFollow,
+    handleChangeAvt,
+    handleGuiTinNhan
   };
 };

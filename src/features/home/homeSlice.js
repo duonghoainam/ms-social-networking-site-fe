@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import NotificationAPI from "../../api/NotificationApi";
 import postAPI from "../../api/PostApi";
+import { AxiosResponse } from "axios";
 
 //hàm lấy tất cả bài post khi vào trang chủ
 export const getPosts = createAsyncThunk("post/getPosts", async () => {
@@ -11,7 +12,7 @@ export const getPosts = createAsyncThunk("post/getPosts", async () => {
 //hàm lấy tất cả comment của bài post
 export const getCommentsByPostID = createAsyncThunk(
   "post/getComments",
-  async (params) => {
+  async (params: any): Promise<AxiosResponseAxiosResponse> => {
     const listComment = await postAPI.getCommentByPostID(params);
     return listComment;
   }
@@ -72,11 +73,11 @@ export const deleteComment = createAsyncThunk(
 );
 
 //unfollow
-export const unFollow = createAsyncThunk("user/unfollow", async (params) => {
+export const unFollow = createAsyncThunk("user/unfollow", async (params: any): Promise<void> => {
   const listRecommend = await postAPI.unnFollowFriends(params);
 });
 //unfollow
-export const follow = createAsyncThunk("user/follow", async (params) => {
+export const follow = createAsyncThunk("user/follow", async (params: any): Promise<void> => {
   const listRecommend = await postAPI.followFriends(params);
 });
 
@@ -121,7 +122,7 @@ export const deletePost = createAsyncThunk(
 
 export const getPostById = createAsyncThunk(
   "post/getPostById",
-  async (params) => {
+  async (params: any): Promise<AxiosResponse> => {
     const post = await postAPI.getPostById(params);
     console.log(post);
     return post;
@@ -138,7 +139,7 @@ export const getNotification = createAsyncThunk(
 
 export const createNotification = createAsyncThunk(
   "notification/create",
-  async (params) => {
+  async (params: any): Promise<AxiosResponse> => {
     const listNotification = await NotificationAPI.createNotification(params);
   }
 );

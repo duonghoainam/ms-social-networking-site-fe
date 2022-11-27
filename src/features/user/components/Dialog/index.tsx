@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Tab, Row, Col, Nav } from 'react-bootstrap';
-
 import './styles.scss';
 import UpdateProfile from '../UpdateProfile';
 import ChangePassword from '../ChangePassword';

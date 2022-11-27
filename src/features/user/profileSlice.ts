@@ -1,40 +1,41 @@
 /* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
 import userAPI from '../../api/UserApi';
 
 // Action API
-export const getUserById = createAsyncThunk('user/getUserById', async (params) => {
+export const getUserById = createAsyncThunk('user/getUserById', async (params: any): Promise<AxiosResponse> => {
   const userInfo = await userAPI.getUserInfo(params);
   return userInfo;
 });
 
-export const updateUser = createAsyncThunk('user/updateUser', async (params) => {
+export const updateUser = createAsyncThunk('user/updateUser', async (params: any): Promise<AxiosResponse> => {
   const updatedUser = await userAPI.updateUser(params);
   return updatedUser;
 });
 
-export const updateAvt = createAsyncThunk('user/updateAvt', async (params) => {
+export const updateAvt = createAsyncThunk('user/updateAvt', async (params: any): Promise<AxiosResponse> => {
   const updatedUser = await userAPI.updateAvt(params);
   return updatedUser;
 });
 
-export const unFollow = createAsyncThunk('user/unFollow', async (params) => {
+export const unFollow = createAsyncThunk('user/unFollow', async (params: any): Promise<AxiosResponse> => {
   const unFollowUser = await userAPI.unFollow(params);
   return unFollowUser;
 });
 
-export const removeFollow = createAsyncThunk('user/removeFollow', async (params) => {
+export const removeFollow = createAsyncThunk('user/removeFollow', async (params: any): Promise<AxiosResponse> => {
   const unFollowUser = await userAPI.removeFollow(params);
   console.log(unFollowUser);
   return unFollowUser;
 });
 
-export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async (params) => {
+export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async (params: any): Promise<AxiosResponse> => {
   const posts = await userAPI.getPostsByUserId(params);
   return posts;
 });
 
-export const changePassword = createAsyncThunk('user/changePassword', async (params) => {
+export const changePassword = createAsyncThunk('user/changePassword', async (params: any): Promise<AxiosResponse> => {
   console.log(params);
   const changePasswordUser = await userAPI.changePassword(params);
   return changePasswordUser;

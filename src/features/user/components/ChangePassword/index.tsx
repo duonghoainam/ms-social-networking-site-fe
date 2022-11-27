@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { ReactElement } from 'react';
 
 import Form from 'react-bootstrap/Form';
@@ -8,31 +7,11 @@ import { useChangePassword } from './useChangePassword';
 import './styles.scss';
 
 const ChangePassword = ({ setShowModal }: any): ReactElement => {
-  // const dispatch = useDispatch();
-
-  // const [formValues, setFormValues] = React.useState({
-  //   oldPassword: '',
-  //   newPassword: '',
-  //   confirmPassword: ''
-  // });
-
-  // const onChangeFormValues = (e) => {
-  //   setFormValues({ ...formValues, [e.target.name]: e.target.value });
-  // };
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const action = changePassword(formValues);
-  //   const result = await dispatch(action).unwrap();
-  //   alert(result.message);
-  //   setShowModal(false);
-  // };
-
-  const { formValues } = useChangePassword(setShowModal);
+  const { onChangeFormValues, onSubmit, formValues } = useChangePassword(setShowModal);
 
   return (
     <Form
-    // onSubmit={onSubmit}
+    onSubmit={onSubmit}
     >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Container>
@@ -45,7 +24,7 @@ const ChangePassword = ({ setShowModal }: any): ReactElement => {
                 className="w-100"
                 type="password"
                 name="oldPassword"
-                // onChange={onChangeFormValues}
+                onChange={onChangeFormValues}
                 value={formValues.oldPassword}
                 placeholder="Enter your old password"
               />
@@ -65,7 +44,7 @@ const ChangePassword = ({ setShowModal }: any): ReactElement => {
                 type="password"
                 placeholder="Enter new password"
                 name="newPassword"
-                // onChange={onChangeFormValues}
+                onChange={onChangeFormValues}
                 value={formValues.newPassword}
               />
             </Col>
@@ -84,7 +63,7 @@ const ChangePassword = ({ setShowModal }: any): ReactElement => {
                 type="password"
                 placeholder="Confirm new password"
                 name="confirmPassword"
-                // onChange={onChangeFormValues}
+                onChange={onChangeFormValues}
                 value={formValues.confirmPassword}
               />
             </Col>

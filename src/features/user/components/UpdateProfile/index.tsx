@@ -1,51 +1,24 @@
 import React, { ReactElement } from 'react';
-
 import Form from 'react-bootstrap/Form';
 import { Row, Col, Container, Button } from 'react-bootstrap';
-// import { useSelector, useDispatch } from 'react-redux';
 
 import './styles.scss';
 import { useUpdateProfile } from './useUpdateProfile';
 
-// import { updateUser } from '../../profileSlice';
-// import { updateCurrentUser } from '../../../auth/authSlice';
-
-// import useImageUpload from '../../../../hooks/useImageUpload';
-
 const UpdateProfile = (setShowModal: any): ReactElement => {
-  // const dispatch = useDispatch();
-  // const uploadImage = useImageUpload();
+  const {
+    name,
+    email,
+    mobile,
+    role,
+    onChangeUserInfo,
+    handleFileChange,
+    onSubmit
+  } = useUpdateProfile(setShowModal);
 
-  // const UserState = useSelector((state) => state.user.userInfo);
-  // const [userInfo, setUserInfo] = useState(UserState);
-
-  // const { name, email, mobile, role, avatar } = userInfo;
-
-  // const [imageAvt, setImageAvt] = useState(avatar);
-
-  // const onChangeUserInfo = (e) => {
-  //   setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-  // };
-
-  // const handleFileChange = async (e) => {
-  //   const image = await uploadImage(e.target.files[0]);
-  //   setImageAvt(image);
-  // };
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const action = updateUser({ ...userInfo, avatar: imageAvt });
-  //   const result = await dispatch(action).unwrap();
-  //   dispatch(updateCurrentUser(result.user));
-  //   alert(result.message);
-  //   setShowModal(false);
-  // };
-
-  const { name, email, mobile, role, onChangeUserInfo } =
-    useUpdateProfile(setShowModal);
   return (
     <Form
-    // onSubmit={onSubmit}
+    onSubmit={onSubmit}
     >
       <Form.Group controlId="formFile" className="mb-3">
         <Container>
@@ -58,7 +31,7 @@ const UpdateProfile = (setShowModal: any): ReactElement => {
                 className="w-100"
                 type="file"
                 name="avatar"
-                // onChange={handleFileChange}
+                onChange={handleFileChange}
               />
             </Col>
           </Row>
@@ -77,7 +50,7 @@ const UpdateProfile = (setShowModal: any): ReactElement => {
                 name="name"
                 required
                 value={name}
-                // onChange={onChangeUserInfo}
+                onChange={onChangeUserInfo}
                 placeholder="Enter your name"
               />
               <Form.Text className="text-muted">
