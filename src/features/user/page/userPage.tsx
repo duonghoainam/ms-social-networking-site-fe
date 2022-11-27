@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import { Col, Container, Row } from 'react-bootstrap';
-import { InsertEmoticonOutlined } from '@material-ui/icons';
+import React, { useEffect, ReactElement } from 'react';
+import { Container, Row } from 'react-bootstrap';
 
 import UserProfile from '../components/UserProfile';
 import Header from '../../../shareComponents/header/Header';
 
-const UserPage = () => {
+const UserPage = (): ReactElement => {
   useEffect(() => {
     document.title = 'Midori • Profile';
   });
