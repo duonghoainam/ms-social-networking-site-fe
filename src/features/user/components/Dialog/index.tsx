@@ -1,22 +1,23 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Tab, Row, Col, Nav } from 'react-bootstrap';
-import './styles.scss';
 import UpdateProfile from '../UpdateProfile';
 import ChangePassword from '../ChangePassword';
+import './styles.scss';
 
-const Dialog = (showModal: any, setShowModal: any): ReactElement => {
+const Dialog = (props: { showModal: any, setShowModal: any }): any => {
   const handleCloseDialog = (): any => {
-    setShowModal(false);
+    props.setShowModal(false);
   };
 
   return (
     <Modal
-      show={showModal}
+      show={props.showModal}
       bsSize="large"
       onHide={handleCloseDialog}
       contentClassName="modal-height"
-      dialogClassName="modal-width">
+      dialogClassName="modal-width"
+      >
       <Modal.Header closeButton>
         <Modal.Title>Change Profile Settings</Modal.Title>
       </Modal.Header>
@@ -36,10 +37,10 @@ const Dialog = (showModal: any, setShowModal: any): ReactElement => {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  <UpdateProfile setShowModal={setShowModal} />
+                  <UpdateProfile setShowModal={props.setShowModal} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                  <ChangePassword setShowModal={setShowModal} />
+                  <ChangePassword setShowModal={props.setShowModal} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

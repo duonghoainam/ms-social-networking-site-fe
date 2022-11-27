@@ -1,27 +1,11 @@
 import React, { ReactElement } from 'react';
-
 import Modal from 'react-bootstrap/Modal';
 import FollowerItem from '../FollowerItem';
 import './styles.scss';
-
 import FollowingItem from '../FollowingItem';
 import { useFollowerList } from './useFollowerList';
 
 const FollowersList = (props: { showModal: any, setShowModal: any, isFollowers: boolean }): ReactElement => {
-  // const followersListStore = useSelector((state) => state.user.userInfo.followers);
-  // const followingListStore = useSelector((state) => state.user.userInfo.following);
-
-  // const [followersList, setFollowersList] = useState([]);
-  // const [followingList, setFollowingList] = useState([]);
-
-  // useEffect(() => {
-  //   setFollowersList(followersListStore);
-  //   setFollowingList(followingListStore);
-  // }, [followersListStore, followingListStore]);
-
-  // const handleCloseDialog = (): any => {
-  //   setShowModal(false);
-  // };
   const { followersList, followingList, handleCloseDialog } = useFollowerList(props.setShowModal);
 
   return (

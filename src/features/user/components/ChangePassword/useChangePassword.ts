@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { useAppDispatch } from '../../../../app/store';
 import { changePassword } from '../../profileSlice';
@@ -17,9 +19,9 @@ export const useChangePassword = ({ setShowModal }: any): any => {
 
   const onSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
-    const action = changePassword(formValues);
-    const result = await dispatch(action).unwrap();
-    alert(result.statusText);
+    // const action = changePassword(formValues);
+    // const result = await dispatch(action).unwrap();
+    // alert(result.message);
     setShowModal(false);
   };
 

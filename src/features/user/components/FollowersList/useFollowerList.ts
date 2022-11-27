@@ -13,10 +13,10 @@ export const useFollowerList = (setShowModal: any): any => {
   const [followersList, setFollowersList] = useState([]);
   const [followingList, setFollowingList] = useState([]);
 
-  // useEffect(() => {
-  //   setFollowersList(followersListStore);
-  //   setFollowingList(followingListStore);
-  // }, [followersListStore, followingListStore]);
+  useEffect(() => {
+    setFollowersList(followersListStore);
+    setFollowingList(followingListStore);
+  }, [followersListStore, followingListStore]);
 
   const handleCloseDialog = (): any => {
     setShowModal(false);

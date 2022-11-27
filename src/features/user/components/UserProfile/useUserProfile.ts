@@ -1,12 +1,13 @@
 import { AppState } from '../../../../app/state.type';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUserById } from '../../profileSlice';
+import { useAppDispatch } from '../../../../app/store';
 
 export const useUserProfile = (): any => {
   const activeId = useSelector((state: AppState) => state.user.activeId);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const useEffectAsyncFunc = async (): Promise<void> => {
       const action = getUserById(activeId);
@@ -15,9 +16,5 @@ export const useUserProfile = (): any => {
 
     void useEffectAsyncFunc();
   }, [activeId]);
-  // useEffect(async () => {
-  //   const action = getUserById(activeId);
-  //   await dispatch(action);
-  // }, [activeId]);
   return {};
 };

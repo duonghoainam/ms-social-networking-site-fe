@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import './styles.scss';
 import { useFollowingItem } from './useFollowingItem';
 
-const FollowingItem = (user: any, setShowModal: any): ReactElement => {
+const FollowingItem = (props: { user: any, setShowModal: any }): ReactElement => {
   const {
     name,
     avatar,
@@ -12,7 +12,7 @@ const FollowingItem = (user: any, setShowModal: any): ReactElement => {
     currentUserId,
     handleUnFollow,
     handleDirectToAccount
-  } = useFollowingItem(user, setShowModal);
+  } = useFollowingItem(props.user, props.setShowModal);
 
   return (
     <Row className="accountItem" onClick={(e) => handleDirectToAccount(e)}>

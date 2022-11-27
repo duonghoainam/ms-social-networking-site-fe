@@ -6,6 +6,8 @@ import FollowersList from '../FollowersList';
 import Dialog from '../Dialog';
 import ChangeProfilePhotoPopup from '../ChangeProfilePhotoPopup';
 
+import './style.scss';
+
 const UserHeader = (): ReactElement => {
   const {
     current,
@@ -26,12 +28,13 @@ const UserHeader = (): ReactElement => {
     totalFollowing,
     handleFollow,
     handleShowFollow,
-    handleChangeAvt,
+    // handleChangeAvt,
     handleGuiTinNhan
   } = useUserHeader();
 
   return (
     <div>
+      <div>UserHeader</div>
       {(Boolean(showModal)) && <Dialog showModal={showModal} setShowModal={setShowModal} />}
       {(Boolean(showModalFollow)) && (
         <FollowersList
@@ -51,7 +54,7 @@ const UserHeader = (): ReactElement => {
           <div className="p-2">
             <div
               className="avatar__container"
-              onClick={() => handleChangeAvt()}
+              // onClick={() => handleChangeAvt()}
             >
               <img src={avatar} />
             </div>

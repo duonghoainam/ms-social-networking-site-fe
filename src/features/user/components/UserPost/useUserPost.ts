@@ -14,10 +14,6 @@ export const useUserPost = (): any => {
     };
     void useEffectAsyncFunc();
   }, [activeId]);
-  // useEffect(async () => {
-  //   const action = getPostsByUserId(activeId);
-  //   await dispatch(action);
-  // }, [activeId]);
   return {
     posts
   };

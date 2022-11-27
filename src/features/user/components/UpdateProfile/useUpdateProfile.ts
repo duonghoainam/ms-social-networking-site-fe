@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../app/store';
-import './styles.scss';
 import { AppState } from '../../../../app/state.type';
 import { updateUser } from '../../profileSlice';
 import { updateCurrentUser } from '../../../auth/authSlice';
@@ -27,10 +28,10 @@ export const useUpdateProfile = (setShowModal: any): any => {
 
   const onSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
-    const action = updateUser({ ...userInfo, avatar: imageAvt });
-    const result = await dispatch(action).unwrap();
-    dispatch(updateCurrentUser(result.data.user));
-    alert(result.statusText);
+    // const action = updateUser({ ...userInfo, avatar: imageAvt });
+    // const result = await dispatch(action).unwrap();
+    // dispatch(updateCurrentUser(result.user));
+    // alert(result.message);
     setShowModal(false);
   };
 
