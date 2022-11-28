@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth';
 const PrivateRoute = ({ children, ...rest }: any): ReactElement => {
   const auth = useAuth();
 
-  return auth ? children : <Navigate to="/auth/login" />;
+  return auth ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

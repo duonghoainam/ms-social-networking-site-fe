@@ -1,5 +1,6 @@
 export interface AppState {
-  auth: any;
+  login: any;
+  register: any;
   home: any;
   chat: any;
   user: any;

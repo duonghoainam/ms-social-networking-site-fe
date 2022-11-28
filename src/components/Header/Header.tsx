@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { ReactElement, useState } from 'react';
 import './Header.scss';
 import {
@@ -12,26 +13,26 @@ import {
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { logout } from '../../pages/auth/authSlice';
-import SingleDestination from '../../pages/chat/components/SingleDestination';
-import { addActiveId } from '../../pages/user/profileSlice';
+import SingleDestination from '../../pages/Chat/components/SingleDestination';
+import { addActiveId } from '../../pages/User/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
+import { logout } from '../../pages/Login/loginSlice';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleChangeToProfilePage = (): void => {
-    const activeUserId = useSelector((state: AppState) => state.auth.currentUser.id);
+    const activeUserId = useSelector((state: AppState) => state.login.currentUser.id);
     const action = addActiveId(activeUserId);
     dispatch(action);
   };
 
   // const [refresh, setFefresh] = useState(false);
   // const [numNotifications, setNumNotifications] = useState(0);
-  const currentUser = useSelector((state: AppState) => state.auth.currentUser);
-  const listUser = useSelector((state: AppState) => state.auth.listUser).filter(
+  const currentUser = useSelector((state: AppState) => state.login.currentUser);
+  const listUser = useSelector((state: AppState) => state.login.listUser).filter(
     (user: any) => user.id !== currentUser.id
   );
 
@@ -67,11 +68,11 @@ const Header = (): ReactElement => {
 
   const handleLogout = async (): Promise<void> => {
     try {
-      const result = await dispatch(logout()).unwrap();
+      await dispatch(logout()).unwrap();
     } catch (error) {
       console.log(error);
     }
-    navigate('/auth/login');
+    navigate('/login');
   };
 
   // useEffect(async () => {
