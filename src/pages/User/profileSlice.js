@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import userAPI from '../../api/UserApi';
+import userAPI from '../../api/user/UserApi';
 
 export const getUserById = createAsyncThunk('user/getUserById', async (params) => {
   const userInfo = await userAPI.getUserInfo(params);
