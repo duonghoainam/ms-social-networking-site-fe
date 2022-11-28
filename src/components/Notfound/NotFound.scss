@@ -1,0 +1,8 @@
+@import "../../assets/styles/_mixin";
+
+.notfound {
+  @include ModalContainer;
+  img {
+    @include ModalContent;
+  }
+}

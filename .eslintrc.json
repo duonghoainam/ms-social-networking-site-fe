@@ -23,6 +23,7 @@
 	"rules": {
 		"react/react-in-jsx-scope": "off",
 		"semi": 0,
+		"@typescript-eslint/member-delimiter-style": "warn",
 		"@typescript-eslint/semi": 0,
 		"prefer-const": ["warn", {
 			"destructuring": "any",

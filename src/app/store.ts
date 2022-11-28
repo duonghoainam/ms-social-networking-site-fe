@@ -1,58 +1,40 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import AuthReducer from '../pages/Auth/authSlice';
 import chatSlice from '../pages/Chat/ChatSlice';
-import HomeReducer from '../pages/Home/homeSlice';
+import HomeReducer from '../pages/Home/state/homeSlice';
 import userReducer from '../pages/User/profileSlice';
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 import { useDispatch } from 'react-redux';
+import LoginReducer from '../pages/Login/loginSlice';
+import RegisterReducer from '../pages/Register/registerSlice';
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage,
-  whitelist: ['auth', 'chat', 'user']
-};
-
-// export const store = configureStore({
-//   reducer: {
-//     auth: AuthReducer,
-//     home: HomeReducer,
-//     chat: chatSlice.reducer,
-//     user: userReducer,
-//   },
-// });
+// const persistConfig = {
+//   key: 'root',
+//   version: 1,
+//   storage
+//   // whitelist: ['home', 'auth', 'chat', 'user']
+// };
 
 const rootReducer = combineReducers({
-  auth: AuthReducer,
+  login: LoginReducer,
+  register: RegisterReducer,
   home: HomeReducer,
   chat: chatSlice.reducer,
   user: userReducer
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-      }
+      serializableCheck: false
     })
 });
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
