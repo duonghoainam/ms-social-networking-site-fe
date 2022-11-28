@@ -3,10 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 import FollowerItem from '../FollowerItem';
 import './styles.scss';
 import FollowingItem from '../FollowingItem';
-import { useFollowerList } from './useFollowerList';
+import { useFollowList } from './useFollowList';
 
-const FollowersList = (props: { showModal: any, setShowModal: any, isFollowers: boolean }): ReactElement => {
-  const { followersList, followingList, handleCloseDialog } = useFollowerList(props.setShowModal);
+const FollowList = (props: { showModal: any, setShowModal: any, isFollowers: boolean }): ReactElement => {
+  const { followersList, followingList, handleCloseDialog } = useFollowList(props.setShowModal);
 
   return (
     <Modal show={props.showModal} bsSize="large" onHide={handleCloseDialog} centered>
@@ -32,4 +32,4 @@ const FollowersList = (props: { showModal: any, setShowModal: any, isFollowers: 
   );
 };
 
-export default FollowersList;
+export default FollowList;

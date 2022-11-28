@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Auth from './pages/auth';
 import IndexHome from './pages/home';
@@ -9,14 +9,16 @@ import NewIndex from './pages/newpost/newIndex';
 import VideoCall from './pages/chat/components/VideoCall';
 import UserIndex from './pages/user';
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
+import * as io from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import PostComment from './pages/home/components/postComment';
+import { AppState } from './app/state.type';
 
 export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 
-function App () {
-  const { activePostId } = useSelector((state) => state.home);
+function App (): ReactElement {
+  const { activePostId } = useSelector((state: AppState) => state.home);
 
   return (
     <div className="App">
@@ -37,7 +39,7 @@ function App () {
             </PrivateRout>
           }></Route>
         <Route
-          forceRefresh
+          // forceRefresh
           path="/account/*"
           element={
             <PrivateRout>

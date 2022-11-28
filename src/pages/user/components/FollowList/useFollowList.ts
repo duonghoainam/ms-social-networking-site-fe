@@ -6,7 +6,7 @@ import { AppState } from '../../../../app/state.type';
 
 import './styles.scss';
 
-export const useFollowerList = (setShowModal: any): any => {
+export const useFollowList = (setShowModal: any): any => {
   const followersListStore = useSelector((state: AppState) => state.user.userInfo.followers);
   const followingListStore = useSelector((state: AppState) => state.user.userInfo.following);
 

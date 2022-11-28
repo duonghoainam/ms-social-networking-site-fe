@@ -5,8 +5,10 @@ import { AppState } from '../../../../app/state.type';
 
 export const useUserPost = (): any => {
   const dispatch = useDispatch();
+
   const activeId = useSelector((state: AppState) => state.user.activeId);
   const posts = useSelector((state: AppState) => state.user.posts);
+
   useEffect(() => {
     const useEffectAsyncFunc = async (): Promise<void> => {
       const action = getPostsByUserId(activeId);
@@ -14,6 +16,7 @@ export const useUserPost = (): any => {
     };
     void useEffectAsyncFunc();
   }, [activeId]);
+
   return {
     posts
   };

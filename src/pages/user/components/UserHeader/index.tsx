@@ -2,10 +2,9 @@
 import React, { ReactElement } from 'react';
 import { Button } from 'react-bootstrap';
 import { useUserHeader } from './useUserHeader';
-import FollowersList from '../FollowersList';
+import FollowList from '../FollowList';
 import Dialog from '../Dialog';
 import ChangeProfilePhotoPopup from '../ChangeProfilePhotoPopup';
-
 import './style.scss';
 
 const UserHeader = (): ReactElement => {
@@ -37,7 +36,7 @@ const UserHeader = (): ReactElement => {
       <div>UserHeader</div>
       {(Boolean(showModal)) && <Dialog showModal={showModal} setShowModal={setShowModal} />}
       {(Boolean(showModalFollow)) && (
-        <FollowersList
+        <FollowList
           showModal={showModalFollow}
           setShowModal={setShowModalFollow}
           isFollowers={isShowFollowers}

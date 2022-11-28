@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import NotFound from '../../shareComponents/notfound/NotFound';
-import UserPage from './page/userPage';
+import UserPage from './userPage';
 
 const UserIndex = (): ReactElement => {
   return (

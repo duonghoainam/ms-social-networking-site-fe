@@ -1,13 +1,11 @@
 import React, { ReactElement } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import PostItem from '../PostItem';
-
-import './styles.scss';
 import { useUserPost } from './useUserPost';
+import './styles.scss';
 
 const UserPost = (): ReactElement => {
   const { posts } = useUserPost();
-
   return (
     <Container>
       <Row className="container">

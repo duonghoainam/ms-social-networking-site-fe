@@ -6,7 +6,7 @@ import PostComment from '../../../home/components/postComment';
 import './styles.scss';
 import { usePostItem } from './usePostItem';
 
-const PostItem = (props: any): ReactElement => {
+const PostItem = (props: { post: any }): ReactElement => {
   const { isShowDetail, showDialog } = usePostItem();
   const postItem = props.post;
 

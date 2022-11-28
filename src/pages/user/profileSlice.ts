@@ -122,5 +122,4 @@ const UserSlice = createSlice({
 const { reducer: userReducer, actions } = UserSlice;
 
 export const { addActiveId } = actions;
-
 export default userReducer;

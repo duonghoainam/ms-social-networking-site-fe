@@ -1,33 +1,27 @@
 import { useState } from 'react';
-
 import { useSelector } from 'react-redux';
 import { socket } from '../../../../App';
 import { createNotification, follow } from '../../../home/homeSlice';
 import { unFollow, addActiveId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
-// import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../app/store';
 
 export const useFollowingItem = (user: any, setShowModal: any): any => {
   const { _id, name, avatar, email } = user;
   const dispatch = useAppDispatch();
-
   const authUserId = useSelector((state: AppState) => state.auth.current._id);
   const currentUserId = useSelector((state: AppState) => state.user.userInfo._id);
-
-  const [IsFollow, setIsFollow] = useState(true);
-
+  const [isFollow, setIsFollow] = useState(true);
   const current = JSON.parse(localStorage.getItem('LoginUser') ?? '');
 
   const handleUnFollow = async (e: any): Promise<void> => {
     e.stopPropagation();
-    console.log(_id);
     const action = unFollow(_id);
     await dispatch(action).unwrap();
   };
 
   const handleFollow = async (id: any): Promise<void> => {
-    if (IsFollow) {
+    if (isFollow) {
       const action = unFollow(id);
       await dispatch(action).unwrap();
       setIsFollow(false);
@@ -66,7 +60,6 @@ export const useFollowingItem = (user: any, setShowModal: any): any => {
     email,
     authUserId,
     currentUserId,
-    IsFollow,
     handleFollow,
     handleUnFollow,
     handleDirectToAccount

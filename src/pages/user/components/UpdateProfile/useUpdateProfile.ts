@@ -32,6 +32,7 @@ export const useUpdateProfile = (setShowModal: any): any => {
     // const result = await dispatch(action).unwrap();
     // dispatch(updateCurrentUser(result.user));
     // alert(result.message);
+    alert('Chưa handle chỗ này')
     setShowModal(false);
   };
 

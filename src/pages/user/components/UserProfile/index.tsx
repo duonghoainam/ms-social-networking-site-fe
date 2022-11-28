@@ -5,6 +5,7 @@ import { useUserProfile } from './useUserProfile';
 
 const UserProfile = (): ReactElement => {
   void useUserProfile();
+
   return (
     <>
       <UserHeader />
