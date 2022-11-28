@@ -18,7 +18,7 @@ import {
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Logout } from '../../pages/auth/authSlice';
+import { Logout } from '../../pages/Auth/authSlice';
 import { Button, Col } from 'react-bootstrap';
 import Usecloseoutsidetoclose from '../../hooks/useCloseOutSideToClose';
 import {
@@ -27,11 +27,11 @@ import {
   seenAllNotification,
   getPostById,
   ShowDetail
-} from '../../pages/home/homeSlice';
-import SingleDestination from '../../pages/chat/components/SingleDestination';
+} from '../../pages/Home/homeSlice';
+import SingleDestination from '../../pages/Chat/components/SingleDestination';
 import { socket } from '../../App';
 import NotificationItem from './notificationItem';
-import { addActiveId } from '../../pages/user/profileSlice';
+import { addActiveId } from '../../pages/User/profileSlice';
 
 const Header = () => {
   const activeUserId = useSelector((state) => state.auth.current._id);

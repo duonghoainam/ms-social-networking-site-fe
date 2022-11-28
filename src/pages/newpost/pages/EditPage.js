@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../../shareComponents/header/Header';
-import { getNotification } from '../../home/homeSlice';
+import { getNotification } from '../../Home/homeSlice';
 import UpdatePostHeader from '../components/EditPostHeader';
 import NewpostContent from '../components/newPostContent';
 import NewpostImage from '../components/newPostImage';
@@ -38,10 +38,7 @@ const EditPage = () => {
                 <NewpostImage listImg={listImg} setlistImg={setlistImg} />
               </Col>
               <Col md={5}>
-                <NewpostContent
-                  valueInput={valueInput}
-                  setValueInput={setValueInput}
-                />
+                <NewpostContent valueInput={valueInput} setValueInput={setValueInput} />
               </Col>
             </Row>
           </Col>

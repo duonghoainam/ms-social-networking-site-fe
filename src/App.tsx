@@ -1,23 +1,23 @@
 import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Auth from './pages/auth';
-import IndexHome from './pages/home';
+import Auth from './pages/Auth';
+import IndexHome from './pages/Home';
 import PrivateRout from './shareComponents/privateRout/privateRout';
 import BruhRoute from './shareComponents/privateRout/BruhRoute';
-import IndexChat from './pages/chat';
-import NewIndex from './pages/newpost/newIndex';
-import VideoCall from './pages/chat/components/VideoCall';
-import UserIndex from './pages/user';
+import IndexChat from './pages/Chat';
+import NewIndex from './pages/Newpost/newIndex';
+import VideoCall from './pages/Chat/components/VideoCall';
+import UserIndex from './pages/User';
 
 // import io from 'socket.io-client';
 import * as io from 'socket.io-client';
 import { useSelector } from 'react-redux';
-import PostComment from './pages/home/components/postComment';
+import PostComment from './pages/Home/components/postComment';
 import { AppState } from './app/state.type';
 
 export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 
-function App (): ReactElement {
+function App(): ReactElement {
   const { activePostId } = useSelector((state: AppState) => state.home);
 
   return (

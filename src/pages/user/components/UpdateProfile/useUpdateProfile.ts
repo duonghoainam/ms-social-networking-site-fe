@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../app/store';
 import { AppState } from '../../../../app/state.type';
 import { updateUser } from '../../profileSlice';
-import { updateCurrentUser } from '../../../auth/authSlice';
+import { updateCurrentUser } from '../../../Auth/authSlice';
 import useImageUpload from '../../../../hooks/useImageUpload';
 
 export const useUpdateProfile = (setShowModal: any): any => {
@@ -32,7 +32,7 @@ export const useUpdateProfile = (setShowModal: any): any => {
     // const result = await dispatch(action).unwrap();
     // dispatch(updateCurrentUser(result.user));
     // alert(result.message);
-    alert('Chưa handle chỗ này')
+    alert('Chưa handle chỗ này');
     setShowModal(false);
   };
 

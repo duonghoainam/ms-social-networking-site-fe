@@ -1,40 +1,37 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef, useState } from "react";
-import { Carousel, Col, Row } from "react-bootstrap";
-import "./post.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useRef, useState } from 'react';
+import { Carousel, Col, Row } from 'react-bootstrap';
+import './post.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   createNotification,
   getCommentsByPostID,
   getListUser,
   handleLike,
   handleUnLike,
-  ShowDetail,
-} from "../homeSlice";
+  ShowDetail
+} from '../homeSlice';
 
 import {
   FavoriteBorderOutlined,
   SendOutlined,
   AddCommentOutlined,
   Favorite,
-  BookmarkBorderOutlined,
-} from "@material-ui/icons";
-import PostHeader from "./postHeader";
-import { format } from "timeago.js";
-import {
-  faCircleChevronLeft,
-  faCircleChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+  BookmarkBorderOutlined
+} from '@material-ui/icons';
+import PostHeader from './postHeader';
+import { format } from 'timeago.js';
+import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-import ReportModal from "./reportModal";
-import { socket } from "../../../App";
-import MessagePopup from "../../chat/components/MessagePopup";
+import ReportModal from './reportModal';
+import { socket } from '../../../App';
+import MessagePopup from '../../Chat/components/MessagePopup';
 
 const PostItem = ({ postId, content }) => {
   const dispatch = useDispatch();
   const captionRef = useRef();
 
-  const current = JSON.parse(localStorage.getItem("LoginUser"));
+  const current = JSON.parse(localStorage.getItem('LoginUser'));
 
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
 
@@ -48,7 +45,7 @@ const PostItem = ({ postId, content }) => {
     dispatch(action);
 
     // const message = { room: a };
-    socket.emit("joinComment", a);
+    socket.emit('joinComment', a);
   };
   //phần react
   const { listPosts } = useSelector((state) => state.home);
@@ -58,9 +55,7 @@ const PostItem = ({ postId, content }) => {
   const likes = activePost.likes;
 
   const isOverflow = () => {
-    return (
-      captionRef?.current?.offsetHeight < captionRef?.current?.scrollHeight
-    );
+    return captionRef?.current?.offsetHeight < captionRef?.current?.scrollHeight;
   };
   //hàm xử lý show phần comment khi show tất cả phần comment
 
@@ -77,7 +72,7 @@ const PostItem = ({ postId, content }) => {
         const paramsCreate = {
           receiver: userid,
           notiType: 2,
-          desId: postId,
+          desId: postId
         };
 
         const action = createNotification(paramsCreate);
@@ -87,9 +82,9 @@ const PostItem = ({ postId, content }) => {
           userId: userid, // cái này là id của thằng cần gửi thông báo tới
           type: 2,
           senderName: current.name,
-          img: current.avatar,
+          img: current.avatar
         };
-        socket.emit("send_notificaton", notification);
+        socket.emit('send_notificaton', notification);
       }
     }
   };
@@ -100,9 +95,9 @@ const PostItem = ({ postId, content }) => {
   };
 
   const handleWatchMore = (e) => {
-    e.target.previousElementSibling.style.overflow = "auto";
-    e.target.previousElementSibling.style.display = "block";
-    e.target.style.display = "none";
+    e.target.previousElementSibling.style.overflow = 'auto';
+    e.target.previousElementSibling.style.display = 'block';
+    e.target.style.display = 'none';
   };
   return (
     <>
@@ -113,22 +108,16 @@ const PostItem = ({ postId, content }) => {
         <Col md={12} className="postItem__slide">
           <Carousel
             prevIcon={<FontAwesomeIcon icon={faCircleChevronLeft} />}
-            nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}
-          >
+            nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
             {content.images.map((contenItem, index) => {
               return (
                 <Carousel.Item key={index}>
-                  {contenItem.split(".")[contenItem.split(".").length - 1] ===
-                  "mp4" ? (
+                  {contenItem.split('.')[contenItem.split('.').length - 1] === 'mp4' ? (
                     <video height="500" width="665" controls>
                       <source src={contenItem} type="video/mp4"></source>
                     </video>
                   ) : (
-                    <img
-                      className="d-block w-100"
-                      src={contenItem}
-                      alt="First slide"
-                    />
+                    <img className="d-block w-100" src={contenItem} alt="First slide" />
                   )}
                 </Carousel.Item>
               );
@@ -139,21 +128,16 @@ const PostItem = ({ postId, content }) => {
           <Row className="reactIcon">
             <Col md={9}>
               {content.likes.includes(current._id) === true ? (
-                <Favorite
-                  style={{ color: "#ed4956" }}
-                  onClick={() => HandleLikePost(postId)}
-                />
+                <Favorite style={{ color: '#ed4956' }} onClick={() => HandleLikePost(postId)} />
               ) : (
-                <FavoriteBorderOutlined
-                  onClick={() => HandleLikePost(postId, content.user._id)}
-                />
+                <FavoriteBorderOutlined onClick={() => HandleLikePost(postId, content.user._id)} />
               )}
 
               <AddCommentOutlined onClick={() => showDetail(postId)} />
 
               <SendOutlined onClick={() => setIsShowMessagePopup(true)} />
             </Col>
-            <Col md={3} style={{ textAlign: "right" }}>
+            <Col md={3} style={{ textAlign: 'right' }}>
               <BookmarkBorderOutlined />
             </Col>
           </Row>
@@ -162,30 +146,21 @@ const PostItem = ({ postId, content }) => {
         <Col md={12} className="postItem__content">
           <div
             className="postItem__content__likes"
-            onClick={() => ShowAlllikesModal(content.likes)}
-          >
+            onClick={() => ShowAlllikesModal(content.likes)}>
             {content.likes.length} lượt thích
           </div>
           <div className="postItem__content__caption" ref={captionRef}>
             {content.content}
           </div>
           {isOverflow() && (
-            <span
-              className="postItem__content__watchMoreBtn"
-              onClick={(e) => handleWatchMore(e)}
-            >
+            <span className="postItem__content__watchMoreBtn" onClick={(e) => handleWatchMore(e)}>
               Xem thêm
             </span>
           )}
-          <div
-            className="postItem__content__allCmt"
-            onClick={() => showDetail(postId)}
-          >
+          <div className="postItem__content__allCmt" onClick={() => showDetail(postId)}>
             Xem tất cả {content.comments.length} bình luận
           </div>
-          <div className="postItem__content__time">
-            {format(content.createdAt)}
-          </div>
+          <div className="postItem__content__time">{format(content.createdAt)}</div>
         </Col>
         <ReportModal userPostId={content.user._id} />
       </Row>
@@ -193,7 +168,7 @@ const PostItem = ({ postId, content }) => {
         <MessagePopup
           setIsShowPopup={setIsShowMessagePopup}
           type="forward"
-          content={{ text: postId, messType: "post" }}
+          content={{ text: postId, messType: 'post' }}
         />
       )}
     </>

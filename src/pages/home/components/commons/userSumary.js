@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getPostsByUserId } from "../../../user/profileSlice";
+import React, { useEffect } from 'react';
+import { Col, Row, Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsByUserId } from '../../../User/profileSlice';
 
 const UserSumary = ({ user }) => {
   const { posts, isLoading } = useSelector((state) => state.user);

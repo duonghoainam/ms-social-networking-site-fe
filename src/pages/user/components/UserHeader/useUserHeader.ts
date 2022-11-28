@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import { AppState } from '../../../../app/state.type';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createConversation } from '../../../chat/ChatSlice';
+import { createConversation } from '../../../Chat/ChatSlice';
 import { useAppDispatch } from '../../../../app/store';
-import { createNotification, follow, unFollow } from '../../../home/homeSlice';
+import { createNotification, follow, unFollow } from '../../../Home/homeSlice';
 import { socket } from '../../../../App';
 
 export const useUserHeader = (): any => {

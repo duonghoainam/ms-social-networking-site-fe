@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getCommentsByPostID, getPostById, ShowDetail } from '../../../home/homeSlice';
+import { getCommentsByPostID, getPostById, ShowDetail } from '../../../Home/homeSlice';
 import { socket } from '../../../../App';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';

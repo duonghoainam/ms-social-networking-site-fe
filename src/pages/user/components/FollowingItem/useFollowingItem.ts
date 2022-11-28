@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { socket } from '../../../../App';
-import { createNotification, follow } from '../../../home/homeSlice';
+import { createNotification, follow } from '../../../Home/homeSlice';
 import { unFollow, addActiveId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';

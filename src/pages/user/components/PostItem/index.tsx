@@ -2,7 +2,7 @@
 import React, { ReactElement } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Favorite, ChatBubble } from '@material-ui/icons';
-import PostComment from '../../../home/components/postComment';
+import PostComment from '../../../Home/components/postComment';
 import './styles.scss';
 import { usePostItem } from './usePostItem';
 
