@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppState } from '../../../../app/state.type';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -27,14 +27,16 @@ export const useUserHeader = (): any => {
   //   })
   //   .includes(current?._id);
   const isfollow = (): boolean => {
-    return UserInfo?.followers
-      ?.map((item: any) => {
-        return item._id;
-      })
-      .includes(current?._id);
+    let isFollowed = false;
+    UserInfo.followers.forEach((element: any) => {
+      if (element._id === current._id) {
+        isFollowed = true;
+      }
+    });
+    return isFollowed;
   };
 
-  const [IsFollow, setIsFollow] = useState(isfollow);
+  const [IsFollow, setIsFollow] = useState(isfollow());
 
   const { name, avatar, _id } = UserInfo;
   const totalFollower = UserInfo.followers?.length;
@@ -110,6 +112,7 @@ export const useUserHeader = (): any => {
       await dispatch(actionCreateNoti).unwrap();
     }
   };
+
   return {
     current,
     showModal,

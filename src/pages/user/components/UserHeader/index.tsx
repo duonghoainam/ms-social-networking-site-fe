@@ -14,6 +14,7 @@ const UserHeader = (): ReactElement => {
     setShowModal,
     setShowModalFollow,
     showModalFollow,
+    IsFollow,
     isShowFollowers,
     isShowChangeAvataPopup,
     setIsShowChangeAvataPopup,
@@ -80,8 +81,7 @@ const UserHeader = (): ReactElement => {
                           variant="outline-success"
                           onClick={() => handleFollow(UserInfo._id)}
                         >
-                          {/* {(IsFollow) ? 'Bỏ theo dõi' : 'Theo dõi'} */}
-                          theo dõi
+                          {(Boolean(IsFollow)) ? 'Bỏ theo dõi' : 'Theo dõi'}
                         </Button>
                       </>
                     )}
