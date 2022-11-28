@@ -14,7 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import { showToastMessage } from '../../../utils/toast.util';
 import { ApiResponse } from '../../../api/api-response.type';
 import FormikControl from '../../../components/FormikCustom/FormikControl';
-import { MessageToastType } from '../../../components/MessageToast/typings';
+import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const initialValues: LoginParams = {
   username: 'giathai1505@gmail.com',
