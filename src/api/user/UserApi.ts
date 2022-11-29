@@ -34,7 +34,7 @@ class UserAPI {
     return await axiosClient.get(url);
   };
 
-  handleFollow = async (params: FollowParams): Promise<any> => {
+  handleFollow = async (params: FollowParams): Promise<ApiResponse> => {
     const url = `${getApiUrl()}/users/${params.userId}/followings`;
 
     return await axiosClient.patch(url, params);
