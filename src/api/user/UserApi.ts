@@ -1,6 +1,7 @@
 import axiosClient from '../AxiosClient';
 import { getApiUrl } from '../../utils/api.util';
 import { ApiResponse } from '../api-response.type';
+import { FollowParams } from './type/follow.params';
 
 class UserAPI {
   getUserInfo = async (userId: string): Promise<any> => {
@@ -27,22 +28,16 @@ class UserAPI {
     return await axiosClient.get(url);
   };
 
-  getListFollowings = async (params: any): Promise<any> => {
-    const url = `${getApiUrl()}/users/${params.userId as string}/followings`;
+  getListFollowings = async (userId: string): Promise<any> => {
+    const url = `${getApiUrl()}/users/${userId}/followings`;
 
-    return await axiosClient.get(url, params);
+    return await axiosClient.get(url);
   };
 
-  follow = async (params: any): Promise<any> => {
-    const url = `${getApiUrl()}/users/${params.userId as string}/followings`;
+  handleFollow = async (params: FollowParams): Promise<any> => {
+    const url = `${getApiUrl()}/users/${params.userId}/followings`;
 
-    return await axiosClient.patch(url, {});
-  };
-
-  unFollow = async (params: any): Promise<any> => {
-    const url = `${getApiUrl()}/users/${params.userId as string}/followings`;
-
-    return await axiosClient.patch(url, {});
+    return await axiosClient.patch(url, params);
   };
 
   // Other

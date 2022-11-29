@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
+import { FollowParams } from '../../../api/user/type/follow.params';
 import userAPI from '../../../api/user/UserApi';
 
 // posts actions
@@ -32,7 +33,7 @@ export const addNewComment = createAsyncThunk('home/addNewComment', async (param
   return comment;
 });
 
-// recommend actions
+// follow actions
 export const getListRecommendedFriends = createAsyncThunk(
   'user/getRecommendedFriends',
   async (userId: string) => {
@@ -44,3 +45,7 @@ export const getListRecommendedFriends = createAsyncThunk(
     }
   }
 );
+
+export const handleFollow = createAsyncThunk('home/handleFollow', async (params: FollowParams) => {
+  await userAPI.handleFollow(params);
+});

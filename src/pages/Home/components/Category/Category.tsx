@@ -19,7 +19,6 @@ const Category = (): ReactElement => {
         </div>
         <div className="recommend__header">
           <p>Gợi ý cho bạn</p>
-          {/* <a href="">Xem tất cả</a> */}
         </div>
         <ul>
           {(listRecommend as boolean) &&
