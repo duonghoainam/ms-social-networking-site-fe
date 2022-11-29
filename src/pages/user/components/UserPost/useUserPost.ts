@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPostsByUserId } from '../../profileSlice';
@@ -12,7 +14,7 @@ export const useUserPost = (): any => {
   useEffect(() => {
     const useEffectAsyncFunc = async (): Promise<void> => {
       const action = getPostsByUserId(activeId);
-      await dispatch(action);
+      // await dispatch(action);
     };
     void useEffectAsyncFunc();
   }, [activeId]);

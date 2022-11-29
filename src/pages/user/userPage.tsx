@@ -1,7 +1,7 @@
 import React, { useEffect, ReactElement } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import UserProfile from './components/UserProfile';
-import Header from '../../shareComponents/header/Header';
+import Header from '../../components/Header/Header';
 
 const UserPage = (): ReactElement => {
   useEffect(() => {

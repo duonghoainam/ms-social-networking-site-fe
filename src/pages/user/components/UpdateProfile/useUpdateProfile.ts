@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../app/store';
 import { AppState } from '../../../../app/state.type';
 import { updateUser } from '../../profileSlice';
-import { updateCurrentUser } from '../../../Auth/authSlice';
+import { updateCurrentUser } from '../../../Login/loginSlice';
 import useImageUpload from '../../../../hooks/useImageUpload';
 
 export const useUpdateProfile = (setShowModal: any): any => {

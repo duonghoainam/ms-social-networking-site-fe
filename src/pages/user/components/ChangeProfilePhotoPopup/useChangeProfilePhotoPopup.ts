@@ -5,7 +5,7 @@ import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 
 export const useChangeProfilePopup = ({ props }: any): any => {
-  const currentUser = useSelector((state: AppState) => state.auth.current);
+  const currentUser = useSelector((state: AppState) => state.login.current);
 
   const uploadImage = useImageUpload();
   const dispatch = useAppDispatch();

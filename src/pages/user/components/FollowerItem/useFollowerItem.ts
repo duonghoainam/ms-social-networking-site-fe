@@ -7,7 +7,7 @@ import { removeFollow, addActiveId } from '../../profileSlice';
 export const useFollowerItem = (user: any, setShowModal: any): any => {
   const { _id, name, avatar, email } = user;
   const dispatch = useAppDispatch();
-  const authUserId = useSelector((state: AppState) => state.auth.current._id);
+  const authUserId = useSelector((state: AppState) => state.login.current._id);
   const currentUserId = useSelector((state: AppState) => state.user.userInfo._id);
 
   const handleRemoveFollow = async (e: any): Promise<void> => {

@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-<<<<<<<< HEAD:src/pages/newpost/pages/EditPage.js
-import Header from '../../../shareComponents/header/Header';
-import { getNotification } from '../../Home/homeSlice';
-========
 import Header from '../../../components/Header/Header';
 import { getNotification } from '../../Home/state/homeSlice';
->>>>>>>> main:src/pages/Newpost/pages/EditPage.js
 import UpdatePostHeader from '../components/EditPostHeader';
 import NewpostContent from '../components/newPostContent';
 import NewpostImage from '../components/newPostImage';

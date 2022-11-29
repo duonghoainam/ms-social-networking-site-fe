@@ -1,11 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-<<<<<<<< HEAD:src/pages/newpost/components/EditPostHeader.js
-import { updatePost } from '../../Home/homeSlice';
-========
 import { updatePost } from '../../Home/state/homeSlice';
->>>>>>>> main:src/pages/Newpost/components/EditPostHeader.js
 import './newcomponent.scss';
 
 const UpdatePostHeader = ({ listImg, content, postId }) => {
