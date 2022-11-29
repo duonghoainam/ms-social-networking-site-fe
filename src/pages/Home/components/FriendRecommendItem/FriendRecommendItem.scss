@@ -1,0 +1,126 @@
+@import '../../../../assets/styles/_mixin';
+@import '../../../../assets/styles/_variable';
+
+.recommend {
+  margin-top: 50px;
+  position: fixed;
+  width: 400px;
+
+  &__account {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+
+      img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          margin-right: 30px;
+          object-fit: cover;
+      }
+
+      p {
+          font-size: 16px;
+          font-weight: 400;
+          margin-left: 20px;
+          &:first-child {
+              font-weight: 500;
+          }
+
+          &:last-child {
+              color: gray;
+          }
+      }
+  }
+
+  &__header {
+      display: flex;
+      align-items: center;
+
+      a {
+          font-size: 12px;
+          font-weight: bold;
+          text-decoration: none;
+          color: rgb(98, 95, 95);
+          margin-left: 150px;
+      }
+
+      p {
+          font-weight: bold;
+          font-size: 13px;
+          color: rgb(141, 138, 138);
+      }
+  }
+
+  p {
+      padding: 0;
+      margin: 0;
+  }
+  ul {
+      list-style: none;
+      padding: 0;
+  }
+
+  li {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      position: relative;
+      width: 300px;
+  }
+
+  &__img {
+      margin-right: 20px;
+  }
+
+  &__img img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid $borderColor;
+  }
+
+  &__name {
+      // &:hover {
+      //   .recommend__expand {
+      //     display: block;
+      //   }
+      // }
+
+      margin-right: 50px;
+      a {
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 15px;
+          color: rgb(98, 95, 95);
+      }
+
+      p {
+          color: gray;
+          font-size: 12px;
+      }
+  }
+
+  &__folo {
+      font-size: 12px;
+      font-weight: bold;
+      color: $primaryColor;
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      user-select: none;
+  }
+
+  &__expand {
+      position: absolute;
+      margin: 20px;
+      // top: 5px;
+      // left: 5%;
+      z-index: 1;
+  }
+
+  // &_expand:first-of-type {
+  //   bottom: 0px;
+  //   top: 0px;
+  // }
+}

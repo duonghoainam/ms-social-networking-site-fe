@@ -26,11 +26,6 @@ class PostAPI {
     return axiosClient.patch(url, {});
   };
 
-  recommendFriends = (): any => {
-    const url = getApiUrl() + '/home/relate';
-    return axiosClient.get(url, {});
-  };
-
   addComment = (postId: string, params: any): any => {
     const url = `${getApiUrl()}/posts/${postId}/comments/`;
 

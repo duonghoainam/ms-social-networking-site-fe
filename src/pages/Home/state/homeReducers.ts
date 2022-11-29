@@ -1,11 +1,10 @@
 /* eslint-disable */
 import {
   getPostComments,
-  getListRecommendFriends,
   getPosts,
-  handleLike,
-  handleUnLike,
+  getListRecommendedFriends,
 } from './homeActions';
+import { HomeState } from './homeSlice';
 
 export const extraReducers: any = {
   // get all post when login successful
@@ -27,6 +26,17 @@ export const extraReducers: any = {
   },
   [getPostComments.fulfilled.toString()]: (state: any, action: any) => {
     return {...state, listComment: action.payload.comments, isLoadComment: false};
+  },
+
+  // get recommend
+  [getListRecommendedFriends.pending.toString()]: (state: HomeState, action: any) => {
+    return {...state, isLoading: true};
+  },
+  [getListRecommendedFriends.rejected.toString()]: (state: any, action: any) => {
+    return {...state, isLoading: false};
+  },
+  [getListRecommendedFriends.fulfilled.toString()]: (state: any, action: any) => {
+    return {...state, listRecommend: action.payload.data, isLoading: false};
   },
 
   // // handle like
@@ -58,10 +68,4 @@ export const extraReducers: any = {
   //   });
   // },
 
-  // // get list recommend friends
-  // [getListRecommendFriends.pending.toString()]: (state: any, action: any) => {},
-  // [getListRecommendFriends.rejected.toString()]: (state: any, action: any) => {},
-  // [getListRecommendFriends.fulfilled.toString()]: (state: any, action: any) => {
-  //   state.listRecommend = action.payload.relateUser;
-  // }
 };

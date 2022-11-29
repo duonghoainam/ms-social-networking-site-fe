@@ -37,14 +37,6 @@ export const useFriendRecommendItem = (): any => {
     }
   };
 
-  const showRecommend = (): void => {
-    setIsShowRecommend(true);
-  };
-
-  const hideRecommend = (): void => {
-    setIsShowRecommend(false);
-  };
-
   const handleShowProfile = (): void => {
     // const action = addActiveId(id);
     // dispatch(action);
@@ -53,8 +45,6 @@ export const useFriendRecommendItem = (): any => {
   return {
     isShowRecommend,
     setIsFollow,
-    showRecommend,
-    hideRecommend,
     handleShowProfile,
     handleFollow
   };

@@ -1,14 +1,13 @@
 import React, { ReactElement } from 'react';
-import UserSummary from '../UserSummary/UserSumary';
+import UserSummary from '../../../components/UserSummary/UserSumary';
 import { useFriendRecommendItem } from './useFriendRecommendItem';
+import './FriendRecommendItem.scss';
 
 const FriendRecommendItem = ({ user }: any): ReactElement => {
   const {
     isShowRecommend,
     isFollow,
     // setIsFollow,
-    showRecommend,
-    hideRecommend,
     handleShowProfile,
     handleFollow
   } = useFriendRecommendItem();
@@ -17,11 +16,7 @@ const FriendRecommendItem = ({ user }: any): ReactElement => {
       <div className="recommend__img">
         <img src={user.avatar} alt="" />
       </div>
-      <div
-        className="recommend__name"
-        onMouseOver={() => showRecommend()}
-        onMouseLeave={() => hideRecommend()}
-        onClick={() => handleShowProfile()}>
+      <div className="recommend__name" onClick={() => handleShowProfile()}>
         <a href="">{user?.name}</a>
         <p className="recommend__name_desc">Gợi ý cho bạn</p>
         <div className="recommend__expand">
