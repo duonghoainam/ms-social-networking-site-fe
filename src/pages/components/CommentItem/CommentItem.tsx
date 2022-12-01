@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import React, { ReactElement } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import {
@@ -9,7 +10,6 @@ import {
 import TimeAgo from 'javascript-time-ago';
 import { useCommentItem } from './useCommentItem';
 import './CommentItem.scss';
-// import { socket } from '../../../../App';
 
 const CommentItem = ({ comment }: any): ReactElement => {
   const timeAgo = new TimeAgo('en-US');
@@ -31,8 +31,7 @@ const CommentItem = ({ comment }: any): ReactElement => {
           </div>
           <div className="comment_content_interact">
             <p className="comment_content_interact_time">
-              {/* {format(comment.updatedAt)} */}
-              {timeAgo.format(Date.parse(comment.updatedAt), 'mini-now')}
+              {timeAgo.format(Date.parse(comment.modifiedAt) - 24 * 60 * 60 * 1000)}
             </p>
             {(isLike as boolean) ? (
               <Favorite
@@ -69,15 +68,12 @@ const CommentItem = ({ comment }: any): ReactElement => {
           // onClick={() => setShowChildrenComment(!showChildrenComment)}
         >
           {!(showChildrenComment as boolean)
-            // eslint-disable-next-line operator-linebreak
-            ? // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, @typescript-eslint/indent
-              '____   Xem ' + comment.reply.length.toString() + ' câu trả lời'
+            ? '____   Xem ' + comment.reply.length.toString() + ' câu trả lời'
             : '____   Ẩn câu trả lời'}
         </Col>
       ) : (
         ''
       )}
-
       {(showChildrenComment as boolean) ? (
         <Col className="comment_chilrentCmt">
           {comment.reply.length > 0 &&

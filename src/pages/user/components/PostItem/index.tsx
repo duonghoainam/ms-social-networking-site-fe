@@ -7,12 +7,12 @@ import './styles.scss';
 import { usePostItem } from './usePostItem';
 
 const PostItem = (props: { post: any }): ReactElement => {
-  const { isShowDetail, showDialog } = usePostItem();
+  const { isShowPostDetail, showDialog } = usePostItem();
   const postItem = props.post;
 
   return (
     <>
-      {Boolean(isShowDetail) && <PostComment />}
+      {Boolean(isShowPostDetail) && <PostComment />}
       <Col sm={4} className="flex" onClick={() => showDialog(postItem._id)}>
         <Row>
           <Col className="post-item">

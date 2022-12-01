@@ -15,6 +15,8 @@ import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePostItem } from './usePostItem';
 import MessagePopup from '../../Chat/components/MessagePopup';
+import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
+import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 
 /**
  * post params are logic for to manage state, call data for a post item
@@ -26,6 +28,7 @@ import MessagePopup from '../../Chat/components/MessagePopup';
  */
 const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
   const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem({ post });
+  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup(post);
   return (
     <>
       <Row className="postItem">
@@ -68,9 +71,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
                   }}
                 />
               )}
-              <AddCommentOutlined
-              onClick={() => showDetail(post)}
-              />
+              <AddCommentOutlined onClick={() => showDetail(post)} />
               <SendOutlined
               // onClick={() => setIsShowMessagePopup(true)}
               />
@@ -81,16 +82,16 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
           </Row>
         </Col>
         <Col md={12} className="postItem__post">
-          <div className="postItem__post__likes">{post.likes.length} lượt thích</div>
+          <div className="postItem__post__likes" onClick={showAllLikesPopup}>
+            {post.likes.length} lượt thích
+          </div>
           <div className="postItem__post__caption">{post.content}</div>
           {/* {isOverflow() && (
             <span className="postItem__post__watchMoreBtn" onClick={(e) => handleWatchMore(e)}>
               Xem thêm
             </span>
           )} */}
-          <div className="postItem__post__allCmt"
-          onClick={() => showDetail(post)}
-          >
+          <div className="postItem__post__allCmt" onClick={() => showDetail(post)}>
             Xem tất cả {post.comments.length} bình luận
           </div>
           <div className="postItem__post__time">{format(post.createdAt)}</div>
@@ -104,6 +105,9 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
           content={{ text: post._id, messType: 'post' }}
           setIsOpenSetting={undefined}
         />
+      )}
+      {(isShowAllLikesPopup as boolean) && (
+        <AllLikesPopup isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
       )}
     </>
   );

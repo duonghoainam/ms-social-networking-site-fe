@@ -3,12 +3,13 @@ import { Close } from '@material-ui/icons';
 import AccountItem from '../AccountItem/AccountItem';
 import { Spinner } from 'react-bootstrap';
 import './AllLikesPopup.scss';
+import { fakeUser } from '../../../fake-data';
 
 const AllLikesPopup = ({ isShow, hidePopup }: any): ReactElement => {
   const listLikeComment: any = {
-    listUsers: [],
-    isLoad: true,
-    showModal: false
+    listUsers: [fakeUser, fakeUser, fakeUser],
+    isLoad: false,
+    showModal: true
   };
   return (
     <div className="alllikes" style={{ display: (isShow as boolean) ? '' : 'none' }}>

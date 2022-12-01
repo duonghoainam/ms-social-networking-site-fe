@@ -19,4 +19,4 @@ const UserPost = (): ReactElement => {
   );
 };
 
-export default UserPost;
+export default UserPost; 

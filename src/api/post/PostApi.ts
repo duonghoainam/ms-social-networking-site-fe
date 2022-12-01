@@ -49,9 +49,9 @@ class PostAPI {
     return axiosClient.get(url, { params: { postId } });
   };
 
-  createComment = (postId: string, userId: string, content: string, commentId?: string, postUserId?: string): any => {
+  createComment = (postId: string, userId: string, content: string, postUserId: string): any => {
     const url = `${getApiUrl()}/comments/`;
-    return axiosClient.post(url, { params: { postId, userId, content, commentId, postUserId } });
+    return axiosClient.post(url, { postId, userId, content, postUserId });
   };
 
   updateComment = (commentId: string, content: string): any => {

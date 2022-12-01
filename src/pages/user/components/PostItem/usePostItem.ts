@@ -7,7 +7,7 @@ import './styles.scss';
 
 export const usePostItem = (): any => {
   const dispatch = useAppDispatch();
-  const { isShowDetail } = useSelector((state: AppState) => state.home);
+  const { isShowPostDetail } = useSelector((state: AppState) => state.home);
 
   const showDialog = async (a: any): Promise<void> => {
     // const action2 = getPostById({ postId: a });
@@ -20,7 +20,7 @@ export const usePostItem = (): any => {
   };
 
   return {
-    isShowDetail,
+    isShowPostDetail,
     showDialog
   };
 };

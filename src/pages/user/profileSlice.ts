@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
+import postAPI from '../../api/post/PostApi';
 import userAPI from '../../api/UserApi';
 
 // Action API
@@ -29,14 +30,15 @@ export const removeFollow = createAsyncThunk('user/removeFollow', async (params:
   return unFollowUser;
 });
 
-export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async (params: any): Promise<AxiosResponse> => {
-  const posts = await userAPI.getPostsByUserId(params);
-  return posts;
-});
-
 export const changePassword = createAsyncThunk('user/changePassword', async (params: any): Promise<AxiosResponse> => {
   const changePasswordUser = await userAPI.changePassword(params);
   return changePasswordUser;
+});
+
+// Post API
+export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async (params: any): Promise<AxiosResponse> => {
+  const posts = await postAPI.getPostsByUserId(params);
+  return posts;
 });
 
 // Slice
@@ -105,7 +107,7 @@ const UserSlice = createSlice({
       state.isLoading = true;
     },
     [getPostsByUserId.fulfilled.toString()]: (state: any, action: any) => {
-      state.posts = action.payload.listPost;
+      state.posts = action.payload.data;
       state.isLoading = false;
     },
     [getPostsByUserId.rejected.toString()]: (state: any, action: any) => {

@@ -21,7 +21,7 @@ export const usePostComment = (): any => {
     } else {
       const actionlike = handleLike({ postId, userId })
       await dispatch(actionlike).unwrap();
-      // Thông báo có lượt like post
+      // Thông báo có lượt like cho chủ post
     }
   };
 

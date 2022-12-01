@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getPostsByUserId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
+import { useAppDispatch } from '../../../../app/store';
 
-import { fakeUser, fakePosts } from '../../../../fake-data';
+import { fakeUser } from '../../../../fake-data';
 
 export const useUserPost = (): any => {
   // const activeId = useSelector((state: AppState) => state.user.activeId);
-  // const posts = useSelector((state: AppState) => state.user.posts);
-  const dispatch = useDispatch();
   const activeId = fakeUser._id;
-  const posts = fakePosts;
+  const posts = useSelector((state: AppState) => state.user.posts);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const useEffectAsyncFunc = async (): Promise<void> => {
       const action = getPostsByUserId(activeId);
-      // await dispatch(action);
+      await dispatch(action).unwrap();
     };
     void useEffectAsyncFunc();
   }, [activeId]);

@@ -110,6 +110,14 @@ body {
     &__react {
         margin: 20px 0;
     }
+
+}
+.postItem__post__likes{
+    cursor: pointer;
+}
+
+.postItem__post__allCmt{
+    cursor: pointer;
 }
 //end
 
@@ -376,6 +384,7 @@ body {
             }
 
             .postItem__content__likes {
+                cursor: pointer;
                 font-size: 14px;
                 margin-left: 15px;
             }

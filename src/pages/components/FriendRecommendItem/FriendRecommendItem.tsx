@@ -6,7 +6,6 @@ const FriendRecommendItem = ({ user }: any): ReactElement => {
   const {
     isShowRecommend,
     isFollow,
-    // setIsFollow,
     showRecommend,
     hideRecommend,
     handleShowProfile,

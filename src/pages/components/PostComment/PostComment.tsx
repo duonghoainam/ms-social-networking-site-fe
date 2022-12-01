@@ -16,7 +16,6 @@ import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/ico
 import CommentSkeleton from '../../../components/SkeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
 import MessagePopup from '../../Chat/components/MessagePopup';
-// import { socket } from '../../../App';
 
 const PostComment = ({
   isShowPostDetail,
@@ -65,7 +64,6 @@ const PostComment = ({
           <div className="detail__content__comment__body">
             {selectedPost !== null ? <ListComment /> : <CommentSkeleton />}
           </div>
-
           <div className="detail__content__comment__footer">
             <div className="react">
               <Row>
@@ -79,11 +77,12 @@ const PostComment = ({
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                        onClick={() => handleLikePost(selectedPost._id, currentUser._id)}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser._id)}
                         />
                       )}
-
-                      <SendOutlined onClick={() => setIsShowMessagePopup(true)} />
+                      <SendOutlined
+                      // onClick={() => setIsShowMessagePopup(true)}
+                      />
                     </Col>
                   </Row>
                 </Col>
@@ -95,7 +94,7 @@ const PostComment = ({
             <div className="postItem__content__caption">{selectedPost.content}</div>
 
             <div className="postItem__content__time">{format(selectedPost.createdAt)}</div>
-            <AddComment postId={selectedPost._id} userPostId={selectedPost.user._id} />
+            <AddComment postId={selectedPost._id} userPostId={selectedPost.user} />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ export const usePostItem = (): any => {
     } else {
       const actionLike = handleLike({ userId, postId });
       await dispatch(actionLike).unwrap();
-      // Gửi thông báo cho chủ post
+      // Thông báo lượt like mới cho chủ post
     }
   };
 
