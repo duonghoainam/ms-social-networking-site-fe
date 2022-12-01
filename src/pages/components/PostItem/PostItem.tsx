@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { ReactElement } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import './PostItem.scss';
@@ -20,7 +21,7 @@ import MessagePopup from '../../Chat/components/MessagePopup';
  * @param post post data
  * @param setSelectedPost set current post to state
  * @param setShowPostDetail show/hide post detail
- * @param getPostComments call api to get post comments and set state
+ * @param getComments call api to get post comments and set state
  * @returns
  */
 const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
@@ -56,23 +57,23 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
               {post.likes.includes(currentUser._id) === true ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onClick={async (): Promise<void> => {
-                    await handleLikePost(post._id);
+                    await handleLikePost(post);
                   }}
                 />
               ) : (
                 <FavoriteBorderOutlined
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onClick={async () => {
-                    await handleLikePost(post._id, post.user._id);
+                    await handleLikePost(post);
                   }}
                 />
               )}
-
-              <AddCommentOutlined onClick={() => showDetail(post)} />
-
-              <SendOutlined onClick={() => setIsShowMessagePopup(true)} />
+              <AddCommentOutlined
+              onClick={() => showDetail(post)}
+              />
+              <SendOutlined
+              // onClick={() => setIsShowMessagePopup(true)}
+              />
             </Col>
             <Col md={3} style={{ textAlign: 'right' }}>
               <BookmarkBorderOutlined />
@@ -87,7 +88,9 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
               Xem thêm
             </span>
           )} */}
-          <div className="postItem__post__allCmt" onClick={() => showDetail(post)}>
+          <div className="postItem__post__allCmt"
+          onClick={() => showDetail(post)}
+          >
             Xem tất cả {post.comments.length} bình luận
           </div>
           <div className="postItem__post__time">{format(post.createdAt)}</div>

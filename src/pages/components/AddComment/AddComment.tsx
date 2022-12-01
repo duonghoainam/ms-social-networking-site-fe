@@ -11,8 +11,9 @@ import { useAddComment } from './useAddComment';
  * @param submit function to save comment
  * @returns
  */
-const AddComment = ({ submit }: any): ReactElement => {
+const AddComment = (postId: any, userPostId: any): ReactElement => {
   const {
+    submitComment,
     showEmoji,
     setShowEmoji,
     inputValue,
@@ -20,8 +21,8 @@ const AddComment = ({ submit }: any): ReactElement => {
     handleKeyDown,
     handleEmojiClick,
     deleteReply
-  } = useAddComment(submit);
-  const replyingComment = { username: 'thuan' };
+  } = useAddComment(postId, userPostId);
+  const replyingComment = { username: '' };
   return (
     <>
       <Row>
@@ -57,7 +58,7 @@ const AddComment = ({ submit }: any): ReactElement => {
             placeholder="Thêm bình luận..."></input>
         </Col>
         <Col md={2}>
-          <p style={{ textAlign: 'right' }} className="addComment_btn" onClick={submit}>
+          <p style={{ textAlign: 'right' }} className="addComment_btn" onClick={submitComment}>
             Đăng
           </p>
         </Col>

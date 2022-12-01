@@ -1,15 +1,16 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPostsByUserId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
 
-export const useUserPost = (): any => {
-  const dispatch = useDispatch();
+import { fakeUser, fakePosts } from '../../../../fake-data';
 
-  const activeId = useSelector((state: AppState) => state.user.activeId);
-  const posts = useSelector((state: AppState) => state.user.posts);
+export const useUserPost = (): any => {
+  // const activeId = useSelector((state: AppState) => state.user.activeId);
+  // const posts = useSelector((state: AppState) => state.user.posts);
+  const dispatch = useDispatch();
+  const activeId = fakeUser._id;
+  const posts = fakePosts;
 
   useEffect(() => {
     const useEffectAsyncFunc = async (): Promise<void> => {

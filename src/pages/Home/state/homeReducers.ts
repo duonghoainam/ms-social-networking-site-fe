@@ -1,67 +1,82 @@
-/* eslint-disable */
 import {
-  getPostComments,
-  getListRecommendFriends,
+  getComments,
   getPosts,
   handleLike,
   handleUnLike,
+  addNewComment
 } from './homeActions';
 
 export const extraReducers: any = {
   // get all post when login successful
   [getPosts.pending.toString()]: (state: any) => {
-    return {...state, isLoading: true}
+    return { ...state, isLoading: true }
   },
   [getPosts.rejected.toString()]: (state: any) => {
-    return {...state, isLoading: false, loadListPostFail: true}
+    return { ...state, isLoading: false, loadListPostFail: true }
   },
   [getPosts.fulfilled.toString()]: (state: any, action: any) => {
-    return {...state, listPost: action.payload.posts, loadListPostFail: false, isLoading: false};
+    return { ...state, listPost: action.payload.data, loadListPostFail: false, isLoading: false };
   },
+
   // get all comment of post
-  [getPostComments.pending.toString()]: (state: any, action: any) => {
-    return {...state, isLoadComment: true};
+  [getComments.pending.toString()]: (state: any, action: any) => {
+    return { ...state, isLoadComment: true };
   },
-  [getPostComments.rejected.toString()]: (state: any, action: any) => {
-    return {...state, isLoadComment: false};
+  [getComments.rejected.toString()]: (state: any, action: any) => {
+    return { ...state, isLoadComment: false };
   },
-  [getPostComments.fulfilled.toString()]: (state: any, action: any) => {
-    return {...state, listComment: action.payload.comments, isLoadComment: false};
+  [getComments.fulfilled.toString()]: (state: any, action: any) => {
+    return { ...state, listComment: action.payload.data, isLoadComment: false };
   },
 
-  // // handle like
-  // [handleLike.pending.toString()]: (state: any, action: any) => {
-  //   console.log('Đang like');
-  // },
-  // [handleLike.rejected.toString()]: (state: any, action: any) => {
-  //   console.log('like thất bại');
-  // },
-  // [handleLike.fulfilled.toString()]: (state: any, action: any) => {
-  //   const loginId = JSON.parse(localStorage.getItem('login') ?? '');
-  //   state.listPost = state.listPost.map((post: any) => {
-  //     if (post._id === action.payload) {
-  //       post.likes.push(loginId._id);
-  //     }
-  //     return post;
-  //   });
-  // },
+  // handle like post
+  [handleLike.pending.toString()]: (state: any, action: any) => {
+    console.log('handleLike pending');
+  },
+  [handleLike.rejected.toString()]: (state: any, action: any) => {
+    console.log('handleLike rejected');
+  },
+  [handleLike.fulfilled.toString()]: (state: any, action: any) => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+    state.listPost = state.listPost.map((post: any) => {
+      if (post._id === action.payload) {
+        post.likes.push(currentUser._id);
+        if (Boolean(state.selectedPost._id)) {
+          const tempState = state.selectedPost;
+          tempState.likes.push(currentUser._id)
+          state.selectedPost = tempState
+        }
+      }
+      return post;
+    })
+    console.log('handleLike fulfilled')
+  },
 
-  // [handleUnLike.fulfilled.toString()]: (state: any, action: any) => {
-  //   const loginId = JSON.parse(localStorage.getItem('login') ?? '');
-  //   state.listPost = state.listPost.map((post: any) => {
-  //     if (post._id === action.payload) {
-  //       post.likes = post.likes.filter((item: any) => {
-  //         return item !== loginId._id;
-  //       });
-  //     }
-  //     return post;
-  //   });
-  // },
-
-  // // get list recommend friends
-  // [getListRecommendFriends.pending.toString()]: (state: any, action: any) => {},
-  // [getListRecommendFriends.rejected.toString()]: (state: any, action: any) => {},
-  // [getListRecommendFriends.fulfilled.toString()]: (state: any, action: any) => {
-  //   state.listRecommend = action.payload.relateUser;
-  // }
+  // Handle unlike post
+  [handleUnLike.pending.toString()]: (state: any, action: any) => {
+    console.log('handleUnLike pending');
+  },
+  [handleUnLike.rejected.toString()]: (state: any, action: any) => {
+    console.log('handleUnLike rejected');
+  },
+  [handleUnLike.fulfilled.toString()]: (state: any, action: any) => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+    state.listPost = state.listPost.map((post: any) => {
+      if (post._id === action.payload) {
+        post.likes = post.likes.filter((item: any) => {
+          return item !== currentUser._id;
+        });
+        if (Boolean(state.selectedPost._id)) {
+          const tempState = state.selectedPost;
+          tempState.likes = tempState.likes.filter((item: any) => item !== currentUser._id)
+          state.selectedPost = tempState
+        }
+      }
+      return post;
+    })
+    console.log('handleUnLike fulfilled');
+  },
+  [addNewComment.pending.toString()]: (state: any, action: any) => {},
+  [addNewComment.rejected.toString()]: (state: any, action: any) => {},
+  [addNewComment.fulfilled.toString()]: (state: any, action: any) => {}
 };

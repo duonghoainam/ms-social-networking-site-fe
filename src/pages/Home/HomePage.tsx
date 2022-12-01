@@ -15,9 +15,9 @@ import { usePostItem } from './hooks/usePostItem';
 import { usePostComment } from './hooks/usePostComment';
 
 const HomePage = (): ReactElement => {
-  const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { listPost, isLoading, loadListPostFail } = useHomePage();
   const { showDetail, handleLikePost } = usePostItem();
+  const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { hideDetail, handleLikePostComment } = usePostComment();
   return (
     <>

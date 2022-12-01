@@ -4,7 +4,6 @@ import './styles.scss';
 import { useFollowerItem } from './useFollowerItem';
 
 const FollowerItem = (props: { user: any, setShowModal: any }): ReactElement => {
-  console.log('followerItem: ', props.user)
   const {
     name,
     avatar,

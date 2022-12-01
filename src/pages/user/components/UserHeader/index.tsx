@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import React, { ReactElement } from 'react';
 import { Button } from 'react-bootstrap';
 import { useUserHeader } from './useUserHeader';
@@ -14,27 +13,23 @@ const UserHeader = (): ReactElement => {
     setShowModal,
     setShowModalFollow,
     showModalFollow,
-    IsFollow,
+    isFollowed,
     isShowFollowers,
     isShowChangeAvataPopup,
     setIsShowChangeAvataPopup,
     authUserId,
     UserInfo,
     posts,
-    name,
-    avatar,
-    _id,
     totalFollower,
     totalFollowing,
     handleFollow,
     handleShowFollow,
-    // handleChangeAvt,
+    handleChangeAvt,
     handleGuiTinNhan
   } = useUserHeader();
 
   return (
     <div>
-      <div>UserHeader</div>
       {(Boolean(showModal)) && <Dialog showModal={showModal} setShowModal={setShowModal} />}
       {(Boolean(showModalFollow)) && (
         <FollowList
@@ -54,9 +49,9 @@ const UserHeader = (): ReactElement => {
           <div className="p-2">
             <div
               className="avatar__container"
-              // onClick={() => handleChangeAvt()}
+              onClick={() => handleChangeAvt()}
             >
-              <img src={avatar} />
+              <img src={UserInfo.avatar} />
             </div>
           </div>
           <div className="p-2 ">
@@ -64,7 +59,7 @@ const UserHeader = (): ReactElement => {
               <div className="p-0 ">
                 <div className="">
                   <div className="d-flex  flex-row ">
-                    <div className="p-2 username ">{name}</div>
+                    <div className="p-2 username ">{UserInfo.name}</div>
 
                     {UserInfo._id === current._id ? (
                       <></>
@@ -81,12 +76,12 @@ const UserHeader = (): ReactElement => {
                           variant="outline-success"
                           onClick={() => handleFollow(UserInfo._id)}
                         >
-                          {(Boolean(IsFollow)) ? 'Bỏ theo dõi' : 'Theo dõi'}
+                          {(Boolean(isFollowed)) ? 'Bỏ theo dõi' : 'Theo dõi'}
                         </Button>
                       </>
                     )}
 
-                    {authUserId === _id && (
+                    {authUserId === UserInfo._id && (
                       <Button variant="outline-success"
                       onClick={() => setShowModal(true)}
                       >

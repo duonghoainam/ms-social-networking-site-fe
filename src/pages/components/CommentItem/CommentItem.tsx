@@ -69,7 +69,8 @@ const CommentItem = ({ comment }: any): ReactElement => {
           // onClick={() => setShowChildrenComment(!showChildrenComment)}
         >
           {!(showChildrenComment as boolean)
-            ? // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            // eslint-disable-next-line operator-linebreak
+            ? // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, @typescript-eslint/indent
               '____   Xem ' + comment.reply.length.toString() + ' câu trả lời'
             : '____   Ẩn câu trả lời'}
         </Col>

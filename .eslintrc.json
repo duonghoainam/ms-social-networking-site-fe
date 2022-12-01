@@ -29,6 +29,8 @@
 			"destructuring": "any",
 			"ignoreReadBeforeAssign": false
 		}],
-		"no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
+		"no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+		"multiline-ternary": "off",
+		"no-extra-boolean-cast": "off"
 	}
 }

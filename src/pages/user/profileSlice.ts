@@ -26,7 +26,6 @@ export const unFollow = createAsyncThunk('user/unFollow', async (params: any): P
 
 export const removeFollow = createAsyncThunk('user/removeFollow', async (params: any): Promise<AxiosResponse> => {
   const unFollowUser = await userAPI.removeFollow(params);
-  console.log(unFollowUser);
   return unFollowUser;
 });
 
@@ -36,7 +35,6 @@ export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async 
 });
 
 export const changePassword = createAsyncThunk('user/changePassword', async (params: any): Promise<AxiosResponse> => {
-  console.log(params);
   const changePasswordUser = await userAPI.changePassword(params);
   return changePasswordUser;
 });

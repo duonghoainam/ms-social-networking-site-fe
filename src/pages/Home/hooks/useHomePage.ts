@@ -6,14 +6,13 @@ import { getPosts } from '../state/homeActions';
 
 export const useHomePage = (): any => {
   const dispatch = useAppDispatch();
-  const { listPost, isLoading, loadListPostFail } = useSelector((state: AppState) => {
-    return state.home;
-  });
+  const { listPost, isLoading, loadListPostFail } = useSelector((state: AppState) => state.home);
 
-  const loadPosts = async (): Promise<void> => {
-    await dispatch(getPosts()).unwrap();
-  };
   useEffect(() => {
+    const loadPosts = async (): Promise<void> => {
+      const action = getPosts();
+      await dispatch(action).unwrap();
+    };
     void loadPosts();
   }, []);
   return {

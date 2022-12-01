@@ -9,17 +9,16 @@ import IndexChat from './pages/Chat';
 import NewIndex from './pages/Newpost/newIndex';
 import VideoCall from './pages/Chat/components/VideoCall';
 import UserIndex from './pages/User';
-import * as io from 'socket.io-client';
+// import * as io from 'socket.io-client';
 // import { useSelector } from 'react-redux';
 // import PostComment from './pages/Home/components/postComment';
 // import { AppState } from './app/state.type';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
-import AuthRoute from './components/ControlRoute/AuthRoute';
+// import AuthRoute from './components/ControlRoute/AuthRoute';
 import RegisterPage from './pages/Register/RegisterPage';
 
-export const socket = io.connect('https://server-social-ie213.herokuapp.com');
-// export const socket = null;
+export const socket = null;
 
 function App (): ReactElement {
   // const { activePostId } = useSelector((state: AppState) => state.home);
@@ -62,20 +61,20 @@ function App (): ReactElement {
         <Route
           path="/login/*"
           element={
-            <AuthRoute>
+            // <AuthRoute>
               <Routes>
                 <Route index element={<LoginPage />} />
               </Routes>
-            </AuthRoute>
+            // </AuthRoute>
           }></Route>
         <Route
           path="/register/*"
           element={
-            <AuthRoute>
+            // <AuthRoute>
               <Routes>
                 <Route index element={<RegisterPage />} />
               </Routes>
-            </AuthRoute>
+            // </AuthRoute>
           }></Route>
       </Routes>
       <Outlet></Outlet>
