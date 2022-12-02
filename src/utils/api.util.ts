@@ -5,10 +5,10 @@ const getApiUrl = (): string => {
       url = '';
       break;
     case 'development':
-      url = 'http://localhost:4000/api';
+      url = 'http://localhost:3000/api';
       break;
     default:
-      url = 'http://localhost:4000/api';
+      url = 'http://localhost:3000/api';
       break;
   }
   return url;

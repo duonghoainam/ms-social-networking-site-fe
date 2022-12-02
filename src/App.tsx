@@ -8,7 +8,6 @@ import PrivateRoute from './components/ControlRoute/PrivateRoute';
 import IndexChat from './pages/Chat';
 import NewIndex from './pages/Newpost/newIndex';
 import VideoCall from './pages/Chat/components/VideoCall';
-import UserIndex from './pages/User';
 // import * as io from 'socket.io-client';
 // import { useSelector } from 'react-redux';
 // import PostComment from './pages/Home/components/postComment';
@@ -17,6 +16,7 @@ import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 // import AuthRoute from './components/ControlRoute/AuthRoute';
 import RegisterPage from './pages/Register/RegisterPage';
+import UserIndex from './pages/User';
 
 export const socket = null;
 
