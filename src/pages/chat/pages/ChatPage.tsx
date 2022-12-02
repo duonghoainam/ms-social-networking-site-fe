@@ -1,47 +1,28 @@
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
-import Header from '../../../components/Header/Header';
-import ChatContent from '../components/ChatContent';
-import DefaultContent from '../components/DefaultContent';
-import ListChat from '../components/ListChat';
-import { useSelector } from 'react-redux';
+// // import Header from '../../../shareComponents/header/Header';
+import ChatContent from '../components/ChatContent/ChatContent';
+import DefaultContent from '../components/DefaultContent/DefaultContent';
+import ListChat from '../components/ListChat/ListChat';
+import MessagePopup from '../components/MessagePopup/MessagePopup';
+import { useChatPage } from '../hooks/useChatPage';
 
-const ChatPage = (): ReactElement => {
-  const [isOpenSetting, setIsOpenSetting] = useState(false);
-  const [isShowPopup, setIsShowPopup] = useState(false);
-
-  const currentUser = useSelector((state: any) => state.auth.current);
-  // const params = useParams();
-  console.log(currentUser._id);
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   socket.emit('joinMessenger', currentUser._id);
-  // }, [params]);
-
-  // useEffect(async () => {
-  //   const action2 = getNotification();
-  //   await dispatch(action2).unwrap();
-  // }, []);
+function ChatPage(): any {
+  const { isOpenSetting, setIsOpenSetting, isShowPopup, setIsShowPopup } = useChatPage();
 
   return (
     <>
       <Container fluid>
-        <Row>
-          <Header></Header>
-        </Row>
+        <Row>{/* <Header></Header> */}</Row>
       </Container>
       <Container style={{ marginTop: '100px' }}>
+        {isShowPopup && <MessagePopup setIsShowPopup={setIsShowPopup} type="create" />}
         <Row>
           <Col md={{ span: 4, offset: 1 }} style={{ paddingRight: 0, paddingLeft: 0 }}>
-            <ListChat
-              setIsOpenSetting={setIsOpenSetting}
-              isShowPopup={isShowPopup}
-              setIsShowPopup={setIsShowPopup}
-            />
+            <ListChat setIsOpenSetting={setIsOpenSetting} setIsShowPopup={setIsShowPopup} />
           </Col>
           <Col md={{ span: 6 }} style={{ paddingRight: 0, paddingLeft: 0 }}>
-            {/* <DefaultContent /> */}
             <Routes>
               <Route index path="/" element={<DefaultContent />} />
               <Route
@@ -61,6 +42,6 @@ const ChatPage = (): ReactElement => {
       </Container>
     </>
   );
-};
+}
 
 export default ChatPage;

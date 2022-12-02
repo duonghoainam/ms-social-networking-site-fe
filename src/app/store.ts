@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import AuthReducer from '../pages/auth/authSlice';
-import chatSlice from '../pages/chat/ChatSlice';
 import HomeReducer from '../pages/home/state/homeSlice';
 import userReducer from '../pages/user/profileSlice';
 // import { persistStore, persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';
 import { useDispatch } from 'react-redux';
+import ChatReducer from '../pages/chat/state/chatSlice';
 
 // const persistConfig = {
 //   key: 'root',
@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 const rootReducer = combineReducers({
   auth: AuthReducer,
   home: HomeReducer,
-  chat: chatSlice.reducer,
+  chat: ChatReducer,
   user: userReducer
 });
 

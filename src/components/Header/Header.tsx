@@ -13,10 +13,10 @@ import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from '../../pages/auth/authSlice';
-import SingleDestination from '../../pages/chat/components/SingleDestination';
 import { addActiveId } from '../../pages/user/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
+import SingleDestination from '../../pages/chat/components/SingleDestination/SingleDestination';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
