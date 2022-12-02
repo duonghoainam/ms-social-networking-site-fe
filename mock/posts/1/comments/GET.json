@@ -1,0 +1,18 @@
+{
+  "comments": [
+    {
+      "_id": "123",
+      "content": "comment 1",
+      "reply": [],
+      "parent": "comment parent",
+      "likes": [],
+      "user": {
+        "name": "thuan",
+        "avatar": "https://plus.unsplash.com/premium_photo-1661692683145-c53ecfadd6d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+      },
+      "postId": "1",
+      "postUserId": {},
+      "createdAt": 1669303696334
+    }
+  ]
+}
