@@ -9,8 +9,8 @@ export const fakeUser = {
   role: 'Male',
   mobile: 999999,
   address: '',
-  followers: [],
-  following: [],
+  followers: ['637bb592cac1d671bfaf02d4'],
+  following: ['637bb592cac1d671bfaf02d4'],
   createdAt: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 };
 

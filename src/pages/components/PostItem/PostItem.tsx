@@ -28,7 +28,7 @@ import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
  */
 const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
   const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem({ post });
-  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup(post);
+  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
   return (
     <>
       <Row className="postItem">
@@ -107,7 +107,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
         />
       )}
       {(isShowAllLikesPopup as boolean) && (
-        <AllLikesPopup isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
+        <AllLikesPopup post={post} isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
       )}
     </>
   );

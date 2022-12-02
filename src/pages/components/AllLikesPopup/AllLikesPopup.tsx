@@ -1,39 +1,44 @@
 import React, { ReactElement } from 'react';
 import { Close } from '@material-ui/icons';
 import AccountItem from '../AccountItem/AccountItem';
-import { Spinner } from 'react-bootstrap';
+// import { Spinner } from 'react-bootstrap';
 import './AllLikesPopup.scss';
 import { fakeUser } from '../../../fake-data';
+import { useAllLikesPopup } from './useAllLikesPopup';
 
-const AllLikesPopup = ({ isShow, hidePopup }: any): ReactElement => {
-  const listLikeComment: any = {
-    listUsers: [fakeUser, fakeUser, fakeUser],
-    isLoad: false,
-    showModal: true
-  };
+const AllLikesPopup = ({ post, isShow, hidePopup }: any): ReactElement => {
+  const { isLoadThatPost } = useAllLikesPopup({ post });
   return (
-    <div className="alllikes" style={{ display: (isShow as boolean) ? '' : 'none' }}>
-      <div className="alllikes_overlay" onClick={hidePopup}></div>
-      <div className="alllikes_content">
-        <div className="alllikes_content_header">
-          <p>Lượt thích ({listLikeComment.listUsers.length})</p>
-          <Close onClick={hidePopup} />
-        </div>
-        <div className="alllikes_content_content">
-          {(listLikeComment.isLoad as boolean) ? (
-            <div className="spinner_wrap">
-              <Spinner className="spinner" animation="border" size="sm" />
+    <>
+      {Boolean(isLoadThatPost) && (
+        <div className="alllikes" style={{ display: (isShow as boolean) ? '' : 'none' }}>
+          <div className="alllikes_overlay" onClick={hidePopup}></div>
+          <div className="alllikes_content">
+            <div className="alllikes_content_header">
+              <p>{post.likes.length} Lượt thích</p>
+              <Close onClick={hidePopup} />
             </div>
-          ) : (
-            <>
-              {listLikeComment.listUsers.map((user: any, index: any) => {
+            <div className="alllikes_content_content">
+              {[fakeUser].map((user: any, index: any) => {
+                // [fakeUser] ==> post.likes
                 return <AccountItem key={index} user={user} />;
               })}
-            </>
-          )}
+              {/* {(listLikeComment.isLoad as boolean) ? (
+                <div className="spinner_wrap">
+                  <Spinner className="spinner" animation="border" size="sm" />
+                </div>
+              ) : (
+                <>
+                  {listLikeComment.listUsers.map((user: any, index: any) => {
+                    return <AccountItem key={index} user={user} />;
+                  })}
+                </>
+              )} */}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

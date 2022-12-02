@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
 
-export const getPosts = createAsyncThunk('post/getPosts', async () => {
-  const response = await postAPI.getPosts();
+export const getPosts = createAsyncThunk('post/getPosts', async (userId: any) => {
+  const response = await postAPI.getPosts(userId);
   return response;
 });
 
@@ -13,7 +13,7 @@ export const getComments = createAsyncThunk('post/getComments', async (postId: a
 
 export const handleLike = createAsyncThunk(
   'post/Like',
-  async (params: { userId: any; postId: any }) => {
+  async (params: { userId: any, postId: any }) => {
     await postAPI.likePost(params.userId, params.postId);
     return params.postId;
   }
@@ -21,7 +21,7 @@ export const handleLike = createAsyncThunk(
 
 export const handleUnLike = createAsyncThunk(
   'post/UnLike',
-  async (params: { userId: any; postId: any }) => {
+  async (params: { userId: any, postId: any }) => {
     await postAPI.unlikePost(params.userId, params.postId);
     return params.postId;
   }

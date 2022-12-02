@@ -13,8 +13,9 @@ export const useFollowList = (setShowModal: any): any => {
   const followingListStore = fakeUser.following;
 
   // State
-  const [followersList, setFollowersList] = useState([]);
-  const [followingList, setFollowingList] = useState([]);
+  const emtySrtingArray: string[] = []
+  const [followersList, setFollowersList] = useState(emtySrtingArray);
+  const [followingList, setFollowingList] = useState(emtySrtingArray);
 
   useEffect(() => {
     setFollowersList(followersListStore);
