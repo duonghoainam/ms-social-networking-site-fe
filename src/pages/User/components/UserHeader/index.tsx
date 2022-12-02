@@ -16,7 +16,7 @@ const UserHeader = (): ReactElement => {
     isFollowed,
     isShowFollowers,
     isShowChangeAvataPopup,
-    setIsShowChangeAvataPopup,
+    setIsShowChangeAvatarPopup,
     authUserId,
     UserInfo,
     posts,
@@ -41,7 +41,7 @@ const UserHeader = (): ReactElement => {
       {(Boolean(isShowChangeAvataPopup)) && (
         <ChangeProfilePhotoPopup
           showModal={isShowChangeAvataPopup}
-          setShowModal={setIsShowChangeAvataPopup}
+          setShowModal={setIsShowChangeAvatarPopup}
         />
       )}
       <div className="header__container ">

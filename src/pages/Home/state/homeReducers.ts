@@ -1,4 +1,12 @@
-import { getComments, getPosts, handleLike, handleUnLike, addNewComment } from './homeActions';
+/* eslint-disable no-unused-vars */
+import {
+  getComments,
+  getPosts,
+  handleLike,
+  handleUnLike,
+  addNewComment,
+  deleteComment
+} from './homeActions';
 
 export const extraReducers: any = {
   // get all post when login successful
@@ -36,11 +44,9 @@ export const extraReducers: any = {
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload) {
         post.likes.push(currentUser._id);
-        // Update state selectedPost
+        // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
-          const tempState = state.selectedPost;
-          tempState.likes.push(currentUser._id);
-          state.selectedPost = tempState;
+          state.selectedPost.likes.push(currentUser._id);
         }
       }
       return post;
@@ -60,14 +66,12 @@ export const extraReducers: any = {
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload) {
-        post.likes = post.likes.filter((item: any) => {
-          return item !== currentUser._id;
-        });
-        // Update state selectedPost
+        post.likes = post.likes.filter((item: any) => item !== currentUser._id);
+        // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
-          const tempState = state.selectedPost;
-          tempState.likes = tempState.likes.filter((item: any) => item !== currentUser._id);
-          state.selectedPost = tempState;
+          state.selectedPost.likes = state.selectedPost.likes.filter(
+            (item: any) => item !== currentUser._id
+          );
         }
       }
       return post;
@@ -84,9 +88,7 @@ export const extraReducers: any = {
   },
   [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
     // Update state listcomment
-    const tempState = state.listComment;
-    tempState.push(action.payload.data);
-    state.listComment = tempState;
+    state.listComment.push(action.payload.data);
     // Update state listPosts
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload.data.postId) {
@@ -95,5 +97,17 @@ export const extraReducers: any = {
       return post;
     });
     console.log('addNewComment fulfilled');
+  },
+
+  // Delete comment
+  [deleteComment.pending.toString()]: (state: any, action: any) => {
+    console.log('deleteComment pending');
+  },
+  [deleteComment.rejected.toString()]: (state: any, action: any) => {
+    console.log('deleteComment rejected');
+  },
+  [deleteComment.fulfilled.toString()]: (state: any, action: any) => {
+    state.listComment = action.payload.data;
+    console.log('deleteComment fulfilled');
   }
 };

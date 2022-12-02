@@ -59,9 +59,9 @@ class PostAPI {
     return axiosClient.patch(url, { params: { commentId, content } });
   };
 
-  deleteComment = (commentId: string): any => {
+  deleteComment = (commentId: string, postId: string): any => {
     const url = `${getApiUrl()}/comments/`;
-    return axiosClient.delete(url, { params: { commentId } });
+    return axiosClient.delete(url, { params: { commentId, postId } });
   };
 
   reactComment = (commentId: string, userId: string): any => {

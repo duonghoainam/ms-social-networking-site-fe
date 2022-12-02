@@ -9,11 +9,20 @@ import {
 } from '@material-ui/icons';
 import TimeAgo from 'javascript-time-ago';
 import { useCommentItem } from './useCommentItem';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import './CommentItem.scss';
 
 const CommentItem = ({ comment }: any): ReactElement => {
   const timeAgo = new TimeAgo('en-US');
-  const { isLike, likeCount, showChildrenComment } = useCommentItem(comment);
+  const {
+    isLike,
+    likeCount,
+    isShowChildrenComment,
+    isShowCmtOption,
+    setIsShowCommentOption,
+    isCanEditAndDelete,
+    handleDeleteComment } = useCommentItem(comment);
 
   return (
     <Row className="comment">
@@ -31,7 +40,7 @@ const CommentItem = ({ comment }: any): ReactElement => {
           </div>
           <div className="comment_content_interact">
             <p className="comment_content_interact_time">
-              {timeAgo.format(Date.parse(comment.modifiedAt) - 24 * 60 * 60 * 1000)}
+              {timeAgo.format(Date.parse(comment.modifiedAt))}
             </p>
             {(isLike as boolean) ? (
               <Favorite
@@ -50,7 +59,6 @@ const CommentItem = ({ comment }: any): ReactElement => {
             >
               {likeCount}
             </p>
-
             <p
               className="comment_content_interact_response"
               // onClick={() => HandleReply(comment._id, comment.user.name, comment.user._id)}
@@ -58,6 +66,35 @@ const CommentItem = ({ comment }: any): ReactElement => {
               <ChatBubbleOutlineOutlined className="rep"></ChatBubbleOutlineOutlined>
               Trả lời
             </p>
+            <div className="comment_content_interact_more">
+                <FontAwesomeIcon
+                  className="comment_content_interact_more"
+                  icon={faEllipsis}
+                  onClick={() => setIsShowCommentOption(!(Boolean(isShowCmtOption)))}
+                />
+                <div
+                  className="comment_content_interact_more_option"
+                  style={{ display: isShowCmtOption === true ? '' : 'none' }}
+                >
+                  <ul>
+                    <li
+                      className={isCanEditAndDelete === true ? '' : 'disabled'}
+                      // onClick={() => handleEditCmt(CmtItem._id)}
+                    >
+                      Sửa
+                    </li>
+                    <li
+                      className={isCanEditAndDelete === true ? '' : 'disabled'}
+                      onClick={() => handleDeleteComment()}
+                    >
+                      Xóa
+                    </li>
+                    <li>
+                      Báo cáo
+                    </li>
+                  </ul>
+                </div>
+              </div>
           </div>
         </div>
       </Col>
@@ -65,16 +102,16 @@ const CommentItem = ({ comment }: any): ReactElement => {
         <Col
           className="comment_childrenStatus"
           md={{ span: 10, offset: 2 }}
-          // onClick={() => setShowChildrenComment(!showChildrenComment)}
+          // onClick={() => setShowChildrenComment(!isShowChildrenComment)}
         >
-          {!(showChildrenComment as boolean)
+          {!(isShowChildrenComment as boolean)
             ? '____   Xem ' + comment.reply.length.toString() + ' câu trả lời'
             : '____   Ẩn câu trả lời'}
         </Col>
       ) : (
         ''
       )}
-      {(showChildrenComment as boolean) ? (
+      {(isShowChildrenComment as boolean) ? (
         <Col className="comment_chilrentCmt">
           {comment.reply.length > 0 &&
             comment.reply.map((item: any) => {

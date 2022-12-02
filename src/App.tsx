@@ -14,7 +14,7 @@ import VideoCall from './pages/Chat/components/VideoCall';
 // import { AppState } from './app/state.type';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
-// import AuthRoute from './components/ControlRoute/AuthRoute';
+import AuthRoute from './components/ControlRoute/AuthRoute';
 import RegisterPage from './pages/Register/RegisterPage';
 import UserIndex from './pages/User';
 
@@ -51,6 +51,7 @@ function App (): ReactElement {
               <IndexChat />
             </PrivateRoute>
           }></Route>
+
         <Route
           path="/new/*"
           element={
@@ -58,23 +59,25 @@ function App (): ReactElement {
               <NewIndex />
             </PrivateRoute>
           }></Route>
+
         <Route
           path="/login/*"
           element={
-            // <AuthRoute>
+            <AuthRoute>
               <Routes>
                 <Route index element={<LoginPage />} />
               </Routes>
-            // </AuthRoute>
+            </AuthRoute>
           }></Route>
+
         <Route
           path="/register/*"
           element={
-            // <AuthRoute>
+            <AuthRoute>
               <Routes>
                 <Route index element={<RegisterPage />} />
               </Routes>
-            // </AuthRoute>
+            </AuthRoute>
           }></Route>
       </Routes>
       <Outlet></Outlet>

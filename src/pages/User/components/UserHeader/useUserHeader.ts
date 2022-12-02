@@ -26,8 +26,8 @@ export const useUserHeader = (): any => {
   const [showModal, setShowModal] = useState(false);
   const [showModalFollow, setShowModalFollow] = useState(false);
   const [isShowFollowers, setIsShowFollowers] = useState(false);
-  const [isShowChangeAvataPopup, setIsShowChangeAvataPopup] = useState(false);
-  const isfollow = (): boolean => {
+  const [isShowChangeAvataPopup, setIsShowChangeAvatarPopup] = useState(false);
+  const isFollow = (): boolean => {
     let isFollowed = false;
     UserInfo.followers.forEach((element: any) => {
       if (element._id === current._id) {
@@ -36,7 +36,7 @@ export const useUserHeader = (): any => {
     });
     return isFollowed;
   };
-  const [isFollowed, setIsFollowed] = useState(isfollow());
+  const [isFollowed, setIsFollowed] = useState(isFollow());
 
   const handleShowFollow = (isFollowers: boolean): any => {
     setIsShowFollowers(isFollowers);
@@ -44,7 +44,7 @@ export const useUserHeader = (): any => {
   };
 
   const handleChangeAvt = (): any => {
-    setIsShowChangeAvataPopup(true);
+    setIsShowChangeAvatarPopup(true);
   };
 
   const handleGuiTinNhan = (currentUser: any, destinationUser: any): any => {
@@ -70,7 +70,7 @@ export const useUserHeader = (): any => {
     isShowFollowers,
     setIsShowFollowers,
     isShowChangeAvataPopup,
-    setIsShowChangeAvataPopup,
+    setIsShowChangeAvatarPopup,
     handleFollow,
     handleShowFollow,
     handleChangeAvt,
