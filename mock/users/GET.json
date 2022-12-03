@@ -1,0 +1,36 @@
+{
+  "code": "200",
+  "message": "Get users success",
+  "data": [
+    {
+      "_id": "637bad328b8c922fa7392ed9",
+      "name": "minh1",
+      "email": "minh1@gmail.com",
+      "password": "123456",
+      "avatar": "http://res.cloudinary.com/wjbucloud/image/upload/v1669576197/yruazctoj49xlyznj7zv.png",
+      "gender": "Nam",
+      "dateofbirth": 1669280508646,
+      "role": "Male",
+      "mobile": 123456789,
+      "address": "",
+      "followers": ["637bb592cac1d671bfaf02d4"],
+      "following": ["637bb592cac1d671bfaf02d4"],
+      "createdAt": 1669280508646
+    },
+    {
+      "_id": "637bb592cac1d671bfaf02d4",
+      "name": "minh2",
+      "email": "minh2@gmail.com",
+      "password": "123456",
+      "avatar": "http://res.cloudinary.com/wjbucloud/image/upload/v1669576197/yruazctoj49xlyznj7zv.png",
+      "gender": "Nam",
+      "dateofbirth": 1669280508646,
+      "role": "Male",
+      "mobile": 123456789,
+      "address": "",
+      "followers": ["637bad328b8c922fa7392ed9"],
+      "following": ["637bad328b8c922fa7392ed9"],
+      "createdAt": 1669280508646
+    }
+  ]
+}
