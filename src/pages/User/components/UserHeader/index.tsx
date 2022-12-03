@@ -8,6 +8,8 @@ import './style.scss';
 
 const UserHeader = (): ReactElement => {
   const {
+    followerList,
+    followingList,
     current,
     showModal,
     setShowModal,
@@ -18,10 +20,8 @@ const UserHeader = (): ReactElement => {
     isShowChangeAvataPopup,
     setIsShowChangeAvatarPopup,
     authUserId,
-    UserInfo,
+    userInfo,
     posts,
-    totalFollower,
-    totalFollowing,
     handleFollow,
     handleShowFollow,
     handleChangeAvt,
@@ -51,7 +51,7 @@ const UserHeader = (): ReactElement => {
               className="avatar__container"
               onClick={() => handleChangeAvt()}
             >
-              <img src={UserInfo.avatar} />
+              <img src="" />
             </div>
           </div>
           <div className="p-2 ">
@@ -59,29 +59,29 @@ const UserHeader = (): ReactElement => {
               <div className="p-0 ">
                 <div className="">
                   <div className="d-flex  flex-row ">
-                    <div className="p-2 username ">{UserInfo.name}</div>
+                    <div className="p-2 username ">{userInfo.name}</div>
 
-                    {UserInfo._id === current._id ? (
+                    {userInfo.id === current.id ? (
                       <></>
                     ) : (
                       <>
                         {' '}
                         <Button
                           variant="outline-success"
-                          onClick={() => handleGuiTinNhan(current, UserInfo)}
+                          onClick={() => handleGuiTinNhan(current, userInfo)}
                         >
                           Nhắn tin
                         </Button>
                         <Button
                           variant="outline-success"
-                          onClick={() => handleFollow(UserInfo._id)}
+                          onClick={() => handleFollow(userInfo.id)}
                         >
                           {(Boolean(isFollowed)) ? 'Bỏ theo dõi' : 'Theo dõi'}
                         </Button>
                       </>
                     )}
 
-                    {authUserId === UserInfo._id && (
+                    {authUserId === userInfo.id && (
                       <Button variant="outline-success"
                       onClick={() => setShowModal(true)}
                       >
@@ -102,14 +102,14 @@ const UserHeader = (): ReactElement => {
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleShowFollow(true)}
                     >
-                    <span>{totalFollower}</span>Người theo dõi
+                    <span>{followerList.length}</span>Người theo dõi
                   </div>
                   <div
                     className="p-2 following"
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleShowFollow(false)}
                     >
-                    <span>{totalFollowing}</span>Đang theo dõi
+                    <span>{followingList.length}</span>Đang theo dõi
                   </div>
                 </div>
               </div>

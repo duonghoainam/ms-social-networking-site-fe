@@ -8,13 +8,10 @@ import { useAppDispatch } from '../../../../app/store';
 
 export const useUserHeader = (): any => {
   const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
-  const authUserId = current;
-  const UserInfo = current;
-  const posts = {};
-  const totalFollower = 1;
-  const totalFollowing = 1;
-  // const totalFollower = UserInfo.followers?.length;
-  // const totalFollowing = UserInfo.following?.length;
+  const authUserId = current.id;
+  const { userInfo, posts, followerList, followingList } = useSelector(
+    (state: AppState) => state.user
+  );
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -25,11 +22,11 @@ export const useUserHeader = (): any => {
   const [isShowChangeAvataPopup, setIsShowChangeAvatarPopup] = useState(false);
   const isFollow = (): boolean => {
     let isFollowed = false;
-    // UserInfo.followers.forEach((element: any) => {
-    //   if (element._id === current._id) {
-    //     isFollowed = true;
-    //   }
-    // });
+    followerList.forEach((user: any) => {
+      if (user.id === current.id) {
+        isFollowed = true;
+      }
+    });
     return isFollowed;
   };
   const [isFollowed, setIsFollowed] = useState(isFollow());
@@ -52,12 +49,12 @@ export const useUserHeader = (): any => {
   };
 
   return {
+    followerList,
+    followingList,
     current,
     authUserId,
-    UserInfo,
+    userInfo,
     posts,
-    totalFollower,
-    totalFollowing,
     isFollowed,
     showModal,
     setShowModal,

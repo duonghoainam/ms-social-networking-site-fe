@@ -30,7 +30,7 @@ const PostComment = ({
     isShowAllLikesPopup,
     showAllLikesPopup,
     hideAllLikesPopup
-  } = usePostComment(selectedPost);
+  } = usePostComment();
 
   return (
     <div className="detail" style={{ display: (isShowPostDetail as boolean) ? '' : 'none' }}>

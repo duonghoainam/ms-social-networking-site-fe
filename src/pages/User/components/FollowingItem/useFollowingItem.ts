@@ -8,13 +8,10 @@ import { socket } from '../../../../App';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 
-export const useFollowingItem = (user: any, setShowModal: any): any => {
-  const { _id, name, avatar, email } = user;
+export const useFollowingItem = ({ user, setShowModal }: any): any => {
   const dispatch = useAppDispatch();
-  const authUserId = useSelector((state: AppState) => state.login.current._id);
-  const currentUserId = useSelector((state: AppState) => state.user.userInfo._id);
   const [isFollow, setIsFollow] = useState(true);
-  const current = JSON.parse(localStorage.getItem('LoginUser') ?? '');
+  const currentUser = JSON.parse(localStorage.getItem('LoginUser') ?? '');
 
   const handleUnFollow = async (e: any): Promise<void> => {
     e.stopPropagation();
@@ -56,12 +53,7 @@ export const useFollowingItem = (user: any, setShowModal: any): any => {
     // dispatch(action);
   };
   return {
-    _id,
-    name,
-    avatar,
-    email,
-    authUserId,
-    currentUserId,
+    currentUser,
     // handleFollow,
     handleUnFollow,
     handleDirectToAccount

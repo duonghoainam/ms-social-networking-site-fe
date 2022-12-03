@@ -14,7 +14,13 @@ import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SingleDestination from '../../pages/Chat/components/SingleDestination';
-import { addActiveId } from '../../pages/User/profileSlice';
+import {
+  addActiveId,
+  getFollowerList,
+  getFollowingList,
+  getPostsByUserId,
+  getUserById
+} from '../../pages/User/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
 import { logout } from '../../pages/Login/loginSlice';
@@ -23,19 +29,16 @@ const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleChangeToProfilePage = (): void => {
-    const activeUserId = useSelector((state: AppState) => state.login.currentUser.id);
-    const action = addActiveId(activeUserId);
-    dispatch(action);
-  };
-
   // const [refresh, setFefresh] = useState(false);
   // const [numNotifications, setNumNotifications] = useState(0);
-  const currentUser = useSelector((state: AppState) => state.login.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const listUser = useSelector((state: AppState) => state.login.listUser).filter(
     (user: any) => user.id !== currentUser.id
   );
-
+  const handleChangeToProfilePage = (): void => {
+    const action = addActiveId(currentUser.id);
+    dispatch(action);
+  };
   // const { listNotification } = useSelector((state: AppState) => state.home);
 
   // useEffect(() => {
@@ -105,7 +108,20 @@ const Header = (): ReactElement => {
 
   const handleDirectToProfile = async (userId: string): Promise<void> => {
     const action = addActiveId(userId);
-    dispatch(action);
+    await dispatch(action);
+
+    const actionGetFollowerList = getFollowerList(userId);
+    await dispatch(actionGetFollowerList);
+
+    const actionGetFollowingList = getFollowingList(userId);
+    await dispatch(actionGetFollowingList);
+
+    const actionGetUser = getUserById(userId);
+    await dispatch(actionGetUser).unwrap();
+
+    const actionGetPost = getPostsByUserId(userId);
+    await dispatch(actionGetPost).unwrap();
+
     navigate('/account');
     setSearchValue('');
   };

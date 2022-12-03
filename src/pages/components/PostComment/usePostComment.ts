@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Post } from '../../../api/post/type/post.type';
 
-export const usePostComment = (selectedPost: Post): any => {
+export const usePostComment = (): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
   const [isShowAllLikesPopup, setIsShowAllLikesPopup] = useState(false);

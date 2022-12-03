@@ -5,10 +5,7 @@ import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 
 export const useUserPost = (): any => {
-  // const activeId = useSelector((state: AppState) => state.user.activeId);
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-  const activeId = currentUser.id;
-  const posts = useSelector((state: AppState) => state.user.posts);
+  const { activeId, posts } = useSelector((state: AppState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

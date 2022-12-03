@@ -33,12 +33,8 @@ export const extraReducers: any = {
   },
 
   // handle like post
-  [handleLike.pending.toString()]: (state: any, action: any) => {
-    console.log('handleLike pending');
-  },
-  [handleLike.rejected.toString()]: (state: any, action: any) => {
-    console.log('handleLike rejected');
-  },
+  [handleLike.pending.toString()]: (state: any, action: any) => {},
+  [handleLike.rejected.toString()]: (state: any, action: any) => {},
   [handleLike.fulfilled.toString()]: (state: any, action: any) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
@@ -52,16 +48,11 @@ export const extraReducers: any = {
       }
       return post;
     });
-    console.log('handleLike fulfilled');
   },
 
   // Handle unlike post
-  [handleUnLike.pending.toString()]: (state: any, action: any) => {
-    console.log('handleUnLike pending');
-  },
-  [handleUnLike.rejected.toString()]: (state: any, action: any) => {
-    console.log('handleUnLike rejected');
-  },
+  [handleUnLike.pending.toString()]: (state: any, action: any) => {},
+  [handleUnLike.rejected.toString()]: (state: any, action: any) => {},
   [handleUnLike.fulfilled.toString()]: (state: any, action: any) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
@@ -77,19 +68,18 @@ export const extraReducers: any = {
       }
       return post;
     });
-    console.log('handleUnLike fulfilled');
   },
 
   // Add new comment
-  [addNewComment.pending.toString()]: (state: any, action: any) => {
-    console.log('addNewComment pending');
-  },
-  [addNewComment.rejected.toString()]: (state: any, action: any) => {
-    console.log('addNewComment rejected');
-  },
+  [addNewComment.pending.toString()]: (state: any, action: any) => {},
+  [addNewComment.rejected.toString()]: (state: any, action: any) => {},
   [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
     // Update state listcomment
-    state.listComment.push(action.payload.data);
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+    let newComment = action.payload.data;
+    const userInfo = { userInfo: currentUser }
+    newComment = { ...newComment, ...userInfo }
+    state.listComment.push(newComment);
     // Update state listPosts
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload.data.postId) {
@@ -97,29 +87,17 @@ export const extraReducers: any = {
       }
       return post;
     });
-    console.log('addNewComment fulfilled');
   },
 
   // Delete comment
-  [deleteComment.pending.toString()]: (state: any, action: any) => {
-    console.log('deleteComment pending');
-  },
-  [deleteComment.rejected.toString()]: (state: any, action: any) => {
-    console.log('deleteComment rejected');
-  },
+  [deleteComment.pending.toString()]: (state: any, action: any) => {},
+  [deleteComment.rejected.toString()]: (state: any, action: any) => {},
   [deleteComment.fulfilled.toString()]: (state: any, action: any) => {
     state.listComment = action.payload.data;
-    console.log('deleteComment fulfilled');
   },
 
   // Get user info
-  [getUserInfo.pending.toString()]: (state: any, action: any) => {
-    console.log('getUserInfo pending');
-  },
-  [getUserInfo.rejected.toString()]: (state: any, action: any) => {
-    console.log('getUserInfo rejected');
-  },
-  [getUserInfo.fulfilled.toString()]: (state: any, action: any) => {
-    console.log('getUserInfo fulfilled');
-  }
+  [getUserInfo.pending.toString()]: (state: any, action: any) => {},
+  [getUserInfo.rejected.toString()]: (state: any, action: any) => {},
+  [getUserInfo.fulfilled.toString()]: (state: any, action: any) => {}
 };

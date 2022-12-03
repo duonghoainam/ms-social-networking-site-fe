@@ -22,19 +22,20 @@ const CommentItem = ({ comment }: any): ReactElement => {
     isShowCmtOption,
     setIsShowCommentOption,
     isCanEditAndDelete,
-    handleDeleteComment } = useCommentItem(comment);
+    handleDeleteComment
+  } = useCommentItem(comment);
 
   return (
     <Row className="comment">
       <Col md={{ span: 1, offset: 1 }}>
         <div className="comment_avatar">
-          <img src={comment.user.avatar} alt="" />
+          <img src="" alt="" />
         </div>
       </Col>
       <Col md={{ span: 9 }}>
         <div className="comment_content">
           <div className="comment_content_caption">
-            <span className="comment_content_caption_name">{comment.user.name}</span>
+            <span className="comment_content_caption_name">{comment.userInfo.name}</span>
             <CheckCircle />
             <span className="comment_content_caption_content">{comment.content}</span>
           </div>

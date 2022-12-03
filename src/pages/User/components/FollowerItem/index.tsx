@@ -3,30 +3,26 @@ import { Row, Col, Button } from 'react-bootstrap';
 import './styles.scss';
 import { useFollowerItem } from './useFollowerItem';
 
-const FollowerItem = (props: { user: any, setShowModal: any }): ReactElement => {
+const FollowerItem = ({ user, setShowModal }: any): ReactElement => {
   const {
-    name,
-    avatar,
-    email,
-    authUserId,
-    currentUserId,
+    currentUser,
     handleRemoveFollow,
     handleDirectToAccount
-  } = useFollowerItem(props.user, props.setShowModal);
+  } = useFollowerItem({ user, setShowModal });
 
   return (
     <Row className="accountItem" onClick={(e) => handleDirectToAccount(e)}>
       <Col md={{ span: 1 }}>
-        <img src={avatar} alt="" />
+        <img src="" alt="" />
       </Col>
       <Col md={{ span: 7 }}>
         <div className="accountItem_name">
-          <p className="accountItem_name_username">{name}</p>
-          <p className="accountItem_name_realname">{email}</p>
+          <p className="accountItem_name_username">{user.name}</p>
+          <p className="accountItem_name_realname"></p>
         </div>
       </Col>
       <Col md={{ span: 4 }}>
-        {authUserId === currentUserId && (
+        {currentUser.id === user.id && (
           <Button onClick={(e) => handleRemoveFollow(e)} size="sm">
             Hủy theo dõi
           </Button>

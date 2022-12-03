@@ -4,11 +4,9 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../app/store';
 // import { removeFollow, addActiveId } from '../../profileSlice';
 
-export const useFollowerItem = (user: any, setShowModal: any): any => {
-  const { _id, name, avatar, email } = user;
+export const useFollowerItem = ({ user, setShowModal }: any): any => {
   const dispatch = useAppDispatch();
-  const authUserId = useSelector((state: AppState) => state.login.current._id);
-  const currentUserId = useSelector((state: AppState) => state.user.userInfo._id);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
   const handleRemoveFollow = async (e: any): Promise<void> => {
     e.stopPropagation();
@@ -23,12 +21,7 @@ export const useFollowerItem = (user: any, setShowModal: any): any => {
     // await dispatch(action);
   };
   return {
-    _id,
-    name,
-    avatar,
-    email,
-    authUserId,
-    currentUserId,
+    currentUser,
     handleRemoveFollow,
     handleDirectToAccount
   };
