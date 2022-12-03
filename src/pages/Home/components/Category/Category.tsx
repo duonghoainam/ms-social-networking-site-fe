@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { AppState } from '../../app/state.type';
-import FriendRecommendItem from './FriendRecommendItem/FriendRecommendItem';
+import { AppState } from '../../../../app/state.type';
+import FriendRecommendItem from '../FriendRecommendItem/FriendRecommendItem';
 
 const Category = (): ReactElement => {
   const { listRecommend }: any = useSelector((state: AppState) => state.home);
   const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
-
   return (
     <Row>
       <div className="recommend">
@@ -20,7 +19,6 @@ const Category = (): ReactElement => {
         </div>
         <div className="recommend__header">
           <p>Gợi ý cho bạn</p>
-          {/* <a href="">Xem tất cả</a> */}
         </div>
         <ul>
           {(listRecommend as boolean) &&

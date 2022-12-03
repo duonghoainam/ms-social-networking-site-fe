@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Post } from '../../../api/post/type/post.type';
+import { User } from '../../../api/user/type/user.type';
 import { extraReducers } from './homeReducers';
 
-interface HomeState {
+export interface HomeState {
   listPost: any[];
   listComment: any[];
+  listRecommend: User[];
   isLoadComment: boolean;
   isShowPostDetail: boolean;
   selectedPost: Post;
@@ -14,6 +16,7 @@ interface HomeState {
 const initialState: HomeState = {
   listPost: [],
   listComment: [],
+  listRecommend: [],
   isLoading: true,
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   selectedPost: {} as Post,

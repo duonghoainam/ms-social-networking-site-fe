@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
+import { FollowParams } from '../../../api/user/type/follow.params';
+import userAPI from '../../../api/user/UserApi';
 
-// api actions
+// posts actions
 export const getPosts = createAsyncThunk('post/getPosts', async () => {
   try {
     const listPost = await postAPI.getPosts();
@@ -26,15 +28,24 @@ export const handleUnLike = createAsyncThunk('post/UnLike', async (postId: any) 
   return postId;
 });
 
-export const getListRecommendFriends = createAsyncThunk(
-  'home/getListRecommendFriends',
-  async () => {
-    const listRecommend = await postAPI.recommendFriends();
-    return listRecommend;
-  }
-);
-
 export const addNewComment = createAsyncThunk('home/addNewComment', async (params: any) => {
   const comment = await postAPI.addComment(params.postId, params.comment);
   return comment;
+});
+
+// follow actions
+export const getListRecommendedFriends = createAsyncThunk(
+  'user/getRecommendedFriends',
+  async (userId: string) => {
+    try {
+      const listRecommend = await userAPI.getListRecommend(userId);
+      return listRecommend;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const handleFollow = createAsyncThunk('home/handleFollow', async (params: FollowParams) => {
+  await userAPI.handleFollow(params);
 });
