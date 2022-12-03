@@ -26,25 +26,21 @@ function SingleChat({
       <div className="singleChat__user">
         <h6 className="singleChat__user__name">{conversationName}</h6>
         <div className="singleChat__user__content">
-          {messages[0]?.seenBy.includes(currentUser._id) ? (
-            <p className="singleChat__user__content__summary">
-              {messages[0]?.isDeleted
-                ? `${messages[0]?.senderDetail?.name ?? ''} đã thu hồi tin nhắn`
-                : messages[0]?.content}
-            </p>
-          ) : (
-            <p
-              style={{ fontWeight: 'bold', color: 'black' }}
-              className="singleChat__user__content__summary">
-              {messages[0]?.isDeleted
-                ? `${messages[0]?.senderDetail?.name ?? ''} đã thu hồi tin nhắn`
-                : messages[0]?.content}
-            </p>
-          )}
+          <p
+            style={
+              messages?.seenBy.includes(currentUser._id) === true &&
+              messages.sender !== currentUser._id
+                ? { fontWeight: 'bold', color: 'black' }
+                : {}
+            }
+            className="singleChat__user__content__summary">
+            {messages?.isDeleted ?? false
+              ? `${messages?.senderDetail?.name ?? ''} đã thu hồi tin nhắn`
+              : messages?.content}
+          </p>
 
           <span className="singleChat__user__content__time">
-            {messages[0] != null &&
-              '•' + timeAgo.format(Date.parse(messages[0]?.createdAt), 'mini-now')}
+            {messages != null && '•' + timeAgo.format(Date.parse(messages?.createdAt), 'mini-now')}
           </span>
         </div>
       </div>

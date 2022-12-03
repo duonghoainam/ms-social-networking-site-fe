@@ -2,19 +2,19 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import ChatAPI from '../../../api/chat/ChatApi';
 import { IMessageCrt } from '../Types/IMessageCrt';
 
-export const getAllConversations = createAsyncThunk('conversation/getAll', async () => {
-  const response = await ChatAPI.getAllConversations();
+export const getAllConversations = createAsyncThunk('conversation/getAll', async (id: string) => {
+  const response = await ChatAPI.getAllConversations(id);
   return response.data;
 });
 
 export const createConversation = createAsyncThunk('conversation/create', async (args: any) => {
   const response = await ChatAPI.createConversation(args);
-  return response;
+  return response.data;
 });
 
 export const getUserContact = createAsyncThunk('user/getContact', async () => {
   const response = await ChatAPI.getUserContact();
-  return response;
+  return response.data;
 });
 
 export const createMessage = createAsyncThunk('message/create', async (args: IMessageCrt) => {

@@ -11,13 +11,12 @@ import {
   seenAllMessages,
   seenMessage
 } from '../../state/chatAction';
-import { addMessage, updateConversation, updateMessage } from '../../state/chatSlice';
 import { IConversation } from '../../Types/IConversation';
 import { IUseChatContent } from '../../Types/useChatContent.Type';
 
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [text, setText] = useState('');
-  const conversations = useSelector((state: any) => state.chat.conversations);
+  const conversations = useSelector((state: AppState) => state.chat.conversations);
   const messages = useSelector((state: AppState) => state.chat.messagesInConversation);
   const initialCurrentConversation: IConversation = {
     _id: '',
@@ -44,7 +43,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
 
   useEffect(() => {
     document.title = 'Midori • Chats';
-    const conversation = conversations.find(
+    const conversation = conversations?.find(
       (conversation: IConversation) => conversation._id === params.id
     ) as IConversation;
     const avt = genConversationAvatar();
@@ -97,55 +96,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     };
     initData().catch((error) => console.log(error));
   }, [params.id]);
-
-  useEffect(() => {
-    if (!socket.connected) {
-      socket.on('connect', function () {
-        socket.on('newMessage', function (data: any) {
-          console.log('received 1', data);
-          dispatch(addMessage(data));
-        });
-        socket.on('updateMessage', function (data: any) {
-          console.log(data);
-          dispatch(updateMessage(data));
-        });
-        socket.on('updateConversation', function (data: any) {
-          console.log('received 1', data);
-          dispatch(updateConversation(data));
-        });
-        socket.on('newConversation', function (data: any) {
-          console.log('received 1', data);
-          dispatch(updateConversation(data));
-        });
-        socket.on('seenMessage', function (data: any) {
-          console.log('received 1', data);
-          dispatch(updateConversation(data));
-        });
-      });
-      socket.connect();
-    } else {
-      socket.on('newMessage', function (data: any) {
-        console.log('received 1', data);
-        dispatch(addMessage(data));
-      });
-      socket.on('updateMessage', function (data: any) {
-        console.log('received update message', data);
-        dispatch(updateMessage(data));
-      });
-      socket.on('updateConversation', function (data: any) {
-        console.log('received update conversation', data);
-        dispatch(updateConversation(data));
-      });
-      socket.on('newConversation', function (data: any) {
-        console.log('received newConversation', data);
-        dispatch(updateConversation(data));
-      });
-      socket.on('seenMessage', function (data: any) {
-        console.log('received seenMessage', data);
-        dispatch(updateConversation(data));
-      });
-    }
-  }, [socket, params.id]);
 
   const getMessagesInCons = async (): Promise<void> => {
     try {
@@ -204,13 +154,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
 
   const handleSubmit = async (): Promise<void> => {
     try {
-      // await dispatch(
-      //   createMessage({
-      //     content: text,
-      //     conversation: params.id as string,
-      //     sender: currentUser._id
-      //   })
-      // ).unwrap();
       socket.emit(
         'createMessage',
         {

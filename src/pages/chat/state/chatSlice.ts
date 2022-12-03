@@ -56,6 +56,22 @@ const ChatSlice = createSlice({
       );
       state.conversations[conIndex] = action.payload;
     },
+    leaveConversation: (state: ChatState, action: any) => {
+      state.loading = false;
+      state.error = false;
+      const newConversations = state.conversations.filter(
+        (conversation: any) => conversation._id !== action.payload._id
+      );
+      state.conversations = newConversations;
+    },
+    newConversation: (state: ChatState, action: any) => {
+      state.loading = false;
+      state.error = false;
+      const exist = state.conversations.some(
+        (conversation: any) => conversation._id === action.payload._id
+      );
+      if (!exist) state.conversations.unshift(action.payload);
+    },
     seenAllMessages: (state: ChatState, action: any) => {
       state.loading = false;
       state.error = false;
@@ -73,7 +89,15 @@ const ChatSlice = createSlice({
 
 const { reducer: ChatReducer, actions } = ChatSlice;
 
-export const { createTag, deleteTag, resetTag, addMessage, updateMessage, updateConversation } =
-  actions;
+export const {
+  createTag,
+  deleteTag,
+  resetTag,
+  addMessage,
+  updateMessage,
+  updateConversation,
+  newConversation,
+  leaveConversation
+} = actions;
 
 export default ChatReducer;

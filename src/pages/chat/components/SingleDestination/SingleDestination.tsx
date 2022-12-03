@@ -7,7 +7,7 @@ import { useSingleDestination } from './UseSingleDestination';
 
 interface SingleDestinationProps {
   follow: any;
-  forRenderSearch: boolean;
+  forRenderSearch?: boolean;
 }
 
 const SingleDestination: React.FC<SingleDestinationProps> = ({

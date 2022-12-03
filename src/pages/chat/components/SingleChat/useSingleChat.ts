@@ -12,8 +12,7 @@ export const useSingleChat = (
   currentUser: any
 ): useSingleChatType => {
   const [active, setActive] = useState(false);
-  const initMessages: IMessage[] = [];
-  const [messages, setMessages] = useState(initMessages);
+  const [messages, setMessages] = useState();
   const [conversationName, setConversationName] = useState('');
   const [conversationAvatar, setConversationAvatar] = useState('');
   const params = useParams();
@@ -26,47 +25,27 @@ export const useSingleChat = (
   }
 
   useEffect(() => {
-    // socket.on('recieveNotice', (leaved: any) => {
-    //   dispatch(getMessageInCons({ id: conversation._id, page: 0 }))
-    //     .unwrap()
-    //     .then((resultValue: any) => {
-    //       setMessages(resultValue.messages);
-    //     })
-    //     .catch((rejectedValue: any) => console.log(rejectedValue));
-    // });
-    // return () => {
-    //   // socket.off('recieveNotice');
-    //   console.log('client Off');
-    // };
-  }, []);
+    socket.on('newMessage', function (data: any) {
+      if (data.conversation === conversation._id) {
+        setMessages(data);
+      }
+    });
 
-  useEffect(() => {
-    setMessages([]);
-
-    socket.on('connect', () => {
-      if (!socket.connected) {
-        socket.on('connect', function () {
-          socket.on('newMessage', function (data: any) {
-            const newMessages = [...messages];
-            newMessages.unshift(data);
-            setMessages(newMessages);
-          });
-        });
-        socket.connect();
-      } else {
-        socket.on('newMessage', function (data: any) {
-          const newMessages = [...messages];
-          newMessages.unshift(data);
-          setMessages(newMessages);
-        });
+    socket.on('seenMessage', function (data: any) {
+      if (data.conversation === conversation._id) {
+        setMessages(data);
+        (async () => {
+          const response = await ChatAPI.getLastMessageInCon(conversation._id);
+          setMessages(response.data);
+        })().catch((error: any) => console.log(error));
       }
     });
 
     (async () => {
-      const response = await ChatAPI.getMessageInCon(conversation._id, 1);
+      const response = await ChatAPI.getLastMessageInCon(conversation._id);
       setMessages(response.data);
     })().catch((error: any) => console.log(error));
-  }, []);
+  }, [conversation]);
 
   useEffect(() => {
     setActive(false);
@@ -127,7 +106,7 @@ export const useSingleChat = (
 
 interface useSingleChatType {
   active: boolean;
-  messages: IMessage[];
+  messages?: IMessage;
   timeAgo: TimeAgo;
   handleClickSingleChat: any;
   conversationName: string;

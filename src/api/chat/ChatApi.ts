@@ -2,8 +2,8 @@ import axiosClient from '../AxiosClient';
 import { getApiUrl } from '../../utils/api.util';
 import { IMessageCrt } from '../../pages/chat/Types/IMessageCrt';
 const ChatAPI = {
-  getAllConversations: (): any => {
-    const url = getApiUrl() + '/conversation/ofMine';
+  getAllConversations: (id: string): any => {
+    const url = getApiUrl() + `/conversation/ofMine/${id}`;
     return axiosClient.get(url);
   },
   createConversation: (params: any): any => {
@@ -11,7 +11,7 @@ const ChatAPI = {
     return axiosClient.post(url, params);
   },
   getUserContact: (): any => {
-    const url = getApiUrl() + '/user/chat/contact';
+    const url = 'http://127.0.0.1:3008' + '/api/users/contact';
     return axiosClient.get(url);
   },
   createMessage: (params: IMessageCrt): any => {
@@ -20,6 +20,10 @@ const ChatAPI = {
   },
   getMessageInCon: (id: string, page: number): any => {
     const url = `${getApiUrl()}/messages/${id}?page=${page.toString()}`;
+    return axiosClient.get(url);
+  },
+  getLastMessageInCon: (id: string): any => {
+    const url = `${getApiUrl()}/messages/${id}/last`;
     return axiosClient.get(url);
   },
   getMembersInCon: (id: string): any => {

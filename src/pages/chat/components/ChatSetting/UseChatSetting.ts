@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { socket } from '../../../../App';
 import { AppState } from '../../../../app/state.type';
-import { useAppDispatch } from '../../../../app/store';
 import useImageUpload from '../../../../hooks/useImageUpload';
-import { removeUserInCon } from '../../state/chatAction';
 import { IConversation } from '../../Types/IConversation';
 
 interface useChatSettingReturn {
@@ -28,8 +26,6 @@ interface useChatSettingReturn {
 
 export const useChatSetting = (currentConversation: IConversation): useChatSettingReturn => {
   const params = useParams();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const currentUser = useSelector((state: AppState) => state.auth.currentUser);
   const [conversationAvt, setConversationAvt] = useState('');
   const [isClosePopup, setIsClosePopup] = useState(true);
@@ -39,29 +35,23 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
   const uploadImage = useImageUpload();
 
-  async function handleDeleteCon(): Promise<void> {
-    try {
-      await dispatch(
-        removeUserInCon({
-          conversationId: params.id,
-          userId: currentUser._id
-        })
-      )
-        .unwrap()
-        .then((resultValue) => console.log(resultValue))
-        .catch((rejectedValue) => console.log(rejectedValue));
-      //   const newMessage = await dispatch(
-      //     createMessage({
-      //       content: `${currentUser.name} đã rời khỏi cuộc trò chuyện`,
-      //       conversationId: params.id
-      //     })
-      //   ).unwrap();
-      //   socket.emit('sendNotice', currentConversation?.members);
-      //   socket.emit('sendMessage', newMessage.newMessage);
-      navigate('/messenger');
-    } catch (error) {
-      console.log({ error });
-    }
+  function handleDeleteCon(): void {
+    socket.emit('leaveConversation', { conversation: params.id, member: currentUser._id });
+    handleClosePopup();
+    socket.emit(
+      'createMessage',
+      {
+        content: `Đã rời khỏi cuộc trò chuyện`,
+        conversation: params.id as string
+      },
+      function (err: any, res: any) {
+        if (err != null) {
+          console.error(err);
+        } else {
+          console.log('call success:', res);
+        }
+      }
+    );
   }
 
   function handleClosePopup(): void {
@@ -87,16 +77,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   }
 
   function handleSubmit(): void {
-    // dispatch(changeConversationName({ id: params.id as string, newName: text }))
-    //   .unwrap()
-    //   .catch((error: any) => console.error(error));
-    // (async () => {
-    //   //   socket.emit('sendMessage', newMessage.newMessage);
-    //   //   socket.emit('sendNotice', currentConversation?.members);
-    //   //   setText('');
-    //   //   setIsTyping(false);
-    //   //   setIsOpenSetting(false);
-    // })().catch((error: any) => console.log(error));
     socket.emit(
       'updateConversation',
       'conversation.updateConversationName',
@@ -106,6 +86,20 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
           console.error(err);
         } else {
           console.log('deleted message success:', res);
+        }
+      }
+    );
+    socket.emit(
+      'createMessage',
+      {
+        content: `Đã thay đổi ảnh tên cuộc trò chuyện thành ${text}`,
+        conversation: params.id as string
+      },
+      function (err: any, res: any) {
+        if (err != null) {
+          console.error(err);
+        } else {
+          console.log('call success:', res);
         }
       }
     );
@@ -134,6 +128,21 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
               console.error(err);
             } else {
               console.log('deleted message success:', res);
+            }
+          }
+        );
+
+        socket.emit(
+          'createMessage',
+          {
+            content: 'Đã thay đổi ảnh đại diện của nhóm',
+            conversation: params.id as string
+          },
+          function (err: any, res: any) {
+            if (err != null) {
+              console.error(err);
+            } else {
+              console.log('call success:', res);
             }
           }
         );
