@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { useAppDispatch } from '../../../../app/store';
-import { changePassword } from '../../profileSlice';
+// import { changePassword } from '../../profileSlice';
 
 export const useChangePassword = ({ setShowModal }: any): any => {
   const dispatch = useAppDispatch();

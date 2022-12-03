@@ -5,7 +5,8 @@ import {
   handleLike,
   handleUnLike,
   addNewComment,
-  deleteComment
+  deleteComment,
+  getUserInfo
 } from './homeActions';
 
 export const extraReducers: any = {
@@ -43,10 +44,10 @@ export const extraReducers: any = {
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload) {
-        post.likes.push(currentUser._id);
+        post.likes.push(currentUser.id);
         // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
-          state.selectedPost.likes.push(currentUser._id);
+          state.selectedPost.likes.push(currentUser.id);
         }
       }
       return post;
@@ -66,11 +67,11 @@ export const extraReducers: any = {
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload) {
-        post.likes = post.likes.filter((item: any) => item !== currentUser._id);
+        post.likes = post.likes.filter((item: any) => item !== currentUser.id);
         // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
           state.selectedPost.likes = state.selectedPost.likes.filter(
-            (item: any) => item !== currentUser._id
+            (item: any) => item !== currentUser.id
           );
         }
       }
@@ -109,5 +110,16 @@ export const extraReducers: any = {
   [deleteComment.fulfilled.toString()]: (state: any, action: any) => {
     state.listComment = action.payload.data;
     console.log('deleteComment fulfilled');
+  },
+
+  // Get user info
+  [getUserInfo.pending.toString()]: (state: any, action: any) => {
+    console.log('getUserInfo pending');
+  },
+  [getUserInfo.rejected.toString()]: (state: any, action: any) => {
+    console.log('getUserInfo rejected');
+  },
+  [getUserInfo.fulfilled.toString()]: (state: any, action: any) => {
+    console.log('getUserInfo fulfilled');
   }
 };

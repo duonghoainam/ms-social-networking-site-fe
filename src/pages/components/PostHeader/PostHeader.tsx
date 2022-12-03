@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 
 import { usePostHeader } from './usePostHeader';
 const PostHeader = ({ post }: any): ReactElement => {
-  const { handleShowProfile } = usePostHeader();
+  const { handleShowProfile } = usePostHeader({post});
   return (
     <Row>
       <Col md={1} onClick={() => handleShowProfile(post.user._id)}>

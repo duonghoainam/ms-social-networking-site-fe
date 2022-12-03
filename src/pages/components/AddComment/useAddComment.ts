@@ -29,7 +29,7 @@ export const useAddComment = (props: { postId: any, userPostId: any }): any => {
     }
     const params = {
       postId: props.postId,
-      userId: currentUser._id,
+      userId: currentUser.id,
       content: inputValue,
       postUserId: props.userPostId
     };

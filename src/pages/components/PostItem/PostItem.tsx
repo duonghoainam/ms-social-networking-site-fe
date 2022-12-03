@@ -57,7 +57,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
         <Col className="postItem__react">
           <Row className="reactIcon">
             <Col md={9}>
-              {post.likes.includes(currentUser._id) === true ? (
+              {post.likes.includes(currentUser.id) === true ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
                   onClick={async (): Promise<void> => {

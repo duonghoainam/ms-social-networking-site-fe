@@ -13,7 +13,7 @@ const ChatPage = (): ReactElement => {
 
   const currentUser = useSelector((state: any) => state.auth.current);
   // const params = useParams();
-  console.log(currentUser._id);
+  // console.log(currentUser.id);
   // const dispatch = useAppDispatch();
   // useEffect(() => {
   //   socket.emit('joinMessenger', currentUser._id);

@@ -19,8 +19,8 @@ export const usePostItem = (): any => {
 
   const handleLikePost = async (post: Post): Promise<void> => {
     const postId = post._id;
-    const userId = currentUser._id;
-    const isLiked = Boolean(post.likes.includes(currentUser._id))
+    const userId = currentUser.id;
+    const isLiked = Boolean(post.likes.includes(currentUser.id))
     if (isLiked) {
       const actionUnLike = handleUnLike({ userId, postId });
       await dispatch(actionUnLike).unwrap();

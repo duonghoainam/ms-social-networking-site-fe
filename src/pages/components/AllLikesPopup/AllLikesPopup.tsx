@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Close } from '@material-ui/icons';
-import AccountItem from '../AccountItem/AccountItem';
-// import { Spinner } from 'react-bootstrap';
+// import AccountItem from '../AccountItem/AccountItem';
+import { Spinner } from 'react-bootstrap';
 import './AllLikesPopup.scss';
-import { fakeUser } from '../../../fake-data';
 import { useAllLikesPopup } from './useAllLikesPopup';
 
 const AllLikesPopup = ({ post, isShow, hidePopup }: any): ReactElement => {
@@ -19,21 +18,17 @@ const AllLikesPopup = ({ post, isShow, hidePopup }: any): ReactElement => {
               <Close onClick={hidePopup} />
             </div>
             <div className="alllikes_content_content">
-              {[fakeUser].map((user: any, index: any) => {
-                // [fakeUser] ==> post.likes
-                return <AccountItem key={index} user={user} />;
-              })}
-              {/* {(listLikeComment.isLoad as boolean) ? (
+              {(true as boolean) ? (
                 <div className="spinner_wrap">
                   <Spinner className="spinner" animation="border" size="sm" />
                 </div>
               ) : (
                 <>
-                  {listLikeComment.listUsers.map((user: any, index: any) => {
+                  {/* {listLikeComment.listUsers.map((user: any, index: any) => {
                     return <AccountItem key={index} user={user} />;
-                  })}
+                  })} */}
                 </>
-              )} */}
+              )}
             </div>
           </div>
         </div>

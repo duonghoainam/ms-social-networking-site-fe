@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export const usePostHeader = (): any => {
+export const usePostHeader = ({ post }: any): any => {
   const navigate = useNavigate();
 
   const handleShowProfile = (id: string): any => {

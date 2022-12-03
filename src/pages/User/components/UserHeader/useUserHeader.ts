@@ -6,19 +6,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/store';
 
-import { fakeUser, fakePosts } from '../../../../fake-data';
-
 export const useUserHeader = (): any => {
-  // const current = useSelector((state: AppState) => state.login.current);
-  // const authUserId = useSelector((state: AppState) => state.login.current._id);
-  // const UserInfo = useSelector((state: AppState) => state.user.userInfo);
-  // const posts = useSelector((state: AppState) => state.user.posts);
-  const current = fakeUser;
-  const authUserId = fakeUser._id;
-  const UserInfo = fakeUser;
-  const posts = fakePosts;
-  const totalFollower = UserInfo.followers?.length;
-  const totalFollowing = UserInfo.following?.length;
+  const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
+  const authUserId = current;
+  const UserInfo = current;
+  const posts = {};
+  const totalFollower = 1;
+  const totalFollowing = 1;
+  // const totalFollower = UserInfo.followers?.length;
+  // const totalFollowing = UserInfo.following?.length;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -29,11 +25,11 @@ export const useUserHeader = (): any => {
   const [isShowChangeAvataPopup, setIsShowChangeAvatarPopup] = useState(false);
   const isFollow = (): boolean => {
     let isFollowed = false;
-    UserInfo.followers.forEach((element: any) => {
-      if (element._id === current._id) {
-        isFollowed = true;
-      }
-    });
+    // UserInfo.followers.forEach((element: any) => {
+    //   if (element._id === current._id) {
+    //     isFollowed = true;
+    //   }
+    // });
     return isFollowed;
   };
   const [isFollowed, setIsFollowed] = useState(isFollow());
@@ -48,11 +44,11 @@ export const useUserHeader = (): any => {
   };
 
   const handleGuiTinNhan = (currentUser: any, destinationUser: any): any => {
-    alert('Chưa handle')
+    alert('Chưa handle');
   };
 
   const handleFollow = async (id: any): Promise<void> => {
-    alert('chưa handle')
+    alert('chưa handle');
   };
 
   return {

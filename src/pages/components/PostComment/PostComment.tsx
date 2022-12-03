@@ -70,14 +70,14 @@ const PostComment = ({
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {selectedPost.likes.includes(currentUser._id) === true ? (
+                      {selectedPost.likes.includes(currentUser.id) === true ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          onClick={() => handleLikePost(selectedPost._id, currentUser._id)}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                          onClick={() => handleLikePost(selectedPost._id, currentUser._id)}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
                         />
                       )}
                       <SendOutlined

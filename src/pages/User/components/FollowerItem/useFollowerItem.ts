@@ -2,7 +2,7 @@ import './styles.scss';
 import { AppState } from '../../../../app/state.type';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../app/store';
-import { removeFollow, addActiveId } from '../../profileSlice';
+// import { removeFollow, addActiveId } from '../../profileSlice';
 
 export const useFollowerItem = (user: any, setShowModal: any): any => {
   const { _id, name, avatar, email } = user;
@@ -12,15 +12,15 @@ export const useFollowerItem = (user: any, setShowModal: any): any => {
 
   const handleRemoveFollow = async (e: any): Promise<void> => {
     e.stopPropagation();
-    const action = removeFollow(_id);
-    await dispatch(action);
+    // const action = removeFollow(_id);
+    // await dispatch(action);
   };
 
   const handleDirectToAccount = async (e: any): Promise<void> => {
     e.stopPropagation();
     setShowModal(false);
-    const action = addActiveId(_id);
-    await dispatch(action);
+    // const action = addActiveId(_id);
+    // await dispatch(action);
   };
   return {
     _id,

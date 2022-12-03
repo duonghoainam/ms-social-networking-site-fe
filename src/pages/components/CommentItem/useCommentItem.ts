@@ -5,13 +5,13 @@ import { deleteComment } from '../../Home/state/homeActions';
 export const useCommentItem = (comment: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   let [isLike] = useState(false);
-  isLike = comment.likes.includes(currentUser._id);
+  isLike = comment.likes.includes(currentUser.id);
 
   const [likeCount] = useState(comment.likes.length);
   const [isShowChildrenComment, setIsShowChildrenComment] = useState(false);
   const [isShowCmtOption, setIsShowCommentOption] = useState(false);
   let isCommentOfCurrentUser = false;
-  if (comment.user === currentUser._id) {
+  if (comment.user === currentUser.id) {
     isCommentOfCurrentUser = true;
   }
   const [isCanEditAndDelete, setIsCanEditAndDelete] = useState(isCommentOfCurrentUser)

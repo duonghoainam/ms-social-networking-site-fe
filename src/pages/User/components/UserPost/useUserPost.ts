@@ -4,11 +4,10 @@ import { getPostsByUserId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 
-import { fakeUser } from '../../../../fake-data';
-
 export const useUserPost = (): any => {
   // const activeId = useSelector((state: AppState) => state.user.activeId);
-  const activeId = fakeUser._id;
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+  const activeId = currentUser.id;
   const posts = useSelector((state: AppState) => state.user.posts);
   const dispatch = useAppDispatch();
 

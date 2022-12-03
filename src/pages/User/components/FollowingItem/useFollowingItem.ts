@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { socket } from '../../../../App';
 // import { createNotification, follow } from '../../../Home/homeSlice';
-import { unFollow, addActiveId } from '../../profileSlice';
+// import { unFollow, addActiveId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 
@@ -18,8 +18,8 @@ export const useFollowingItem = (user: any, setShowModal: any): any => {
 
   const handleUnFollow = async (e: any): Promise<void> => {
     e.stopPropagation();
-    const action = unFollow(_id);
-    await dispatch(action).unwrap();
+    // const action = unFollow(_id);
+    // await dispatch(action).unwrap();
   };
 
   // const handleFollow = async (id: any): Promise<void> => {
@@ -52,8 +52,8 @@ export const useFollowingItem = (user: any, setShowModal: any): any => {
   const handleDirectToAccount = (e: any): any => {
     e.stopPropagation();
     setShowModal(false);
-    const action = addActiveId(_id);
-    dispatch(action);
+    // const action = addActiveId(_id);
+    // dispatch(action);
   };
   return {
     _id,

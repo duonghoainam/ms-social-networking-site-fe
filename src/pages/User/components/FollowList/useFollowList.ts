@@ -3,17 +3,12 @@ import { useState, useEffect } from 'react';
 // import { AppState } from '../../../../app/state.type';
 import './styles.scss';
 
-import { fakeUser } from '../../../../fake-data';
-import { string } from 'yup/lib/locale';
-
 export const useFollowList = (setShowModal: any): any => {
-  // const followersListStore = useSelector((state: AppState) => state.user.userInfo.followers);
-  // const followingListStore = useSelector((state: AppState) => state.user.userInfo.following);
-  const followersListStore = fakeUser.followers;
-  const followingListStore = fakeUser.following;
+  const emtySrtingArray: string[] = [];
+  const followersListStore = emtySrtingArray;
+  const followingListStore = emtySrtingArray;
 
   // State
-  const emtySrtingArray: string[] = []
   const [followersList, setFollowersList] = useState(emtySrtingArray);
   const [followingList, setFollowingList] = useState(emtySrtingArray);
 
