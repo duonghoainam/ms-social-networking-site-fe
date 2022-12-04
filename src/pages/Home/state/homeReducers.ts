@@ -1,21 +1,24 @@
 /* eslint-disable */
 import {
-  getPostComments,
-  getPosts,
+  getHomePosts,
+  handleLike,
+  handleUnLike,
+  addNewComment,
   getListRecommendedFriends,
+  getPostComments
 } from './homeActions';
 import { HomeState } from './homeSlice';
 
 export const extraReducers: any = {
   // get all post when login successful
-  [getPosts.pending.toString()]: (state: any) => {
-    return {...state, isLoading: true}
+  [getHomePosts.pending.toString()]: (state: any) => {
+    return { ...state, isLoading: true };
   },
-  [getPosts.rejected.toString()]: (state: any) => {
-    return {...state, isLoading: false, loadListPostFail: true}
+  [getHomePosts.rejected.toString()]: (state: any) => {
+    return { ...state, isLoading: false, loadListPostFail: true };
   },
-  [getPosts.fulfilled.toString()]: (state: any, action: any) => {
-    return {...state, listPost: action.payload.posts, loadListPostFail: false, isLoading: false};
+  [getHomePosts.fulfilled.toString()]: (state: any, action: any) => {
+    return { ...state, listPost: action.payload.data, loadListPostFail: false, isLoading: false };
   },
   // get all comment of post
   [getPostComments.pending.toString()]: (state: any, action: any) => {

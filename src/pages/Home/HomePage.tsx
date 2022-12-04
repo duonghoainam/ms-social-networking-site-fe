@@ -34,7 +34,7 @@ const HomePage = (): ReactElement => {
           </Row>
         ) : (
           <Row>
-            {/* {(isLoading as boolean) ? (
+            {(isLoading as boolean) ? (
               <HomeSkeleton />
             ) : (
               <>
@@ -54,8 +54,7 @@ const HomePage = (): ReactElement => {
                   <Category />
                 </Col>
               </>
-            )} */}
-            <Category />
+            )}
           </Row>
         )}
       </Container>
