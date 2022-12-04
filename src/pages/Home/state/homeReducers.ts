@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import {
   getComments,
-  getPosts,
+  getHomePosts,
   handleLike,
   handleUnLike,
   addNewComment,
@@ -11,13 +11,13 @@ import {
 
 export const extraReducers: any = {
   // get all post when login successful
-  [getPosts.pending.toString()]: (state: any) => {
+  [getHomePosts.pending.toString()]: (state: any) => {
     return { ...state, isLoading: true };
   },
-  [getPosts.rejected.toString()]: (state: any) => {
+  [getHomePosts.rejected.toString()]: (state: any) => {
     return { ...state, isLoading: false, loadListPostFail: true };
   },
-  [getPosts.fulfilled.toString()]: (state: any, action: any) => {
+  [getHomePosts.fulfilled.toString()]: (state: any, action: any) => {
     return { ...state, listPost: action.payload.data, loadListPostFail: false, isLoading: false };
   },
 
