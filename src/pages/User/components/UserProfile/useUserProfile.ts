@@ -1,8 +1,8 @@
 import { AppState } from '../../../../app/state.type';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getUserById } from '../../profileSlice';
 import { useAppDispatch } from '../../../../app/store';
+import { getUserById } from '../../state/userActions';
 
 export const useUserProfile = (): any => {
   const activeId = useSelector((state: AppState) => state.user.activeId);

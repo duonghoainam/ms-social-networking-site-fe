@@ -14,16 +14,11 @@ import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SingleDestination from '../../pages/Chat/components/SingleDestination';
-import {
-  addActiveId,
-  getFollowerList,
-  getFollowingList,
-  getPostsByUserId,
-  getUserById
-} from '../../pages/User/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
 import { logout } from '../../pages/Login/loginSlice';
+import { addActiveId } from '../../pages/User/state/userSlice';
+import { getFollowerList, getFollowingList, getPostsByUserId, getUserById } from '../../pages/User/state/userActions';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();

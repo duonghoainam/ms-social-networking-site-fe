@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getPostsByUserId } from '../../profileSlice';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
+import { getPostsByUserId } from '../../state/userActions';
 
 export const useUserPost = (): any => {
   const { activeId, posts } = useSelector((state: AppState) => state.user);

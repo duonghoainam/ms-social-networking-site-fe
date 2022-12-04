@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import chatSlice from '../pages/Chat/ChatSlice';
 import HomeReducer from '../pages/Home/state/homeSlice';
-import userReducer from '../pages/User/profileSlice';
+import userReducer from '../pages/User/state/userSlice';
 // import { persistStore, persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';
 import { useDispatch } from 'react-redux';
