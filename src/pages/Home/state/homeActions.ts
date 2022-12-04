@@ -3,8 +3,8 @@ import postAPI from '../../../api/post/PostApi';
 import userAPI from '../../../api/user/UserApi';
 
 // Post
-export const getPosts = createAsyncThunk('post/getPosts', async (userId: any) => {
-  const response = await postAPI.getPosts(userId);
+export const getPosts = createAsyncThunk('post/getPosts', async () => {
+  const response = await postAPI.getPosts();
   return response;
 });
 
