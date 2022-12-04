@@ -2,9 +2,9 @@ import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 class PostAPI {
   // Post API
-  getPosts = (): any => {
-    const url = `${getApiUrl()}/posts`;
-    return axiosClient.get(url);
+  getHomePosts = (userId: string): any => {
+    const url = `${getApiUrl()}/posts/home`;
+    return axiosClient.get(url, { params: { userId } });
   };
 
   getPostById = (postId: string): any => {

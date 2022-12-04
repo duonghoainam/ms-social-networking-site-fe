@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../app/state.type';
 import { useAppDispatch } from '../../../app/store';
-import { getPosts, getListRecommendedFriends } from '../state/homeActions';
+import { getHomePosts, getListRecommendedFriends } from '../state/homeActions';
 
 export const useHomePage = (): any => {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export const useHomePage = (): any => {
   });
 
   const loadPosts = async (): Promise<void> => {
-    await dispatch(getPosts()).unwrap();
+    await dispatch(getHomePosts(currentUser.id)).unwrap();
   };
   useEffect(() => {
     void loadPosts();

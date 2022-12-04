@@ -3,14 +3,10 @@ import postAPI from '../../../api/post/PostApi';
 import { FollowParams } from '../../../api/user/type/follow.params';
 import userAPI from '../../../api/user/UserApi';
 
-// posts actions
-export const getPosts = createAsyncThunk('post/getPosts', async () => {
-  try {
-    const listPost = await postAPI.getPosts();
-    return listPost;
-  } catch (error) {
-    console.log(error);
-  }
+// Post
+export const getHomePosts = createAsyncThunk('post/getPosts', async (userId: string) => {
+  const response = await postAPI.getHomePosts(userId);
+  return response;
 });
 
 export const getPostComments = createAsyncThunk('post/getComments', async (postId: any) => {
