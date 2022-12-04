@@ -6,6 +6,7 @@ import { useFollowingItem } from './useFollowingItem';
 const FollowingItem = ({ user, setShowModal }: any): ReactElement => {
   const {
     currentUser,
+    // handleFollow,
     handleUnFollow,
     handleDirectToAccount
   } = useFollowingItem({ user, setShowModal });
@@ -17,8 +18,8 @@ const FollowingItem = ({ user, setShowModal }: any): ReactElement => {
       </Col>
       <Col md={{ span: 7 }}>
         <div className="accountItem_name">
-          <p className="accountItem_name_username">{currentUser.name}</p>
-          <p className="accountItem_name_realname">email</p>
+          <p className="accountItem_name_username">{user.name}</p>
+          <p className="accountItem_name_realname">info...</p>
         </div>
       </Col>
       <Col md={{ span: 4 }}>

@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/store';
 
 export const useUserHeader = (): any => {
-  const current = JSON.parse(localStorage.getItem('currentUser') ?? '');
-  const authUserId = current.id;
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+
   const { userInfo, posts, followerList, followingList } = useSelector(
     (state: AppState) => state.user
   );
@@ -23,7 +23,7 @@ export const useUserHeader = (): any => {
   const isFollow = (): boolean => {
     let isFollowed = false;
     followerList.forEach((user: any) => {
-      if (user.id === current.id) {
+      if (user.id === currentUser.id) {
         isFollowed = true;
       }
     });
@@ -40,7 +40,7 @@ export const useUserHeader = (): any => {
     setIsShowChangeAvatarPopup(true);
   };
 
-  const handleGuiTinNhan = (currentUser: any, destinationUser: any): any => {
+  const handleSendMessage = (currentUser: any, destinationUser: any): any => {
     alert('Chưa handle');
   };
 
@@ -51,8 +51,7 @@ export const useUserHeader = (): any => {
   return {
     followerList,
     followingList,
-    current,
-    authUserId,
+    currentUser,
     userInfo,
     posts,
     isFollowed,
@@ -67,6 +66,6 @@ export const useUserHeader = (): any => {
     handleFollow,
     handleShowFollow,
     handleChangeAvt,
-    handleGuiTinNhan
+    handleSendMessage
   };
 };

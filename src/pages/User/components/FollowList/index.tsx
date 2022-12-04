@@ -5,27 +5,27 @@ import './styles.scss';
 import FollowingItem from '../FollowingItem';
 import { useFollowList } from './useFollowList';
 
-const FollowList = (props: { showModal: any, setShowModal: any, isFollowers: boolean }): ReactElement => {
-  const { followerList, followingList, handleCloseDialog } = useFollowList(props.setShowModal);
+const FollowList = ({ showModal, setShowModal, isFollowers }: any): ReactElement => {
+  const { followerList, followingList, handleCloseDialog } = useFollowList(setShowModal);
 
   return (
-    <Modal show={props.showModal} bsSize="large" onHide={handleCloseDialog} centered>
+    <Modal show={showModal} bsSize="large" onHide={handleCloseDialog} centered>
       <Modal.Header closeButton>
         <Modal.Title>
-          {props.isFollowers ? 'Danh sách người theo dõi' : 'Danh sách đang theo dõi'}
+          {(Boolean(isFollowers)) ? 'Danh sách người theo dõi' : 'Danh sách đang theo dõi'}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {props.isFollowers
+        {(Boolean(isFollowers))
           ? followerList.length === 0
             ? 'Danh sách trống!'
             : followerList.map((item: any, index: any) => (
-                <FollowerItem key={index} user={item} setShowModal={props.setShowModal} />
+                <FollowerItem key={index} user={item} setShowModal={setShowModal} />
             ))
           : followingList.length === 0
             ? 'Danh sách trống!'
             : followingList.map((item: any, index: any) => (
-              <FollowingItem key={index} user={item} setShowModal={props.setShowModal} />
+              <FollowingItem key={index} user={item} setShowModal={setShowModal} />
             ))}
       </Modal.Body>
     </Modal>

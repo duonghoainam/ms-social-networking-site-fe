@@ -30,9 +30,21 @@ const Header = (): ReactElement => {
   const listUser = useSelector((state: AppState) => state.login.listUser).filter(
     (user: any) => user.id !== currentUser.id
   );
-  const handleChangeToProfilePage = (): void => {
-    const action = addActiveId(currentUser.id);
-    dispatch(action);
+  const handleChangeToProfilePage = async (): Promise<void> => {
+    const actionGetFollowerList = getFollowerList(currentUser.id);
+    await dispatch(actionGetFollowerList);
+
+    const actionGetFollowingList = getFollowingList(currentUser.id);
+    await dispatch(actionGetFollowingList);
+
+    const actionGetUser = getUserById(currentUser.id);
+    await dispatch(actionGetUser).unwrap();
+
+    const actionGetPost = getPostsByUserId(currentUser.id);
+    await dispatch(actionGetPost).unwrap();
+
+    const actionAddActiveId = addActiveId(currentUser.id);
+    await dispatch(actionAddActiveId);
   };
   // const { listNotification } = useSelector((state: AppState) => state.home);
 

@@ -10,7 +10,9 @@ const UserHeader = (): ReactElement => {
   const {
     followerList,
     followingList,
-    current,
+    currentUser,
+    userInfo,
+    posts,
     showModal,
     setShowModal,
     setShowModalFollow,
@@ -19,13 +21,10 @@ const UserHeader = (): ReactElement => {
     isShowFollowers,
     isShowChangeAvataPopup,
     setIsShowChangeAvatarPopup,
-    authUserId,
-    userInfo,
-    posts,
     handleFollow,
     handleShowFollow,
     handleChangeAvt,
-    handleGuiTinNhan
+    handleSendMessage
   } = useUserHeader();
 
   return (
@@ -61,14 +60,14 @@ const UserHeader = (): ReactElement => {
                   <div className="d-flex  flex-row ">
                     <div className="p-2 username ">{userInfo.name}</div>
 
-                    {userInfo.id === current.id ? (
+                    {userInfo.id === currentUser.id ? (
                       <></>
                     ) : (
                       <>
                         {' '}
                         <Button
                           variant="outline-success"
-                          onClick={() => handleGuiTinNhan(current, userInfo)}
+                          onClick={() => handleSendMessage(currentUser, userInfo)}
                         >
                           Nhắn tin
                         </Button>
@@ -81,7 +80,7 @@ const UserHeader = (): ReactElement => {
                       </>
                     )}
 
-                    {authUserId === userInfo.id && (
+                    {currentUser.id === userInfo.id && (
                       <Button variant="outline-success"
                       onClick={() => setShowModal(true)}
                       >
