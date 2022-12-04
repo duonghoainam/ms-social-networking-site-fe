@@ -10,8 +10,9 @@ const ChatAPI = {
     const url = getApiUrl() + '/conversation';
     return axiosClient.post(url, params);
   },
-  getUserContact: (): any => {
-    const url = 'http://127.0.0.1:3008' + '/api/users/contact';
+  getUserContact: (id: string): any => {
+    const url = getApiUrl() + `/users/${id}/followings`;
+    console.log(url);
     return axiosClient.get(url);
   },
   createMessage: (params: IMessageCrt): any => {

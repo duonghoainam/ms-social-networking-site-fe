@@ -78,7 +78,7 @@ const ChatSetting: React.FC<ChatSettingProps> = ({ setIsOpenSetting, currentConv
         </div>
         <div className="rightPanel__mainSetting__listMember">
           {currentConversation.members.map((member) => {
-            return <ChatMember member={member} key={member._id} />;
+            return <ChatMember member={member} key={member.id} />;
           })}
         </div>
         <div className="rightPanel__mainSetting__control">
@@ -99,7 +99,7 @@ const ChatSetting: React.FC<ChatSettingProps> = ({ setIsOpenSetting, currentConv
         <MessagePopup
           setIsShowPopup={setIsShowMessagePopup}
           type="add"
-          listUserId={currentConversation.members.map((mem) => mem._id)}
+          listUserId={currentConversation.members.map((mem) => mem.id)}
           setIsOpenSetting={setIsOpenSetting}
         />
       )}

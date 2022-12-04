@@ -6,13 +6,13 @@ import PrivateRoute from './components/ControlRoute/PrivateRoute';
 import AuthRoute from './components/ControlRoute/AuthRoute';
 import IndexChat from './pages/chat';
 import NewIndex from './pages/newpost/newIndex';
-import VideoCall from './pages/chat/components/VideoCall';
 import UserIndex from './pages/user';
+import { io } from 'socket.io-client';
 
 // import io from 'socket.io-client';
 
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
-export const socket = null;
+export const socket = io('http://localhost:3003');
 
 function App(): ReactElement {
   // const { activePostId } = useSelector((state: any) => state.home);
@@ -35,7 +35,6 @@ function App(): ReactElement {
               <UserIndex />
             </PrivateRoute>
           }></Route>
-        <Route path="video_call/:id" element={<VideoCall />} />
 
         <Route
           path="/messenger/*"

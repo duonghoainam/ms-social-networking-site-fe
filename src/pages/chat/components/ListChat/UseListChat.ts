@@ -18,11 +18,12 @@ export const useListChat = (setIsOpenSetting: any): UseListChatR => {
   const navigate = useNavigate();
 
   const conversations = useSelector((state: AppState) => state.chat.conversations);
-  const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  // const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   // const params = useParams();
 
   function handleClick(id: string): void {
-    dispatch(getAllConversations(currentUser._id))
+    dispatch(getAllConversations(currentUser.id))
       .unwrap()
       .then((resultValue) => {})
       .catch((rejectedValue) => {});
@@ -30,7 +31,7 @@ export const useListChat = (setIsOpenSetting: any): UseListChatR => {
     navigate(`${id}`);
   }
   useEffect(() => {
-    dispatch(getAllConversations(currentUser._id))
+    dispatch(getAllConversations(currentUser.id))
       .unwrap()
       .then((resultValue) => {})
       .catch((rejectedValue) => {});

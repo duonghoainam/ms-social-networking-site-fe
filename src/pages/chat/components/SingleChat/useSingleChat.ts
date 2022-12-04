@@ -61,7 +61,7 @@ export const useSingleChat = (
       if (conversation.name != null && conversation.name !== '' && conversation.name !== undefined)
         return conversation.name;
       else if (conversation.members != null) {
-        const otherMembers = conversation.members.filter((mem: any) => mem._id !== currentUser._id);
+        const otherMembers = conversation.members.filter((mem: any) => mem.id !== currentUser.id);
         if (otherMembers.length === 0) return conversation.members[0].name;
         else {
           const otherNames = otherMembers.map((mem: any) => mem.name);
@@ -80,7 +80,7 @@ export const useSingleChat = (
       )
         return conversation.avatar;
       else if (conversation.members != null && conversation.members.length === 2) {
-        const user = conversation.members.find((user) => user._id !== currentUser._id);
+        const user = conversation.members.find((user) => user.id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
       } else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';

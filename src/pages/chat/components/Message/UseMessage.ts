@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AppState } from '../../../../app/state.type';
 import { IConversation } from '../../Types/IConversation';
 import { IMessage } from '../../Types/IMessage';
 
@@ -15,7 +14,8 @@ interface UseMessageReturn {
 }
 
 export const UseMessage = (message: IMessage, handleDeleteMessage: any): UseMessageReturn => {
-  const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  // const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const params = useParams();
   const currentConversation = useSelector((state: any) => state.chat.conversations).find(
     (item: any) => item._id === params.id

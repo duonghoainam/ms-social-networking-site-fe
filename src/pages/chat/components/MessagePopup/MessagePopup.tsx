@@ -67,8 +67,8 @@ const MessagePopup: React.FC<MessagePopupProps> = ({
               <Row className="messagePopup__destinations__tags">
                 {tags.length === 0
                   ? ''
-                  : tags.map((tag: { _id: string; name: string }) => {
-                      return <SingleTag key={tag._id} tag={tag} />;
+                  : tags.map((tag: { id: string; name: string }) => {
+                      return <SingleTag key={tag.id} tag={tag} />;
                     })}
               </Row>
               <Row className="messagePopup__destinations__input">

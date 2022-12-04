@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { socket } from '../../../../App';
-import { AppState } from '../../../../app/state.type';
 import useImageUpload from '../../../../hooks/useImageUpload';
 import { IConversation } from '../../Types/IConversation';
 
@@ -26,7 +24,8 @@ interface useChatSettingReturn {
 
 export const useChatSetting = (currentConversation: IConversation): useChatSettingReturn => {
   const params = useParams();
-  const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  // const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [conversationAvt, setConversationAvt] = useState('');
   const [isClosePopup, setIsClosePopup] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
@@ -36,7 +35,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   const uploadImage = useImageUpload();
 
   function handleDeleteCon(): void {
-    socket.emit('leaveConversation', { conversation: params.id, member: currentUser._id });
+    socket.emit('leaveConversation', { conversation: params.id, member: currentUser.id });
     handleClosePopup();
     socket.emit(
       'createMessage',
@@ -159,7 +158,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   //     if (conversation != null) {
   //       if (conversation.name != null) return conversation.name;
   //       else if (conversation.members != null) {
-  //         const otherMembers = conversation.members.filter((mem: any) => mem._id !== currentUser._id);
+  //         const otherMembers = conversation.members.filter((mem: any) => mem._id !== currentUser.id);
   //         if (otherMembers.length === 0) return conversation.members[0].name;
   //         else {
   //           const otherNames = otherMembers.map((mem: any) => mem.name);
@@ -183,7 +182,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
       )
         return currentConversation.avatar;
       else if (currentConversation.members != null && currentConversation.members.length === 2) {
-        const user = currentConversation.members.find((user: any) => user._id !== currentUser._id);
+        const user = currentConversation.members.find((user: any) => user._id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
       } else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';

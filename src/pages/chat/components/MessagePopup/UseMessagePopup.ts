@@ -25,7 +25,8 @@ export const useMessagePopup = (
   type: string,
   listUserId: any[]
 ): useMessagePopupRes => {
-  const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  // const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const userContact = useSelector((state: AppState) => state.chat.userFollowing);
   const conversations = useSelector((state: AppState) => state.chat.conversations);
   const intRenderContact: any[] = [];
@@ -41,23 +42,25 @@ export const useMessagePopup = (
   const params = useParams();
   function handleClick(): void {
     let exist: IConversation[] = [];
-    const tagIds = tags.map((tag) => tag._id);
-    if (conversations.length !== 0) {
+    const tagIds = tags.map((tag) => tag.id);
+    if (conversations != null && conversations !== undefined && conversations.length !== 0) {
       exist = conversations.filter((conversation: IConversation) => {
         if (conversation.members.length - 1 === tags.length) {
-          return tagIds.every((tag) => conversation.members.some((member) => member._id === tag));
+          console.log(conversation.members);
+          return tagIds.every((tag) => conversation.members.some((member) => member.id === tag));
         }
         return false;
       });
     }
+    console.log(exist);
     if (exist.length !== 0) {
       navigate(`${exist[0]._id}`);
     } else {
-      tagIds.push(currentUser._id);
+      tagIds.push(currentUser.id);
       socket.emit('createConversation', {
         name: '',
         members: tagIds,
-        createdBy: currentUser._id,
+        createdBy: currentUser.id,
         avatar: ''
       });
     }
@@ -74,7 +77,7 @@ export const useMessagePopup = (
   }, [searchValue, userContact]);
 
   useEffect(() => {
-    dispatch(getUserContact())
+    dispatch(getUserContact(currentUser.id))
       .unwrap()
       .then((resultValue) => console.log(resultValue))
       .catch((rejectedValue) => console.log(rejectedValue));
@@ -84,7 +87,7 @@ export const useMessagePopup = (
     tags.forEach((tag) => {
       socket.emit('updateConversation', 'conversation.addMemberToConversation', {
         conversation: params.id,
-        member: tag._id
+        member: tag.id
       });
       socket.emit('createMessage', {
         content: `Đã thêm ${tag.name as string} vào cuộc trò chuyện`,
@@ -95,7 +98,6 @@ export const useMessagePopup = (
   }
 
   function genContact(type: string, listUserId: any[]): void {
-    console.log('contact', listUserId);
     if (type === 'create') {
       if (searchValue === '') {
         setRenderContact(userContact);
@@ -107,7 +109,7 @@ export const useMessagePopup = (
       }
     } else if (type === 'add') {
       if (searchValue === '') {
-        const afterFilter = userContact.filter((item) => !listUserId.some((id) => id === item._id));
+        const afterFilter = userContact.filter((item) => !listUserId.some((id) => id === item.id));
         setRenderContact(afterFilter);
       } else {
         const searchUser = userContact.filter(

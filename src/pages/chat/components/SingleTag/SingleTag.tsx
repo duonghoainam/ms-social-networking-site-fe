@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { deleteTag } from '../../state/chatSlice';
 
 interface Tag {
-  _id: string;
+  id: string;
   name: string;
 }
 
@@ -20,7 +20,7 @@ function SingleTag({ tag }: SingleTagProps): React.ReactElement<SingleTagProps> 
   return (
     <div className="messagePopup__destinations__tags__singleTag">
       <p>{tag.name}</p>
-      <button onClick={() => handleClick(tag._id)}>x</button>
+      <button onClick={() => handleClick(tag.id)}>x</button>
     </div>
   );
 }

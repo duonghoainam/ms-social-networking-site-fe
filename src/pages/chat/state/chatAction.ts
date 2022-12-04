@@ -12,8 +12,8 @@ export const createConversation = createAsyncThunk('conversation/create', async 
   return response.data;
 });
 
-export const getUserContact = createAsyncThunk('user/getContact', async () => {
-  const response = await ChatAPI.getUserContact();
+export const getUserContact = createAsyncThunk('user/getContact', async (id: string) => {
+  const response = await ChatAPI.getUserContact(id);
   return response.data;
 });
 

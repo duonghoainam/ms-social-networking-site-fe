@@ -28,8 +28,8 @@ function SingleChat({
         <div className="singleChat__user__content">
           <p
             style={
-              messages?.seenBy.includes(currentUser._id) === true &&
-              messages.sender !== currentUser._id
+              messages?.seenBy.includes(currentUser.id) !== true &&
+              messages?.sender !== currentUser.id
                 ? { fontWeight: 'bold', color: 'black' }
                 : {}
             }

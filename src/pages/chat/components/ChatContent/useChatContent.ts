@@ -32,7 +32,8 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [conversationName, setConversationName] = useState('');
   const [conversationAvatar, setConversationAvatar] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  // const currentUser = useSelector((state: AppState) => state.auth.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isEnough, setIsEnough] = useState(false);
   const [page, setPage] = useState(1);
@@ -111,9 +112,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
 
   const seenAll = async (): Promise<void> => {
     try {
-      await dispatch(
-        seenAllMessages({ id: params.id as string, seenBy: currentUser._id })
-      ).unwrap();
+      await dispatch(seenAllMessages({ id: params.id as string, seenBy: currentUser.id })).unwrap();
     } catch (error) {
       console.log(error);
     }
@@ -159,7 +158,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         {
           content: text,
           conversation: params.id as string,
-          sender: currentUser._id
+          sender: currentUser.id
         },
         function (err: any, res: any) {
           if (err != null) {
@@ -177,11 +176,11 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   };
 
   const handleDeleteMessage = async (id: string): Promise<void> => {
-    // await dispatch(deleteMessage({ id, sender: currentUser._id })).unwrap();
+    // await dispatch(deleteMessage({ id, sender: currentUser.id })).unwrap();
     socket.emit(
       'updateMessage',
       'messages.deleteRest',
-      { id, sender: currentUser._id },
+      { id, sender: currentUser.id },
       function (err: any, res: any) {
         if (err != null) {
           console.error(err);
@@ -197,8 +196,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     setShowScrollButton(false);
   };
 
-  const handleReactMessage = async (messageId: string, userId: string): Promise<void> => {
-    // const result = await dispatch(reactMessage({ id: messageId, reactBy: userId })).unwrap();
+  const handleReactMessage = (messageId: string, userId: string): void => {
     socket.emit(
       'updateMessage',
       'messages.reactMessage',
@@ -213,7 +211,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     );
   };
 
-  const handleUnReactMessage = async (messageId: string, userId: string): Promise<void> => {
+  const handleUnReactMessage = (messageId: string, userId: string): void => {
     // const result = await dispatch(unReactMessage({ id: messageId, reactBy: userId })).unwrap();
     // console.log(result);
     socket.emit(
@@ -242,7 +240,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       )
         return conversation.avatar;
       else if (conversation.members != null && conversation.members.length === 2) {
-        const user = conversation.members.find((user: any) => user._id !== currentUser._id);
+        const user = conversation.members.find((user: any) => user.id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
       } else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
@@ -256,7 +254,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     if (conversation != null) {
       if (conversation.name != null) return conversation.name;
       else if (conversation.members != null) {
-        const otherMembers = conversation.members.filter((mem: any) => mem._id !== currentUser._id);
+        const otherMembers = conversation.members.filter((mem: any) => mem._id !== currentUser.id);
         if (otherMembers.length === 0) return conversation.members[0].name;
         else {
           const otherNames = otherMembers.map((mem: any) => mem.name);
