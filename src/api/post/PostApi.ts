@@ -1,9 +1,10 @@
 import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 class PostAPI {
+  // Post API
   getPosts = (): any => {
     const url = `${getApiUrl()}/posts`;
-    return axiosClient.get(url, {});
+    return axiosClient.get(url);
   };
 
   getPostById = (postId: string): any => {

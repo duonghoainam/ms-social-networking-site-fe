@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "_id": "1",
+      "content": "my post",
+      "images": [
+        "https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/1903702/pexels-photo-1903702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      ],
+      "likes": [],
+      "comments": [],
+      "user": {
+        "_id": 1,
+        "avatar": "https://images.pexels.com/photos/1554613/pexels-photo-1554613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "name": "thuan"
+      },
+      "createdAt": 1669280508646
+    } 
+  ]
+}
