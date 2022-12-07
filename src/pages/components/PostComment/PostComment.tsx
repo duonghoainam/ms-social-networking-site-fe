@@ -15,7 +15,7 @@ import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
 import CommentSkeleton from '../../../components/SkeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
-import MessagePopup from '../../Chat/components/MessagePopup';
+import MessagePopup from '../../chat/components/MessagePopup/MessagePopup';
 // import { socket } from '../../../App';
 
 const PostComment = ({
