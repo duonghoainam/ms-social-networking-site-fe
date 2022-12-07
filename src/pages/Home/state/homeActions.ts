@@ -3,17 +3,17 @@ import postAPI from '../../../api/post/PostApi';
 import userAPI from '../../../api/user/UserApi';
 
 // Post
-export const getPosts = createAsyncThunk('post/getPosts', async (userId: any) => {
-  const response = await postAPI.getPosts(userId);
+export const getHomePosts = createAsyncThunk('post/getPosts', async (userId: any) => {
+  const response = await postAPI.getHomePosts(userId);
   return response;
 });
 
-export const getComments = createAsyncThunk('post/getComments', async (postId: any) => {
-  const response = await postAPI.getComments(postId);
+export const getPostComments = createAsyncThunk('post/getComments', async (postId: any) => {
+  const response = await postAPI.getPostComments(postId);
   return response;
 });
 
-export const handleLike = createAsyncThunk(
+export const likePost = createAsyncThunk(
   'post/Like',
   async (params: { userId: any, postId: any }) => {
     await postAPI.likePost(params.userId, params.postId);
@@ -21,7 +21,7 @@ export const handleLike = createAsyncThunk(
   }
 );
 
-export const handleUnLike = createAsyncThunk(
+export const unlikePost = createAsyncThunk(
   'post/UnLike',
   async (params: { userId: any, postId: any }) => {
     await postAPI.unlikePost(params.userId, params.postId);
@@ -30,7 +30,7 @@ export const handleUnLike = createAsyncThunk(
 );
 
 // Comment
-export const addNewComment = createAsyncThunk('home/addNewComment', async (params: any) => {
+export const createComment = createAsyncThunk('home/addNewComment', async (params: any) => {
   const response = await postAPI.createComment(
     params.postId,
     params.userId,
@@ -42,8 +42,8 @@ export const addNewComment = createAsyncThunk('home/addNewComment', async (param
 
 export const deleteComment = createAsyncThunk(
   'comment/delete',
-  async (params: { commentId: any, postId: any }) => {
-    const response = await postAPI.deleteComment(params.commentId, params.postId);
+  async (params: { postId: any, commentId: any }) => {
+    const response = await postAPI.deleteComment(params.postId, params.commentId);
     return response;
   }
 );

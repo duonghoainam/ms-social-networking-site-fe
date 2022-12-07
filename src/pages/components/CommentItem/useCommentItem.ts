@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../../app/store';
-import { deleteComment } from '../../Home/state/homeActions';
+import { deleteComment, getHomePosts } from '../../Home/state/homeActions';
 
 export const useCommentItem = (comment: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
@@ -11,7 +11,7 @@ export const useCommentItem = (comment: any): any => {
   const [isShowChildrenComment, setIsShowChildrenComment] = useState(false);
   const [isShowCmtOption, setIsShowCommentOption] = useState(false);
   let isCommentOfCurrentUser = false;
-  if (comment.user === currentUser.id) {
+  if (comment.user.id === currentUser.id) {
     isCommentOfCurrentUser = true;
   }
   const [isCanEditAndDelete, setIsCanEditAndDelete] = useState(isCommentOfCurrentUser)
@@ -25,6 +25,9 @@ export const useCommentItem = (comment: any): any => {
     }
     const actionDeleteComment = deleteComment(params);
     await dispacth(actionDeleteComment).unwrap();
+
+    const actionGetPosts = getHomePosts(currentUser.id);
+    await dispacth(actionGetPosts).unwrap();
   }
 
   return {

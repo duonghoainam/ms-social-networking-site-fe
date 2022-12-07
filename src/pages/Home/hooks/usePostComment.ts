@@ -1,8 +1,9 @@
 import { useAppDispatch } from '../../../app/store';
-import { handleLike, handleUnLike } from '../state/homeActions';
+import { likePost, unlikePost } from '../state/homeActions';
 import { setShowPostDetail } from '../state/homeSlice';
 import { AppState } from '../../../app/state.type';
 import { useSelector } from 'react-redux';
+import { User } from '../../../api/user/type/user.type';
 
 export const usePostComment = (): any => {
   const dispatch = useAppDispatch();
@@ -14,12 +15,13 @@ export const usePostComment = (): any => {
   };
 
   const handleLikePostComment = async (postId: string, userId: string): Promise<void> => {
-    const isLiked = Boolean(selectedPost.likes.includes(userId))
+    let isLiked = false;
+    if (selectedPost.likes.filter((user: User) => user.id === userId).length > 0) { isLiked = true }
     if (isLiked) {
-      const actionUnlike = handleUnLike({ postId, userId })
+      const actionUnlike = unlikePost({ postId, userId })
       await dispatch(actionUnlike).unwrap();
     } else {
-      const actionlike = handleLike({ postId, userId })
+      const actionlike = likePost({ postId, userId })
       await dispatch(actionlike).unwrap();
       // Thông báo có lượt like cho chủ post
     }

@@ -1,7 +1,7 @@
 const useAuth = (): boolean => {
   // fake Data
   localStorage.setItem('currentUser', JSON.stringify({
-    id: '47e5b7d0-7392-11ed-a275-43dcab608ba2',
+    id: 'ced42980-73e1-11ed-bb16-9bb599e6113c',
     name: 'minh1',
     gender: 'male',
     dateOfBirth: 1669280508646

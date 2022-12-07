@@ -23,7 +23,7 @@ const UserHeader = (): ReactElement => {
     setIsShowChangeAvatarPopup,
     handleFollow,
     handleShowFollow,
-    handleChangeAvt,
+    // handleChangeAvt,
     handleSendMessage
   } = useUserHeader();
 
@@ -48,7 +48,7 @@ const UserHeader = (): ReactElement => {
           <div className="p-2">
             <div
               className="avatar__container"
-              onClick={() => handleChangeAvt()}
+              // onClick={() => handleChangeAvt()}
             >
               <img src="" />
             </div>
