@@ -1,7 +1,8 @@
 import { ChatState } from '../pages/chat/Types/chatState.Type';
 
 export interface AppState {
-  auth: any;
+  login: any;
+  register: any;
   home: any;
   chat: ChatState;
   user: any;
