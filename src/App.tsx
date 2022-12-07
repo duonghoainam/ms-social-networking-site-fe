@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import PrivateRoute from './components/ControlRoute/PrivateRoute';
-import NewIndex from './pages/Newpost/newIndex';
-import UserIndex from './pages/User';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
@@ -35,7 +33,6 @@ function App(): ReactElement {
           path="/account/*"
           element={
             <PrivateRoute>
-              <UserIndex />
             </PrivateRoute>
           }></Route>
 
@@ -50,7 +47,6 @@ function App(): ReactElement {
           path="/new/*"
           element={
             <PrivateRoute>
-              <NewIndex />
             </PrivateRoute>
           }></Route>
         <Route
