@@ -6,7 +6,7 @@ import userReducer from '../pages/User/profileSlice';
 import { useDispatch } from 'react-redux';
 import LoginReducer from '../pages/Login/loginSlice';
 import RegisterReducer from '../pages/Register/registerSlice';
-import ChatReducer from '../pages/chat/state/chatSlice';
+import ChatReducer from '../pages/Chat/state/chatSlice';
 
 // const persistConfig = {
 //   key: 'root',

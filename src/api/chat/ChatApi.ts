@@ -1,6 +1,6 @@
 import axiosClient from '../AxiosClient';
 import { getApiUrl } from '../../utils/api.util';
-import { IMessageCrt } from '../../pages/chat/Types/IMessageCrt';
+import { IMessageCrt } from '../../pages/Chat/types/IMessageCrt';
 const ChatAPI = {
   getAllConversations: (id: string): any => {
     const url = getApiUrl() + `/conversation/ofMine/${id}`;

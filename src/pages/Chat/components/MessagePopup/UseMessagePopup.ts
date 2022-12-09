@@ -42,12 +42,14 @@ export const useMessagePopup = (
   const params = useParams();
   function handleClick(): void {
     let exist: IConversation[] = [];
-    const tagIds = tags.map((tag) => tag.id);
+    const tagIds = tags.map((tag: any) => tag.id);
     if (conversations != null && conversations !== undefined && conversations.length !== 0) {
       exist = conversations.filter((conversation: IConversation) => {
         if (conversation.members.length - 1 === tags.length) {
           console.log(conversation.members);
-          return tagIds.every((tag) => conversation.members.some((member) => member.id === tag));
+          return tagIds.every((tag: any) =>
+            conversation.members.some((member) => member.id === tag)
+          );
         }
         return false;
       });
@@ -84,7 +86,7 @@ export const useMessagePopup = (
   }, []);
 
   function handleAdd(): void {
-    tags.forEach((tag) => {
+    tags.forEach((tag: any) => {
       socket.emit('updateConversation', 'conversation.addMemberToConversation', {
         conversation: params.id,
         member: tag.id
@@ -102,18 +104,20 @@ export const useMessagePopup = (
       if (searchValue === '') {
         setRenderContact(userContact);
       } else {
-        const searchUser = userContact.filter((user) =>
+        const searchUser = userContact.filter((user: any) =>
           user.name.toLowerCase().includes(searchValue.toLowerCase())
         );
         setRenderContact(searchUser);
       }
     } else if (type === 'add') {
       if (searchValue === '') {
-        const afterFilter = userContact.filter((item) => !listUserId.some((id) => id === item.id));
+        const afterFilter = userContact.filter(
+          (item: any) => !listUserId.some((id) => id === item.id)
+        );
         setRenderContact(afterFilter);
       } else {
         const searchUser = userContact.filter(
-          (user) =>
+          (user: any) =>
             user.name.toLowerCase().includes(searchValue.toLowerCase()) === true &&
             !listUserId?.some((id) => id === user._id)
         );

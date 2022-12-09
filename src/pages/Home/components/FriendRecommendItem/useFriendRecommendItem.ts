@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import localStorage from 'redux-persist/es/storage';
 import { ApiResponse } from '../../../../api/api-response.type';
 import { FollowParams } from '../../../../api/user/type/follow.params';
 import userAPI from '../../../../api/user/UserApi';
