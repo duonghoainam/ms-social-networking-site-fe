@@ -1,5 +1,5 @@
 import React from 'react';
-import { IUserInfo } from '../../Types/IUserInfo';
+import { IUserInfo } from '../../types/IUserInfo';
 
 interface ChatMemberProps {
   member: IUserInfo;

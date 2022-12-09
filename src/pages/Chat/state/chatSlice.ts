@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ChatState } from '../Types/chatState.Type';
-import { IMessage } from '../Types/IMessage';
+import { ChatState } from '../types/chatState.Type';
+import { IMessage } from '../types/IMessage';
 import { extraReducers } from './chatReducer';
 
 const initialState: ChatState = {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { socket } from '../../../../App';
 import useImageUpload from '../../../../hooks/useImageUpload';
-import { IConversation } from '../../Types/IConversation';
+import { IConversation } from '../../types/IConversation';
 
 interface useChatSettingReturn {
   conversationAvt: string;

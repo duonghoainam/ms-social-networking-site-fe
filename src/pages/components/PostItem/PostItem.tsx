@@ -13,7 +13,7 @@ import { format } from 'timeago.js';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePostItem } from './usePostItem';
-import MessagePopup from '../../chat/components/MessagePopup/MessagePopup';
+import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
 
 /**
  * post params are logic for to manage state, call data for a post item

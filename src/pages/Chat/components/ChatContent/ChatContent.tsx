@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import '../Chat.scss';
 import { AppState } from '../../../../app/state.type';
 import { useChatContent } from './useChatContent';
-import { IMessage } from '../../Types/IMessage';
+import { IMessage } from '../../types/IMessage';
 import ChatSetting from '../ChatSetting/ChatSetting';
 import Message from '../Message/Message';
 

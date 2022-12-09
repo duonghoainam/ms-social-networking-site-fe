@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ChatAPI from '../../../../api/chat/ChatApi';
 import { socket } from '../../../../App';
-import { IConversation } from '../../Types/IConversation';
-import { IMessage } from '../../Types/IMessage';
+import { IConversation } from '../../types/IConversation';
+import { IMessage } from '../../types/IMessage';
 
 export const useSingleChat = (
   conversation: IConversation,

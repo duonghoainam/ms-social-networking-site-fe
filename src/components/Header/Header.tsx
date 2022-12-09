@@ -17,7 +17,7 @@ import { addActiveId } from '../../pages/User/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
 import { logout } from '../../pages/Login/loginSlice';
-import SingleDestination from '../../pages/chat/components/SingleDestination/SingleDestination';
+import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();

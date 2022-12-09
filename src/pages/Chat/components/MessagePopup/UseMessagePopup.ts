@@ -7,7 +7,7 @@ import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 import { getUserContact } from '../../state/chatAction';
 import { resetTag } from '../../state/chatSlice';
-import { IConversation } from '../../Types/IConversation';
+import { IConversation } from '../../types/IConversation';
 
 interface useMessagePopupRes {
   handleClick: any;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { IConversation } from '../../Types/IConversation';
-import { IMessage } from '../../Types/IMessage';
+import { IConversation } from '../../types/IConversation';
+import { IMessage } from '../../types/IMessage';
 
 interface UseMessageReturn {
   currentUser: any;

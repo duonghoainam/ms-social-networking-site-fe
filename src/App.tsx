@@ -6,7 +6,7 @@ import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
 import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
-import IndexChat from './pages/chat';
+import IndexChat from './pages/Chat';
 
 // import io from 'socket.io-client';
 
@@ -29,12 +29,7 @@ function App(): ReactElement {
             </PrivateRoute>
           }></Route>
 
-        <Route
-          path="/account/*"
-          element={
-            <PrivateRoute>
-            </PrivateRoute>
-          }></Route>
+        <Route path="/account/*" element={<PrivateRoute></PrivateRoute>}></Route>
 
         <Route
           path="/messenger/*"
@@ -43,12 +38,7 @@ function App(): ReactElement {
               <IndexChat />
             </PrivateRoute>
           }></Route>
-        <Route
-          path="/new/*"
-          element={
-            <PrivateRoute>
-            </PrivateRoute>
-          }></Route>
+        <Route path="/new/*" element={<PrivateRoute></PrivateRoute>}></Route>
         <Route
           path="/login/*"
           element={

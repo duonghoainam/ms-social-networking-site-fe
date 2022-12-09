@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import ChatAPI from '../../../api/chat/ChatApi';
-import { IMessageCrt } from '../Types/IMessageCrt';
+import { IMessageCrt } from '../types/IMessageCrt';
 
 export const getAllConversations = createAsyncThunk('conversation/getAll', async (id: string) => {
   const response = await ChatAPI.getAllConversations(id);

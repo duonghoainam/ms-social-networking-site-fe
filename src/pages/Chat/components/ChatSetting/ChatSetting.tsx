@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import WarningPopup from '../../../../components/WarningPopup/WarningPopup';
-import { IConversation } from '../../Types/IConversation';
+import { IConversation } from '../../types/IConversation';
 import ChatMember from '../ChatMember/ChatMember';
 import MessagePopup from '../MessagePopup/MessagePopup';
 import { useChatSetting } from './UseChatSetting';

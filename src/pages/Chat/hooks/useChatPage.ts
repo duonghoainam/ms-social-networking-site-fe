@@ -9,7 +9,7 @@ import {
   updateConversation,
   updateMessage
 } from '../state/chatSlice';
-import { IConversation } from '../Types/IConversation';
+import { IConversation } from '../types/IConversation';
 interface useChatPageType {
   isOpenSetting: boolean;
   setIsOpenSetting: React.Dispatch<React.SetStateAction<boolean>>;

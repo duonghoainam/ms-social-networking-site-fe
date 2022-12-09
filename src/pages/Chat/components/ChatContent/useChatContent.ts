@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { checkText } from 'smile2emoji';
 import { socket } from '../../../../App';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
@@ -11,8 +10,8 @@ import {
   seenAllMessages,
   seenMessage
 } from '../../state/chatAction';
-import { IConversation } from '../../Types/IConversation';
-import { IUseChatContent } from '../../Types/useChatContent.Type';
+import { IConversation } from '../../types/IConversation';
+import { IUseChatContent } from '../../types/useChatContent.Type';
 
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [text, setText] = useState('');
@@ -43,7 +42,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const chatContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.title = 'Midori • Chats';
     const conversation = conversations?.find(
       (conversation: IConversation) => conversation._id === params.id
     ) as IConversation;
@@ -70,11 +68,12 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       }
     } else {
       if (
-        chatContentRef.current != null &&
-        chatContentRef.current.scrollHeight -
-          chatContentRef.current.scrollTop -
-          chatContentRef.current.clientHeight >
-          300
+        chatContentRef.current != null
+        // &&
+        // chatContentRef.current.scrollHeight -
+        //   chatContentRef.current.scrollTop -
+        //   chatContentRef.current.clientHeight >
+        //   300
       ) {
         setShowScrollButton(true);
       } else {
@@ -128,19 +127,19 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     }
   };
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
-    if (
-      e.currentTarget.value != null &&
-      e.currentTarget.value !== '' &&
-      e.currentTarget.value !== undefined
-    ) {
-      setIsTyping(true);
-      e.currentTarget.value = checkText(e.currentTarget.value);
-      setText(e.currentTarget.value);
-    } else {
-      setIsTyping(false);
-      setText('');
-    }
+  const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
+    // if (
+    //   event.currentTarget.value != null &&
+    //   event.currentTarget.value !== '' &&
+    //   event.currentTarget.value !== undefined
+    // ) {
+    //   setIsTyping(true);
+    //   event.currentTarget.value = checkText(event.currentTarget.value);
+    //   setText(event.currentTarget.value);
+    // } else {
+    //   setIsTyping(false);
+    //   setText('');
+    // }
   };
 
   const handleKeyDown = (e: any): void => {
@@ -192,7 +191,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   };
 
   const handleScrollBottom = (): void => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    // ref.current?.scrollIntoView({ behavior: 'smooth' });
     setShowScrollButton(false);
   };
 

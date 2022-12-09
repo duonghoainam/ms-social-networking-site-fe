@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 import { getAllConversations } from '../../state/chatAction';
-import { IConversation } from '../../Types/IConversation';
-import { IUserInfo } from '../../Types/IUserInfo';
+import { IConversation } from '../../types/IConversation';
+import { IUserInfo } from '../../types/IUserInfo';
 
 interface UseListChatR {
   handleClick: any;
