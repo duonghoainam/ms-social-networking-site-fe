@@ -9,6 +9,7 @@ interface UserState {
   followerList: any[];
   followingList: any[];
   posts: any[];
+  selectedPost: any;
   isLoading: boolean;
 }
 
@@ -18,6 +19,7 @@ const initialState: UserState = {
   followerList: [],
   followingList: [],
   posts: [],
+  selectedPost: {},
   isLoading: false
 }
 

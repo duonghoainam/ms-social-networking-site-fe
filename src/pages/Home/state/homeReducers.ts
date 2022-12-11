@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
+import { User } from '../../../api/user/type/user.type';
 import {
-  getComments,
   getHomePosts,
-  handleLike,
-  handleUnLike,
-  addNewComment,
+  getPostComments,
+  likePost,
+  unlikePost,
+  createComment,
   deleteComment,
   getUserInfo
 } from './homeActions';
@@ -22,28 +23,28 @@ export const extraReducers: any = {
   },
 
   // get all comment of post
-  [getComments.pending.toString()]: (state: any, action: any) => {
+  [getPostComments.pending.toString()]: (state: any, action: any) => {
     return { ...state, isLoadComment: true };
   },
-  [getComments.rejected.toString()]: (state: any, action: any) => {
+  [getPostComments.rejected.toString()]: (state: any, action: any) => {
     return { ...state, isLoadComment: false };
   },
-  [getComments.fulfilled.toString()]: (state: any, action: any) => {
+  [getPostComments.fulfilled.toString()]: (state: any, action: any) => {
     return { ...state, listComment: action.payload.data, isLoadComment: false };
   },
 
   // handle like post
-  [handleLike.pending.toString()]: (state: any, action: any) => {},
-  [handleLike.rejected.toString()]: (state: any, action: any) => {},
-  [handleLike.fulfilled.toString()]: (state: any, action: any) => {
+  [likePost.pending.toString()]: (state: any, action: any) => {},
+  [likePost.rejected.toString()]: (state: any, action: any) => {},
+  [likePost.fulfilled.toString()]: (state: any, action: any) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload) {
-        post.likes.push(currentUser.id);
+        post.likes.push(currentUser);
         // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
-          state.selectedPost.likes.push(currentUser.id);
+          state.selectedPost.likes.push(currentUser);
         }
       }
       return post;
@@ -51,19 +52,18 @@ export const extraReducers: any = {
   },
 
   // Handle unlike post
-  [handleUnLike.pending.toString()]: (state: any, action: any) => {},
-  [handleUnLike.rejected.toString()]: (state: any, action: any) => {},
-  [handleUnLike.fulfilled.toString()]: (state: any, action: any) => {
+  [unlikePost.pending.toString()]: (state: any, action: any) => {},
+  [unlikePost.rejected.toString()]: (state: any, action: any) => {},
+  [unlikePost.fulfilled.toString()]: (state: any, action: any) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload) {
-        post.likes = post.likes.filter((item: any) => item !== currentUser.id);
+        // post.likes = post.likes.filter((item: any) => item !== currentUser);
+        post.likes = post.likes.filter((user: User) => { return user.id !== currentUser.id });
         // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
-          state.selectedPost.likes = state.selectedPost.likes.filter(
-            (item: any) => item !== currentUser.id
-          );
+          state.selectedPost.likes = state.selectedPost.likes.filter((user: User) => { return user.id !== currentUser.id });
         }
       }
       return post;
@@ -71,15 +71,11 @@ export const extraReducers: any = {
   },
 
   // Add new comment
-  [addNewComment.pending.toString()]: (state: any, action: any) => {},
-  [addNewComment.rejected.toString()]: (state: any, action: any) => {},
-  [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
+  [createComment.pending.toString()]: (state: any, action: any) => {},
+  [createComment.rejected.toString()]: (state: any, action: any) => {},
+  [createComment.fulfilled.toString()]: (state: any, action: any) => {
     // Update state listcomment
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-    let newComment = action.payload.data;
-    const userInfo = { userInfo: currentUser }
-    newComment = { ...newComment, ...userInfo }
-    state.listComment.push(newComment);
+    state.listComment.push(action.payload.data);
     // Update state listPosts
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload.data.postId) {
@@ -93,7 +89,8 @@ export const extraReducers: any = {
   [deleteComment.pending.toString()]: (state: any, action: any) => {},
   [deleteComment.rejected.toString()]: (state: any, action: any) => {},
   [deleteComment.fulfilled.toString()]: (state: any, action: any) => {
-    state.listComment = action.payload.data;
+    const deletedComment = action.payload.data;
+    state.listComment = state.listComment.filter((comment: any) => { return comment._id !== deletedComment._id });
   },
 
   // Get user info

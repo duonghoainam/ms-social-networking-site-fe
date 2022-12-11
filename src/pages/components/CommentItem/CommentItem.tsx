@@ -35,7 +35,7 @@ const CommentItem = ({ comment }: any): ReactElement => {
       <Col md={{ span: 9 }}>
         <div className="comment_content">
           <div className="comment_content_caption">
-            <span className="comment_content_caption_name">{comment.userInfo.name}</span>
+            <span className="comment_content_caption_name">{comment.user.name}</span>
             <CheckCircle />
             <span className="comment_content_caption_content">{comment.content}</span>
           </div>

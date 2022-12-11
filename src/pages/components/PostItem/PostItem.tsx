@@ -17,6 +17,7 @@ import { usePostItem } from './usePostItem';
 import MessagePopup from '../../Chat/components/MessagePopup';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
+import { User } from '../../../api/user/type/user.type';
 
 /**
  * post params are logic for to manage state, call data for a post item
@@ -57,7 +58,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
         <Col className="postItem__react">
           <Row className="reactIcon">
             <Col md={9}>
-              {post.likes.includes(currentUser.id) === true ? (
+              {post.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
                   onClick={async (): Promise<void> => {

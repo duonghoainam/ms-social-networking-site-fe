@@ -11,7 +11,7 @@ import { useAddComment } from './useAddComment';
  * @param submit function to save comment
  * @returns
  */
-const AddComment = (props: { postId: any, userPostId: any }): ReactElement => {
+const AddComment = ({ postId, postUserId }: any): ReactElement => {
   const {
     submitComment,
     showEmoji,
@@ -21,7 +21,7 @@ const AddComment = (props: { postId: any, userPostId: any }): ReactElement => {
     handleKeyDown,
     handleEmojiClick,
     deleteReply
-  } = useAddComment(props);
+  } = useAddComment({ postId, postUserId });
   const replyingComment = { username: '' };
   return (
     <>

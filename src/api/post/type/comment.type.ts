@@ -5,7 +5,7 @@ export interface Comment {
   reply: any[];
   parent: string;
   likes: any[];
-  user: string;
+  user: any;
   postId: string;
   postUserId: string;
   createAt: Date;

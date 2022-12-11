@@ -8,24 +8,14 @@ class PostAPI {
     return axiosClient.get(url, { params: { userId } });
   };
 
-  getPostById = (postId: string): any => {
-    const url = `${getApiUrl()}/posts/post`;
-    return axiosClient.get(url, { params: { postId } });
-  };
-
-  getPostsByUserId = (userId: string): any => {
-    const url = `${getApiUrl()}/posts/user`;
+  getUserPosts = (userId: string): any => {
+    const url = `${getApiUrl()}/posts/`;
     return axiosClient.get(url, { params: { userId } });
   };
 
-  likePost = (userId: string, postId: string): any => {
-    const url = `${getApiUrl()}/posts/post/like`;
-    return axiosClient.patch(url, { postId, userId });
-  };
-
-  unlikePost = (userId: string, postId: string): any => {
-    const url = `${getApiUrl()}/posts/post/unlike`;
-    return axiosClient.patch(url, { postId, userId });
+  getPostById = (postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}`;
+    return axiosClient.get(url, { params: { postId } });
   };
 
   createPost = (params: Post): any => {
@@ -34,38 +24,53 @@ class PostAPI {
   };
 
   updatePost = (postId: string, content: string, images: string): any => {
-    const url = `${getApiUrl()}/posts`;
+    const url = `${getApiUrl()}/posts/${postId}`;
     return axiosClient.patch(url, { params: { postId, content, images } });
   };
 
   deletePost = (postId: string): any => {
-    const url = `${getApiUrl()}/posts`;
+    const url = `${getApiUrl()}/posts/${postId}`;
     return axiosClient.delete(url, { params: { postId } });
   };
 
+  likePost = (userId: string, postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/like`;
+    return axiosClient.patch(url, { postId, userId });
+  };
+
+  unlikePost = (userId: string, postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/unlike`;
+    return axiosClient.patch(url, { postId, userId });
+  };
+
   // Comment API
-  getComments = (postId: string): any => {
-    const url = `${getApiUrl()}/comments/`;
+  getPostComments = (postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments`;
     return axiosClient.get(url, { params: { postId } });
   };
 
   createComment = (postId: string, userId: string, content: string, postUserId: string): any => {
-    const url = `${getApiUrl()}/comments/`;
+    const url = `${getApiUrl()}/posts/${postId}/comments`;
     return axiosClient.post(url, { postId, userId, content, postUserId });
   };
 
-  updateComment = (commentId: string, content: string): any => {
-    const url = `${getApiUrl()}/comments/`;
-    return axiosClient.patch(url, { params: { commentId, content } });
+  updateComment = (postId: string, commentId: string, content: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}`;
+    return axiosClient.patch(url, { params: { postId, commentId, content } });
   };
 
-  deleteComment = (commentId: string, postId: string): any => {
-    const url = `${getApiUrl()}/comments/`;
+  deleteComment = (postId: string, commentId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}`;
     return axiosClient.delete(url, { params: { commentId, postId } });
   };
 
-  reactComment = (commentId: string, userId: string): any => {
-    const url = `${getApiUrl()}/comments/react`;
+  likeComment = (userId: string, postId: string, commentId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}/like`;
+    return axiosClient.get(url, { params: { commentId, userId } });
+  };
+
+  unlikeComment = (userId: string, postId: string, commentId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}/unlike`;
     return axiosClient.get(url, { params: { commentId, userId } });
   };
 }

@@ -19,6 +19,6 @@ export const getFollowingList = createAsyncThunk('user/getFollowingList', async 
 
 // Post API
 export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async (params: any) => {
-  const posts = await postAPI.getPostsByUserId(params);
+  const posts = await postAPI.getUserPosts(params);
   return posts;
 });

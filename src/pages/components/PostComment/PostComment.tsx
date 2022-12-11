@@ -16,6 +16,8 @@ import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/ico
 import CommentSkeleton from '../../../components/SkeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
 import MessagePopup from '../../Chat/components/MessagePopup';
+import { User } from '../../../api/user/type/user.type';
+import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 
 const PostComment = ({
   isShowPostDetail,
@@ -27,10 +29,11 @@ const PostComment = ({
     currentUser,
     isShowMessagePopup,
     setIsShowMessagePopup,
-    isShowAllLikesPopup,
-    showAllLikesPopup,
-    hideAllLikesPopup
+    // isShowAllLikesPopup,
+    // showAllLikesPopup,
+    // hideAllLikesPopup
   } = usePostComment();
+  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ selectedPost });
 
   return (
     <div className="detail" style={{ display: (isShowPostDetail as boolean) ? '' : 'none' }}>
@@ -70,7 +73,7 @@ const PostComment = ({
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {selectedPost.likes.includes(currentUser.id) === true ? (
+                      {selectedPost.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
                           onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
@@ -94,7 +97,7 @@ const PostComment = ({
             <div className="postItem__content__caption">{selectedPost.content}</div>
 
             <div className="postItem__content__time">{format(selectedPost.createdAt)}</div>
-            <AddComment postId={selectedPost._id} userPostId={selectedPost.user} />
+            <AddComment postId={selectedPost._id} postUserId={selectedPost.user.id} />
           </div>
         </div>
       </div>
@@ -102,7 +105,7 @@ const PostComment = ({
         <FontAwesomeIcon icon={faCircleXmark} />
       </div>
       {(isShowAllLikesPopup as boolean) && (
-        <AllLikesPopup isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
+        <AllLikesPopup post={selectedPost} isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
       )}
       {(isShowMessagePopup as boolean) && (
         <MessagePopup
