@@ -1,0 +1,50 @@
+{
+  "data": [
+    {
+      "user": {
+        "phoneNumber": "272-809-0981",
+        "address": "57 Autumn Leaf Pass",
+        "followers": "0",
+        "gender": "male",
+        "followings": "0",
+        "name": "Emmott",
+        "dateOfBirth": "13/06/1936",
+        "id": "b4aabea9-1589-4099-b926-b6f818ae7717",
+        "avatar": "http://dummyimage.com/671x570.png/cc0000/ffffff",
+        "email": "tcubbinelli0@gnu.org"
+      },
+      "mutualFollowings": 3
+    },
+    {
+      "user": {
+        "phoneNumber": "298-866-1796",
+        "address": "13961 Lunder Parkway",
+        "followers": "0",
+        "gender": "female",
+        "followings": "0",
+        "name": "Evered",
+        "dateOfBirth": "26/07/1992",
+        "id": "33e36ca6-09c5-4300-a55a-91b2ca14b9b5",
+        "avatar": "http://dummyimage.com/514x526.png/ff4444/ffffff",
+        "email": "ksmoote1@feedburner.com"
+      },
+      "mutualFollowings": 4
+
+    },
+    {
+      "user": {
+        "phoneNumber": "510-112-7957",
+        "address": "286 Morrow Trail",
+        "followers": "0",
+        "gender": "female",
+        "followings": "0",
+        "name": "Loella",
+        "dateOfBirth": "3-07-14",
+        "id": "66e14dbd-9bc1-40e4-8402-cd903fdbbe77",
+        "avatar": "http://dummyimage.com/721x552.png/ff4444/ffffff",
+        "email": "ipurser2@sakura.ne.jp"
+      },
+      "mutualFollowings": 2
+    }
+  ]
+}

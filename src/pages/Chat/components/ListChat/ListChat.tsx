@@ -8,6 +8,7 @@ import { useListChat } from './useListChat';
 
 interface ListChatProp {
   setIsOpenSetting: any;
+  isShowPopup?: boolean;
   setIsShowPopup: any;
 }
 

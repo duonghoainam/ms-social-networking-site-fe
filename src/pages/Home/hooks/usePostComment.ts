@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../../app/store';
-import { likePost, dislikePost } from '../state/homeActions';
+import { handleDislike, handleLike } from '../state/homeActions';
 import { setShowPostDetail } from '../state/homeSlice';
 import { AppState } from '../../../app/state.type';
 import { useSelector } from 'react-redux';
@@ -18,10 +18,10 @@ export const usePostComment = (): any => {
     let isLiked = false;
     if (selectedPost.likes.filter((user: User) => user.id === userId).length > 0) { isLiked = true }
     if (isLiked) {
-      const actionUnlike = dislikePost({ postId, userId })
+      const actionUnlike = handleDislike({ postId, userId })
       await dispatch(actionUnlike).unwrap();
     } else {
-      const actionlike = likePost({ postId, userId })
+      const actionlike = handleLike({ postId, userId })
       await dispatch(actionlike).unwrap();
       // Thông báo có lượt like cho chủ post
     }

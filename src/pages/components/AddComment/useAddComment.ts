@@ -1,7 +1,7 @@
 import { EmojiClickData } from 'emoji-picker-react';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../app/store';
-import { createComment } from '../../Home/state/homeActions';
+import { addNewComment } from '../../Home/state/homeActions';
 
 export const useAddComment = ({ postId, postUserId }: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
@@ -33,7 +33,7 @@ export const useAddComment = ({ postId, postUserId }: any): any => {
       content: inputValue,
       postUserId
     };
-    const actionAddNewComment = createComment(params)
+    const actionAddNewComment = addNewComment(params)
     await dispatch(actionAddNewComment).unwrap();
     // reset state of add-comment
     setInputValue('');

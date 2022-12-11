@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { Post } from '../../../api/post/type/post.type';
 import { useAppDispatch } from '../../../app/store';
-import { getPostComments, likePost, dislikePost } from '../state/homeActions';
+import { getPostComments, handleDislike, handleLike } from '../state/homeActions';
 import { setSelectedPost, setShowPostDetail } from '../state/homeSlice';
 
 export const usePostItem = (): any => {
@@ -23,10 +23,10 @@ export const usePostItem = (): any => {
     let isLiked = false;
     if (post.likes.filter(user => user.id === userId).length > 0) { isLiked = true }
     if (isLiked) {
-      const actionUnLike = dislikePost({ userId, postId });
+      const actionUnLike = handleLike({ userId, postId });
       await dispatch(actionUnLike).unwrap();
     } else {
-      const actionLike = likePost({ userId, postId });
+      const actionLike = handleDislike({ userId, postId });
       await dispatch(actionLike).unwrap();
       // Thông báo lượt like mới cho chủ post
     }

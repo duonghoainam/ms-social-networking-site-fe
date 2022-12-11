@@ -2,10 +2,10 @@ import React, { ReactElement, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../../../components/Header/Header';
-import ChatContent from '../components/ChatContent';
-import DefaultContent from '../components/DefaultContent';
-import ListChat from '../components/ListChat';
 import { useSelector } from 'react-redux';
+import ListChat from '../components/ListChat/ListChat';
+import ChatContent from '../components/ChatContent/ChatContent';
+import DefaultContent from '../components/DefaultContent/DefaultContent';
 
 const ChatPage = (): ReactElement => {
   const [isOpenSetting, setIsOpenSetting] = useState(false);
