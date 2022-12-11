@@ -85,7 +85,7 @@ const MessagePopup: React.FC<MessagePopupProps> = ({
         <div className="messagePopup__destinationList">
           <h6 style={{ padding: '10px 20px 10px 20px' }}>Suggested</h6>
           {renderContact.map((user, index) => {
-            return <SingleDestination follow={user} key={index} />;
+            return <SingleDestination follow={user} key={user.id} />;
           })}
         </div>
       </div>

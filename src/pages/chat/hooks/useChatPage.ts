@@ -55,8 +55,8 @@ export const useChatPage = (): useChatPageType => {
     });
     socket.on('leaveConversation', function (data: any) {
       console.log('received leaveConversation', data);
-      if (data.members.findIndex((member: any) => member._id === currentUser.id) === -1) {
-        navigate('/');
+      if (data.members.findIndex((member: any) => member.id === currentUser.id) === -1) {
+        navigate('/messenger');
         dispatch(leaveConversation(data));
       }
     });
@@ -71,6 +71,17 @@ export const useChatPage = (): useChatPageType => {
       // const action2 = getNotification();
       // await dispatch(action2).unwrap();
     })().catch((error: any) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    if (socket.connected) {
+      socket.emit('call', 'rooms.join', { join: currentUser.id });
+    } else {
+      socket.on('connect', function () {
+        socket.emit('call', 'rooms.join', { join: currentUser.id });
+      });
+      socket.connect();
+    }
   }, []);
 
   return {

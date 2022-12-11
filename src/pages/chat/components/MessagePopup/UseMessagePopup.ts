@@ -46,7 +46,6 @@ export const useMessagePopup = (
     if (conversations != null && conversations !== undefined && conversations.length !== 0) {
       exist = conversations.filter((conversation: IConversation) => {
         if (conversation.members.length - 1 === tags.length) {
-          console.log(conversation.members);
           return tagIds.every((tag) => conversation.members.some((member) => member.id === tag));
         }
         return false;
@@ -85,7 +84,7 @@ export const useMessagePopup = (
 
   function handleAdd(): void {
     tags.forEach((tag) => {
-      socket.emit('updateConversation', 'conversation.addMemberToConversation', {
+      socket.emit('updateConversation', 'conversations.addMemberToConversation', {
         conversation: params.id,
         member: tag.id
       });

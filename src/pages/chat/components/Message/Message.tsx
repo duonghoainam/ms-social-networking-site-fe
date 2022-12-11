@@ -4,6 +4,7 @@ import WarningPopup from '../../../../components/WarningPopup/WarningPopup';
 import { IMessage } from '../../Types/IMessage';
 import { UseMessage } from './UseMessage';
 import '../Chat.scss';
+import { DEFAULT_AVATAR } from '../../const';
 interface MessageProps {
   message: IMessage;
   handleReactMessage: any;
@@ -30,7 +31,7 @@ const Message: React.FC<MessageProps> = ({
         }`}>
         {message.sender !== currentUser.id && (
           <div className="rightPanel__conversation__content__image">
-            <img src={message.senderDetail?.avatar} alt="unsplash" />
+            <img src={message.senderDetail?.avatar ?? DEFAULT_AVATAR} alt="unsplash" />
           </div>
         )}
         {message.isDeleted ? (
