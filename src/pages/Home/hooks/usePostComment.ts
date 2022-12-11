@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../../app/store';
-import { likePost, unlikePost } from '../state/homeActions';
+import { likePost, dislikePost } from '../state/homeActions';
 import { setShowPostDetail } from '../state/homeSlice';
 import { AppState } from '../../../app/state.type';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ export const usePostComment = (): any => {
     let isLiked = false;
     if (selectedPost.likes.filter((user: User) => user.id === userId).length > 0) { isLiked = true }
     if (isLiked) {
-      const actionUnlike = unlikePost({ postId, userId })
+      const actionUnlike = dislikePost({ postId, userId })
       await dispatch(actionUnlike).unwrap();
     } else {
       const actionlike = likePost({ postId, userId })

@@ -2,13 +2,17 @@
 import { User } from '../../../api/user/type/user.type';
 import {
   getHomePosts,
+  handleLike,
+  handleDislike,
+  addNewComment,
+  getListRecommendedFriends,
   getPostComments,
-  likePost,
-  unlikePost,
-  createComment,
-  deleteComment,
-  getUserInfo
+  deleteComment
 } from './homeActions';
+import {
+  getUserById
+} from '../../User/state/userActions'
+import { HomeState } from './homeSlice';
 
 export const extraReducers: any = {
   // get all post when login successful
@@ -33,10 +37,21 @@ export const extraReducers: any = {
     return { ...state, listComment: action.payload.data, isLoadComment: false };
   },
 
+  // get recommend
+  [getListRecommendedFriends.pending.toString()]: (state: HomeState, action: any) => {
+    return { ...state, isLoading: true };
+  },
+  [getListRecommendedFriends.rejected.toString()]: (state: any, action: any) => {
+    return { ...state, isLoading: false };
+  },
+  [getListRecommendedFriends.fulfilled.toString()]: (state: any, action: any) => {
+    return { ...state, listRecommend: action.payload.data, isLoading: false };
+  },
+
   // handle like post
-  [likePost.pending.toString()]: (state: any, action: any) => {},
-  [likePost.rejected.toString()]: (state: any, action: any) => {},
-  [likePost.fulfilled.toString()]: (state: any, action: any) => {
+  [handleLike.pending.toString()]: (state: any, action: any) => {},
+  [handleLike.rejected.toString()]: (state: any, action: any) => {},
+  [handleLike.fulfilled.toString()]: (state: any, action: any) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
@@ -51,10 +66,10 @@ export const extraReducers: any = {
     });
   },
 
-  // Handle unlike post
-  [unlikePost.pending.toString()]: (state: any, action: any) => {},
-  [unlikePost.rejected.toString()]: (state: any, action: any) => {},
-  [unlikePost.fulfilled.toString()]: (state: any, action: any) => {
+  // Handle dislike post
+  [handleDislike.pending.toString()]: (state: any, action: any) => {},
+  [handleDislike.rejected.toString()]: (state: any, action: any) => {},
+  [handleDislike.fulfilled.toString()]: (state: any, action: any) => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
@@ -71,9 +86,9 @@ export const extraReducers: any = {
   },
 
   // Add new comment
-  [createComment.pending.toString()]: (state: any, action: any) => {},
-  [createComment.rejected.toString()]: (state: any, action: any) => {},
-  [createComment.fulfilled.toString()]: (state: any, action: any) => {
+  [addNewComment.pending.toString()]: (state: any, action: any) => {},
+  [addNewComment.rejected.toString()]: (state: any, action: any) => {},
+  [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
     // Update state listcomment
     state.listComment.push(action.payload.data);
     // Update state listPosts
@@ -94,7 +109,7 @@ export const extraReducers: any = {
   },
 
   // Get user info
-  [getUserInfo.pending.toString()]: (state: any, action: any) => {},
-  [getUserInfo.rejected.toString()]: (state: any, action: any) => {},
-  [getUserInfo.fulfilled.toString()]: (state: any, action: any) => {}
+  [getUserById.pending.toString()]: (state: any, action: any) => {},
+  [getUserById.rejected.toString()]: (state: any, action: any) => {},
+  [getUserById.fulfilled.toString()]: (state: any, action: any) => {}
 };

@@ -15,9 +15,10 @@ import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
 import CommentSkeleton from '../../../components/SkeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
-import MessagePopup from '../../Chat/components/MessagePopup';
 import { User } from '../../../api/user/type/user.type';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
+import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
+// import { socket } from '../../../App';
 
 const PostComment = ({
   isShowPostDetail,
@@ -28,10 +29,7 @@ const PostComment = ({
   const {
     currentUser,
     isShowMessagePopup,
-    setIsShowMessagePopup,
-    // isShowAllLikesPopup,
-    // showAllLikesPopup,
-    // hideAllLikesPopup
+    setIsShowMessagePopup
   } = usePostComment();
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ selectedPost });
 

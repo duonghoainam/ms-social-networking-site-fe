@@ -1,15 +1,15 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import Chatpage from './pages/ChatPage';
+import NotFound from '../../components/Notfound/NotFound';
+// import NotFound from '../../shareComponents/notfound/NotFound';
+import Chatpage from './ChatPage';
 
-const IndexChat = (): ReactElement => {
+const IndexChat = (): any => {
   return (
     <div>
       <Routes>
-        <Route path="/*" element={<Chatpage />}>
-          {' '}
-        </Route>
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route index path="/*" element={<Chatpage />}></Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </div>

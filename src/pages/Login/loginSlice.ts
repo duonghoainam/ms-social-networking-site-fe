@@ -9,6 +9,7 @@ export const login = createAsyncThunk(
   async (params: LoginParams, thunkAPI): Promise<ApiResponse> => {
     try {
       const response: ApiResponse = await authAPI.login(params);
+      console.log('response', response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data) as unknown as ApiResponse;
@@ -56,7 +57,7 @@ const LoginSlice = createSlice({
       state.isLogin = true;
       state.error = '';
       localStorage.setItem('accessToken', JSON.stringify(action.payload.data.accessToken));
-      state.currentUser = action.payload.currentUser;
+      state.currentUser = action.payload.data.currentUser;
       localStorage.setItem('currentUser', JSON.stringify(action.payload.data.user));
     },
 

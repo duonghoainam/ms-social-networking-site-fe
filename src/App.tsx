@@ -1,19 +1,17 @@
 import React, { ReactElement } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import PrivateRoute from './components/ControlRoute/PrivateRoute';
-import IndexChat from './pages/Chat';
-import NewIndex from './pages/Newpost/newIndex';
-import VideoCall from './pages/Chat/components/VideoCall';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
+import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
-import UserIndex from './pages/User';
+import IndexChat from './pages/Chat';
 
-export const socket = null;
+// export const socket = io.connect('https://server-social-ie213.herokuapp.com');
+export const socket = io('http://localhost:3003');
 
 function App (): ReactElement {
-  // const { activeId } = useSelector((state: AppState) => state.home);
   return (
     <div className="App">
       <Routes>
@@ -27,14 +25,7 @@ function App (): ReactElement {
             </PrivateRoute>
           }></Route>
 
-        <Route
-          path="/account/*"
-          element={
-            <PrivateRoute>
-              <UserIndex />
-            </PrivateRoute>
-          }></Route>
-        <Route path="video_call/:id" element={<VideoCall />} />
+        <Route path="/account/*" element={<PrivateRoute></PrivateRoute>}></Route>
 
         <Route
           path="/messenger/*"
@@ -43,15 +34,7 @@ function App (): ReactElement {
               <IndexChat />
             </PrivateRoute>
           }></Route>
-
-        <Route
-          path="/new/*"
-          element={
-            <PrivateRoute>
-              <NewIndex />
-            </PrivateRoute>
-          }></Route>
-
+        <Route path="/new/*" element={<PrivateRoute></PrivateRoute>}></Route>
         <Route
           path="/login/*"
           element={

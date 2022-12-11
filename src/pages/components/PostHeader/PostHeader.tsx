@@ -6,10 +6,10 @@ const PostHeader = ({ post }: any): ReactElement => {
   const { handleShowProfile } = usePostHeader();
   return (
     <Row>
-      <Col style={{ cursor: 'pointer' }} md={1} onClick={() => handleShowProfile(post.user.id)}>
-        <img src="" alt="" />
+      <Col md={1} onClick={() => handleShowProfile(post.user.id)}>
+        <img src={post.user.avatar} alt="avatar" />
       </Col>
-      <Col style={{ cursor: 'pointer' }} md={9} onClick={() => handleShowProfile(post.user.id)}>
+      <Col md={9} onClick={() => handleShowProfile(post.user.id)}>
         <h6>{post.user.name}</h6>
       </Col>
     </Row>

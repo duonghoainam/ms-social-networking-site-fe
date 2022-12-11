@@ -7,7 +7,7 @@ import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
 import HomeSkeleton from '../../components/SkeletonLoading/HomeSkeleton';
 import PostItem from '../components/PostItem/PostItem';
-import Category from '../components/Category';
+import Category from './components/Category/Category';
 import PostComment from '../components/PostComment/PostComment';
 import AllLikesPopup from '../components/AllLikesPopup/AllLikesPopup';
 import { useHomePage } from './hooks/useHomePage';

@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
+import { CreateCommentDto } from '../../../api/post/type/create-comment.dto';
+import { LikeDto } from '../../../api/post/type/like.dto';
+import { FollowParams } from '../../../api/user/type/follow.params';
 import userAPI from '../../../api/user/UserApi';
 
 // Post
-export const getHomePosts = createAsyncThunk('post/getPosts', async (userId: any) => {
+export const getHomePosts = createAsyncThunk('post/getPosts', async (userId: string) => {
   const response = await postAPI.getHomePosts(userId);
   return response;
 });
@@ -13,31 +16,19 @@ export const getPostComments = createAsyncThunk('post/getComments', async (postI
   return response;
 });
 
-export const likePost = createAsyncThunk(
-  'post/Like',
-  async (params: { userId: any, postId: any }) => {
-    await postAPI.likePost(params.userId, params.postId);
-    return params.postId;
-  }
-);
+export const handleLike = createAsyncThunk('post/Like', async (params: LikeDto) => {
+  await postAPI.likePost(params);
+  return params;
+});
 
-export const unlikePost = createAsyncThunk(
-  'post/UnLike',
-  async (params: { userId: any, postId: any }) => {
-    await postAPI.unlikePost(params.userId, params.postId);
-    return params.postId;
-  }
-);
+export const handleDislike = createAsyncThunk('post/UnLike', async (params: LikeDto) => {
+  await postAPI.dislikePost(params);
+  return params;
+});
 
-// Comment
-export const createComment = createAsyncThunk('home/addNewComment', async (params: any) => {
-  const response = await postAPI.createComment(
-    params.postId,
-    params.userId,
-    params.content,
-    params.postUserId
-  );
-  return response;
+export const addNewComment = createAsyncThunk('home/addNewComment', async (params: CreateCommentDto) => {
+  const comment = await postAPI.createComment(params);
+  return comment;
 });
 
 export const deleteComment = createAsyncThunk(
@@ -48,8 +39,19 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
-// User
-export const getUserInfo = createAsyncThunk('user/getUserInfo', async (userId: any) => {
-  const response = await userAPI.getUserInfo(userId)
-  return response;
+// follow actions
+export const getListRecommendedFriends = createAsyncThunk(
+  'user/getRecommendedFriends',
+  async (userId: string) => {
+    try {
+      const listRecommend = await userAPI.getListRecommend(userId);
+      return listRecommend;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const handleFollow = createAsyncThunk('home/handleFollow', async (params: FollowParams) => {
+  await userAPI.handleFollow(params);
 });
