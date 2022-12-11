@@ -14,7 +14,7 @@ import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
 
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
-  const [text, setText] = useState('');
+  const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
   const messages = useSelector((state: AppState) => state.chat.messagesInConversation);
   const initialCurrentConversation: IConversation = {
@@ -128,18 +128,18 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   };
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-    // if (
-    //   event.currentTarget.value != null &&
-    //   event.currentTarget.value !== '' &&
-    //   event.currentTarget.value !== undefined
-    // ) {
-    //   setIsTyping(true);
-    //   event.currentTarget.value = checkText(event.currentTarget.value);
-    //   setText(event.currentTarget.value);
-    // } else {
-    //   setIsTyping(false);
-    //   setText('');
-    // }
+    if (
+      event.currentTarget.value != null &&
+      event.currentTarget.value !== '' &&
+      event.currentTarget.value !== undefined
+    ) {
+      setIsTyping(true);
+      // event.currentTarget.value = checkText(event.currentTarget.value);
+      setMessageText(event.currentTarget.value);
+    } else {
+      setIsTyping(false);
+      setMessageText('');
+    }
   };
 
   const handleKeyDown = (e: any): void => {
@@ -155,7 +155,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       socket.emit(
         'createMessage',
         {
-          content: text,
+          content: messageText,
           conversation: params.id as string,
           sender: currentUser.id
         },
@@ -167,7 +167,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           }
         }
       );
-      setText('');
+      setMessageText('');
       setIsTyping(false);
     } catch (error) {
       console.log(error);
@@ -272,7 +272,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     showScrollButton,
     chatContentRef,
     ref,
-    newMessageText: text,
+    messageText,
     handleScroll,
     handleScrollBottom,
     handleChange,
