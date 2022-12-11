@@ -78,7 +78,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   function handleSubmit(): void {
     socket.emit(
       'updateConversation',
-      'conversation.updateConversationName',
+      'conversations.updateConversationName',
       { id: params.id as string, newName: text },
       function (err: any, res: any) {
         if (err != null) {
@@ -117,7 +117,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
       .then((value: any) => {
         socket.emit(
           'updateConversation',
-          'conversation.updateConversationAvatar',
+          'conversations.updateConversationAvatar',
           {
             id: params.id as string,
             newAvatar: value

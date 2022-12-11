@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { CheckCircle } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { DEFAULT_AVATAR } from '../../const';
 import { useSingleDestination } from './useSingleDestination';
 
 interface SingleDestinationProps {
@@ -18,14 +19,14 @@ const SingleDestination: React.FC<SingleDestinationProps> = ({
   return (
     <div className="messagePopup__destinationList__singleDestination" onClick={handleClick}>
       <div className="messagePopup__destinationList__singleDestination__avatar">
-        <img src={follow.avatar} alt="avatar_user" />
+        <img src={follow.avatar ?? DEFAULT_AVATAR} alt="avatar_user" />
       </div>
       <div className="messagePopup__destinationList__singleDestination__info">
         <p>{follow.name}</p>
         <p>{follow.email}</p>
       </div>
       {!forRenderSearch ? (
-        tags.map((tag: any) => tag._id).includes(follow._id) ? (
+        tags.map((tag: any) => tag.id).includes(follow.id) ? (
           <CheckCircle style={{ width: '27px', height: '27px' }} onClick={handleUnselect} />
         ) : (
           <div

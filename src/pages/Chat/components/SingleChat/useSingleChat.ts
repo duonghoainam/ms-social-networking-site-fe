@@ -56,6 +56,17 @@ export const useSingleChat = (
     }
   }, [params]);
 
+  useEffect(() => {
+    if (socket.connected) {
+      socket.emit('call', 'rooms.join', { join: conversation._id });
+    } else {
+      socket.on('connect', function () {
+        socket.emit('call', 'rooms.join', { join: conversation._id });
+      });
+      socket.connect();
+    }
+  }, []);
+
   const genConversationName = (): string => {
     if (conversation != null) {
       if (conversation.name != null && conversation.name !== '' && conversation.name !== undefined)
