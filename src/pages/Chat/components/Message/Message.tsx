@@ -2,7 +2,7 @@ import { DeleteOutline, Favorite, FavoriteBorder } from '@material-ui/icons';
 import React from 'react';
 import WarningPopup from '../../../../components/WarningPopup/WarningPopup';
 import { IMessage } from '../../types/IMessage';
-import { UseMessage } from './UseMessage';
+import { UseMessage } from './useMessage';
 import '../Chat.scss';
 interface MessageProps {
   message: IMessage;

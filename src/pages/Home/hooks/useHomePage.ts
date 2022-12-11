@@ -11,8 +11,9 @@ export const useHomePage = (): any => {
     return state.home;
   });
 
-  const loadPosts = async (): Promise<void> => {
-    await dispatch(getHomePosts(currentUser.id)).unwrap();
+  const loadPosts = async (): Promise<any[]> => {
+    // await dispatch(getHomePosts(currentUser.id)).unwrap();
+    return await new Promise((resolve, reject) => resolve([]));
   };
   useEffect(() => {
     void loadPosts();

@@ -2,17 +2,18 @@ import axiosClient from '../AxiosClient';
 import { getApiUrl } from '../../utils/api.util';
 import { IMessageCrt } from '../../pages/Chat/types/IMessageCrt';
 const ChatAPI = {
+  // get all conversations of a user
   getAllConversations: (id: string): any => {
-    const url = getApiUrl() + `/conversation/ofMine/${id}`;
-    return axiosClient.get(url);
+    const url = getApiUrl() + `/conversations`;
+    return axiosClient.get(url, { params: { userId: id } });
   },
+  // create a conversation for a user
   createConversation: (params: any): any => {
-    const url = getApiUrl() + '/conversation';
+    const url = getApiUrl() + '/conversations';
     return axiosClient.post(url, params);
   },
   getUserContact: (id: string): any => {
     const url = getApiUrl() + `/users/${id}/followings`;
-    console.log(url);
     return axiosClient.get(url);
   },
   createMessage: (params: IMessageCrt): any => {

@@ -4,7 +4,7 @@ import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import '../Chat.scss';
 import PropTypes from 'prop-types';
 import SingleChat from '../SingleChat/SingleChat';
-import { useListChat } from './UseListChat';
+import { useListChat } from './useListChat';
 
 interface ListChatProp {
   setIsOpenSetting: any;

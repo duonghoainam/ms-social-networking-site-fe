@@ -8,7 +8,7 @@ import WarningPopup from '../../../../components/WarningPopup/WarningPopup';
 import { IConversation } from '../../types/IConversation';
 import ChatMember from '../ChatMember/ChatMember';
 import MessagePopup from '../MessagePopup/MessagePopup';
-import { useChatSetting } from './UseChatSetting';
+import { useChatSetting } from './useChatSetting';
 interface ChatSettingProps {
   setIsOpenSetting: any;
   currentConversation: IConversation;

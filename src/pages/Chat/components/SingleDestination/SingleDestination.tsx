@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { CheckCircle } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSingleDestination } from './UseSingleDestination';
+import { useSingleDestination } from './useSingleDestination';
 
 interface SingleDestinationProps {
   follow: any;

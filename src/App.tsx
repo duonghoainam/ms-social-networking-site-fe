@@ -4,18 +4,14 @@ import PrivateRoute from './components/ControlRoute/PrivateRoute';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
 import IndexChat from './pages/Chat';
 
-// import io from 'socket.io-client';
-
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
-// export const socket = io('http://localhost:3003');
+export const socket = io('http://localhost:3003');
 
 function App(): ReactElement {
-  // const { activePostId } = useSelector((state: any) => state.home);
-
   return (
     <div className="App">
       <Routes>
@@ -59,7 +55,6 @@ function App(): ReactElement {
           }></Route>
       </Routes>
       <Outlet></Outlet>
-      {/* {activePostId === '' ? '' : <PostComment />} */}
     </div>
   );
 }

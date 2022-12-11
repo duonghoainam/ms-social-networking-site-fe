@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import NotFound from '../../components/Notfound/NotFound';
 // import NotFound from '../../shareComponents/notfound/NotFound';
-import Chatpage from './pages/ChatPage';
+import Chatpage from './ChatPage';
 
 const IndexChat = (): any => {
   return (

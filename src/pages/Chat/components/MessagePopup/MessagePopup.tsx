@@ -1,7 +1,7 @@
 import React from 'react';
 import { Close } from '@material-ui/icons';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useMessagePopup } from './UseMessagePopup';
+import { useMessagePopup } from './useMessagePopup';
 import SingleTag from '../SingleTag/SingleTag';
 import SingleDestination from '../SingleDestination/SingleDestination';
 interface MessagePopupProps {
