@@ -1,43 +1,29 @@
 import { useAppDispatch } from '../../../app/store';
-import { handleLike, handleUnLike } from '../state/homeActions';
+import { handleDislike, handleLike } from '../state/homeActions';
 import { setShowPostDetail } from '../state/homeSlice';
+import { AppState } from '../../../app/state.type';
+import { useSelector } from 'react-redux';
+import { User } from '../../../api/user/type/user.type';
 
 export const usePostComment = (): any => {
   const dispatch = useAppDispatch();
+  const selectedPost = useSelector((state: AppState) => state.home.selectedPost);
 
   const hideDetail = async (): Promise<void> => {
     const hide = setShowPostDetail(false);
     await dispatch(hide);
   };
 
-  const handleLikePostComment = async (id: string, postState: any): Promise<void> => {
-    postState.setIsLike(!(postState.isLike as boolean));
-    if (postState.isLike as boolean) {
-      postState.setLikeCount(--postState.likeCount);
-      const action1 = handleUnLike(id);
-      await dispatch(action1).unwrap();
+  const handleLikePostComment = async (postId: string, userId: string): Promise<void> => {
+    let isLiked = false;
+    if (selectedPost.likes.filter((user: User) => user.id === userId).length > 0) { isLiked = true }
+    if (isLiked) {
+      const actionUnlike = handleDislike({ postId, userId })
+      await dispatch(actionUnlike).unwrap();
     } else {
-      postState.setLikeCount(++postState.likeCount);
-      const action1 = handleLike(id);
-      await dispatch(action1).unwrap();
-
-      //   if (userId !== currentUser._id) {
-      //     const paramsCreate = {
-      //       receiver: userId,
-      //       notiType: 2,
-      //       desId: activePostId
-      //     };
-      //     const action = createNotification(paramsCreate);
-      //     await dispatch(action).unwrap();
-      //     const notification = {
-      //       postId: activePostId,
-      //       userId: userId, // cái này là id của thằng cần gửi thông báo tới
-      //       type: 2,
-      //       senderName: currentUser.name,
-      //       img: currentUser.avatar
-      //     };
-      //     socket.emit('send_notificaton', notification);
-      //   }
+      const actionlike = handleLike({ postId, userId })
+      await dispatch(actionlike).unwrap();
+      // Thông báo có lượt like cho chủ post
     }
   };
 

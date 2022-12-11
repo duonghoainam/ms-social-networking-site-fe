@@ -22,9 +22,9 @@ const Category = (): ReactElement => {
         </div>
         <ul>
           {(listRecommend as boolean) &&
-            listRecommend.map((user: any, index: any) => {
+            listRecommend.map((item: any, index: any) => {
               if (index < 4) {
-                return <FriendRecommendItem key={index} user={user} />;
+                return <FriendRecommendItem key={index} item={item} />;
               }
               return null;
             })}

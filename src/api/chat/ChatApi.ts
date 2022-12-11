@@ -1,22 +1,23 @@
 import axiosClient from '../AxiosClient';
 import { getApiUrl } from '../../utils/api.util';
-import { IMessageCrt } from '../../pages/chat/Types/IMessageCrt';
+import { IMessageCrt } from '../../pages/Chat/types/IMessageCrt';
 const ChatAPI = {
+  // get all conversations of a user
   getAllConversations: (id: string): any => {
-    const url = getApiUrl() + `/conversations?userId=${id}`;
+    const url = `${getApiUrl()}/conversations?userId=${id}`;
     return axiosClient.get(url);
   },
+  // create a conversation for a user
   createConversation: (params: any): any => {
-    const url = getApiUrl() + '/conversations';
+    const url = `${getApiUrl()}/conversations`;
     return axiosClient.post(url, params);
   },
   getUserContact: (id: string): any => {
-    const url = getApiUrl() + `/users/${id}/followings`;
-    console.log(url);
+    const url = `${getApiUrl()}/users/${id}/followings`;
     return axiosClient.get(url);
   },
   createMessage: (params: IMessageCrt): any => {
-    const url = getApiUrl() + '/messages';
+    const url = `${getApiUrl()}/messages`;
     return axiosClient.post(url, params);
   },
   getMessageInCon: (id: string, page: number): any => {

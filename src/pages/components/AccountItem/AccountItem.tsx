@@ -6,12 +6,12 @@ const AccountItem = ({ user }: any): ReactElement => {
   return (
     <Row className="accountItem">
       <Col md={{ span: 1 }}>
-        <img src={user[0].avatar} alt="" />
+        <img src="" alt="" />
       </Col>
       <Col md={{ span: 7 }}>
         <div className="accountItem_name">
-          <p className="accountItem_name_username">{user[0].name}</p>
-          <p className="accountItem_name_realname">{user[0].email}</p>
+          <p className="accountItem_name_username">{user.name}</p>
+          <p className="accountItem_name_realname">info...</p>
         </div>
       </Col>
       <Col md={{ span: 4 }}>
@@ -20,6 +20,7 @@ const AccountItem = ({ user }: any): ReactElement => {
           // onClick={() => handleFollow(user[0]._id)}
         >
           {/* {IsFollow ? 'Bỏ theo dõi' : 'Theo dõi'} */}
+          Theo dõi
         </Button>
       </Col>
     </Row>

@@ -5,8 +5,9 @@ import { useAppDispatch } from '../../../app/store';
 import { getHomePosts, getListRecommendedFriends } from '../state/homeActions';
 
 export const useHomePage = (): any => {
-  const dispatch = useAppDispatch();
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+  const dispatch = useAppDispatch();
+
   const { listPost, isLoading, loadListPostFail } = useSelector((state: AppState) => {
     return state.home;
   });

@@ -1,4 +1,4 @@
-import { ChatState } from '../pages/chat/Types/chatState.Type';
+import { ChatState } from '../pages/Chat/types/chatState.Type';
 
 export interface AppState {
   login: any;

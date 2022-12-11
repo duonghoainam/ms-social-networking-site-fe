@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { ReactElement } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import './PostItem.scss';
@@ -13,18 +14,22 @@ import { format } from 'timeago.js';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePostItem } from './usePostItem';
-import MessagePopup from '../../chat/components/MessagePopup/MessagePopup';
+import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
+import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
+import { User } from '../../../api/user/type/user.type';
+import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
 
 /**
  * post params are logic for to manage state, call data for a post item
  * @param post post data
  * @param setSelectedPost set current post to state
  * @param setShowPostDetail show/hide post detail
- * @param getPostComments call api to get post comments and set state
+ * @param getComments call api to get post comments and set state
  * @returns
  */
 const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
   const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem({ post });
+  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
   return (
     <>
       <Row className="postItem">
@@ -53,26 +58,24 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
         <Col className="postItem__react">
           <Row className="reactIcon">
             <Col md={9}>
-              {post.likes.includes(currentUser._id) === true ? (
+              {post.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onClick={async (): Promise<void> => {
-                    await handleLikePost(post._id);
+                    await handleLikePost(post);
                   }}
                 />
               ) : (
                 <FavoriteBorderOutlined
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onClick={async () => {
-                    await handleLikePost(post._id, post.user._id);
+                    await handleLikePost(post);
                   }}
                 />
               )}
-
               <AddCommentOutlined onClick={() => showDetail(post)} />
-
-              <SendOutlined onClick={() => setIsShowMessagePopup(true)} />
+              <SendOutlined
+              // onClick={() => setIsShowMessagePopup(true)}
+              />
             </Col>
             <Col md={3} style={{ textAlign: 'right' }}>
               <BookmarkBorderOutlined />
@@ -80,7 +83,9 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
           </Row>
         </Col>
         <Col md={12} className="postItem__post">
-          <div className="postItem__post__likes">{post.likes.length} lượt thích</div>
+          <div className="postItem__post__likes" onClick={showAllLikesPopup}>
+            {post.likes.length} lượt thích
+          </div>
           <div className="postItem__post__caption">{post.content}</div>
           {/* {isOverflow() && (
             <span className="postItem__post__watchMoreBtn" onClick={(e) => handleWatchMore(e)}>
@@ -101,6 +106,9 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
           content={{ text: post._id, messType: 'post' }}
           setIsOpenSetting={undefined}
         />
+      )}
+      {(isShowAllLikesPopup as boolean) && (
+        <AllLikesPopup post={post} isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
       )}
     </>
   );

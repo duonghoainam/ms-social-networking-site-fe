@@ -6,16 +6,12 @@ import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
 import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
-import IndexChat from './pages/chat';
-
-// import io from 'socket.io-client';
+import IndexChat from './pages/Chat';
 
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 export const socket = io('http://localhost:3003');
 
-function App(): ReactElement {
-  // const { activePostId } = useSelector((state: any) => state.home);
-
+function App (): ReactElement {
   return (
     <div className="App">
       <Routes>
@@ -29,12 +25,7 @@ function App(): ReactElement {
             </PrivateRoute>
           }></Route>
 
-        <Route
-          path="/account/*"
-          element={
-            <PrivateRoute>
-            </PrivateRoute>
-          }></Route>
+        <Route path="/account/*" element={<PrivateRoute></PrivateRoute>}></Route>
 
         <Route
           path="/messenger/*"
@@ -43,12 +34,7 @@ function App(): ReactElement {
               <IndexChat />
             </PrivateRoute>
           }></Route>
-        <Route
-          path="/new/*"
-          element={
-            <PrivateRoute>
-            </PrivateRoute>
-          }></Route>
+        <Route path="/new/*" element={<PrivateRoute></PrivateRoute>}></Route>
         <Route
           path="/login/*"
           element={
@@ -58,6 +44,7 @@ function App(): ReactElement {
               </Routes>
             </AuthRoute>
           }></Route>
+
         <Route
           path="/register/*"
           element={
@@ -69,7 +56,6 @@ function App(): ReactElement {
           }></Route>
       </Routes>
       <Outlet></Outlet>
-      {/* {activePostId === '' ? '' : <PostComment />} */}
     </div>
   );
 }

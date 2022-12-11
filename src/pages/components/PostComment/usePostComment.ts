@@ -1,23 +1,20 @@
 import { useState } from 'react';
 
-export const usePostComment = (selectedPost: any): any => {
+export const usePostComment = (): any => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
   const [isShowAllLikesPopup, setIsShowAllLikesPopup] = useState(false);
-
-  const [isLike, setLikeCount]: [boolean, any] = useState(true);
-  const [likeCount, setIsLike]: [number, any] = useState(selectedPost.likes.length);
 
   const hideAllLikesPopup = (): void => {
     setIsShowAllLikesPopup(false);
   };
+
   const showAllLikesPopup = (): void => {
     setIsShowAllLikesPopup(true);
   };
+
   return {
-    isLike,
-    likeCount,
-    setLikeCount,
-    setIsLike,
+    currentUser,
     isShowMessagePopup,
     setIsShowMessagePopup,
     isShowAllLikesPopup,

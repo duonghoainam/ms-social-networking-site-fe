@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import HomeReducer from '../pages/Home/state/homeSlice';
-import userReducer from '../pages/User/profileSlice';
+import userReducer from '../pages/User/state/userSlice';
 // import { persistStore, persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';
 import { useDispatch } from 'react-redux';
 import LoginReducer from '../pages/Login/loginSlice';
 import RegisterReducer from '../pages/Register/registerSlice';
-import ChatReducer from '../pages/chat/state/chatSlice';
+import ChatReducer from '../pages/Chat/state/chatSlice';
 
 // const persistConfig = {
 //   key: 'root',

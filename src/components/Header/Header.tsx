@@ -13,29 +13,39 @@ import {
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { addActiveId } from '../../pages/User/profileSlice';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
+import { addActiveId } from '../../pages/User/state/userSlice';
+import { getFollowerList, getFollowingList, getPostsByUserId, getUserById } from '../../pages/User/state/userActions';
 import { logout } from '../../pages/Login/loginSlice';
-import SingleDestination from '../../pages/chat/components/SingleDestination/SingleDestination';
+import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleChangeToProfilePage = (): void => {
-    const activeUserId = useSelector((state: AppState) => state.login.currentUser.id);
-    const action = addActiveId(activeUserId);
-    dispatch(action);
-  };
-
   // const [refresh, setFefresh] = useState(false);
   // const [numNotifications, setNumNotifications] = useState(0);
-  const currentUser = useSelector((state: AppState) => state.login.currentUser);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const listUser = useSelector((state: AppState) => state.login.listUser).filter(
     (user: any) => user.id !== currentUser.id
   );
+  const handleChangeToProfilePage = async (): Promise<void> => {
+    const actionGetFollowerList = getFollowerList(currentUser.id);
+    await dispatch(actionGetFollowerList);
 
+    const actionGetFollowingList = getFollowingList(currentUser.id);
+    await dispatch(actionGetFollowingList);
+
+    const actionGetUser = getUserById(currentUser.id);
+    await dispatch(actionGetUser).unwrap();
+
+    const actionGetPost = getPostsByUserId(currentUser.id);
+    await dispatch(actionGetPost).unwrap();
+
+    const actionAddActiveId = addActiveId(currentUser.id);
+    await dispatch(actionAddActiveId);
+  };
   // const { listNotification } = useSelector((state: AppState) => state.home);
 
   // useEffect(() => {
@@ -105,7 +115,20 @@ const Header = (): ReactElement => {
 
   const handleDirectToProfile = async (userId: string): Promise<void> => {
     const action = addActiveId(userId);
-    dispatch(action);
+    await dispatch(action);
+
+    const actionGetFollowerList = getFollowerList(userId);
+    await dispatch(actionGetFollowerList);
+
+    const actionGetFollowingList = getFollowingList(userId);
+    await dispatch(actionGetFollowingList);
+
+    const actionGetUser = getUserById(userId);
+    await dispatch(actionGetUser).unwrap();
+
+    const actionGetPost = getPostsByUserId(userId);
+    await dispatch(actionGetPost).unwrap();
+
     navigate('/account');
     setSearchValue('');
   };

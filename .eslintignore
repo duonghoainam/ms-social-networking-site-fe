@@ -1,4 +1,5 @@
-src/features/chat/*
-src/features/newpost/*
-src/features/post/*
-src/features/user/*
+src/pages/Chat/*
+src/pages/Newpost/*
+src/pages/Post/*
+# src/pages/Home/*
+# src/pages/User/*
