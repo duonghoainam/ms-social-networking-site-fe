@@ -1,5 +1,8 @@
 import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
+import { CreateCommentDto } from './type/create-comment.dto';
+import { LikeDto } from './type/like.dto';
+import { Post } from './type/post.type';
 class PostAPI {
   // Post API
   getHomePosts = (userId: string): any => {
@@ -7,79 +10,71 @@ class PostAPI {
     return axiosClient.get(url, { params: { userId } });
   };
 
+  getUserPosts = (userId: string): any => {
+    const url = `${getApiUrl()}/posts/`;
+    return axiosClient.get(url, { params: { userId } });
+  };
+
   getPostById = (postId: string): any => {
     const url = `${getApiUrl()}/posts/${postId}`;
-    return axiosClient.get(url, {});
+    return axiosClient.get(url, { params: { postId } });
   };
 
+  createPost = (params: Post): any => {
+    const url = `${getApiUrl()}/posts`;
+    return axiosClient.post(url, { params });
+  };
+
+  updatePost = (postId: string, content: string, images: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}`;
+    return axiosClient.patch(url, { params: { postId, content, images } });
+  };
+
+  deletePost = (postId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}`;
+    return axiosClient.delete(url, { params: { postId } });
+  };
+
+  likePost = (params: LikeDto): any => {
+    const url = `${getApiUrl()}/posts/${params.postId}/like`;
+    return axiosClient.patch(url, { params });
+  };
+
+  dislikePost = (params: LikeDto): any => {
+    const url = `${getApiUrl()}/posts/${params.postId}/unlike`;
+    return axiosClient.patch(url, { params });
+  };
+
+  // Comment API
   getPostComments = (postId: string): any => {
-    const url = `${getApiUrl()}/posts/${postId}/comments/`;
-    return axiosClient.get(url, {});
+    const url = `${getApiUrl()}/posts/${postId}/comments`;
+    return axiosClient.get(url, { params: { postId } });
   };
 
-  likePost = (postId: string): any => {
-    const url = `${getApiUrl()}/posts/${postId}/like`;
-    return axiosClient.patch(url, {});
+  createComment = (params: CreateCommentDto): any => {
+    const url = `${getApiUrl()}/posts/${params.postId}/comments`;
+    return axiosClient.post(url, { params });
   };
 
-  unLikePost = (postId: string): any => {
-    const url = `${getApiUrl()}/posts/${postId}/unlike`;
-    return axiosClient.patch(url, {});
+  updateComment = (postId: string, commentId: string, content: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}`;
+    return axiosClient.patch(url, { params: { postId, commentId, content } });
   };
 
-  addComment = (postId: string, params: any): any => {
-    const url = `${getApiUrl()}/posts/${postId}/comments/`;
-
-    const content = params.content;
-    return axiosClient.post(url, { content });
+  deleteComment = (postId: string, commentId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}`;
+    return axiosClient.delete(url, { params: { commentId, postId } });
   };
 
-  // handleLikeCmt = (params: any): any => {
-  //   const url = getApiUrl() + '/comments/ul/' + params;
+  likeComment = (userId: string, postId: string, commentId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}/like`;
+    return axiosClient.get(url, { params: { commentId, userId } });
+  };
 
-  //   return axiosClient.put(url, {});
-  // };
-
-  // deleteCmt = (params: any): any => {
-  //   const url = getApiUrl() + '/comments/' + params.CmtId;
-
-  //   return axiosClient.delete(url, {});
-  // };
-
-  // editCmt = (params: any): any => {
-  //   const url = getApiUrl() + '/comments/' + params.CmtId;
-  //   return axiosClient.put(url, {});
-  // };
-
-  // unnFollowFriends = (params: any): any => {
-  //   const url = getApiUrl() + '/user/user/' + params + '/unfollow';
-  //   return axiosClient.patch(url, { params });
-  // };
-
-  // followFriends = (params: any): any => {
-  //   const url = getApiUrl() + '/user/user/' + params + '/follow';
-  //   return axiosClient.patch(url, { params });
-  // };
-
-  // getlistLike = (params: any): any => {
-  //   const url = getApiUrl() + '/user/users';
-  //   return axiosClient.post(url, params);
-  // };
-
-  // createNewPost = (params: any): any => {
-  //   const url = getApiUrl() + '/posts/createPost';
-  //   return axiosClient.post(url, params);
-  // };
-
-  // updatePost = (params: any): any => {
-  //   const url = getApiUrl() + '/posts/updatePost';
-  //   return axiosClient.patch(url, params);
-  // };
-
-  // deletePost = (params: any): any => {
-  //   const url = getApiUrl() + '/posts/delete/' + params;
-  //   return axiosClient.delete(url, {});
-  // };
+  unlikeComment = (userId: string, postId: string, commentId: string): any => {
+    const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}/unlike`;
+    return axiosClient.get(url, { params: { commentId, userId } });
+  };
 }
 
 const postAPI = new PostAPI();

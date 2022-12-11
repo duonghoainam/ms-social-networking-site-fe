@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 export const usePostItem = ({ post }: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
 
   // const showAllLikesModel = async (a): Promise<void> => {

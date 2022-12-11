@@ -28,10 +28,14 @@ class UserAPI {
     return await axiosClient.get(url);
   };
 
-  getListFollowings = async (userId: string): Promise<any> => {
+  getFollowings = (userId: string): any => {
     const url = `${getApiUrl()}/users/${userId}/followings`;
+    return axiosClient.get(url, {});
+  };
 
-    return await axiosClient.get(url);
+  getFollowers = (userId: string): any => {
+    const url = `${getApiUrl()}/users/${userId}/followers`;
+    return axiosClient.get(url, {});
   };
 
   handleFollow = async (params: FollowParams): Promise<ApiResponse> => {

@@ -15,6 +15,8 @@ import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
 import CommentSkeleton from '../../../components/SkeletonLoading/CommentSkeleton';
 import { usePostComment } from './usePostComment';
+import { User } from '../../../api/user/type/user.type';
+import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
 // import { socket } from '../../../App';
 
@@ -25,17 +27,12 @@ const PostComment = ({
   handleLikePost
 }: any): ReactElement => {
   const {
-    isLike,
-    setIsLike,
-    likeCount,
-    setLikeCount,
+    currentUser,
     isShowMessagePopup,
-    setIsShowMessagePopup,
-    isShowAllLikesPopup,
-    showAllLikesPopup,
-    hideAllLikesPopup
-  } = usePostComment(selectedPost);
-  const postState = { isLike, setIsLike, likeCount, setLikeCount };
+    setIsShowMessagePopup
+  } = usePostComment();
+  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ selectedPost });
+
   return (
     <div className="detail" style={{ display: (isShowPostDetail as boolean) ? '' : 'none' }}>
       <div className="detail__layout" onClick={hideDetail}></div>
@@ -63,42 +60,42 @@ const PostComment = ({
         </div>
         <div className="detail__content__comment">
           <div className="detail__content__comment__header postItem__header">
-            <PostHeader post={null} />
+            <PostHeader post={selectedPost} />
           </div>
           <div className="detail__content__comment__body">
             {selectedPost !== null ? <ListComment /> : <CommentSkeleton />}
           </div>
-
           <div className="detail__content__comment__footer">
             <div className="react">
               <Row>
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {(isLike as boolean) ? (
+                      {selectedPost.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          onClick={() => handleLikePost('id', postState)}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                        // onClick={() => handleLikePost(selectedPostId, selectedPost.user._id)}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
                         />
                       )}
-
-                      <SendOutlined onClick={() => setIsShowMessagePopup(true)} />
+                      <SendOutlined
+                      // onClick={() => setIsShowMessagePopup(true)}
+                      />
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </div>
             <div className="postItem__content__likes" onClick={showAllLikesPopup}>
-              {likeCount} lượt thích
+              {selectedPost.likes.length} lượt thích
             </div>
             <div className="postItem__content__caption">{selectedPost.content}</div>
 
             <div className="postItem__content__time">{format(selectedPost.createdAt)}</div>
-            <AddComment postId={1} userPostId={selectedPost.user._id} />
+            <AddComment postId={selectedPost._id} postUserId={selectedPost.user.id} />
           </div>
         </div>
       </div>
@@ -106,7 +103,7 @@ const PostComment = ({
         <FontAwesomeIcon icon={faCircleXmark} />
       </div>
       {(isShowAllLikesPopup as boolean) && (
-        <AllLikesPopup isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
+        <AllLikesPopup post={selectedPost} isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
       )}
       {(isShowMessagePopup as boolean) && (
         <MessagePopup

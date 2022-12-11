@@ -1,0 +1,10 @@
+{
+  "code": 200,
+  "message": "Get user success",
+  "data": {
+      "id": "eed66760-7306-11ed-b2af-d3ff38776900",
+      "name": "minh2",
+      "gender": "male",
+      "dateOfBirth": "1669280508646"
+  }
+}

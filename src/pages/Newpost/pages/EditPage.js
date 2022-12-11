@@ -38,10 +38,7 @@ const EditPage = () => {
                 <NewpostImage listImg={listImg} setlistImg={setlistImg} />
               </Col>
               <Col md={5}>
-                <NewpostContent
-                  valueInput={valueInput}
-                  setValueInput={setValueInput}
-                />
+                <NewpostContent valueInput={valueInput} setValueInput={setValueInput} />
               </Col>
             </Row>
           </Col>

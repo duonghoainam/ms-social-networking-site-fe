@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../../api/user/UserApi';
 
-export const getUserById = createAsyncThunk('user/getUserById', async (params) => {
-  const userInfo = await userAPI.getUserInfo(params);
+export const getUserById = createAsyncThunk('user/getUserById', async (userId: string) => {
+  const userInfo = await userAPI.getUserInfo(userId);
   return userInfo;
 });
 
-export const updateUser = createAsyncThunk('user/updateUser', async (params) => {
-  const updatedUser = await userAPI.updateUser(params);
+export const updateUser = createAsyncThunk('user/updateUser', async (userId: string) => {
+  const updatedUser = await userAPI.updateUser(userId);
   return updatedUser;
 });
 
@@ -16,13 +16,13 @@ export const updateAvt = createAsyncThunk('user/updateAvt', async (params) => {
   return updatedUser;
 });
 
-export const unFollow = createAsyncThunk('user/unFollow', async (params) => {
-  const unFollowUser = await userAPI.unFollow(params);
+export const unFollow = createAsyncThunk('user/unFollow', async (params: any) => {
+  const unFollowUser = await userAPI.handleFollow(params);
   return unFollowUser;
 });
 
-export const removeFollow = createAsyncThunk('user/removeFollow', async (params) => {
-  const unFollowUser = await userAPI.removeFollow(params);
+export const removeFollow = createAsyncThunk('user/removeFollow', async (params: any) => {
+  const unFollowUser = await userAPI.handleFollow(params);
   console.log(unFollowUser);
   return unFollowUser;
 });
@@ -47,71 +47,74 @@ const UserSlice = createSlice({
     isLoading: false
   },
   reducers: {
-    addActiveId: (state, action) => {
+    addActiveId: (state: any, action: any) => {
       state.activeId = action.payload;
     }
   },
   extraReducers: {
-    [getUserById.pending]: (state) => {
+    [getUserById.pending.toString()]: (state: any) => {
       state.isLoading = true;
     },
-    [getUserById.fulfilled]: (state, action) => {
+    [getUserById.fulfilled.toString()]: (state: any, action: any) => {
       state.userInfo = action.payload.userInfo;
     },
-    [getUserById.rejected]: (state, action) => {
+    [getUserById.rejected.toString()]: (state: any, action: any) => {
       state.isLoading = false;
     },
-    [updateUser.pending]: (state) => {
+
+    [updateUser.pending.toString()]: (state: any) => {
       state.isLoading = true;
     },
-    [updateUser.fulfilled]: (state, action) => {
+    [updateUser.fulfilled.toString()]: (state: any, action: any) => {
       state.userInfo = action.payload.user;
       localStorage.setItem('currentUser', JSON.stringify(state.userInfo));
     },
-    [updateUser.rejected]: (state, action) => {
+    [updateUser.rejected.toString()]: (state: any, action: any) => {
       state.isLoading = false;
     },
-    [updateAvt.pending]: (state) => {
+
+    [updateAvt.pending.toString()]: (state: any) => {
       state.isLoading = true;
     },
-    [updateAvt.fulfilled]: (state, action) => {
+    [updateAvt.fulfilled.toString()]: (state: any, action: any) => {
       state.userInfo = action.payload.user;
       localStorage.setItem('currentUser', JSON.stringify(state.userInfo));
     },
-    [updateAvt.rejected]: (state, action) => {
+    [updateAvt.rejected.toString()]: (state: any, action: any) => {
       state.isLoading = false;
     },
-    [unFollow.pending]: (state) => {
+    // unfollow
+    [unFollow.pending.toString()]: (state: any) => {
       state.isLoading = true;
     },
-    [unFollow.fulfilled]: (state, action) => {
+    [unFollow.fulfilled.toString()]: (state: any, action: any) => {
       state.userInfo.following = action.payload.unfollowUser?.following;
     },
-    [unFollow.rejected]: (state, action) => {
+    [unFollow.rejected.toString()]: (state: any, action: any) => {
       state.isLoading = false;
     },
-    [removeFollow.pending]: (state) => {
+    [removeFollow.pending.toString()]: (state: any) => {
       state.isLoading = true;
     },
-    [removeFollow.fulfilled]: (state, action) => {
+    [removeFollow.fulfilled.toString()]: (state: any, action: any) => {
       state.userInfo.followers = action.payload.unfollowUser?.followers;
     },
-    [removeFollow.rejected]: (state, action) => {
+    [removeFollow.rejected.toString()]: (state: any, action: any) => {
       state.isLoading = false;
     },
-    [getPostsByUserId.pending]: (state) => {
+    [getPostsByUserId.pending.toString()]: (state: any) => {
       state.isLoading = true;
     },
-    [getPostsByUserId.fulfilled]: (state, action) => {
+    [getPostsByUserId.fulfilled.toString()]: (state: any, action: any) => {
       state.posts = action.payload.listPost;
       state.isLoading = false;
     },
-    [getPostsByUserId.rejected]: (state, action) => {
+    [getPostsByUserId.rejected.toString()]: (state: any, action: any) => {
       state.isLoading = false;
     },
-    [changePassword.pending]: (state) => {},
-    [changePassword.rejected]: (state) => {},
-    [changePassword.fulfilled]: (state) => {}
+    [changePassword.pending.toString()]: (state: any) => {},
+    [changePassword.rejected.toString()]: (state: any) => {},
+    [changePassword.fulfilled.toString()]: (state: any) => {}
   }
 });
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { createSlice } from '@reduxjs/toolkit';
 import { Post } from '../../../api/post/type/post.type';
 import { User } from '../../../api/user/type/user.type';
@@ -18,7 +19,6 @@ const initialState: HomeState = {
   listComment: [],
   listRecommend: [],
   isLoading: true,
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   selectedPost: {} as Post,
   isShowPostDetail: false,
   isLoadComment: true,

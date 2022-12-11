@@ -1,9 +1,11 @@
 import { EmojiClickData } from 'emoji-picker-react';
 import { useState } from 'react';
+import { useAppDispatch } from '../../../app/store';
+import { createComment } from '../../Home/state/homeActions';
 
-export const useAddComment = (submitComment: any): any => {
-  // const current = JSON.parse(localStorage.getItem("currentUser"));
-
+export const useAddComment = ({ postId, postUserId }: any): any => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+  const dispatch = useAppDispatch()
   const [showEmoji, setShowEmoji] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -12,8 +14,6 @@ export const useAddComment = (submitComment: any): any => {
   };
 
   const deleteReply = (): void => {
-    // const action = CancelReplyCmd();
-    // dispatch(action);
   };
 
   const handleKeyDown = async (event: any): Promise<void> => {
@@ -22,7 +22,27 @@ export const useAddComment = (submitComment: any): any => {
     }
   };
 
+  const submitComment = async (): Promise<void> => {
+    if (inputValue === '' || inputValue === undefined) {
+      alert('content is require')
+      return;
+    }
+    const params = {
+      postId,
+      userId: currentUser.id,
+      content: inputValue,
+      postUserId
+    };
+    const actionAddNewComment = createComment(params)
+    await dispatch(actionAddNewComment).unwrap();
+    // reset state of add-comment
+    setInputValue('');
+    setShowEmoji(false);
+    // Thông báo có comment mới cho chủ post
+  }
+
   return {
+    submitComment,
     showEmoji,
     setShowEmoji,
     inputValue,

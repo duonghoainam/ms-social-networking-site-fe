@@ -11,10 +11,14 @@ const Category = (): ReactElement => {
     <Row>
       <div className="recommend">
         <div className="recommend__account">
-          <img src={current.avatar} alt="" />
+          <img src=''
+          // {current.avatar}
+           alt="" />
           <div className="recommend__account__name">
             <p>{current.name}</p>
-            <p>{current.email}</p>
+            <p>
+              {/* {current.email} */}
+            </p>
           </div>
         </div>
         <div className="recommend__header">

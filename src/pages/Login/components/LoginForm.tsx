@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import IMAGES from '../../../assets/images/imageStore';
 import { useSelector } from 'react-redux';
 import { login } from '../loginSlice';
-import { addActiveId } from '../../User/profileSlice';
 import { useAppDispatch } from '../../../app/store';
 import { AppState } from '../../../app/state.type';
 import { LoginParams } from '../../../api/auth/type/login.type';
@@ -15,6 +14,7 @@ import { showToastMessage } from '../../../utils/toast.util';
 import { ApiResponse } from '../../../api/api-response.type';
 import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
+import { addActiveId } from '../../User/state/userSlice';
 
 const initialValues: LoginParams = {
   username: 'giathai1505@gmail.com',

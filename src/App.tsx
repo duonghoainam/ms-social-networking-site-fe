@@ -11,7 +11,7 @@ import IndexChat from './pages/Chat';
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 export const socket = io('http://localhost:3003');
 
-function App(): ReactElement {
+function App (): ReactElement {
   return (
     <div className="App">
       <Routes>
@@ -44,6 +44,7 @@ function App(): ReactElement {
               </Routes>
             </AuthRoute>
           }></Route>
+
         <Route
           path="/register/*"
           element={
