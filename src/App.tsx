@@ -15,6 +15,7 @@ function App (): ReactElement {
   return (
     <div className="App">
       <Routes>
+        {/* Home */}
         <Route
           path="/*"
           element={
@@ -27,6 +28,7 @@ function App (): ReactElement {
 
         <Route path="/account/*" element={<PrivateRoute></PrivateRoute>}></Route>
 
+        {/* Chat */}
         <Route
           path="/messenger/*"
           element={
@@ -34,7 +36,11 @@ function App (): ReactElement {
               <IndexChat />
             </PrivateRoute>
           }></Route>
+
+        {/* New post */}
         <Route path="/new/*" element={<PrivateRoute></PrivateRoute>}></Route>
+
+        {/* Auth */}
         <Route
           path="/login/*"
           element={

@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import NotFound from "../../components/Notfound/NotFound";
-import EditPage from "./pages/EditPage";
-import NewPage from "./pages/NewPage";
+import EditPage from "../EditPost/EditPostPage";
+import NewPage from "./NewPostPage";
 
 const NewIndex = () => {
   return (

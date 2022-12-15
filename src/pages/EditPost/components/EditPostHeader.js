@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { updatePost } from '../../Home/state/homeSlice';
 import './newcomponent.scss';
 
-const UpdatePostHeader = ({ listImg, content, postId }) => {
+const UpdatePostHeader = ({ listImages, content, postId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log({ listImg, content });
+  console.log({ listImages, content });
   const handleCreatePost = async () => {
     try {
-      const result = await dispatch(updatePost({ images: listImg, content, postId })).unwrap();
+      const result = await dispatch(updatePost({ images: listImages, content, postId })).unwrap();
       console.log({ result });
       alert(result.message);
       navigate('/account');
