@@ -2,7 +2,6 @@ import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 import { CreateCommentDto } from './type/create-comment.dto';
 import { LikeDto } from './type/like.dto';
-import { Post } from './type/post.type';
 class PostAPI {
   // Post API
   getHomePosts = (userId: string): any => {
@@ -20,9 +19,9 @@ class PostAPI {
     return axiosClient.get(url, { params: { postId } });
   };
 
-  createPost = (params: Post): any => {
+  createPost = (params: any): any => {
     const url = `${getApiUrl()}/posts`;
-    return axiosClient.post(url, { params });
+    return axiosClient.post(url, params);
   };
 
   updatePost = (postId: string, content: string, images: string): any => {

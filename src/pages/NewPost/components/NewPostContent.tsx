@@ -3,12 +3,10 @@ import { Col, Row } from 'react-bootstrap';
 import './components.scss';
 import { TagFacesOutlined } from '@material-ui/icons';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../app/state.type';
 
 const NewPostContent = ({ valueInput, setValueInput }: any): ReactElement => {
   const [showEmoji, setShowEmoji] = useState(false);
-  const currentUser = useSelector((state: AppState) => state.login.current);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
   const handleEmojiClick = (emojiData: EmojiClickData, event: MouseEvent): void => {
     setValueInput((value: string) => value + emojiData.emoji);
@@ -28,7 +26,7 @@ const NewPostContent = ({ valueInput, setValueInput }: any): ReactElement => {
           <textarea
             value={valueInput}
             onChange={(e) => setValueInput(e.target.value)}
-            rows={5}
+            rows={8}
             placeholder="Viêt chú thích ..."
           ></textarea>
         </Col>

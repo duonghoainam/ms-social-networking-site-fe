@@ -7,6 +7,7 @@ import AuthRoute from './components/ControlRoute/AuthRoute';
 import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
 import IndexChat from './pages/Chat';
+import NewPostPage from './pages/NewPost/NewPostPage';
 
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 export const socket = io('http://localhost:3003');
@@ -38,7 +39,11 @@ function App (): ReactElement {
           }></Route>
 
         {/* New post */}
-        <Route path="/new/*" element={<PrivateRoute></PrivateRoute>}></Route>
+        <Route path="/new/*" element={
+          <PrivateRoute>
+            <NewPostPage />
+          </PrivateRoute>}>
+        </Route>
 
         {/* Auth */}
         <Route

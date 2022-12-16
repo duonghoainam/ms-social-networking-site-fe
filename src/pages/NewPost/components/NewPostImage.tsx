@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { AddAPhotoOutlined, Close } from '@material-ui/icons';
 import useImageUpload from '../../../hooks/useImageUpload';
 import useVideoUpload from '../../../hooks/useVideoUpload';
+import './components.scss'
 
 const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
   const imageUpload = useImageUpload();
@@ -57,7 +58,7 @@ const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
 							<Close onClick={() => handleDropImage(item)} fontSize="small" />
 						</div>
 						{item.type === 'image' ? (
-							<img src={item.url} key={index} alt="imagePosthihi" loading="lazy" />
+							<img src={item.url} key={index} alt="Post image" loading="lazy" />
 						) : item.type === 'video' ? (
 							<video src={item.url} key={index}></video>
 						) : null}

@@ -104,7 +104,7 @@ const Header = (): ReactElement => {
   //   });
   // };
 
-  // const domNode = Usecloseoutsidetoclose(() => {
+  // const domNode = useCloseOutSide(() => {
   //   setIsShowNotificationPanel(false);
   // });
 
