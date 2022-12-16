@@ -1,13 +1,9 @@
-import React, { useEffect, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import UserProfile from './components/UserProfile';
 import Header from '../../components/Header/Header';
 
 const UserPage = (): ReactElement => {
-  useEffect(() => {
-    document.title = 'Midori • Profile';
-  });
-
   return (
     <>
       <Container fluid>

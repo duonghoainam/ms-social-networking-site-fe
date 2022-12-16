@@ -8,6 +8,7 @@ import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
 import IndexChat from './pages/Chat';
 import NewPostPage from './pages/NewPost/NewPostPage';
+import UserPage from './pages/User/UserPage';
 
 // export const socket = io.connect('https://server-social-ie213.herokuapp.com');
 export const socket = io('http://localhost:3003');
@@ -27,7 +28,11 @@ function App (): ReactElement {
             </PrivateRoute>
           }></Route>
 
-        <Route path="/account/*" element={<PrivateRoute></PrivateRoute>}></Route>
+        <Route path="/account/*" element={
+          <PrivateRoute>
+            <UserPage />
+          </PrivateRoute>
+        }></Route>
 
         {/* Chat */}
         <Route

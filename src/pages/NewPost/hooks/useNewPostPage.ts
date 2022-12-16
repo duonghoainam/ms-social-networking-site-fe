@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import postAPI from '../../../api/post/PostApi';
-import { MessageToastType } from '../../../components/MessageToast/typings';
+import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
 
 const useNewPostPage = (): any => {
@@ -30,8 +30,6 @@ const useNewPostPage = (): any => {
     }
   };
 
-  console.log(listImages)
-  console.log(valueInput)
   return {
     listImages,
     setListImages,

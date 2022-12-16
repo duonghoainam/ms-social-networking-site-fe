@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AppState } from '../../../../app/state.type';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../app/store';
+import { useSelector } from 'react-redux';
 
 export const useUserHeader = (): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
@@ -12,8 +8,6 @@ export const useUserHeader = (): any => {
   const { userInfo, posts, followerList, followingList } = useSelector(
     (state: AppState) => state.user
   );
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   // State
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +23,7 @@ export const useUserHeader = (): any => {
     });
     return isFollowed;
   };
-  const [isFollowed, setIsFollowed] = useState(isFollow());
+  const [isFollowed] = useState(isFollow());
 
   const handleShowFollow = (isFollowers: boolean): any => {
     setIsShowFollowers(isFollowers);
