@@ -40,7 +40,7 @@ class PostAPI {
   };
 
   dislikePost = (params: LikeDto): any => {
-    const url = `${getApiUrl()}/posts/${params.postId}/unlike`;
+    const url = `${getApiUrl()}/posts/${params.postId}/dislike`;
     return axiosClient.patch(url, { params });
   };
 

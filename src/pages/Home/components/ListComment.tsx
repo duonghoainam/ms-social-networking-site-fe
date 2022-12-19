@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import CommentItem from './CommentItem/CommentItem';
 import { useSelector } from 'react-redux';
-import { AppState } from '../../app/state.type';
+import { AppState } from '../../../app/state.type';
 // import { socket } from '../../../App';
 
 const ListComment = (): ReactElement => {

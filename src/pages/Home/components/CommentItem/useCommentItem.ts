@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../../app/store';
-import { deleteComment, getHomePosts } from '../../Home/state/homeActions';
+import { useAppDispatch } from '../../../../app/store';
+import { deleteComment, getHomePosts } from '../../state/homeActions';
 
 export const useCommentItem = (comment: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');

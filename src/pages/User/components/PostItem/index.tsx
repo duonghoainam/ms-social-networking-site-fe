@@ -2,34 +2,38 @@
 import React, { ReactElement } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Favorite, ChatBubble } from '@material-ui/icons';
-import PostComment from '../../../components/PostComment/PostComment';
 import './styles.scss';
 import { usePostItem } from './usePostItem';
+import PostComment from '../../../Home/components/PostComment/PostComment';
 
-const PostItem = (props: { post: any }): ReactElement => {
-  const { isShowPostDetail, showDialog } = usePostItem();
-  const postItem = props.post;
+const PostItem = ({ post }: any): ReactElement => {
+  const { isShowPostDetail, setShowPostDetail } = usePostItem();
 
   return (
     <>
-      {Boolean(isShowPostDetail) && <PostComment />}
-      <Col sm={4} className="flex" onClick={() => showDialog(postItem._id)}>
+      {Boolean(isShowPostDetail) && <PostComment
+        isShowPostDetail={isShowPostDetail}
+        hideDetail={() => { setShowPostDetail(false) }}
+        selectedPost={post}
+        handleLikePost={null}
+      />}
+      <Col sm={4} className="flex" onClick={() => setShowPostDetail(post._id)}>
         <Row>
           <Col className="post-item">
             <div className="post-overlay"></div>
 
             <div className="content">
               <span className="numtym">
-                <Favorite /> {postItem.likes.length}
+                <Favorite /> {post.likes.length}
               </span>
               <span className="numcomment">
-                <ChatBubble /> {postItem.comments.length}
+                <ChatBubble /> {post.comments.length}
               </span>
             </div>
-            {postItem.images[0].split('.')[postItem.images[0].split('.').length - 1] === 'mp4' ? (
-              <video className="post-image" src={postItem.images[0]}></video>
+            {post.images[0].split('.')[post.images[0].split('.').length - 1] === 'mp4' ? (
+              <video className="post-image" src={post.images[0]}></video>
             ) : (
-              <img className="post-image" src={postItem.images[0]} alt="image" />
+              <img className="post-image" src={post.images[0]} alt="image" />
             )}
           </Col>
         </Row>

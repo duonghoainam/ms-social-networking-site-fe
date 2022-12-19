@@ -13,21 +13,20 @@ import ListComment from '../ListComment';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { format } from 'timeago.js';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
-import CommentSkeleton from '../../../components/SkeletonLoading/CommentSkeleton';
-import { usePostComment } from './usePostComment';
-import { User } from '../../../api/user/type/user.type';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
-import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
+import CommentSkeleton from '../../../../components/SkeletonLoading/CommentSkeleton';
+import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
+import { User } from '../../../../api/user/type/user.type';
+import { usePostComment } from './usePostComment';
 // import { socket } from '../../../App';
 
-const PostComment = ({
-  isShowPostDetail,
-  hideDetail,
-  selectedPost,
-  handleLikePost
-}: any): ReactElement => {
+const PostComment = ({ isShowPostDetail }: any): ReactElement => {
   const {
     currentUser,
+    selectedPost,
+    hideDetail,
+    likeComment,
+    dislikeComment,
     isShowMessagePopup,
     setIsShowMessagePopup
   } = usePostComment();
@@ -43,7 +42,7 @@ const PostComment = ({
             nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
             {selectedPost.images?.map((image: any, index: number) => {
               return (
-                <Carousel.Item key={index} style={{ display: 'grid', placeItems: 'center' }}>
+                <Carousel.Item key={index}>
                   {image.split('.')[image.split('.').length - 1] === 'mp4' ? (
                     <video
                       style={{ display: 'grid', placeItems: 'center', maxHeight: '100%' }}
@@ -74,11 +73,11 @@ const PostComment = ({
                       {selectedPost.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
+                          onClick={() => dislikeComment()}
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
+                          onClick={() => likeComment()}
                         />
                       )}
                       <SendOutlined

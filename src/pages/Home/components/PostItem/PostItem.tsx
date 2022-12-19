@@ -16,8 +16,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePostItem } from './usePostItem';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
-import { User } from '../../../api/user/type/user.type';
-import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
+import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
+import { User } from '../../../../api/user/type/user.type';
 
 /**
  * post params are logic for to manage state, call data for a post item
@@ -27,8 +27,8 @@ import MessagePopup from '../../Chat/components/MessagePopup/MessagePopup';
  * @param getComments call api to get post comments and set state
  * @returns
  */
-const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
-  const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem({ post });
+const PostItem = ({ post }: any): ReactElement => {
+  const { currentUser, setIsShowMessagePopup, isShowMessagePopup, likePost, dislikePost, showDetail } = usePostItem({ post });
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
   return (
     <>
@@ -62,13 +62,13 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
                 <Favorite
                   style={{ color: '#ed4956' }}
                   onClick={async (): Promise<void> => {
-                    await handleLikePost(post);
+                    await likePost();
                   }}
                 />
               ) : (
                 <FavoriteBorderOutlined
                   onClick={async () => {
-                    await handleLikePost(post);
+                    await dislikePost();
                   }}
                 />
               )}
