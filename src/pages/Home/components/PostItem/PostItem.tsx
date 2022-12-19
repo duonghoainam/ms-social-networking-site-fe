@@ -17,7 +17,6 @@ import { usePostItem } from './usePostItem';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
-import { User } from '../../../../api/user/type/user.type';
 
 /**
  * post params are logic for to manage state, call data for a post item
@@ -28,7 +27,7 @@ import { User } from '../../../../api/user/type/user.type';
  * @returns
  */
 const PostItem = ({ post }: any): ReactElement => {
-  const { currentUser, setIsShowMessagePopup, isShowMessagePopup, likePost, dislikePost, showDetail } = usePostItem({ post });
+  const { setIsShowMessagePopup, isShowMessagePopup, likePost, dislikePost, showDetail, likeAction } = usePostItem({ post });
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
   return (
     <>
@@ -58,17 +57,17 @@ const PostItem = ({ post }: any): ReactElement => {
         <Col className="postItem__react">
           <Row className="reactIcon">
             <Col md={9}>
-              {post.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
+              { (Boolean(likeAction.isLiked)) ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
                   onClick={async (): Promise<void> => {
-                    await likePost();
+                    await dislikePost();
                   }}
                 />
               ) : (
                 <FavoriteBorderOutlined
                   onClick={async () => {
-                    await dislikePost();
+                    await likePost();
                   }}
                 />
               )}
@@ -84,7 +83,7 @@ const PostItem = ({ post }: any): ReactElement => {
         </Col>
         <Col md={12} className="postItem__post">
           <div className="postItem__post__likes" onClick={showAllLikesPopup}>
-            {post.likes.length} lượt thích
+            {likeAction.count} lượt thích
           </div>
           <div className="postItem__post__caption">{post.content}</div>
           {/* {isOverflow() && (

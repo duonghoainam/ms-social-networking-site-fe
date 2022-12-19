@@ -36,12 +36,12 @@ class PostAPI {
 
   likePost = (params: LikeDto): any => {
     const url = `${getApiUrl()}/posts/${params.postId}/like`;
-    return axiosClient.patch(url, { params });
+    return axiosClient.patch(url, { userId: params.userId });
   };
 
   dislikePost = (params: LikeDto): any => {
     const url = `${getApiUrl()}/posts/${params.postId}/dislike`;
-    return axiosClient.patch(url, { params });
+    return axiosClient.patch(url, { userId: params.userId });
   };
 
   // Comment API
