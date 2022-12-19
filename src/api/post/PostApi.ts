@@ -52,7 +52,7 @@ class PostAPI {
 
   createComment = (params: CreateCommentDto): any => {
     const url = `${getApiUrl()}/posts/${params.postId}/comments`;
-    return axiosClient.post(url, { params });
+    return axiosClient.post(url, { ...params.payload });
   };
 
   updateComment = (postId: string, commentId: string, content: string): any => {

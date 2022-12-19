@@ -16,20 +16,22 @@ import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/ico
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 import CommentSkeleton from '../../../../components/SkeletonLoading/CommentSkeleton';
 import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
-import { User } from '../../../../api/user/type/user.type';
 import { usePostComment } from './usePostComment';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../app/state.type';
+import { User } from '../../../../api/user/type/user.type';
 // import { socket } from '../../../App';
 
 const PostComment = ({ isShowPostDetail }: any): ReactElement => {
+  const selectedPost = useSelector((state: AppState) => state.home.selectedPost);
   const {
     currentUser,
-    selectedPost,
+    likePost,
+    dislikePost,
     hideDetail,
-    likeComment,
-    dislikeComment,
     isShowMessagePopup,
     setIsShowMessagePopup
-  } = usePostComment();
+  } = usePostComment(selectedPost);
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ selectedPost });
 
   return (
@@ -70,14 +72,14 @@ const PostComment = ({ isShowPostDetail }: any): ReactElement => {
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {selectedPost.likes.filter((user: User) => user.id === currentUser.id).length > 0 ? (
+                      {selectedPost.likes.filter((user: User) => { return user.id === currentUser.id }).length > 0 ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          onClick={() => dislikeComment()}
+                          onClick={() => dislikePost()}
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                          onClick={() => likeComment()}
+                          onClick={() => likePost()}
                         />
                       )}
                       <SendOutlined

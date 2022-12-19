@@ -29,7 +29,7 @@ const CommentItem = ({ comment }: any): ReactElement => {
     <Row className="comment">
       <Col md={{ span: 1, offset: 1 }}>
         <div className="comment_avatar">
-          <img src="" alt="" />
+          <img src={comment.user.avatar} alt="" />
         </div>
       </Col>
       <Col md={{ span: 9 }}>

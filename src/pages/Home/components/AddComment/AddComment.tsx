@@ -29,7 +29,6 @@ const AddComment = ({ postId, postUserId }: any): ReactElement => {
         <div>
           {(showEmoji as boolean) && (
             <EmojiPicker
-              // className="addComment_emoji"
               onEmojiClick={handleEmojiClick}
               width="100%"
               height="400px"></EmojiPicker>

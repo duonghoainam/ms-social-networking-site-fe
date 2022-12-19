@@ -1,5 +1,6 @@
 import { EmojiClickData } from 'emoji-picker-react';
 import { useState } from 'react';
+import { CreateCommentDto } from '../../../../api/post/type/create-comment.dto';
 import { useAppDispatch } from '../../../../app/store';
 import { addNewComment } from '../../state/homeActions';
 
@@ -27,11 +28,13 @@ export const useAddComment = ({ postId, postUserId }: any): any => {
       alert('content is require')
       return;
     }
-    const params = {
+    const params: CreateCommentDto = {
       postId,
-      userId: currentUser.id,
-      content: inputValue,
-      postUserId
+      payload: {
+        userId: currentUser.id,
+        content: inputValue,
+        postUserId
+      }
     };
     const actionAddNewComment = addNewComment(params)
     await dispatch(actionAddNewComment).unwrap();

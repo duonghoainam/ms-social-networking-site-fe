@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 import { handleDislike, handleLike } from '../../state/homeActions';
 import { setShowPostDetail } from '../../state/homeSlice';
 
-export const usePostComment = (): any => {
-  const selectedPost = useSelector((state: AppState) => state.home.selectedPost);
+export const usePostComment = (selectedPost: any): any => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const dispatch = useAppDispatch();
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
   const [isShowAllLikesPopup, setIsShowAllLikesPopup] = useState(false);
 
@@ -25,22 +22,20 @@ export const usePostComment = (): any => {
     const hide = setShowPostDetail(false);
     await dispatch(hide);
   };
-
-  const likeComment = async (): Promise<void> => {
-    const actionLike = handleLike({ userId: currentUser.id, postId: selectedPost.id });
+  const likePost = async (): Promise<void> => {
+    const actionLike = handleLike({ userId: currentUser.id, postId: selectedPost._id });
     await dispatch(actionLike).unwrap();
   }
-  const dislikeComment = async (): Promise<void> => {
-    const actionLike = handleDislike({ userId: currentUser.id, postId: selectedPost.id });
+  const dislikePost = async (): Promise<void> => {
+    const actionLike = handleDislike({ userId: currentUser.id, postId: selectedPost._id });
     await dispatch(actionLike).unwrap();
   }
 
   return {
     currentUser,
-    selectedPost,
+    likePost,
+    dislikePost,
     hideDetail,
-    likeComment,
-    dislikeComment,
     isShowMessagePopup,
     setIsShowMessagePopup,
     isShowAllLikesPopup,

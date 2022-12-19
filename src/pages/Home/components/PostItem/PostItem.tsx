@@ -17,6 +17,7 @@ import { usePostItem } from './usePostItem';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
+import { User } from '../../../../api/user/type/user.type';
 
 /**
  * post params are logic for to manage state, call data for a post item
@@ -27,7 +28,8 @@ import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
  * @returns
  */
 const PostItem = ({ post }: any): ReactElement => {
-  const { setIsShowMessagePopup, isShowMessagePopup, likePost, dislikePost, showDetail, likeAction } = usePostItem({ post });
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+  const { setIsShowMessagePopup, isShowMessagePopup, showDetail, likePost, dislikePost } = usePostItem(post);
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
   return (
     <>
@@ -57,7 +59,7 @@ const PostItem = ({ post }: any): ReactElement => {
         <Col className="postItem__react">
           <Row className="reactIcon">
             <Col md={9}>
-              { (Boolean(likeAction.isLiked)) ? (
+              {post.likes.filter((user: User) => { return user.id === currentUser.id }).length > 0 ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
                   onClick={async (): Promise<void> => {
@@ -83,7 +85,7 @@ const PostItem = ({ post }: any): ReactElement => {
         </Col>
         <Col md={12} className="postItem__post">
           <div className="postItem__post__likes" onClick={showAllLikesPopup}>
-            {likeAction.count} lượt thích
+            {post.likes.length} lượt thích
           </div>
           <div className="postItem__post__caption">{post.content}</div>
           {/* {isOverflow() && (

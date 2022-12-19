@@ -55,7 +55,7 @@ export const extraReducers: any = {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
-      if (post._id === action.payload) {
+      if (post._id === action.payload.data._id) {
         post.likes.push(currentUser);
         // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
@@ -73,7 +73,7 @@ export const extraReducers: any = {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
     // Update state listPost
     state.listPost = state.listPost.map((post: any) => {
-      if (post._id === action.payload) {
+      if (post._id === action.payload.data._id) {
         // post.likes = post.likes.filter((item: any) => item !== currentUser);
         post.likes = post.likes.filter((user: User) => { return user.id !== currentUser.id });
         // Update state selectedPost if like in PostComment
@@ -89,7 +89,7 @@ export const extraReducers: any = {
   [addNewComment.pending.toString()]: (state: any, action: any) => {},
   [addNewComment.rejected.toString()]: (state: any, action: any) => {},
   [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
-    // Update state listcomment
+    // Update state list comment
     state.listComment.push(action.payload.data);
     // Update state listPosts
     state.listPost = state.listPost.map((post: any) => {

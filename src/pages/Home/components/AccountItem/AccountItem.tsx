@@ -6,7 +6,7 @@ const AccountItem = ({ user }: any): ReactElement => {
   return (
     <Row className="accountItem">
       <Col md={{ span: 1 }}>
-        <img src="" alt="" />
+        <img src={user.avatar} alt="" />
       </Col>
       <Col md={{ span: 7 }}>
         <div className="accountItem_name">
