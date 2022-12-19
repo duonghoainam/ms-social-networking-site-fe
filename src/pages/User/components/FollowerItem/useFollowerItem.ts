@@ -1,11 +1,6 @@
 import './styles.scss';
-import { AppState } from '../../../../app/state.type';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../../../app/store';
-// import { removeFollow, addActiveId } from '../../profileSlice';
 
 export const useFollowerItem = ({ user, setShowModal }: any): any => {
-  const dispatch = useAppDispatch();
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
   const handleRemoveFollow = async (e: any): Promise<void> => {

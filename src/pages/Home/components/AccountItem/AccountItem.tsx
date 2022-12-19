@@ -1,8 +1,12 @@
 import React, { ReactElement } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import './AccountItem.scss';
+import { useAccountItem } from './useAccountItem';
 
 const AccountItem = ({ user }: any): ReactElement => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+
+  const { handleFollow, isFollow } = useAccountItem(user);
   return (
     <Row className="accountItem">
       <Col md={{ span: 1 }}>
@@ -15,13 +19,12 @@ const AccountItem = ({ user }: any): ReactElement => {
         </div>
       </Col>
       <Col md={{ span: 4 }}>
-        <Button
+        {currentUser.id !== user.id ? <Button
           size="sm"
-          // onClick={() => handleFollow(user[0]._id)}
+          onClick={() => handleFollow()}
         >
-          {/* {IsFollow ? 'Bỏ theo dõi' : 'Theo dõi'} */}
-          Theo dõi
-        </Button>
+          {(Boolean(isFollow)) ? 'Bỏ theo dõi' : 'Theo dõi'}
+        </Button> : <></>}
       </Col>
     </Row>
   );

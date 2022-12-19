@@ -30,7 +30,7 @@ class UserAPI {
 
   getFollowings = (userId: string): any => {
     const url = `${getApiUrl()}/users/${userId}/followings`;
-    return axiosClient.get(url, {});
+    return axiosClient.get(url);
   };
 
   getFollowers = (userId: string): any => {

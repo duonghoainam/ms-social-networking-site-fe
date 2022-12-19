@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 // import UserSummary from '../../../components/UserSummary/UserSumary';
-import { useFriendRecommendItem } from './useFriendRecommendItem';
-import './FriendRecommendItem.scss';
+import './FollowRecommendItem.scss';
+import { useFollowRecommendItem } from './useFollowRecommendItem';
 
-const FriendRecommendItem = ({ item }: any): ReactElement => {
-  const { isFollow, handleShowProfile, handleFollow } = useFriendRecommendItem();
+const FollowRecommendItem = ({ item }: any): ReactElement => {
+  const { isFollow, handleShowProfile, handleFollow } = useFollowRecommendItem();
   return (
     <li key={item.user.id}>
       <div className="recommend__img">
@@ -29,4 +29,4 @@ const FriendRecommendItem = ({ item }: any): ReactElement => {
   );
 };
 
-export default FriendRecommendItem;
+export default FollowRecommendItem;

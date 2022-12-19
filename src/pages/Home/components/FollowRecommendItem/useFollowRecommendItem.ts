@@ -7,7 +7,7 @@ import { MessageToastType } from '../../../../components/MessageToast/typings.d'
 import { FollowingAction } from '../../../../constants/enums/following-action.enum';
 import { showToastMessage } from '../../../../utils/toast.util';
 
-export const useFriendRecommendItem = (): any => {
+export const useFollowRecommendItem = (): any => {
   // const [isShowRecommend, setIsShowRecommend] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const navigate = useNavigate();
