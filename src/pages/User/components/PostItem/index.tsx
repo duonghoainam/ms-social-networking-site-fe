@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Favorite, ChatBubble } from '@material-ui/icons';
 import './styles.scss';
 import { usePostItem } from './usePostItem';
-import PostComment from '../../../Home/components/PostComment/PostComment';
+import PostComment from '../../../../components/PostComment/PostComment';
 
 const PostItem = ({ post }: any): ReactElement => {
   const { isShowPostDetail, setShowPostDetail } = usePostItem();

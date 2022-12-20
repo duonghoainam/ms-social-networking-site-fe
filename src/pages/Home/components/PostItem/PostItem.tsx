@@ -14,10 +14,9 @@ import { format } from 'timeago.js';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePostItem } from './usePostItem';
-import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
-import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
+import AllLikesPopup from '../../../../components/AllLikesPopup/AllLikesPopup';
+import { useAllLikesPopup } from '../../../../components/AllLikesPopup/useAllLikesPopup';
 import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
-import { User } from '../../../../api/user/type/user.type';
 
 /**
  * post params are logic for to manage state, call data for a post item
@@ -27,9 +26,8 @@ import { User } from '../../../../api/user/type/user.type';
  * @param getComments call api to get post comments and set state
  * @returns
  */
-const PostItem = ({ post }: any): ReactElement => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-  const { setIsShowMessagePopup, isShowMessagePopup, showDetail, likePost, dislikePost } = usePostItem(post);
+const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
+  const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem(post);
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
   return (
     <>
@@ -59,17 +57,17 @@ const PostItem = ({ post }: any): ReactElement => {
         <Col className="postItem__react">
           <Row className="reactIcon">
             <Col md={9}>
-              {post.likes.filter((user: User) => { return user.id === currentUser.id }).length > 0 ? (
+              {post.likes.filter((user: any) => user.id === currentUser.id).length > 0 ? (
                 <Favorite
                   style={{ color: '#ed4956' }}
                   onClick={async (): Promise<void> => {
-                    await dislikePost();
+                    await handleLikePost(post);
                   }}
                 />
               ) : (
                 <FavoriteBorderOutlined
                   onClick={async () => {
-                    await likePost();
+                    await handleLikePost(post);
                   }}
                 />
               )}

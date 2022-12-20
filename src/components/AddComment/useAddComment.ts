@@ -1,8 +1,8 @@
 import { EmojiClickData } from 'emoji-picker-react';
 import { useState } from 'react';
-import { CreateCommentDto } from '../../../../api/post/type/create-comment.dto';
-import { useAppDispatch } from '../../../../app/store';
-import { addNewComment } from '../../state/homeActions';
+import { CreateCommentDto } from '../../api/post/type/create-comment.dto';
+import { useAppDispatch } from '../../app/store';
+import { addNewComment } from '../../pages/Home/state/homeActions';
 
 export const useAddComment = ({ postId, postUserId }: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');

@@ -2,36 +2,32 @@ import React, { ReactElement } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import AddComment from '../AddComment/AddComment';
 import {
   faCircleChevronRight,
   faCircleChevronLeft,
   faCircleXmark
 } from '@fortawesome/free-solid-svg-icons';
-import PostHeader from '../PostHeader/PostHeader';
-import ListComment from '../ListComment';
-import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
-import { format } from 'timeago.js';
-import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
-import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
-import CommentSkeleton from '../../../../components/SkeletonLoading/CommentSkeleton';
-import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
 import { usePostComment } from './usePostComment';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../../app/state.type';
-import { User } from '../../../../api/user/type/user.type';
-// import { socket } from '../../../App';
+import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
+import { format } from 'timeago.js';
+import MessagePopup from '../../pages/Chat/components/MessagePopup/MessagePopup';
+import ListComment from '../../pages/Home/components/ListComment';
+import PostHeader from '../../pages/Home/components/PostHeader/PostHeader';
+import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
+import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
+import CommentSkeleton from '../SkeletonLoading/CommentSkeleton';
 
-const PostComment = ({ isShowPostDetail }: any): ReactElement => {
-  const selectedPost = useSelector((state: AppState) => state.home.selectedPost);
+const PostComment = ({
+  isShowPostDetail,
+  hideDetail,
+  selectedPost,
+  handleLikePost
+}: any): ReactElement => {
   const {
     currentUser,
-    likePost,
-    dislikePost,
-    hideDetail,
     isShowMessagePopup,
     setIsShowMessagePopup
-  } = usePostComment(selectedPost);
+  } = usePostComment();
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ selectedPost });
 
   return (
@@ -44,7 +40,7 @@ const PostComment = ({ isShowPostDetail }: any): ReactElement => {
             nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
             {selectedPost.images?.map((image: any, index: number) => {
               return (
-                <Carousel.Item key={index}>
+                <Carousel.Item key={index} style={{ display: 'grid', placeItems: 'center' }}>
                   {image.split('.')[image.split('.').length - 1] === 'mp4' ? (
                     <video
                       style={{ display: 'grid', placeItems: 'center', maxHeight: '100%' }}
@@ -72,14 +68,14 @@ const PostComment = ({ isShowPostDetail }: any): ReactElement => {
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {selectedPost.likes.filter((user: User) => { return user.id === currentUser.id }).length > 0 ? (
+                      {selectedPost.likes.filter((user: any) => user.id === currentUser.id).length > 0 ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
-                          onClick={() => dislikePost()}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
                         />
                       ) : (
                         <FavoriteBorderOutlined
-                          onClick={() => likePost()}
+                          onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
                         />
                       )}
                       <SendOutlined
@@ -96,7 +92,7 @@ const PostComment = ({ isShowPostDetail }: any): ReactElement => {
             <div className="postItem__content__caption">{selectedPost.content}</div>
 
             <div className="postItem__content__time">{format(selectedPost.createdAt)}</div>
-            <AddComment postId={selectedPost._id} postUserId={selectedPost.user.id} />
+            {/* <AddComment postId={selectedPost._id} postUserId={selectedPost.user.id} /> */}
           </div>
         </div>
       </div>

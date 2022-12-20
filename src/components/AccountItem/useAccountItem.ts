@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { ApiResponse } from '../../../../api/api-response.type';
-import { FollowParams } from '../../../../api/user/type/follow.params';
-import userAPI from '../../../../api/user/UserApi';
-import { MessageToastType } from '../../../../components/MessageToast/typings.d';
-import { FollowingAction } from '../../../../constants/enums/following-action.enum';
-import { showToastMessage } from '../../../../utils/toast.util';
+import { ApiResponse } from '../../api/api-response.type';
+import { FollowParams } from '../../api/user/type/follow.params';
+import userAPI from '../../api/user/UserApi';
+import { MessageToastType } from '../MessageToast/typings.d';
+import { FollowingAction } from '../../constants/enums/following-action.enum';
+import { showToastMessage } from '../../utils/toast.util';
 
 export const useAccountItem = (user: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');

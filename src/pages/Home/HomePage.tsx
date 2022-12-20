@@ -6,15 +6,19 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
 import HomeSkeleton from '../../components/SkeletonLoading/HomeSkeleton';
+import { Category } from '@material-ui/icons';
+import AllLikesPopup from '../../components/AllLikesPopup/AllLikesPopup';
+import PostComment from '../../components/PostComment/PostComment';
+import PostItem from '../User/components/PostItem';
 import { useHomePage } from './hooks/useHomePage';
-import PostItem from './components/PostItem/PostItem';
-import Category from './components/Category/Category';
-import AllLikesPopup from './components/AllLikesPopup/AllLikesPopup';
-import PostComment from './components/PostComment/PostComment';
+import { usePostComment } from './hooks/usePostComment';
+import { usePostItem } from './hooks/usePostItem';
 
 const HomePage = (): ReactElement => {
   const { listPost, isLoading, loadListPostFail } = useHomePage();
-  const { isShowPostDetail } = useSelector((state: AppState) => state.home);
+  const { showDetail, handleLikePost } = usePostItem();
+  const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
+  const { hideDetail, handleLikePostComment } = usePostComment();
   return (
     <>
       <Container fluid>
@@ -40,6 +44,8 @@ const HomePage = (): ReactElement => {
                       <PostItem
                         key={index}
                         post={post}
+                        handleLikePost={handleLikePost}
+                        showDetail={showDetail}
                       />
                     );
                   })}
@@ -55,6 +61,9 @@ const HomePage = (): ReactElement => {
       {(isShowPostDetail as boolean) && (
         <PostComment
           isShowPostDetail={isShowPostDetail}
+          selectedPost={selectedPost}
+          hideDetail={hideDetail}
+          handleLikePost={handleLikePostComment}
         />
       )}
       <AllLikesPopup />
