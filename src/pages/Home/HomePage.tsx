@@ -16,7 +16,10 @@ import Category from './components/Category/Category';
 import { addNewComment } from './state/homeActions';
 
 const HomePage = (): ReactElement => {
-  const { listPost, isLoading, loadListPostFail } = useHomePage();
+  const { listPost, listComment, isLoading, loadListPostFail } = useSelector((state: AppState) => {
+    return state.home;
+  });
+  useHomePage();
   const { showDetail, handleLikePost } = usePostItem();
   const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { hideDetail, handleLikePostComment } = usePostComment();
@@ -65,6 +68,7 @@ const HomePage = (): ReactElement => {
           selectedPost={selectedPost}
           hideDetail={hideDetail}
           handleLikePost={handleLikePostComment}
+          comments={listComment}
           addCommentAction={addNewComment}
         />
       )}

@@ -11,7 +11,7 @@ import { usePostComment } from './usePostComment';
 import { Favorite, FavoriteBorderOutlined, SendOutlined } from '@material-ui/icons';
 import { format } from 'timeago.js';
 import MessagePopup from '../../pages/Chat/components/MessagePopup/MessagePopup';
-import ListComment from '../../pages/Home/components/ListComment';
+import ListComment from '../ListComment';
 import PostHeader from '../../pages/Home/components/PostHeader/PostHeader';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
@@ -22,6 +22,7 @@ const PostComment = ({
   isShowPostDetail,
   hideDetail,
   selectedPost,
+  comments,
   handleLikePost,
   addCommentAction
 }: any): ReactElement => {
@@ -42,7 +43,7 @@ const PostComment = ({
             nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
             {selectedPost.images?.map((image: any, index: number) => {
               return (
-                <Carousel.Item key={index} style={{ display: 'grid', placeItems: 'center' }}>
+                <Carousel.Item key={index}>
                   {image.split('.')[image.split('.').length - 1] === 'mp4' ? (
                     <video
                       style={{ display: 'grid', placeItems: 'center', maxHeight: '100%' }}
@@ -62,7 +63,7 @@ const PostComment = ({
             <PostHeader post={selectedPost} />
           </div>
           <div className="detail__content__comment__body">
-            {selectedPost !== null ? <ListComment /> : <CommentSkeleton />}
+            {selectedPost !== null ? <ListComment comments={comments} /> : <CommentSkeleton />}
           </div>
           <div className="detail__content__comment__footer">
             <div className="react">
