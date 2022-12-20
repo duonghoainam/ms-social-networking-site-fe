@@ -16,12 +16,14 @@ import PostHeader from '../../pages/Home/components/PostHeader/PostHeader';
 import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 import CommentSkeleton from '../SkeletonLoading/CommentSkeleton';
+import AddComment from '../AddComment/AddComment';
 
 const PostComment = ({
   isShowPostDetail,
   hideDetail,
   selectedPost,
-  handleLikePost
+  handleLikePost,
+  addCommentAction
 }: any): ReactElement => {
   const {
     currentUser,
@@ -92,7 +94,7 @@ const PostComment = ({
             <div className="postItem__content__caption">{selectedPost.content}</div>
 
             <div className="postItem__content__time">{format(selectedPost.createdAt)}</div>
-            {/* <AddComment postId={selectedPost._id} postUserId={selectedPost.user.id} /> */}
+            <AddComment addCommentAction={addCommentAction} postId={selectedPost._id} postUserId={selectedPost.user.id} />
           </div>
         </div>
       </div>

@@ -6,13 +6,14 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
 import HomeSkeleton from '../../components/SkeletonLoading/HomeSkeleton';
-import { Category } from '@material-ui/icons';
 import AllLikesPopup from '../../components/AllLikesPopup/AllLikesPopup';
 import PostComment from '../../components/PostComment/PostComment';
-import PostItem from '../User/components/PostItem';
 import { useHomePage } from './hooks/useHomePage';
 import { usePostComment } from './hooks/usePostComment';
 import { usePostItem } from './hooks/usePostItem';
+import PostItem from './components/PostItem/PostItem';
+import Category from './components/Category/Category';
+import { addNewComment } from './state/homeActions';
 
 const HomePage = (): ReactElement => {
   const { listPost, isLoading, loadListPostFail } = useHomePage();
@@ -64,6 +65,7 @@ const HomePage = (): ReactElement => {
           selectedPost={selectedPost}
           hideDetail={hideDetail}
           handleLikePost={handleLikePostComment}
+          addCommentAction={addNewComment}
         />
       )}
       <AllLikesPopup />

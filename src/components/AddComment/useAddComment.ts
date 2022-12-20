@@ -2,9 +2,8 @@ import { EmojiClickData } from 'emoji-picker-react';
 import { useState } from 'react';
 import { CreateCommentDto } from '../../api/post/type/create-comment.dto';
 import { useAppDispatch } from '../../app/store';
-import { addNewComment } from '../../pages/Home/state/homeActions';
 
-export const useAddComment = ({ postId, postUserId }: any): any => {
+export const useAddComment = ({ addCommentAction, postId, postUserId }: any): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const dispatch = useAppDispatch()
   const [showEmoji, setShowEmoji] = useState(false);
@@ -12,9 +11,6 @@ export const useAddComment = ({ postId, postUserId }: any): any => {
 
   const handleEmojiClick = (emojiData: EmojiClickData, event: MouseEvent): void => {
     setInputValue((value: string) => value + emojiData.emoji);
-  };
-
-  const deleteReply = (): void => {
   };
 
   const handleKeyDown = async (event: any): Promise<void> => {
@@ -36,7 +32,7 @@ export const useAddComment = ({ postId, postUserId }: any): any => {
         postUserId
       }
     };
-    const actionAddNewComment = addNewComment(params)
+    const actionAddNewComment = addCommentAction(params)
     await dispatch(actionAddNewComment).unwrap();
     // reset state of add-comment
     setInputValue('');
@@ -51,7 +47,6 @@ export const useAddComment = ({ postId, postUserId }: any): any => {
     inputValue,
     setInputValue,
     handleEmojiClick,
-    handleKeyDown,
-    deleteReply
+    handleKeyDown
   };
 };

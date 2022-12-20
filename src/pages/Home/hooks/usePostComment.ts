@@ -27,10 +27,6 @@ export const usePostComment = (): any => {
     }
   };
 
-  // const showAlllikesModal = async (a) => {
-  //   const action = getListUser(a);
-  //   await dispatch(action).unwrap();
-  // };
   return {
     hideDetail,
     handleLikePostComment
