@@ -9,7 +9,9 @@ interface UserState {
   followerList: any[];
   followingList: any[];
   posts: any[];
+  comments: [];
   selectedPost: any;
+  isShowPostDetail: false;
   isLoading: boolean;
 }
 
@@ -19,7 +21,9 @@ const initialState: UserState = {
   followerList: [],
   followingList: [],
   posts: [],
+  comments: [],
   selectedPost: {},
+  isShowPostDetail: false,
   isLoading: false
 }
 
@@ -29,12 +33,18 @@ const UserSlice = createSlice({
   reducers: {
     addActiveId: (state: any, action: any) => {
       state.activeId = action.payload;
+    },
+    setSelectedPost: (state: any, action: any): void => {
+      return { ...state, selectedPost: action.payload };
+    },
+    setShowPostDetail: (state: any, action: any): void => {
+      return { ...state, isShowPostDetail: action.payload };
     }
   },
   extraReducers
 });
 
-const { reducer: userReducer, actions } = UserSlice;
+const { reducer: UserReducer, actions } = UserSlice;
 
-export const { addActiveId } = actions;
-export default userReducer;
+export const { addActiveId, setSelectedPost, setShowPostDetail } = actions;
+export default UserReducer;

@@ -1,23 +1,25 @@
-/* eslint-disable multiline-ternary */
 import React, { ReactElement } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Favorite, ChatBubble } from '@material-ui/icons';
 import './styles.scss';
-import { usePostItem } from './usePostItem';
-import PostComment from '../../../../components/PostComment/PostComment';
+import { useAppDispatch } from '../../../../app/store';
+import { setSelectedPost, setShowPostDetail } from '../../state/userSlice';
+import { getPostComments } from '../../state/userActions';
 
 const PostItem = ({ post }: any): ReactElement => {
-  const { isShowPostDetail, setShowPostDetail } = usePostItem();
+  const dispatch = useAppDispatch();
 
+  const handleClickPost = async (): Promise<void> => {
+    const selectAction = setSelectedPost(post);
+    await dispatch(selectAction);
+    const show = setShowPostDetail(true);
+    await dispatch(show);
+    const getCommentsAction = getPostComments(post._id);
+    await dispatch(getCommentsAction).unwrap()
+  }
   return (
     <>
-      {Boolean(isShowPostDetail) && <PostComment
-        isShowPostDetail={isShowPostDetail}
-        hideDetail={() => { setShowPostDetail(false) }}
-        selectedPost={post}
-        handleLikePost={null}
-      />}
-      <Col sm={4} className="flex" onClick={() => setShowPostDetail(post._id)}>
+      <Col sm={4} className="flex" onClick={() => { void handleClickPost() }}>
         <Row>
           <Col className="post-item">
             <div className="post-overlay"></div>

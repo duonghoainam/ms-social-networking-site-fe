@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/store';
-import { addActiveId } from '../../../User/userSlice';
 import { getFollowerList, getFollowingList, getPostsByUserId, getUserById } from '../../../User/state/userActions';
+import { addActiveId } from '../../../User/state/userSlice';
 
 export const usePostHeader = (): any => {
   const navigate = useNavigate();

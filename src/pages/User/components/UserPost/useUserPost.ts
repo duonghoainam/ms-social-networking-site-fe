@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 import { getPostsByUserId } from '../../state/userActions';
+import { setShowPostDetail } from '../../state/userSlice';
 
-export const useUserPost = (): any => {
-  const { activeId, posts } = useSelector((state: AppState) => state.user);
+const useUserPost = (): any => {
+  const { activeId } = useSelector((state: AppState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -16,7 +17,13 @@ export const useUserPost = (): any => {
     void useEffectAsyncFunc();
   }, [activeId]);
 
+  const hidePostDetail = async (): Promise<void> => {
+    const hide = setShowPostDetail(false);
+    await dispatch(hide);
+  };
+
   return {
-    posts
+    hidePostDetail
   };
 };
+export default useUserPost;

@@ -1,4 +1,4 @@
-import { getUserById, getFollowerList, getFollowingList, getPostsByUserId } from './userActions';
+import { getUserById, getFollowerList, getFollowingList, getPostsByUserId, getPostComments } from './userActions';
 
 export const extraReducers: any = {
   // getUserById
@@ -46,5 +46,11 @@ export const extraReducers: any = {
   },
   [getPostsByUserId.rejected.toString()]: (state: any, action: any) => {
     state.isLoading = false;
+  },
+
+  // get all comment of post
+  [getPostComments.fulfilled.toString()]: (state: any, action: any) => {
+    return { ...state, comments: action.payload.data };
   }
+
 };

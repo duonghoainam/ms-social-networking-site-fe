@@ -9,7 +9,6 @@ export const login = createAsyncThunk(
   async (params: LoginParams, thunkAPI): Promise<ApiResponse> => {
     try {
       const response: ApiResponse = await authAPI.login(params);
-      console.log('response', response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data) as unknown as ApiResponse;
