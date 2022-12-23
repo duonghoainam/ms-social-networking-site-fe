@@ -13,7 +13,6 @@ const Dialog = (props: { showModal: any, setShowModal: any }): any => {
   return (
     <Modal
       show={props.showModal}
-      bsSize="large"
       onHide={handleCloseDialog}
       contentClassName="modal-height"
       dialogClassName="modal-width"

@@ -11,13 +11,13 @@ const useUserPost = (): any => {
   const { selectedPost } = useSelector((state: AppState) => state.user);
   const dispatch = useAppDispatch();
 
+  const loadUserPosts = async (): Promise<void> => {
+    const action = getPostsByUserId(id);
+    await dispatch(action).unwrap();
+  };
   useEffect(() => {
-    const useEffectAsyncFunc = async (): Promise<void> => {
-      const action = getPostsByUserId(id);
-      await dispatch(action).unwrap();
-    };
-    void useEffectAsyncFunc();
-  });
+    void loadUserPosts();
+  }, [id]);
 
   const hidePostDetail = async (): Promise<void> => {
     const hide = setShowPostDetail(false);

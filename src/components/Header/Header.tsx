@@ -15,7 +15,6 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
-import { getFollowerList, getFollowingList, getPostsByUserId, getUserById } from '../../pages/User/state/userActions';
 import { logout } from '../../pages/Login/loginSlice';
 import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
 
@@ -27,19 +26,7 @@ const Header = (): ReactElement => {
   const listUser = useSelector((state: AppState) => state.login.listUser).filter(
     (user: any) => user.id !== currentUser.id
   );
-  const handleChangeToProfilePage = async (): Promise<void> => {
-    const actionGetFollowerList = getFollowerList(currentUser.id);
-    await dispatch(actionGetFollowerList);
-
-    const actionGetFollowingList = getFollowingList(currentUser.id);
-    await dispatch(actionGetFollowingList);
-
-    const actionGetUser = getUserById(currentUser.id);
-    await dispatch(actionGetUser).unwrap();
-
-    const actionGetPost = getPostsByUserId(currentUser.id);
-    await dispatch(actionGetPost).unwrap();
-
+  const navigateToProfile = async (): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     navigate(`/user/${currentUser.id.toString()}`);
     setSearchValue('');
@@ -66,20 +53,6 @@ const Header = (): ReactElement => {
       console.log(error);
     }
     navigate('/login');
-  };
-
-  const handleDirectToProfile = async (userId: string): Promise<void> => {
-    const actionGetFollowerList = getFollowerList(userId);
-    await dispatch(actionGetFollowerList);
-
-    const actionGetFollowingList = getFollowingList(userId);
-    await dispatch(actionGetFollowingList);
-
-    const actionGetUser = getUserById(userId);
-    await dispatch(actionGetUser).unwrap();
-
-    const actionGetPost = getPostsByUserId(userId);
-    await dispatch(actionGetPost).unwrap();
   };
 
   return (
@@ -119,7 +92,7 @@ const Header = (): ReactElement => {
                 {users.length !== 0 ? (
                   users.map((user: any, index: number) => (
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    <div key={index} onClick={async () => await handleDirectToProfile(user.id)}>
+                    <div key={index} >
                       <SingleDestination follow={user} forRenderSearch={true} key={index} />
                     </div>
                   ))
@@ -159,7 +132,7 @@ const Header = (): ReactElement => {
             <ul>
               <li>
                 <AccountCircleOutlined />
-                <a onClick={handleChangeToProfilePage} className="profile">
+                <a onClick={navigateToProfile} className="profile">
                   Trang cá nhân
                 </a>
               </li>

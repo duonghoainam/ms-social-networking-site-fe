@@ -9,7 +9,7 @@ const FollowList = ({ showModal, setShowModal, isFollowers }: any): ReactElement
   const { followerList, followingList, handleCloseDialog } = useFollowList(setShowModal);
 
   return (
-    <Modal show={showModal} bsSize="large" onHide={handleCloseDialog} centered>
+    <Modal show={showModal} onHide={handleCloseDialog} centered>
       <Modal.Header closeButton>
         <Modal.Title>
           {(Boolean(isFollowers)) ? 'Danh sách người theo dõi' : 'Danh sách đang theo dõi'}
