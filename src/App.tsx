@@ -28,7 +28,7 @@ function App (): ReactElement {
             </PrivateRoute>
           }></Route>
 
-        <Route path="/account/*" element={
+        <Route path="/user/:id" element={
           <PrivateRoute>
             <UserPage />
           </PrivateRoute>

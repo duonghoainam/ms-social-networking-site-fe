@@ -14,7 +14,6 @@ import { showToastMessage } from '../../../utils/toast.util';
 import { ApiResponse } from '../../../api/api-response.type';
 import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
-import { addActiveId } from '../../User/state/userSlice';
 
 const initialValues: LoginParams = {
   username: 'giathai1505@gmail.com',
@@ -31,9 +30,6 @@ const LoginForm = (): ReactElement => {
       if (response.code < 300) {
         showToastMessage('Login success', MessageToastType.SUCCESS);
       }
-      // handle user
-      const addUserIdAction = addActiveId(response.data.id);
-      dispatch(addUserIdAction);
       navigate('/');
     } catch (error) {
       showToastMessage(error.message, MessageToastType.ERROR);

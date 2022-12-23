@@ -34,7 +34,8 @@ export const useFollowRecommendItem = (): any => {
   };
 
   const handleShowProfile = (): void => {
-    navigate('/account');
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    navigate(`/user/${currentUser.id.toString()}`);
   };
   return {
     isFollow,

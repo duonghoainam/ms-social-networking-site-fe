@@ -14,7 +14,7 @@ const FollowingItem = ({ user, setShowModal }: any): ReactElement => {
   return (
     <Row className="accountItem" onClick={(e) => handleDirectToAccount(e)}>
       <Col md={{ span: 1 }}>
-        <img src="" alt="" />
+        <img src={user.avatar} alt="avatar" />
       </Col>
       <Col md={{ span: 7 }}>
         <div className="accountItem_name">
