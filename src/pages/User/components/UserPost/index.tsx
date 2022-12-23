@@ -6,10 +6,11 @@ import { AppState } from '../../../../app/state.type';
 import PostComment from '../../../../components/PostComment/PostComment';
 import './styles.scss';
 import useUserPost from './useUserPost';
+import { addNewComment } from '../../state/userActions';
 
 const UserPost = (): ReactElement => {
   const { isShowPostDetail, selectedPost, comments, posts } = useSelector((state: AppState) => state.user)
-  const { hidePostDetail } = useUserPost();
+  const { hidePostDetail, handleLikePostComment } = useUserPost();
 
   return (
     <Container>
@@ -25,7 +26,8 @@ const UserPost = (): ReactElement => {
         hideDetail={hidePostDetail}
         selectedPost={selectedPost}
         comments={comments}
-        handleLikePost={null}
+        handleLikePost={handleLikePostComment}
+        addCommentAction={addNewComment}
       />}
     </Container>
   );
