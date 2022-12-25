@@ -1,8 +1,10 @@
 import { IConversation } from './IConversation';
+import { IImage } from './IImage.Type';
 import { IMessage } from './IMessage';
 
 export interface IUseChatContent {
   messages: IMessage[];
+  images: IImage[];
   currentConversation: IConversation;
   conversationAvatar: string;
   conversationName: string;
@@ -20,4 +22,10 @@ export interface IUseChatContent {
   handleReactMessage: any;
   handleUnReactMessage: any;
   handleSubmit: any;
+  handleChangeImages: any;
+  submitImageMessage: any;
+  isOpenPopup: boolean;
+  setIsOpenPopup: any;
+  handleRemoveImage: any;
+  handleClosePopup: any;
 }

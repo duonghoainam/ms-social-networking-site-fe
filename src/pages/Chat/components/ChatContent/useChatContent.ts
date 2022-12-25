@@ -12,7 +12,9 @@ import {
 } from '../../state/chatAction';
 import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
-
+import {IImage} from '../../types/IImage.Type'
+import useImageUpload from '../../../../hooks/useImageUpload';
+import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [text, setText] = useState('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
@@ -36,10 +38,14 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isEnough, setIsEnough] = useState(false);
   const [page, setPage] = useState(1);
+  const [images, setImages] = useState([] as IImage[]);
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
   const params = useParams();
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
+  const uploadImage = useImageUpload();
+  
 
   useEffect(() => {
     const conversation = conversations?.find(
@@ -128,18 +134,17 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   };
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-    // if (
-    //   event.currentTarget.value != null &&
-    //   event.currentTarget.value !== '' &&
-    //   event.currentTarget.value !== undefined
-    // ) {
-    //   setIsTyping(true);
-    //   event.currentTarget.value = checkText(event.currentTarget.value);
-    //   setText(event.currentTarget.value);
-    // } else {
-    //   setIsTyping(false);
-    //   setText('');
-    // }
+    if (
+      event.currentTarget.value != null &&
+      event.currentTarget.value !== '' &&
+      event.currentTarget.value !== undefined
+    ) {
+      setIsTyping(true);
+      setText(event.currentTarget.value);
+    } else {
+      setIsTyping(false);
+      setText('');
+    }
   };
 
   const handleKeyDown = (e: any): void => {
@@ -155,6 +160,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       socket.emit(
         'createMessage',
         {
+          type: TypeMessage.TEXT,
           content: text,
           conversation: params.id as string,
           sender: currentUser.id
@@ -263,6 +269,64 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     } else return 'Cuộc trò chuyện';
   };
 
+  const handleChangeImages = (event: React.FormEvent<HTMLInputElement>): void => {
+    const files = (<HTMLInputElement>event.target).files;
+    const imageFiles: IImage[] = [];
+    if (files != null)
+      Array.from(files).forEach((file) => {
+        imageFiles.push({
+          name: file.name,
+          url: window.URL.createObjectURL(file),
+          size: file.size,
+          type: file.type
+        });
+      });
+    setImages(imageFiles);
+    if(imageFiles.length > 0)
+      setIsOpenPopup(true);
+  };
+
+  const submitImageMessage = async ()=>{
+    
+    try {
+      let urls = [];
+      for(let img of images)
+      {
+        let blob = await fetch(img.url).then(r => r.blob())
+        let url = await uploadImage(blob).then(value=>value)
+        urls.push(url);
+      }
+      socket.emit(
+        'createMessage',
+        {
+          type: TypeMessage.IMAGE,
+          content: JSON.stringify(urls),
+          conversation: params.id as string,
+          sender: currentUser.id
+        },
+        function (err: any, res: any) {
+          if (err != null) {
+            console.error(err);
+          } else {
+            console.log('call success:', res);
+          }
+        }
+      );
+      setIsOpenPopup(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleRemoveImage = (rmImg: IImage)=>{
+    const newFiles = images.filter(img=>img.url != rmImg.url)
+    setImages(newFiles);
+  }
+
+  const handleClosePopup = ()=>{
+    setIsOpenPopup(false);
+  }
+
   return {
     messages,
     currentConversation,
@@ -273,6 +337,8 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     chatContentRef,
     ref,
     newMessageText: text,
+    images,
+    isOpenPopup,
     handleScroll,
     handleScrollBottom,
     handleChange,
@@ -281,6 +347,11 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     seenMess,
     handleReactMessage,
     handleUnReactMessage,
-    handleSubmit
+    handleSubmit,
+    handleChangeImages,
+    submitImageMessage,
+    setIsOpenPopup,
+    handleRemoveImage,
+    handleClosePopup
   };
 };

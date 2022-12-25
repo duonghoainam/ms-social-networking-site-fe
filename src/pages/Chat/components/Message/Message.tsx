@@ -5,6 +5,9 @@ import { IMessage } from '../../types/IMessage';
 import { UseMessage } from './useMessage';
 import '../Chat.scss';
 import { DEFAULT_AVATAR } from '../../const';
+import ImageList from '@material-ui/core/ImageList';
+import { ImageListItem } from '@material-ui/core';
+import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 interface MessageProps {
   message: IMessage;
   handleReactMessage: any;
@@ -43,18 +46,11 @@ const Message: React.FC<MessageProps> = ({
             {message.senderDetail?.name} đã thu hồi tin nhắn
           </p>
         ) : (
-          <p
-            className={`rightPanel__conversation__content__text ${
-              message.senderDetail?.id === currentUser.id ? 'mine' : ''
-            }`}>
-            {message.content.includes('http') ? (
-              <a href={message.content}>{message.content}</a>
-            ) : (
-              message.content
-            )}
-          </p>
+          message.type === TypeMessage.TEXT 
+          ? <TextMessage message={message} currentUser={currentUser}/> 
+          : <ImageMessage message={message} currentUser={currentUser}/>
         )}
-        {!message.isDeleted && message.reactBy.length >= 1 ? (
+        {!message.isDeleted && message.reactBy.length >= 1 && (
           <div
             className={`rightPanel__conversation__content__react 
                 ${message.reactBy.length > 1 ? 'multiple' : ''}
@@ -66,8 +62,6 @@ const Message: React.FC<MessageProps> = ({
             />
             {message.reactBy.length > 1 && <span>{message.reactBy.length}</span>}
           </div>
-        ) : (
-          <></>
         )}
 
         <div
@@ -113,5 +107,38 @@ const Message: React.FC<MessageProps> = ({
     );
   }
 };
+
+const TextMessage = ({message, currentUser}: {message: IMessage; currentUser: any}) => {
+  let isMine = message.senderDetail?.id === currentUser.id ? 'mine': ''
+  return (
+    <p className={`rightPanel__conversation__content__text ${isMine}`}>
+    {
+      message.content.includes("http")
+      ? <a href={message.content}>{ message.content}</a>
+      : <>{message.content}</>
+    }
+    </p>
+  );
+}
+
+const ImageMessage = ({message, currentUser}: {message: IMessage; currentUser: any}) => {
+  let isMine = message.senderDetail?.id === currentUser.id ? 'mine': ''
+  let images:string[] = JSON.parse(message.content);
+  return (
+    <div className={`rightPanel__conversation__content__textImage ${isMine}`}>
+      <ImageList cols={2} rowHeight={130}>
+        {images.map((item) => (
+          <ImageListItem key={item} cols={images.length < 2 ? 2 : 1}>
+            <img
+              src={`${item}`}
+              srcSet={`${item}`}
+              loading="lazy"
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </div>
+  );
+}
 
 export default Message;

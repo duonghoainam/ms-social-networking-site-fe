@@ -9,6 +9,8 @@ import { useChatContent } from './useChatContent';
 import { IMessage } from '../../types/IMessage';
 import ChatSetting from '../ChatSetting/ChatSetting';
 import Message from '../Message/Message';
+import { faFileImage } from '@fortawesome/free-solid-svg-icons';
+import ImageMessagePopup from '../ImageMessagePopup/ImageMessagePopup';
 
 const ChatContent = ({
   isOpenSetting,
@@ -25,6 +27,7 @@ const ChatContent = ({
 
   const {
     messages,
+    images,
     currentConversation,
     conversationAvatar,
     conversationName,
@@ -40,7 +43,13 @@ const ChatContent = ({
     handleKeyDown,
     handleReactMessage,
     handleUnReactMessage,
-    handleSubmit
+    handleSubmit,
+    handleChangeImages,
+    submitImageMessage,
+    isOpenPopup,
+    setIsOpenPopup,
+    handleRemoveImage,
+    handleClosePopup
   } = useChatContent(setIsOpenSetting);
 
   if (isOpenSetting) {
@@ -72,7 +81,7 @@ const ChatContent = ({
               return (
                 <Message
                   message={item}
-                  key={index}
+                  key={item._id}
                   handleReactMessage={handleReactMessage}
                   handleUnReactMessage={handleUnReactMessage}
                   handleDeleteMessage={handleDeleteMessage}
@@ -99,6 +108,19 @@ const ChatContent = ({
           <div ref={ref} />
         </div>
         <div className="rightPanel__inputContainer">
+          <input 
+            id="image-input"
+            type="file" 
+            onChange={handleChangeImages}
+            multiple
+          />
+          <label htmlFor="image-input" className='rightPanel__inputContainer__icon image'>
+            <FontAwesomeIcon
+              icon={faFileImage}
+              size="lg"
+              cursor="pointer" 
+            />
+          </label>
           <input
             type="text"
             placeholder="Message..."
@@ -116,9 +138,18 @@ const ChatContent = ({
             />
           )}
         </div>
+        {
+          isOpenPopup && 
+          <ImageMessagePopup 
+            images={images} 
+            closePopup={handleClosePopup} 
+            removeImage = {handleRemoveImage}
+            submit={submitImageMessage}
+          />
+        }
       </div>
     );
   }
 };
-
+const url = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png"
 export default ChatContent;
