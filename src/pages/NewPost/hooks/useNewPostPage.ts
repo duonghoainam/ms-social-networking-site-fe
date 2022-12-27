@@ -22,8 +22,9 @@ const useNewPostPage = (): any => {
       const result = await postAPI.createPost(params);
       if (result.code < 300) {
         showToastMessage(result.message, MessageToastType.SUCCESS);
+      } else {
+        showToastMessage(result.message, MessageToastType.ERROR);
       }
-      showToastMessage(result.message, MessageToastType.ERROR);
       navigate('/');
     } catch (error) {
       showToastMessage('Unexpected error', MessageToastType.ERROR);

@@ -10,7 +10,6 @@ import useImageUpload from '../../../../hooks/useImageUpload';
 
 export const useUpdateProfile = (setShowModal: any): any => {
   const dispatch = useAppDispatch();
-  const uploadImage = useImageUpload();
 
   const UserState = useSelector((state: AppState) => state.user.userInfo);
   const [userInfo, setUserInfo] = useState(UserState);
@@ -22,7 +21,7 @@ export const useUpdateProfile = (setShowModal: any): any => {
   };
 
   const handleFileChange = async (e: any): Promise<void> => {
-    const image = await uploadImage(e.target.files[0]);
+    const image = await useImageUpload(e.target.files[0]);
     setImageAvt(image);
   };
 

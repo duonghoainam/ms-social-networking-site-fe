@@ -3,21 +3,21 @@ import { AddAPhotoOutlined, Close } from '@material-ui/icons';
 import useImageUpload from '../../../hooks/useImageUpload';
 import useVideoUpload from '../../../hooks/useVideoUpload';
 import './components.scss'
+import { showToastMessage } from '../../../utils/toast.util';
+import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
-  const imageUpload = useImageUpload();
-  const videoUpload = useVideoUpload();
   const changeImage = async (file: any): Promise<void> => {
-    if (file.size <= 52428800) {
+    try {
       if (Boolean(file.type.includes('image'))) {
-        const url = await imageUpload(file);
+        const url = await useImageUpload(file);
         setListImages((prev: string[]) => [...prev, { url, type: 'image' }]);
       } else {
-        const url = await videoUpload(file);
+        const url = await useVideoUpload(file);
         setListImages((prev: string[]) => [...prev, { url, type: 'video' }]);
       }
-    } else {
-      alert('Kích thước của file quá lớn!!!');
+    } catch (error) {
+      showToastMessage('Error while loading image', MessageToastType.ERROR)
     }
   }
   const imgHandleChange = async (event: any): Promise<void> => {
@@ -35,11 +35,11 @@ const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
   return (
 		<div className="newImg">
 			<div className="newImg_add">
-				<form action="" encType="multipart/form-data">
+				<form action="" method="post" encType="multipart/form-data">
 					<input
 						type="file"
 						multiple
-						name=""
+						name="postMedia"
 						id="cImg"
 						// eslint-disable-next-line @typescript-eslint/no-misused-promises
 						onChange={imgHandleChange}

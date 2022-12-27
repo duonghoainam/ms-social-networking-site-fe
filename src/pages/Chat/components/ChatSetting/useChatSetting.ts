@@ -5,21 +5,20 @@ import useImageUpload from '../../../../hooks/useImageUpload';
 import { IConversation } from '../../types/IConversation';
 
 interface useChatSettingReturn {
-  conversationAvt: string;
-  isClosePopup: boolean;
-  isTyping: boolean;
-  text: string;
-  image: string;
-  isShowMessagePopup: boolean;
-  uploadImage: any;
-  handleFileChange: any;
-  handleKeyDown: any;
-  handleClosePopup: any;
-  handleOpenPopup: any;
-  handleChange: any;
-  handleDeleteCon: any;
-  setIsShowMessagePopup: any;
-  handleSubmit: any;
+  conversationAvt: string
+  isClosePopup: boolean
+  isTyping: boolean
+  text: string
+  image: string
+  isShowMessagePopup: boolean
+  handleFileChange: any
+  handleKeyDown: any
+  handleClosePopup: any
+  handleOpenPopup: any
+  handleChange: any
+  handleDeleteCon: any
+  setIsShowMessagePopup: any
+  handleSubmit: any
 }
 
 export const useChatSetting = (currentConversation: IConversation): useChatSettingReturn => {
@@ -32,15 +31,14 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
-  const uploadImage = useImageUpload();
 
-  function handleDeleteCon(): void {
+  function handleDeleteCon (): void {
     socket.emit('leaveConversation', { conversation: params.id, member: currentUser.id });
     handleClosePopup();
     socket.emit(
       'createMessage',
       {
-        content: `Đã rời khỏi cuộc trò chuyện`,
+        content: 'Đã rời khỏi cuộc trò chuyện',
         conversation: params.id as string
       },
       function (err: any, res: any) {
@@ -53,15 +51,15 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     );
   }
 
-  function handleClosePopup(): void {
+  function handleClosePopup (): void {
     setIsClosePopup(true);
   }
 
-  function handleOpenPopup(): void {
+  function handleOpenPopup (): void {
     setIsClosePopup(false);
   }
 
-  function handleChange(e: React.FormEvent<HTMLInputElement>): void {
+  function handleChange (e: React.FormEvent<HTMLInputElement>): void {
     if (
       e.currentTarget.value != null &&
       e.currentTarget.value !== '' &&
@@ -75,7 +73,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     }
   }
 
-  function handleSubmit(): void {
+  function handleSubmit (): void {
     socket.emit(
       'updateConversation',
       'conversations.updateConversationName',
@@ -104,16 +102,16 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     );
   }
 
-  function handleKeyDown(e: any): void {
+  function handleKeyDown (e: any): void {
     if (e.keyCode === 13) {
       handleSubmit();
     }
   }
 
-  function handleFileChange(e: any): void {
+  function handleFileChange (e: any): void {
     setImage(window.URL.createObjectURL(e.target.files[0]));
     setConversationAvt(window.URL.createObjectURL(e.target.files[0]));
-    uploadImage(e.target.files[0])
+    useImageUpload(e.target.files[0])
       .then((value: any) => {
         socket.emit(
           'updateConversation',
@@ -179,9 +177,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
         currentConversation.avatar != null &&
         currentConversation.avatar !== '' &&
         currentConversation.avatar !== undefined
-      )
-        return currentConversation.avatar;
-      else if (currentConversation.members != null && currentConversation.members.length === 2) {
+      ) { return currentConversation.avatar; } else if (currentConversation.members != null && currentConversation.members.length === 2) {
         const user = currentConversation.members.find((user: any) => user._id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
@@ -197,7 +193,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     image,
     isShowMessagePopup,
     handleSubmit,
-    uploadImage,
     handleFileChange,
     handleKeyDown,
     handleClosePopup,
