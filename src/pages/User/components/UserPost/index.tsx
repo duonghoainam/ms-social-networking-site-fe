@@ -7,11 +7,11 @@ import PostComment from '../../../../components/PostComment/PostComment';
 import './styles.scss';
 import useUserPost from './useUserPost';
 import { addNewComment } from '../../state/userActions';
+import EditPostPopup from '../EditPostPopup/EditPostPopup';
 
 const UserPost = (): ReactElement => {
-  const { isShowPostDetail, selectedPost, comments, posts } = useSelector((state: AppState) => state.user)
+  const { isShowPostDetail, isShowPostEdit, selectedPost, comments, posts } = useSelector((state: AppState) => state.user)
   const { hidePostDetail, handleLikePostComment } = useUserPost();
-
   return (
     <Container>
       <Row className="container">
@@ -29,6 +29,7 @@ const UserPost = (): ReactElement => {
         handleLikePost={handleLikePostComment}
         addCommentAction={addNewComment}
       />}
+      {Boolean(isShowPostEdit) && <EditPostPopup />}
     </Container>
   );
 };

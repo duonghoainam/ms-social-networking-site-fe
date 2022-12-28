@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Favorite, ChatBubble } from '@material-ui/icons';
+import { Delete, Edit } from '@material-ui/icons';
 import './styles.scss';
 import { useAppDispatch } from '../../../../app/store';
-import { setSelectedPost, setShowPostDetail } from '../../state/userSlice';
+import { setSelectedPost, setShowPostDetail, setShowPostEdit } from '../../state/userSlice';
 import { getPostComments } from '../../state/userActions';
 
 const PostItem = ({ post }: any): ReactElement => {
@@ -17,6 +17,11 @@ const PostItem = ({ post }: any): ReactElement => {
     const getCommentsAction = getPostComments(post._id);
     await dispatch(getCommentsAction).unwrap()
   }
+  const openEditPost = async (event: any): Promise<void> => {
+    event.stopPropagation();
+    const showEdit = setShowPostEdit(true);
+    await dispatch(showEdit);
+  }
   return (
     <>
       <Col sm={4} className="flex" onClick={() => { void handleClickPost() }}>
@@ -25,11 +30,11 @@ const PostItem = ({ post }: any): ReactElement => {
             <div className="post-overlay"></div>
 
             <div className="content">
-              <span className="numtym">
-                <Favorite /> {post.likes.length}
+              <span className="editIcon" onClick={(event) => { void openEditPost(event) }}>
+                <Edit />
               </span>
-              <span className="numcomment">
-                <ChatBubble /> {post.comments.length}
+              <span className="deleteIcon">
+                <Delete />
               </span>
             </div>
             {post.images[0].split('.')[post.images[0].split('.').length - 1] === 'mp4' ? (
