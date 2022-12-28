@@ -21,11 +21,15 @@ const PostItem = ({ post }: any): ReactElement => {
                 <Delete />
               </span>
             </div>
-            {post.images[0].split('.')[post.images[0].split('.').length - 1] === 'mp4' ? (
-              <video className="post-image" src={post.images[0]}></video>
-            ) : (
-              <img className="post-image" src={post.images[0]} alt="image" />
-            )}
+            {post.images.length === 0 ? <div className="no-image"></div> : <div>
+              {
+                post.images[0].split('.')[post.images[0].split('.').length - 1] === 'mp4' ? (
+                  <video className="post-image" src={post.images[0]}></video>
+                ) : (
+                  <img className="post-image" src={post.images[0]} alt="image" />
+                )
+              }
+            </div>}
           </Col>
         </Row>
       </Col>

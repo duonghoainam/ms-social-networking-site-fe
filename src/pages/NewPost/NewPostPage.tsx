@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Header from '../../components/Header/Header';
 import NewPostContent from './components/NewPostContent';
-import NewPostImage from './components/NewPostImage';
+import NewPostImage from './components/NewPostImage/NewPostImage';
 import useNewPostPage from './hooks/useNewPostPage';
 import './NewPostPage.scss';
 
