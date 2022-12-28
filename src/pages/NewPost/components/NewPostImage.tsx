@@ -6,7 +6,7 @@ import './components.scss'
 import { showToastMessage } from '../../../utils/toast.util';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
-const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
+const NewPostImage = ({ listImage, setListImages }: any): ReactElement => {
   const changeImage = async (file: any): Promise<void> => {
     try {
       if (Boolean(file.type.includes('image'))) {
@@ -41,8 +41,7 @@ const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
 						multiple
 						name="postMedia"
 						id="cImg"
-						// eslint-disable-next-line @typescript-eslint/no-misused-promises
-						onChange={imgHandleChange}
+						onChange={(event) => { void imgHandleChange(event) }}
 						accept="video/mp4, image/*"
 					/>
 					<label htmlFor="cImg">
@@ -51,10 +50,10 @@ const NewPostImage = ({ listImages, setListImages }: any): ReactElement => {
 				</form>
 			</div>
 
-			<div className="newImg_listImages">
-				{listImages.map((item: any, index: number) =>
-					<div className="newImg_listImages_singleImg" key={index}>
-						<div className="newImg_listImages_singleImg_closeIcon">
+			<div className="newImg_listImage">
+				{listImage.map((item: any, index: number) =>
+					<div className="newImg_listImage_singleImg" key={index}>
+						<div className="newImg_listImage_singleImg_closeIcon">
 							<Close onClick={() => handleDropImage(item)} fontSize="small" />
 						</div>
 						{item.type === 'image' ? (

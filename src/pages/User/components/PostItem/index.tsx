@@ -2,26 +2,10 @@ import React, { ReactElement } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Delete, Edit } from '@material-ui/icons';
 import './styles.scss';
-import { useAppDispatch } from '../../../../app/store';
-import { setSelectedPost, setShowPostDetail, setShowPostEdit } from '../../state/userSlice';
-import { getPostComments } from '../../state/userActions';
+import usePostItem from './usePostItem';
 
 const PostItem = ({ post }: any): ReactElement => {
-  const dispatch = useAppDispatch();
-
-  const handleClickPost = async (): Promise<void> => {
-    const selectAction = setSelectedPost(post);
-    await dispatch(selectAction);
-    const show = setShowPostDetail(true);
-    await dispatch(show);
-    const getCommentsAction = getPostComments(post._id);
-    await dispatch(getCommentsAction).unwrap()
-  }
-  const openEditPost = async (event: any): Promise<void> => {
-    event.stopPropagation();
-    const showEdit = setShowPostEdit(true);
-    await dispatch(showEdit);
-  }
+  const { handleClickPost, openEditPost } = usePostItem(post);
   return (
     <>
       <Col sm={4} className="flex" onClick={() => { void handleClickPost() }}>

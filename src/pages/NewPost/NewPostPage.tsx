@@ -8,7 +8,7 @@ import './NewPostPage.scss';
 
 const NewPostPage = (): ReactElement => {
   const {
-    listImages,
+    listImage,
     setListImages,
     valueInput,
     setValueInput,
@@ -27,14 +27,14 @@ const NewPostPage = (): ReactElement => {
 						<Row>
 							<div className="newHeader">
 								<h6>Tạo bài viết mới</h6>
-								<button className={`${listImages.length === 0 ? 'disabled' : ''}`} onClick={handleCreatePost}>
+								<button className={`${listImage.length === 0 ? 'disabled' : ''}`} onClick={handleCreatePost}>
 									Chia sẻ
 								</button>
 							</div>
 						</Row>
 						<Row>
 							<Col md={7} className="newImgWrapper">
-								<NewPostImage listImages={listImages} setListImages={setListImages} />
+								<NewPostImage listImage={listImage} setListImages={setListImages} />
 							</Col>
 							<Col md={5}>
 								<NewPostContent valueInput={valueInput} setValueInput={setValueInput} />

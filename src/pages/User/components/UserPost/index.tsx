@@ -29,7 +29,7 @@ const UserPost = (): ReactElement => {
         handleLikePost={handleLikePostComment}
         addCommentAction={addNewComment}
       />}
-      {Boolean(isShowPostEdit) && <EditPostPopup />}
+      {Boolean(isShowPostEdit) && <EditPostPopup post={selectedPost}/>}
     </Container>
   );
 };
