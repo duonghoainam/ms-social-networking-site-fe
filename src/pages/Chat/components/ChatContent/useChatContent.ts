@@ -12,7 +12,7 @@ import {
 } from '../../state/chatAction';
 import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
-import {IImage} from '../../types/IImage.Type'
+import { IImage } from '../../types/IImage.Type'
 import useImageUpload from '../../../../hooks/useImageUpload';
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
@@ -45,7 +45,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const ref = useRef<HTMLDivElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
   const uploadImage = useImageUpload();
-  
+
 
   useEffect(() => {
     const conversation = conversations?.find(
@@ -65,7 +65,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         const result = await dispatch(
           getMoreConversationMessages({ id: conId, page: page + 1 })
         ).unwrap();
-        console.log(result);
         if (result != null || result.length === 0) {
           setIsEnough(true);
         } else {
@@ -108,8 +107,8 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       // socket.emit('joinRoom', params.id);
       dispatch(getConversationMessages({ id: params.id as string, page }))
         .unwrap()
-        .then((resultValue) => {})
-        .catch((rejectedValue) => {});
+        .then((resultValue) => { })
+        .catch((rejectedValue) => { });
     } catch (error) {
       console.log(error);
     }
@@ -282,18 +281,17 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         });
       });
     setImages(imageFiles);
-    if(imageFiles.length > 0)
+    if (imageFiles.length > 0)
       setIsOpenPopup(true);
   };
 
-  const submitImageMessage = async ()=>{
-    
+  const submitImageMessage = async () => {
+
     try {
       let urls = [];
-      for(let img of images)
-      {
+      for (let img of images) {
         let blob = await fetch(img.url).then(r => r.blob())
-        let url = await uploadImage(blob).then(value=>value)
+        let url = await uploadImage(blob).then(value => value)
         urls.push(url);
       }
       socket.emit(
@@ -318,12 +316,12 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     }
   }
 
-  const handleRemoveImage = (rmImg: IImage)=>{
-    const newFiles = images.filter(img=>img.url != rmImg.url)
+  const handleRemoveImage = (rmImg: IImage) => {
+    const newFiles = images.filter(img => img.url != rmImg.url)
     setImages(newFiles);
   }
 
-  const handleClosePopup = ()=>{
+  const handleClosePopup = () => {
     setIsOpenPopup(false);
   }
 
