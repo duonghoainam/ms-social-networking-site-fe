@@ -16,7 +16,7 @@ import { IImage } from '../../types/IImage.Type'
 import useImageUpload from '../../../../hooks/useImageUpload';
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
-  const [text, setText] = useState('');
+  const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
   const messages = useSelector((state: AppState) => state.chat.messagesInConversation);
   const initialCurrentConversation: IConversation = {
@@ -143,6 +143,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     } else {
       setIsTyping(false);
       setText('');
+      setMessageText(event.currentTarget.value);
     }
   };
 
@@ -172,7 +173,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           }
         }
       );
-      setText('');
+      setMessageText('');
       setIsTyping(false);
     } catch (error) {
       console.log(error);

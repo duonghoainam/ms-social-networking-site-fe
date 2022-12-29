@@ -33,7 +33,7 @@ const ChatContent = ({
     conversationName,
     chatContentRef,
     ref,
-    newMessageText,
+    messageText,
     isTyping,
     showScrollButton,
     handleScroll,
@@ -124,7 +124,7 @@ const ChatContent = ({
           <input
             type="text"
             placeholder="Message..."
-            value={newMessageText}
+            value={messageText}
             onChange={handleChange}
             onKeyDown={(e) => handleKeyDown(e)}
           />

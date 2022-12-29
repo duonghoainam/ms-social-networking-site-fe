@@ -1,4 +1,4 @@
-import { getUserById, getFollowerList, getFollowingList, getPostsByUserId } from './userActions';
+import { getUserById, getFollowerList, getFollowingList, getPostsByUserId, getPostComments, handleLike, handleDislike, addNewComment } from './userActions';
 
 export const extraReducers: any = {
   // getUserById
@@ -46,5 +46,63 @@ export const extraReducers: any = {
   },
   [getPostsByUserId.rejected.toString()]: (state: any, action: any) => {
     state.isLoading = false;
+  },
+
+  // get all comment of post
+  [getPostComments.fulfilled.toString()]: (state: any, action: any) => {
+    return { ...state, comments: action.payload.data };
+  },
+
+  // handle like post
+  [handleLike.pending.toString()]: (state: any, action: any) => { },
+  [handleLike.rejected.toString()]: (state: any, action: any) => { },
+  [handleLike.fulfilled.toString()]: (state: any, action: any) => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+    // Update state posts
+    state.posts = state.posts.map((post: any) => {
+      if (post._id === action.payload.data._id) {
+        post.likes.push(currentUser);
+        // Update state selectedPost if like in PostComment
+        if (Boolean(state.selectedPost._id)) {
+          state.selectedPost.likes.push(currentUser);
+        }
+      }
+      return post;
+    });
+  },
+
+  // Handle dislike post
+  [handleDislike.pending.toString()]: (state: any, action: any) => { },
+  [handleDislike.rejected.toString()]: (state: any, action: any) => { },
+  [handleDislike.fulfilled.toString()]: (state: any, action: any) => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+    // Update state posts
+    state.posts = state.posts.map((post: any) => {
+      if (post._id === action.payload.data._id) {
+        // post.likes = post.likes.filter((item: any) => item !== currentUser);
+        post.likes = post.likes.filter((user: any) => { return user.id !== currentUser.id });
+        // Update state selectedPost if like in PostComment
+        if (Boolean(state.selectedPost._id)) {
+          state.selectedPost.likes = state.selectedPost.likes.filter((user: any) => { return user.id !== currentUser.id });
+        }
+      }
+      return post;
+    });
+  },
+
+  // Add new comment
+  [addNewComment.pending.toString()]: (state: any, action: any) => {},
+  [addNewComment.rejected.toString()]: (state: any, action: any) => {},
+  [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
+    // Update state list comment
+    state.comments.push(action.payload.data);
+    // Update state posts
+    state.posts = state.posts.map((post: any) => {
+      if (post._id === action.payload.data.postId) {
+        post.comments.push(action.payload.data._id);
+      }
+      return post;
+    });
   }
+
 };

@@ -15,8 +15,6 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
-import { addActiveId } from '../../pages/User/state/userSlice';
-import { getFollowerList, getFollowingList, getPostsByUserId, getUserById } from '../../pages/User/state/userActions';
 import { logout } from '../../pages/Login/loginSlice';
 import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
 
@@ -24,43 +22,17 @@ const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // const [refresh, setFefresh] = useState(false);
-  // const [numNotifications, setNumNotifications] = useState(0);
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const listUser = useSelector((state: AppState) => state.login.listUser).filter(
     (user: any) => user.id !== currentUser.id
   );
-  const handleChangeToProfilePage = async (): Promise<void> => {
-    const actionGetFollowerList = getFollowerList(currentUser.id);
-    await dispatch(actionGetFollowerList);
-
-    const actionGetFollowingList = getFollowingList(currentUser.id);
-    await dispatch(actionGetFollowingList);
-
-    const actionGetUser = getUserById(currentUser.id);
-    await dispatch(actionGetUser).unwrap();
-
-    const actionGetPost = getPostsByUserId(currentUser.id);
-    await dispatch(actionGetPost).unwrap();
-
-    const actionAddActiveId = addActiveId(currentUser.id);
-    await dispatch(actionAddActiveId);
+  const navigateToProfile = async (): Promise<void> => {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    navigate(`/user/${currentUser.id.toString()}`);
+    setSearchValue('');
   };
-  // const { listNotification } = useSelector((state: AppState) => state.home);
 
-  // useEffect(() => {
-  //   setNumNotifications(0);
-  //   listNotification.forEach((item: any) => {
-  //     if (item.isSeen === false) {
-  //       console.log(item);
-  //       setNumNotifications((prev) => {
-  //         return prev + 1;
-  //       });
-  //     }
-  //   });
-  // }, [listNotification]);
-
-  const [bruh, setBruh] = useState([]);
+  const [users, setUsers] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearch = (searchValue: string): void => {
@@ -71,10 +43,8 @@ const Header = (): ReactElement => {
       }
       return null;
     });
-    setBruh(searchUser);
+    setUsers(searchUser);
   };
-
-  // const [isShowNotificationPanel] = useState(false);
 
   const handleLogout = async (): Promise<void> => {
     try {
@@ -83,54 +53,6 @@ const Header = (): ReactElement => {
       console.log(error);
     }
     navigate('/login');
-  };
-
-  // useEffect(async () => {
-  //   socket.off('receive_notification').on('receive_notification', async ({ postId }) => {
-  //     console.log('Nhận được thông báo');
-  //     const action = getPostById({ postId });
-  //     await dispatch(action).unwrap();
-
-  //     const action2 = getNotification();
-  //     await dispatch(action2).unwrap();
-
-  //     setFefresh(!refresh);
-  //   });
-  // }, [socket]);
-
-  // const showNotificationPanel = (): void => {
-  //   setIsShowNotificationPanel((prev) => {
-  //     return !prev;
-  //   });
-  // };
-
-  // const domNode = Usecloseoutsidetoclose(() => {
-  //   setIsShowNotificationPanel(false);
-  // });
-
-  // const handleSeenAll = async (): Promise<void> => {
-  //   const action = seenAllNotification();
-  //   await dispatch(action).unwrap();
-  // };
-
-  const handleDirectToProfile = async (userId: string): Promise<void> => {
-    const action = addActiveId(userId);
-    await dispatch(action);
-
-    const actionGetFollowerList = getFollowerList(userId);
-    await dispatch(actionGetFollowerList);
-
-    const actionGetFollowingList = getFollowingList(userId);
-    await dispatch(actionGetFollowingList);
-
-    const actionGetUser = getUserById(userId);
-    await dispatch(actionGetUser).unwrap();
-
-    const actionGetPost = getPostsByUserId(userId);
-    await dispatch(actionGetPost).unwrap();
-
-    navigate('/account');
-    setSearchValue('');
   };
 
   return (
@@ -167,10 +89,10 @@ const Header = (): ReactElement => {
               </div>
               <div className="header__search__triangleUp"></div>
               <div className="header__search__resultContainer">
-                {bruh.length !== 0 ? (
-                  bruh.map((user: any, index: number) => (
+                {users.length !== 0 ? (
+                  users.map((user: any, index: number) => (
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    <div key={index} onClick={async () => await handleDirectToProfile(user.id)}>
+                    <div key={index} >
                       <SingleDestination follow={user} forRenderSearch={true} key={index} />
                     </div>
                   ))
@@ -210,9 +132,9 @@ const Header = (): ReactElement => {
             <ul>
               <li>
                 <AccountCircleOutlined />
-                <NavLink onClick={handleChangeToProfilePage} to="/account" className="profile">
+                <a onClick={navigateToProfile} className="profile">
                   Trang cá nhân
-                </NavLink>
+                </a>
               </li>
               <li id="logout" onClick={handleLogout}>
                 <LocalDiningOutlined />

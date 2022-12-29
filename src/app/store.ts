@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import HomeReducer from '../pages/Home/state/homeSlice';
-import userReducer from '../pages/User/state/userSlice';
-// import { persistStore, persistReducer } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
+import UserReducer from '../pages/User/state/userSlice';
 import { useDispatch } from 'react-redux';
 import LoginReducer from '../pages/Login/loginSlice';
 import RegisterReducer from '../pages/Register/registerSlice';
 import ChatReducer from '../pages/Chat/state/chatSlice';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 
 // const persistConfig = {
 //   key: 'root',
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   register: RegisterReducer,
   home: HomeReducer,
   chat: ChatReducer,
-  user: userReducer
+  user: UserReducer
 });
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);

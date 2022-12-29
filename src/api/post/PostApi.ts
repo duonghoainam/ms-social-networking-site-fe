@@ -2,7 +2,6 @@ import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 import { CreateCommentDto } from './type/create-comment.dto';
 import { LikeDto } from './type/like.dto';
-import { Post } from './type/post.type';
 class PostAPI {
   // Post API
   getHomePosts = (userId: string): any => {
@@ -20,9 +19,9 @@ class PostAPI {
     return axiosClient.get(url, { params: { postId } });
   };
 
-  createPost = (params: Post): any => {
+  createPost = (params: any): any => {
     const url = `${getApiUrl()}/posts`;
-    return axiosClient.post(url, { params });
+    return axiosClient.post(url, params);
   };
 
   updatePost = (postId: string, content: string, images: string): any => {
@@ -37,12 +36,12 @@ class PostAPI {
 
   likePost = (params: LikeDto): any => {
     const url = `${getApiUrl()}/posts/${params.postId}/like`;
-    return axiosClient.patch(url, { params });
+    return axiosClient.patch(url, { userId: params.userId });
   };
 
   dislikePost = (params: LikeDto): any => {
-    const url = `${getApiUrl()}/posts/${params.postId}/unlike`;
-    return axiosClient.patch(url, { params });
+    const url = `${getApiUrl()}/posts/${params.postId}/dislike`;
+    return axiosClient.patch(url, { userId: params.userId });
   };
 
   // Comment API
@@ -53,7 +52,7 @@ class PostAPI {
 
   createComment = (params: CreateCommentDto): any => {
     const url = `${getApiUrl()}/posts/${params.postId}/comments`;
-    return axiosClient.post(url, { params });
+    return axiosClient.post(url, { ...params.payload });
   };
 
   updateComment = (postId: string, commentId: string, content: string): any => {

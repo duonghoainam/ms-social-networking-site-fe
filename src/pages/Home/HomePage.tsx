@@ -6,16 +6,20 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
 import HomeSkeleton from '../../components/SkeletonLoading/HomeSkeleton';
-import PostItem from '../components/PostItem/PostItem';
-import Category from './components/Category/Category';
-import PostComment from '../components/PostComment/PostComment';
-import AllLikesPopup from '../components/AllLikesPopup/AllLikesPopup';
+import AllLikesPopup from '../../components/AllLikesPopup/AllLikesPopup';
+import PostComment from '../../components/PostComment/PostComment';
 import { useHomePage } from './hooks/useHomePage';
-import { usePostItem } from './hooks/usePostItem';
 import { usePostComment } from './hooks/usePostComment';
+import { usePostItem } from './hooks/usePostItem';
+import PostItem from './components/PostItem/PostItem';
+import Category from './components/Category/Category';
+import { addNewComment } from './state/homeActions';
 
 const HomePage = (): ReactElement => {
-  const { listPost, isLoading, loadListPostFail } = useHomePage();
+  const { listPost, listComment, isLoading, loadListPostFail } = useSelector((state: AppState) => {
+    return state.home;
+  });
+  useHomePage();
   const { showDetail, handleLikePost } = usePostItem();
   const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { hideDetail, handleLikePostComment } = usePostComment();
@@ -64,6 +68,8 @@ const HomePage = (): ReactElement => {
           selectedPost={selectedPost}
           hideDetail={hideDetail}
           handleLikePost={handleLikePostComment}
+          comments={listComment}
+          addCommentAction={addNewComment}
         />
       )}
       <AllLikesPopup />

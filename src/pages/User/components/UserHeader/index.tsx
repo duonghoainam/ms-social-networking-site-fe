@@ -50,7 +50,7 @@ const UserHeader = (): ReactElement => {
               className="avatar__container"
               // onClick={() => handleChangeAvt()}
             >
-              <img src="" />
+              <img src={userInfo.avatar} />
             </div>
           </div>
           <div className="p-2 ">

@@ -1,0 +1,50 @@
+@import '../../assets/styles/variable.scss';
+
+.newWrapper {
+  border: 1px solid $borderColor;
+  height: 80vh;
+  border-radius: 10px;
+}
+
+.newImgWrapper {
+  border-right: 1px solid $borderColor;
+  height: calc(80vh - 50px);
+  overflow-y: hidden;
+}
+
+.newImgWrapper.col-md-7 {
+  padding: 0;
+}
+
+
+//phần header
+
+.newHeader {
+  height: 50px;
+  position: relative;
+  border-bottom: 1px solid $borderColor;
+
+  button {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 15px;
+    font-weight: bold;
+    color: $primaryColor;
+    background-color: transparent;
+    border: none;
+
+    &.disabled {
+      pointer-events: none;
+      color: rgb(181, 225, 252);
+    }
+  }
+
+  h6 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

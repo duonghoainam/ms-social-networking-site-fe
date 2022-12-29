@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../../app/state.type';
-import FriendRecommendItem from '../FriendRecommendItem/FriendRecommendItem';
+import FollowRecommendItem from '../FollowRecommendItem/FollowRecommendItem';
 
 const Category = (): ReactElement => {
   const { listRecommend }: any = useSelector((state: AppState) => state.home);
@@ -24,7 +24,7 @@ const Category = (): ReactElement => {
           {(listRecommend as boolean) &&
             listRecommend.map((item: any, index: any) => {
               if (index < 4) {
-                return <FriendRecommendItem key={index} item={item} />;
+                return <FollowRecommendItem key={index} item={item} />;
               }
               return null;
             })}
