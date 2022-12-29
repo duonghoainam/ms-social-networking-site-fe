@@ -236,8 +236,12 @@ h6 {
                 }
             }
             &__textImage {
+                padding: 0 0.5rem;
                 max-width: 40%;
-                border-radius: 10px;
+                & img {
+                    object-fit: cover;
+                    border-radius: 3px;
+                }
             }
             &__text {
                 border-radius: 20px;
@@ -359,7 +363,7 @@ h6 {
     &__inputContainer {
         flex: 1;
         // border-top: 1px solid black;
-        display: grid;
+        display: flex;
         place-items: center;
         position: relative;
         padding: 0 1.5rem;
@@ -380,8 +384,8 @@ h6 {
                 right: 35px;
             }
             &.image {
-                right: 65px;
-                margin-bottom: 0;
+                left: 40px;
+                margin-bottom: 0px;
             }
             &.emoji {
                 left: 35px;
@@ -743,5 +747,81 @@ h6 {
     100% {
         opacity: 0;
         padding: 20px;
+    }
+}
+
+
+.imageMessagePopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    z-index: 999;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+   
+    .titleContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 7px 20px;
+        border-bottom: 1px solid #eee;
+        font-weight: 500;
+    }
+    .contentContainer {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        .message {
+            flex: 1;
+            margin-bottom: 0.25rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            .imageContainer {
+                display: flex;
+                flex-direction: row;
+                .image {
+                    width: 60px;
+                    height: 60px;
+                    object-position: center;
+                    object-fit: cover;
+                    border-radius: 3px;
+                }
+                .info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    padding: 3px 10px;
+                    flex: 1;
+                    .name {
+                        font-weight: 500;
+                        max-width: 170px;
+                        text-overflow: ellipsis;
+                        -ms-text-overflow: ellipsis;
+                        -o-text-overflow: ellipsis;
+                        overflow-x: hidden;
+                        white-space: normal;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .actionContainer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 7px 20px;
+        border-bottom: 1px solid #eee;
+        font-weight: 500;
     }
 }
