@@ -14,14 +14,10 @@ import ImageMessagePopup from '../ImageMessagePopup/ImageMessagePopup';
 
 const ChatContent = ({
   isOpenSetting,
-  setIsOpenSetting,
-  isShowPopup,
-  setIsShowPopup
+  setIsOpenSetting
 }: {
   isOpenSetting: boolean;
   setIsOpenSetting: any;
-  isShowPopup: any;
-  setIsShowPopup: any;
 }): any => {
   const isFetchingMessages = useSelector((state: AppState) => state.chat.loading);
 

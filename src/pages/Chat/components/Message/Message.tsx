@@ -1,5 +1,5 @@
 import { DeleteOutline, Favorite, FavoriteBorder } from '@material-ui/icons';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import WarningPopup from '../../../../components/WarningPopup/WarningPopup';
 import { IMessage } from '../../types/IMessage';
 import { UseMessage } from './useMessage';
@@ -9,10 +9,10 @@ import ImageList from '@material-ui/core/ImageList';
 import { ImageListItem } from '@material-ui/core';
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 interface MessageProps {
-  message: IMessage;
-  handleReactMessage: any;
-  handleUnReactMessage: any;
-  handleDeleteMessage: any;
+  message: IMessage
+  handleReactMessage: any
+  handleUnReactMessage: any
+  handleDeleteMessage: any
 }
 const Message: React.FC<MessageProps> = ({
   message,
@@ -46,9 +46,9 @@ const Message: React.FC<MessageProps> = ({
             {message.senderDetail?.name} đã thu hồi tin nhắn
           </p>
         ) : (
-          message.type === TypeMessage.TEXT 
-          ? <TextMessage message={message} currentUser={currentUser}/> 
-          : <ImageMessage message={message} currentUser={currentUser}/>
+          message.type === TypeMessage.TEXT
+            ? <TextMessage message={message} currentUser={currentUser}/>
+            : <ImageMessage message={message} currentUser={currentUser}/>
         )}
         {!message.isDeleted && message.reactBy.length >= 1 && (
           <div
@@ -99,8 +99,8 @@ const Message: React.FC<MessageProps> = ({
           <WarningPopup
             title="Thu hồi tin nhắn"
             content="Bạn có thật sự muốn thu hồi tin nhắn này không?"
-            handleOK={handleDeleteMsg}
-            handleCANCEL={handleClosePopup}
+            handleAccept={handleDeleteMsg}
+            handleCancel={handleClosePopup}
           />
         )}
       </div>
@@ -108,22 +108,22 @@ const Message: React.FC<MessageProps> = ({
   }
 };
 
-const TextMessage = ({message, currentUser}: {message: IMessage; currentUser: any}) => {
-  let isMine = message.senderDetail?.id === currentUser.id ? 'mine': ''
+const TextMessage = ({ message, currentUser }: { message: IMessage, currentUser: any }): ReactElement => {
+  const isMine = message.senderDetail?.id === currentUser.id ? 'mine' : ''
   return (
     <p className={`rightPanel__conversation__content__text ${isMine}`}>
     {
-      message.content.includes("http")
-      ? <a href={message.content}>{ message.content}</a>
-      : <>{message.content}</>
+      message.content.includes('http')
+        ? <a href={message.content}>{ message.content}</a>
+        : <>{message.content}</>
     }
     </p>
   );
 }
 
-const ImageMessage = ({message, currentUser}: {message: IMessage; currentUser: any}) => {
-  let isMine = message.senderDetail?.id === currentUser.id ? 'mine': ''
-  let images:string[] = JSON.parse(message.content);
+const ImageMessage = ({ message, currentUser }: { message: IMessage, currentUser: any }): ReactElement => {
+  const isMine = message.senderDetail?.id === currentUser.id ? 'mine' : ''
+  const images: string[] = JSON.parse(message.content);
   return (
     <div className={`rightPanel__conversation__content__textImage ${isMine}`}>
       <ImageList cols={2} rowHeight={130}>

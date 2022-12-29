@@ -90,8 +90,8 @@ const ChatSetting: React.FC<ChatSettingProps> = ({ setIsOpenSetting, currentConv
         <WarningPopup
           title="Rời khỏi cuộc trò chuyện?"
           content="Việc này sẽ khiến bạn và người khác không thể xem lại nội dung cuộc trò chuyện này nữa"
-          handleOK={handleDeleteCon}
-          handleCANCEL={handleClosePopup}
+          handleAccept={handleDeleteCon}
+          handleCandle={handleClosePopup}
         />
       )}
       {isShowMessagePopup && (

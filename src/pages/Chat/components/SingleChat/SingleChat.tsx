@@ -5,14 +5,14 @@ import { useSingleChat } from './useSingleChat';
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 TimeAgo.addLocale(en);
 
-function SingleChat({
+function SingleChat ({
   conversation,
   handleClick,
   currentUser
 }: {
-  conversation: any;
-  handleClick: any;
-  currentUser: any;
+  conversation: any
+  handleClick: any
+  currentUser: any
 }): any {
   const { active, messages, timeAgo, handleClickSingleChat, conversationName, conversationAvatar } =
     useSingleChat(conversation, handleClick, currentUser);
@@ -38,8 +38,8 @@ function SingleChat({
             {messages?.isDeleted ?? false
               ? `${messages?.senderDetail?.name ?? ''} đã thu hồi tin nhắn`
               : messages?.type === TypeMessage.IMAGE
-              ? `${messages?.senderDetail?.name ?? ''} đã gửi hình ảnh`
-              : messages?.content}
+                ? `${messages?.senderDetail?.name ?? ''} đã gửi hình ảnh`
+                : messages?.content}
           </p>
 
           <span className="singleChat__user__content__time">

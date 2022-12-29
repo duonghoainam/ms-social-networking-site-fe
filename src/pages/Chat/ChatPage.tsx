@@ -8,9 +8,9 @@ import ListChat from './components/ListChat/ListChat';
 import MessagePopup from './components/MessagePopup/MessagePopup';
 import { useChatPage } from './hooks/useChatPage';
 
-function ChatPage(): any {
-	const { isOpenSetting, setIsOpenSetting, isShowPopup, setIsShowPopup } = useChatPage();
-	return (
+function ChatPage (): any {
+  const { isOpenSetting, setIsOpenSetting, isShowPopup, setIsShowPopup } = useChatPage();
+  return (
 		<>
 			<Container fluid>
 				<Row>
@@ -32,8 +32,6 @@ function ChatPage(): any {
 									<ChatContent
 										setIsOpenSetting={setIsOpenSetting}
 										isOpenSetting={isOpenSetting}
-										isShowPopup={isShowPopup}
-										setIsShowPopup={setIsShowPopup}
 									/>
 								}
 							/>
@@ -42,7 +40,7 @@ function ChatPage(): any {
 				</Row>
 			</Container>
 		</>
-	);
+  );
 }
 
 export default ChatPage;

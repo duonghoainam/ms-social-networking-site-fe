@@ -35,8 +35,6 @@ const ChatPage = (): ReactElement => {
                   <ChatContent
                     setIsOpenSetting={setIsOpenSetting}
                     isOpenSetting={isOpenSetting}
-                    isShowPopup={isShowPopup}
-                    setIsShowPopup={setIsShowPopup}
                   />
                 }
               />

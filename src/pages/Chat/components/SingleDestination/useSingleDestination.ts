@@ -15,17 +15,17 @@ export const useSingleDestination = (follow: any): useSingDestinationRes => {
   // const currentUser = useSelector((state: AppState) => state.auth.current);
   const tags = useSelector((state: AppState) => state.chat.tags);
 
-  function handleSelect(e: any): void {
+  function handleSelect (e: any): void {
     e.stopPropagation();
     dispatch(createTag(follow));
   }
 
-  function handleUnselect(e: any): void {
+  function handleUnselect (e: any): void {
     e.stopPropagation();
     dispatch(deleteTag(follow._id));
   }
 
-  function handleClick(e: any): void {
+  function handleClick (e: any): void {
     // if (!forRenderSearch) {
     //   e.stopPropagation();
     //   //   const temp = tags.find((tag) => {

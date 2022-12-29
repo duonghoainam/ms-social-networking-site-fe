@@ -11,9 +11,9 @@ interface SingleTagProps {
   tag: Tag;
 }
 
-function SingleTag({ tag }: SingleTagProps): React.ReactElement<SingleTagProps> {
+function SingleTag ({ tag }: SingleTagProps): React.ReactElement<SingleTagProps> {
   const dispatch = useDispatch();
-  function handleClick(id: any): void {
+  function handleClick (id: any): void {
     dispatch(deleteTag(id));
   }
 

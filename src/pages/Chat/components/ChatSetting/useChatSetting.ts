@@ -11,7 +11,6 @@ interface useChatSettingReturn {
   text: string
   image: string
   isShowMessagePopup: boolean
-  uploadImage: any
   handleFileChange: any
   handleKeyDown: any
   handleClosePopup: any
@@ -149,23 +148,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
         console.log(error);
       });
   }
-
-  //   function genConversationName(
-  //     conversation: { name: string; members: any[] },
-  //     currentUserId: string
-  //   ): string {
-  //     if (conversation != null) {
-  //       if (conversation.name != null) return conversation.name;
-  //       else if (conversation.members != null) {
-  //         const otherMembers = conversation.members.filter((mem: any) => mem._id !== currentUser.id);
-  //         if (otherMembers.length === 0) return conversation.members[0].name;
-  //         else {
-  //           const otherNames = otherMembers.map((mem: any) => mem.name);
-  //           return otherNames.join(', ');
-  //         }
-  //       } else return 'Cuộc trò chuyện';
-  //     } else return 'Cuộc trò chuyện';
-  //   }
 
   useEffect(() => {
     const avt = genConversationAvatar();

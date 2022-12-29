@@ -22,11 +22,11 @@ export const UseMessage = (message: IMessage, handleDeleteMessage: any): UseMess
   );
   const [isClosePopup, setIsClosePopup] = useState(true);
 
-  function handleClosePopup(): void {
+  const handleClosePopup = (): void => {
     setIsClosePopup(true);
   }
 
-  function handleDeleteMsg(): any {
+  const handleDeleteMsg = (): void => {
     handleDeleteMessage(message._id);
     setIsClosePopup(true);
   }

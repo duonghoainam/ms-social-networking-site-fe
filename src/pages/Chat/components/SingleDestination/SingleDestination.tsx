@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import { CheckCircle } from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
 import { DEFAULT_AVATAR } from '../../const';
 import { useSingleDestination } from './useSingleDestination';
 

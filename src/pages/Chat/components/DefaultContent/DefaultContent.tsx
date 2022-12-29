@@ -4,7 +4,7 @@ import '../Chat.scss';
 import { Button } from 'react-bootstrap';
 import MessagePopup from '../MessagePopup/MessagePopup';
 
-function DefaultContent(): React.ReactElement {
+function DefaultContent (): React.ReactElement {
   const [isShowPopup, setIsShowPopup] = useState(false);
   return (
     <div className="rightPanel default">

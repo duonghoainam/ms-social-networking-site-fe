@@ -13,8 +13,8 @@ import {
 import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
 import { IImage } from '../../types/IImage.Type'
-import useImageUpload from '../../../../hooks/useImageUpload';
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
+import useImageUpload from '../../../../hooks/useImageUpload';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
@@ -44,7 +44,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
-  const uploadImage = useImageUpload();
 
   useEffect(() => {
     const conversation = conversations?.find(
@@ -72,12 +71,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       }
     } else {
       if (
-        chatContentRef.current != null
-        // &&
-        // chatContentRef.current.scrollHeight -
-        //   chatContentRef.current.scrollTop -
-        //   chatContentRef.current.clientHeight >
-        //   300
+        chatContentRef.current !== null
       ) {
         setShowScrollButton(true);
       } else {
@@ -289,7 +283,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       const urls = [];
       for (const img of images) {
         const blob = await fetch(img.url).then(async r => await r.blob())
-        const url = await uploadImage(blob).then(value => value)
+        const url = await useImageUpload(blob)
         urls.push(url);
       }
       socket.emit(
