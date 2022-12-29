@@ -27,7 +27,7 @@ export const getPostsByUserId = createAsyncThunk('user/getPostsByUserId', async 
   return posts;
 });
 
-export const getPostComments = createAsyncThunk('post/getComments', async (postId: any) => {
+export const getPostComments = createAsyncThunk('user/getComments', async (postId: any) => {
   try {
     const response = await postAPI.getPostComments(postId);
     if (response.code >= 400) {
@@ -39,7 +39,7 @@ export const getPostComments = createAsyncThunk('post/getComments', async (postI
   }
 });
 
-export const handleLike = createAsyncThunk('post/Like', async (params: LikeDto) => {
+export const handleLike = createAsyncThunk('user/Like', async (params: LikeDto) => {
   try {
     const response = await postAPI.likePost(params);
     if (response.code >= 400) {
@@ -51,7 +51,7 @@ export const handleLike = createAsyncThunk('post/Like', async (params: LikeDto) 
   }
 });
 
-export const handleDislike = createAsyncThunk('post/UnLike', async (params: LikeDto) => {
+export const handleDislike = createAsyncThunk('user/UnLike', async (params: LikeDto) => {
   try {
     const response = await postAPI.dislikePost(params);
     if (response.code >= 400) {
@@ -63,11 +63,25 @@ export const handleDislike = createAsyncThunk('post/UnLike', async (params: Like
   }
 });
 
-export const addNewComment = createAsyncThunk('home/addNewComment', async (params: CreateCommentDto) => {
+export const addNewComment = createAsyncThunk('user/addNewComment', async (params: CreateCommentDto) => {
   try {
     const response = await postAPI.createComment(params);
     if (response.code >= 400) {
       showToastMessage(response.message, MessageToastType.ERROR);
+    }
+    return response;
+  } catch (error) {
+    showToastMessage('Unexpected error', MessageToastType.ERROR)
+  }
+});
+
+export const deletePost = createAsyncThunk('user/deletePost', async (postId: string) => {
+  try {
+    const response = await postAPI.deletePost(postId);
+    if (response.code >= 400) {
+      showToastMessage(response.message, MessageToastType.ERROR);
+    } else {
+      showToastMessage(response.message, MessageToastType.SUCCESS);
     }
     return response;
   } catch (error) {

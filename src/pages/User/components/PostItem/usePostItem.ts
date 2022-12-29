@@ -1,6 +1,6 @@
 import { useAppDispatch } from '../../../../app/store';
 import { getPostComments } from '../../state/userActions';
-import { setSelectedPost, setShowPostDetail, setShowPostEdit } from '../../state/userSlice';
+import { setSelectedPost, setShowDeletePopup, setShowPostDetail, setShowPostEdit } from '../../state/userSlice';
 
 const usePostItem = (post: any): any => {
   const dispatch = useAppDispatch();
@@ -20,9 +20,19 @@ const usePostItem = (post: any): any => {
     const showEdit = setShowPostEdit(true);
     await dispatch(showEdit);
   }
+
+  const openDeletePost = async (event: any): Promise<void> => {
+    event.stopPropagation();
+    const selectAction = setSelectedPost(post);
+    await dispatch(selectAction);
+    const showDelete = setShowDeletePopup(true);
+    await dispatch(showDelete);
+  }
+
   return {
     handleClickPost,
-    openEditPost
+    openEditPost,
+    openDeletePost
   }
 };
 

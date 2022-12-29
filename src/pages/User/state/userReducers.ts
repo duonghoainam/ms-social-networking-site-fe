@@ -1,4 +1,14 @@
-import { getUserById, getFollowerList, getFollowingList, getPostsByUserId, getPostComments, handleLike, handleDislike, addNewComment } from './userActions';
+import {
+  getUserById,
+  getFollowerList,
+  getFollowingList,
+  getPostsByUserId,
+  getPostComments,
+  handleLike,
+  handleDislike,
+  addNewComment,
+  deletePost
+} from './userActions';
 
 export const extraReducers: any = {
   // getUserById
@@ -91,8 +101,8 @@ export const extraReducers: any = {
   },
 
   // Add new comment
-  [addNewComment.pending.toString()]: (state: any, action: any) => {},
-  [addNewComment.rejected.toString()]: (state: any, action: any) => {},
+  [addNewComment.pending.toString()]: (state: any, action: any) => { },
+  [addNewComment.rejected.toString()]: (state: any, action: any) => { },
   [addNewComment.fulfilled.toString()]: (state: any, action: any) => {
     // Update state list comment
     state.comments.push(action.payload.data);
@@ -103,6 +113,11 @@ export const extraReducers: any = {
       }
       return post;
     });
-  }
+  },
 
+  [deletePost.pending.toString()]: (state: any) => { },
+  [deletePost.fulfilled.toString()]: (state: any, action: any) => {
+    state.posts = state.posts.filter((post: any) => post._id !== action.payload.data._id)
+  },
+  [getFollowerList.rejected.toString()]: (state: any, action: any) => { }
 };

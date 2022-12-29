@@ -12,6 +12,7 @@ interface UserState {
   selectedPost: any
   isShowPostDetail: boolean
   isShowPostEdit: boolean
+  isShowDeletePopup: boolean
   isLoading: boolean
 }
 
@@ -24,6 +25,7 @@ const initialState: UserState = {
   selectedPost: {},
   isShowPostDetail: false,
   isShowPostEdit: false,
+  isShowDeletePopup: false,
   isLoading: false
 }
 
@@ -39,6 +41,9 @@ const UserSlice = createSlice({
     },
     setShowPostEdit: (state: any, action: any): void => {
       return { ...state, isShowPostEdit: action.payload };
+    },
+    setShowDeletePopup: (state: any, action: any): void => {
+      return { ...state, isShowDeletePopup: action.payload };
     }
   },
   extraReducers
@@ -46,5 +51,5 @@ const UserSlice = createSlice({
 
 const { reducer: UserReducer, actions } = UserSlice;
 
-export const { setSelectedPost, setShowPostDetail, setShowPostEdit } = actions;
+export const { setSelectedPost, setShowPostDetail, setShowPostEdit, setShowDeletePopup } = actions;
 export default UserReducer;

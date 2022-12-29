@@ -5,7 +5,7 @@ import './styles.scss';
 import usePostItem from './usePostItem';
 
 const PostItem = ({ post }: any): ReactElement => {
-  const { handleClickPost, openEditPost } = usePostItem(post);
+  const { handleClickPost, openEditPost, openDeletePost } = usePostItem(post);
   return (
     <>
       <Col sm={4} className="flex" onClick={() => { void handleClickPost() }}>
@@ -17,7 +17,7 @@ const PostItem = ({ post }: any): ReactElement => {
               <span className="editIcon" onClick={(event) => { void openEditPost(event) }}>
                 <Edit />
               </span>
-              <span className="deleteIcon">
+              <span className="deleteIcon" onClick={(event) => { void openDeletePost(event) }}>
                 <Delete />
               </span>
             </div>

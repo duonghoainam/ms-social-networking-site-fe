@@ -40,7 +40,7 @@ class PostAPI {
 
   deletePost = (postId: string): any => {
     const url = `${getApiUrl()}/posts/${postId}`;
-    return axiosClient.delete(url, { params: { postId } });
+    return axiosClient.delete(url);
   };
 
   likePost = (params: LikeDto): any => {

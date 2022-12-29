@@ -25,7 +25,8 @@ const useNewPostPage = (): any => {
       } else {
         showToastMessage(result.message, MessageToastType.ERROR);
       }
-      navigate('/');
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      navigate(`/user/${currentUser.id}`);
     } catch (error) {
       showToastMessage('Unexpected error', MessageToastType.ERROR);
     }
