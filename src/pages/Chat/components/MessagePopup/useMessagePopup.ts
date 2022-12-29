@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -36,14 +35,14 @@ export const useMessagePopup = (
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
-  function handleSearchChange(e: any): any {
+  function handleSearchChange (e: any): any {
     setSearchValue(e.target.value);
   }
   const params = useParams();
-  function handleClick(): void {
+  function handleClick (): void {
     let exist: IConversation[] = [];
     const tagIds = tags.map((tag: any) => tag.id);
-    if (conversations != null && conversations !== undefined && conversations.length !== 0) {
+    if (conversations !== null && conversations !== undefined && conversations.length !== 0) {
       exist = conversations.filter((conversation: IConversation) => {
         if (conversation.members.length - 1 === tags.length) {
           return tagIds.every((tag) => conversation.members.some((member) => member.id === tag));
@@ -51,7 +50,6 @@ export const useMessagePopup = (
         return false;
       });
     }
-    console.log(exist);
     if (exist.length !== 0) {
       navigate(`${exist[0]._id}`);
     } else {
@@ -66,7 +64,7 @@ export const useMessagePopup = (
     handleClosePopup();
   }
 
-  function handleClosePopup(): void {
+  function handleClosePopup (): void {
     dispatch(resetTag());
     setIsShowPopup(false);
   }
@@ -75,14 +73,13 @@ export const useMessagePopup = (
     genContact(type, listUserId);
   }, [searchValue, userContact]);
 
-  useEffect(() => {
-    dispatch(getUserContact(currentUser.id))
+  const loadUser = async (): Promise<void> => {
+    await dispatch(getUserContact(currentUser.id))
       .unwrap()
-      .then((resultValue) => console.log(resultValue))
-      .catch((rejectedValue) => console.log(rejectedValue));
-  }, []);
+  }
+  useEffect(() => { void loadUser() }, []);
 
-  function handleAdd(): void {
+  function handleAdd (): void {
     tags.forEach((tag) => {
       socket.emit('updateConversation', 'conversations.addMemberToConversation', {
         conversation: params.id,
@@ -96,7 +93,7 @@ export const useMessagePopup = (
     handleClosePopup();
   }
 
-  function genContact(type: string, listUserId: any[]): void {
+  function genContact (type: string, listUserId: any[]): void {
     if (type === 'create') {
       if (searchValue === '') {
         setRenderContact(userContact);

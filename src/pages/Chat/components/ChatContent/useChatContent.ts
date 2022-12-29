@@ -46,7 +46,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const chatContentRef = useRef<HTMLDivElement>(null);
   const uploadImage = useImageUpload();
 
-
   useEffect(() => {
     const conversation = conversations?.find(
       (conversation: IConversation) => conversation._id === params.id
@@ -139,10 +138,10 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       event.currentTarget.value !== undefined
     ) {
       setIsTyping(true);
-      setText(event.currentTarget.value);
+      setMessageText(event.currentTarget.value);
     } else {
       setIsTyping(false);
-      setText('');
+      // setText('');
       setMessageText(event.currentTarget.value);
     }
   };
@@ -161,7 +160,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         'createMessage',
         {
           type: TypeMessage.TEXT,
-          content: text,
+          content: messageText,
           conversation: params.id as string,
           sender: currentUser.id
         },
@@ -218,7 +217,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
 
   const handleUnReactMessage = (messageId: string, userId: string): void => {
     // const result = await dispatch(unReactMessage({ id: messageId, reactBy: userId })).unwrap();
-    // console.log(result);
     socket.emit(
       'updateMessage',
       'messages.unReactMessage',
@@ -242,9 +240,9 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         conversation.avatar != null &&
         conversation.avatar !== '' &&
         conversation.avatar !== undefined
-      )
+      ) {
         return conversation.avatar;
-      else if (conversation.members != null && conversation.members.length === 2) {
+      } else if (conversation.members != null && conversation.members.length === 2) {
         const user = conversation.members.find((user: any) => user.id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
@@ -269,11 +267,11 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     } else return 'Cuộc trò chuyện';
   };
 
-  const handleChangeImages = (event: React.FormEvent<HTMLInputElement>): void => {
-    const files = (<HTMLInputElement>event.target).files;
+  const handleChangeImages = (event: any): void => {
+    const files = (event.target).files;
     const imageFiles: IImage[] = [];
-    if (files != null)
-      Array.from(files).forEach((file) => {
+    if (files != null) {
+      Array.from(files).forEach((file: any) => {
         imageFiles.push({
           name: file.name,
           url: window.URL.createObjectURL(file),
@@ -281,18 +279,17 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           type: file.type
         });
       });
+    }
     setImages(imageFiles);
-    if (imageFiles.length > 0)
-      setIsOpenPopup(true);
+    if (imageFiles.length > 0) { setIsOpenPopup(true); }
   };
 
-  const submitImageMessage = async () => {
-
+  const submitImageMessage = async (): Promise<void> => {
     try {
-      let urls = [];
-      for (let img of images) {
-        let blob = await fetch(img.url).then(r => r.blob())
-        let url = await uploadImage(blob).then(value => value)
+      const urls = [];
+      for (const img of images) {
+        const blob = await fetch(img.url).then(async r => await r.blob())
+        const url = await uploadImage(blob).then(value => value)
         urls.push(url);
       }
       socket.emit(
@@ -317,12 +314,12 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     }
   }
 
-  const handleRemoveImage = (rmImg: IImage) => {
-    const newFiles = images.filter(img => img.url != rmImg.url)
+  const handleRemoveImage = (rmImg: IImage): void => {
+    const newFiles = images.filter(img => img.url !== rmImg.url)
     setImages(newFiles);
   }
 
-  const handleClosePopup = () => {
+  const handleClosePopup = (): void => {
     setIsOpenPopup(false);
   }
 
@@ -335,7 +332,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     showScrollButton,
     chatContentRef,
     ref,
-    newMessageText: text,
+    messageText,
     images,
     isOpenPopup,
     handleScroll,

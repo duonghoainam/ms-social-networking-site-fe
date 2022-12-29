@@ -25,7 +25,7 @@ const ChatAPI = {
     return axiosClient.get(url);
   },
   getLastMessageInCon: (id: string): any => {
-    const url = `${getApiUrl()}/messages/LastMessage?conversationId=${id}`;
+    const url = `${getApiUrl()}/messages/lastMessage?conversationId=${id}`;
     return axiosClient.get(url);
   },
   getMembersInCon: (id: string): any => {

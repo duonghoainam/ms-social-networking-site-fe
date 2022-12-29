@@ -16,10 +16,9 @@ export const useSingleChat = (
   const [conversationName, setConversationName] = useState('');
   const [conversationAvatar, setConversationAvatar] = useState('');
   const params = useParams();
-  // console.log({ param: params }, { conId: conversation._id });
   const timeAgo = new TimeAgo('en-US');
 
-  function handleClickSingleChat(): void {
+  function handleClickSingleChat (): void {
     setActive(true);
     handleClick(conversation._id);
   }
@@ -69,9 +68,9 @@ export const useSingleChat = (
 
   const genConversationName = (): string => {
     if (conversation != null) {
-      if (conversation.name != null && conversation.name !== '' && conversation.name !== undefined)
+      if (conversation.name != null && conversation.name !== '' && conversation.name !== undefined) {
         return conversation.name;
-      else if (conversation.members != null) {
+      } else if (conversation.members != null) {
         const otherMembers = conversation.members.filter((mem: any) => mem.id !== currentUser.id);
         if (otherMembers.length === 0) return conversation.members[0].name;
         else {
@@ -88,9 +87,7 @@ export const useSingleChat = (
         conversation.avatar != null &&
         conversation.avatar !== '' &&
         conversation.avatar !== undefined
-      )
-        return conversation.avatar;
-      else if (conversation.members != null && conversation.members.length === 2) {
+      ) { return conversation.avatar; } else if (conversation.members != null && conversation.members.length === 2) {
         const user = conversation.members.find((user) => user.id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
@@ -116,10 +113,10 @@ export const useSingleChat = (
 };
 
 interface useSingleChatType {
-  active: boolean;
-  messages?: IMessage;
-  timeAgo: TimeAgo;
-  handleClickSingleChat: any;
-  conversationName: string;
-  conversationAvatar: string;
+  active: boolean
+  messages?: IMessage
+  timeAgo: TimeAgo
+  handleClickSingleChat: any
+  conversationName: string
+  conversationAvatar: string
 }

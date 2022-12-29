@@ -47,7 +47,6 @@ const ChatContent = ({
     handleChangeImages,
     submitImageMessage,
     isOpenPopup,
-    setIsOpenPopup,
     handleRemoveImage,
     handleClosePopup
   } = useChatContent(setIsOpenSetting);
@@ -81,7 +80,7 @@ const ChatContent = ({
               return (
                 <Message
                   message={item}
-                  key={item._id}
+                  key={index}
                   handleReactMessage={handleReactMessage}
                   handleUnReactMessage={handleUnReactMessage}
                   handleDeleteMessage={handleDeleteMessage}
@@ -108,9 +107,9 @@ const ChatContent = ({
           <div ref={ref} />
         </div>
         <div className="rightPanel__inputContainer">
-          <input 
+          <input
             id="image-input"
-            type="file" 
+            type="file"
             onChange={handleChangeImages}
             multiple
           />
@@ -118,7 +117,7 @@ const ChatContent = ({
             <FontAwesomeIcon
               icon={faFileImage}
               size="lg"
-              cursor="pointer" 
+              cursor="pointer"
             />
           </label>
           <input
@@ -139,11 +138,11 @@ const ChatContent = ({
           )}
         </div>
         {
-          isOpenPopup && 
-          <ImageMessagePopup 
-            images={images} 
-            closePopup={handleClosePopup} 
-            removeImage = {handleRemoveImage}
+          (Boolean(isOpenPopup)) &&
+          <ImageMessagePopup
+            images={images}
+            closePopup={handleClosePopup}
+            removeImage={handleRemoveImage}
             submit={submitImageMessage}
           />
         }
@@ -151,5 +150,4 @@ const ChatContent = ({
     );
   }
 };
-const url = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png"
 export default ChatContent;
