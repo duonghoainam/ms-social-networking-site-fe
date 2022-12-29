@@ -5,7 +5,7 @@ import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
 
 const useNewPostPage = (): any => {
-  const [listImages, setListImages] = useState<string[]>([]);
+  const [listImage, setListImages] = useState<string[]>([]);
   const [valueInput, setValueInput] = useState<string>('content');
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
@@ -13,7 +13,7 @@ const useNewPostPage = (): any => {
 
   const handleCreatePost = async (): Promise<void> => {
     try {
-      const imagesUrls = listImages.map((item: any) => item.url);
+      const imagesUrls = listImage.map((item: any) => item.url);
       const params = {
         user: currentUser.id,
         content: valueInput,
@@ -22,16 +22,18 @@ const useNewPostPage = (): any => {
       const result = await postAPI.createPost(params);
       if (result.code < 300) {
         showToastMessage(result.message, MessageToastType.SUCCESS);
+      } else {
+        showToastMessage(result.message, MessageToastType.ERROR);
       }
-      showToastMessage(result.message, MessageToastType.ERROR);
-      navigate('/');
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      navigate(`/user/${currentUser.id}`);
     } catch (error) {
       showToastMessage('Unexpected error', MessageToastType.ERROR);
     }
   };
 
   return {
-    listImages,
+    listImage,
     setListImages,
     valueInput,
     setValueInput,

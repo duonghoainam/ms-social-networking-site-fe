@@ -1,0 +1,20 @@
+@import '../../../../assets/styles/_mixin';
+@import '../../../../assets/styles/_variable';
+
+.edit {
+  @include ModalContainer;
+  z-index: 2;
+
+  &__layout {
+    @include ModalLayout;
+    background-color: gray;
+  }
+
+  &__content {
+    @include ModalContent;
+    background-color: white;
+    width: 80%;
+    height: 90%;
+
+  }
+}

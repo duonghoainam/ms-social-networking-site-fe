@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import PopupOverlay from '../PopupOverlay/PopupOverlay';
 import './WarningPopup.scss';
 
-const WarningPopup = ({ content = '', title = '', handleOK, handleCANCEL }: any): ReactElement => {
+const WarningPopup = ({ content = '', title = '', handleAccept, handleCancel }: any): ReactElement => {
   return (
     <>
       <div id="warningPopup">
@@ -11,11 +11,11 @@ const WarningPopup = ({ content = '', title = '', handleOK, handleCANCEL }: any)
           <p>{content}</p>
         </div>
         <div id="warningPopup__button">
-          <button onClick={handleOK}>OK</button>
-          <button onClick={handleCANCEL}>CANCEL</button>
+          <button onClick={handleAccept}>OK</button>
+          <button onClick={handleCancel}>CANCEL</button>
         </div>
       </div>
-      <PopupOverlay onClick={handleCANCEL} />
+      <PopupOverlay onClick={handleCancel} />
     </>
   );
 };

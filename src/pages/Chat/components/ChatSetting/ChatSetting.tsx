@@ -22,7 +22,6 @@ const ChatSetting: React.FC<ChatSettingProps> = ({ setIsOpenSetting, currentConv
     text,
     image,
     isShowMessagePopup,
-    uploadImage,
     handleFileChange,
     handleKeyDown,
     handleClosePopup,

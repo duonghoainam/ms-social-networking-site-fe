@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
-import { getPostsByUserId, handleDislike, handleLike } from '../../state/userActions';
-import { setShowPostDetail } from '../../state/userSlice';
+import { deletePost, getPostsByUserId, handleDislike, handleLike } from '../../state/userActions';
+import { setShowDeletePopup, setShowPostDetail } from '../../state/userSlice';
 
 const useUserPost = (): any => {
   const { id } = useParams();
@@ -36,9 +36,22 @@ const useUserPost = (): any => {
     }
   };
 
+  const handleDeletePost = async (): Promise<void> => {
+    const deleteAction = deletePost(selectedPost._id)
+    await dispatch(deleteAction)
+    // hide popup after delete success
+    await handleCancelDelete()
+  }
+  const handleCancelDelete = async (): Promise<void> => {
+    // hide post
+    const hidePopup = setShowDeletePopup(false);
+    await dispatch(hidePopup);
+  }
   return {
     hidePostDetail,
-    handleLikePostComment
+    handleLikePostComment,
+    handleDeletePost,
+    handleCancelDelete
   };
 };
 export default useUserPost;

@@ -24,14 +24,23 @@ class PostAPI {
     return axiosClient.post(url, params);
   };
 
-  updatePost = (postId: string, content: string, images: string): any => {
+  updatePost = (params: any): any => {
+    const { postId, ...data } = params
+    console.log(data);
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const url = `${getApiUrl()}/posts/${postId}`;
-    return axiosClient.patch(url, { params: { postId, content, images } });
+    return axiosClient.patch(url, data);
+  };
+
+  // media
+  deleteImage = (imageId: string): any => {
+    const url = `${getApiUrl()}/media/${imageId}`;
+    return axiosClient.delete(url);
   };
 
   deletePost = (postId: string): any => {
     const url = `${getApiUrl()}/posts/${postId}`;
-    return axiosClient.delete(url, { params: { postId } });
+    return axiosClient.delete(url);
   };
 
   likePost = (params: LikeDto): any => {

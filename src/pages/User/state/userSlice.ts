@@ -4,14 +4,16 @@ import { User } from '../../../api/user/type/user.type';
 import { extraReducers } from './userReducers';
 
 interface UserState {
-  userInfo: User;
-  followerList: any[];
-  followingList: any[];
-  posts: any[];
-  comments: [];
-  selectedPost: any;
-  isShowPostDetail: false;
-  isLoading: boolean;
+  userInfo: User
+  followerList: any[]
+  followingList: any[]
+  posts: any[]
+  comments: []
+  selectedPost: any
+  isShowPostDetail: boolean
+  isShowPostEdit: boolean
+  isShowDeletePopup: boolean
+  isLoading: boolean
 }
 
 const initialState: UserState = {
@@ -22,6 +24,8 @@ const initialState: UserState = {
   comments: [],
   selectedPost: {},
   isShowPostDetail: false,
+  isShowPostEdit: false,
+  isShowDeletePopup: false,
   isLoading: false
 }
 
@@ -34,6 +38,12 @@ const UserSlice = createSlice({
     },
     setShowPostDetail: (state: any, action: any): void => {
       return { ...state, isShowPostDetail: action.payload };
+    },
+    setShowPostEdit: (state: any, action: any): void => {
+      return { ...state, isShowPostEdit: action.payload };
+    },
+    setShowDeletePopup: (state: any, action: any): void => {
+      return { ...state, isShowDeletePopup: action.payload };
     }
   },
   extraReducers
@@ -41,5 +51,5 @@ const UserSlice = createSlice({
 
 const { reducer: UserReducer, actions } = UserSlice;
 
-export const { setSelectedPost, setShowPostDetail } = actions;
+export const { setSelectedPost, setShowPostDetail, setShowPostEdit, setShowDeletePopup } = actions;
 export default UserReducer;

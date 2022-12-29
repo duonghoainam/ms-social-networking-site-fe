@@ -32,7 +32,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
-  const uploadImage = useImageUpload();
 
   function handleDeleteCon (): void {
     socket.emit('leaveConversation', { conversation: params.id, member: currentUser.id });
@@ -113,7 +112,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   function handleFileChange (e: any): void {
     setImage(window.URL.createObjectURL(e.target.files[0]));
     setConversationAvt(window.URL.createObjectURL(e.target.files[0]));
-    uploadImage(e.target.files[0])
+    useImageUpload(e.target.files[0])
       .then((value: any) => {
         socket.emit(
           'updateConversation',
@@ -195,7 +194,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     image,
     isShowMessagePopup,
     handleSubmit,
-    uploadImage,
     handleFileChange,
     handleKeyDown,
     handleClosePopup,
