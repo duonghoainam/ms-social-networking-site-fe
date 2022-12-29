@@ -156,10 +156,6 @@ export const extraReducers = {
   [changeConversationName.fulfilled.toString()]: (state: any, action: any) => {
     state.loading = false;
     state.error = false;
-    const conIndex = state.conversations.findIndex(
-      (conversation: any) => conversation._id === action.payload._id
-    );
-    console.log('new con', conIndex, [...state.conversations]);
     state.conversations = state.conversations.map((con: any) => {
       if (con._id === action.payload._id) return { ...con, name: action.payload.name };
       else return con;

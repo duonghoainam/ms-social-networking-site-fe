@@ -2,6 +2,7 @@ import React from 'react';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
 import { useSingleChat } from './useSingleChat';
+import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 TimeAgo.addLocale(en);
 
 function SingleChat({
@@ -36,6 +37,8 @@ function SingleChat({
             className="singleChat__user__content__summary">
             {messages?.isDeleted ?? false
               ? `${messages?.senderDetail?.name ?? ''} đã thu hồi tin nhắn`
+              : messages?.type === TypeMessage.IMAGE
+              ? `${messages?.senderDetail?.name ?? ''} đã gửi hình ảnh`
               : messages?.content}
           </p>
 

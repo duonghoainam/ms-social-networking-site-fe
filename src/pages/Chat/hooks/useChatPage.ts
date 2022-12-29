@@ -32,29 +32,23 @@ export const useChatPage = (): useChatPageType => {
   useEffect(() => {
     if (!socket.connected) socket.connect();
     socket.on('newMessage', function (data: any) {
-      console.log('received 1', data);
       dispatch(addMessage(data));
     });
     socket.on('updateMessage', function (data: any) {
-      console.log('received update message', data);
       dispatch(updateMessage(data));
     });
     socket.on('updateConversation', function (data: any) {
-      console.log('received update conversation', data);
       dispatch(updateConversation(data));
     });
     socket.on('newConversation', function (data: IConversation) {
-      console.log('received newConversation', data);
       const memberIds = data.members.map((member) => member.id);
       if (memberIds.some((memberId) => memberId === currentUser.id))
         dispatch(newConversation(data));
     });
     socket.on('seenMessage', function (data: any) {
-      console.log('received seenMessage', data);
       dispatch(updateConversation(data));
     });
     socket.on('leaveConversation', function (data: any) {
-      console.log('received leaveConversation', data);
       if (data.members.findIndex((member: any) => member.id === currentUser.id) === -1) {
         navigate('/messenger');
         dispatch(leaveConversation(data));

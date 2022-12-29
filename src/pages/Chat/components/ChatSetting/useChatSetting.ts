@@ -11,6 +11,7 @@ interface useChatSettingReturn {
   text: string
   image: string
   isShowMessagePopup: boolean
+  uploadImage: any
   handleFileChange: any
   handleKeyDown: any
   handleClosePopup: any

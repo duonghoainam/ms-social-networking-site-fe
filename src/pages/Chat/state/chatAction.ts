@@ -22,15 +22,6 @@ export const createMessage = createAsyncThunk('message/create', async (args: IMe
   return response;
 });
 
-// export const getMessageInCons = createAsyncThunk('message/get', async (args, thunkAPI) => {
-//   try {
-//     const response = await ChatAPI.getMessageInCon(args);
-//     return { messages: response.data };
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error.toString());
-//   }
-// });
-
 export const getConversationMessages = createAsyncThunk(
   'message/getall',
   async (args: { id: string; page: number }) => {
@@ -46,11 +37,6 @@ export const getMoreConversationMessages = createAsyncThunk(
     return response.data;
   }
 );
-
-// export const getMessageInCons = createAsyncThunk('users/update', async (args: any) => {
-//   const response = await ChatAPI.getMessageInCon(args);
-//   return response.data as IApiResponse;
-// });
 
 export const getMembersInCon = createAsyncThunk('members/get', async (id: string) => {
   const response = await ChatAPI.getMembersInCon(id);
@@ -87,7 +73,6 @@ export const changeConversationName = createAsyncThunk(
   'conversation/changeName',
   async (args: { id: string; newName: string }) => {
     const response = await ChatAPI.changeConName(args.id, args.newName);
-    console.log(response.data);
     return response.data;
   }
 );

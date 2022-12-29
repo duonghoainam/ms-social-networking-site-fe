@@ -1,8 +1,10 @@
+import { TypeMessage } from '../../../constants/enums/chat-type.enum';
 import { IConversation } from './IConversation';
 import { IUserInfo } from './IUserInfo';
 
 export interface IMessage {
   _id: string;
+  type: TypeMessage;
   conversation: string;
   conversationDetails?: IConversation;
   sender: string;

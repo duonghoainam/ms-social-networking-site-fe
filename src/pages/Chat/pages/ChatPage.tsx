@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../../../components/Header/Header';
-import { useSelector } from 'react-redux';
 import ListChat from '../components/ListChat/ListChat';
 import ChatContent from '../components/ChatContent/ChatContent';
 import DefaultContent from '../components/DefaultContent/DefaultContent';
@@ -10,20 +9,6 @@ import DefaultContent from '../components/DefaultContent/DefaultContent';
 const ChatPage = (): ReactElement => {
   const [isOpenSetting, setIsOpenSetting] = useState(false);
   const [isShowPopup, setIsShowPopup] = useState(false);
-
-  const currentUser = useSelector((state: any) => state.auth.current);
-  // const params = useParams();
-  // console.log(currentUser.id);
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   socket.emit('joinMessenger', currentUser._id);
-  // }, [params]);
-
-  // useEffect(async () => {
-  //   const action2 = getNotification();
-  //   await dispatch(action2).unwrap();
-  // }, []);
-
   return (
     <>
       <Container fluid>

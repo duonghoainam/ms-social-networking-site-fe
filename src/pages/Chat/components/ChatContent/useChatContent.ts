@@ -12,7 +12,9 @@ import {
 } from '../../state/chatAction';
 import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
-
+import { IImage } from '../../types/IImage.Type'
+import useImageUpload from '../../../../hooks/useImageUpload';
+import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
@@ -36,10 +38,13 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isEnough, setIsEnough] = useState(false);
   const [page, setPage] = useState(1);
+  const [images, setImages] = useState([] as IImage[]);
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
   const params = useParams();
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const chatContentRef = useRef<HTMLDivElement>(null);
+  const uploadImage = useImageUpload();
 
   useEffect(() => {
     const conversation = conversations?.find(
@@ -59,7 +64,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         const result = await dispatch(
           getMoreConversationMessages({ id: conId, page: page + 1 })
         ).unwrap();
-        console.log(result);
         if (result != null || result.length === 0) {
           setIsEnough(true);
         } else {
@@ -102,8 +106,8 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       // socket.emit('joinRoom', params.id);
       dispatch(getConversationMessages({ id: params.id as string, page }))
         .unwrap()
-        .then((resultValue) => {})
-        .catch((rejectedValue) => {});
+        .then((resultValue) => { })
+        .catch((rejectedValue) => { });
     } catch (error) {
       console.log(error);
     }
@@ -134,11 +138,11 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       event.currentTarget.value !== undefined
     ) {
       setIsTyping(true);
-      // event.currentTarget.value = checkText(event.currentTarget.value);
       setMessageText(event.currentTarget.value);
     } else {
       setIsTyping(false);
-      setMessageText('');
+      // setText('');
+      setMessageText(event.currentTarget.value);
     }
   };
 
@@ -155,6 +159,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       socket.emit(
         'createMessage',
         {
+          type: TypeMessage.TEXT,
           content: messageText,
           conversation: params.id as string,
           sender: currentUser.id
@@ -212,7 +217,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
 
   const handleUnReactMessage = (messageId: string, userId: string): void => {
     // const result = await dispatch(unReactMessage({ id: messageId, reactBy: userId })).unwrap();
-    // console.log(result);
     socket.emit(
       'updateMessage',
       'messages.unReactMessage',
@@ -236,9 +240,9 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         conversation.avatar != null &&
         conversation.avatar !== '' &&
         conversation.avatar !== undefined
-      )
+      ) {
         return conversation.avatar;
-      else if (conversation.members != null && conversation.members.length === 2) {
+      } else if (conversation.members != null && conversation.members.length === 2) {
         const user = conversation.members.find((user: any) => user.id !== currentUser.id);
         if (user?.avatar != null) return user.avatar;
         else return 'https://cdn-icons-png.flaticon.com/512/134/134914.png';
@@ -263,6 +267,62 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     } else return 'Cuộc trò chuyện';
   };
 
+  const handleChangeImages = (event: any): void => {
+    const files = (event.target).files;
+    const imageFiles: IImage[] = [];
+    if (files != null) {
+      Array.from(files).forEach((file: any) => {
+        imageFiles.push({
+          name: file.name,
+          url: window.URL.createObjectURL(file),
+          size: file.size,
+          type: file.type
+        });
+      });
+    }
+    setImages(imageFiles);
+    if (imageFiles.length > 0) { setIsOpenPopup(true); }
+  };
+
+  const submitImageMessage = async (): Promise<void> => {
+    try {
+      const urls = [];
+      for (const img of images) {
+        const blob = await fetch(img.url).then(async r => await r.blob())
+        const url = await uploadImage(blob).then(value => value)
+        urls.push(url);
+      }
+      socket.emit(
+        'createMessage',
+        {
+          type: TypeMessage.IMAGE,
+          content: JSON.stringify(urls),
+          conversation: params.id as string,
+          sender: currentUser.id
+        },
+        function (err: any, res: any) {
+          if (err != null) {
+            console.error(err);
+          } else {
+            console.log('call success:', res);
+          }
+        }
+      );
+      setIsOpenPopup(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleRemoveImage = (rmImg: IImage): void => {
+    const newFiles = images.filter(img => img.url !== rmImg.url)
+    setImages(newFiles);
+  }
+
+  const handleClosePopup = (): void => {
+    setIsOpenPopup(false);
+  }
+
   return {
     messages,
     currentConversation,
@@ -273,6 +333,8 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     chatContentRef,
     ref,
     messageText,
+    images,
+    isOpenPopup,
     handleScroll,
     handleScrollBottom,
     handleChange,
@@ -281,6 +343,11 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     seenMess,
     handleReactMessage,
     handleUnReactMessage,
-    handleSubmit
+    handleSubmit,
+    handleChangeImages,
+    submitImageMessage,
+    setIsOpenPopup,
+    handleRemoveImage,
+    handleClosePopup
   };
 };

@@ -9,6 +9,8 @@ import { useChatContent } from './useChatContent';
 import { IMessage } from '../../types/IMessage';
 import ChatSetting from '../ChatSetting/ChatSetting';
 import Message from '../Message/Message';
+import { faFileImage } from '@fortawesome/free-solid-svg-icons';
+import ImageMessagePopup from '../ImageMessagePopup/ImageMessagePopup';
 
 const ChatContent = ({
   isOpenSetting,
@@ -25,6 +27,7 @@ const ChatContent = ({
 
   const {
     messages,
+    images,
     currentConversation,
     conversationAvatar,
     conversationName,
@@ -40,7 +43,12 @@ const ChatContent = ({
     handleKeyDown,
     handleReactMessage,
     handleUnReactMessage,
-    handleSubmit
+    handleSubmit,
+    handleChangeImages,
+    submitImageMessage,
+    isOpenPopup,
+    handleRemoveImage,
+    handleClosePopup
   } = useChatContent(setIsOpenSetting);
 
   if (isOpenSetting) {
@@ -100,6 +108,19 @@ const ChatContent = ({
         </div>
         <div className="rightPanel__inputContainer">
           <input
+            id="image-input"
+            type="file"
+            onChange={handleChangeImages}
+            multiple
+          />
+          <label htmlFor="image-input" className='rightPanel__inputContainer__icon image'>
+            <FontAwesomeIcon
+              icon={faFileImage}
+              size="lg"
+              cursor="pointer"
+            />
+          </label>
+          <input
             type="text"
             placeholder="Message..."
             value={messageText}
@@ -116,9 +137,17 @@ const ChatContent = ({
             />
           )}
         </div>
+        {
+          (Boolean(isOpenPopup)) &&
+          <ImageMessagePopup
+            images={images}
+            closePopup={handleClosePopup}
+            removeImage={handleRemoveImage}
+            submit={submitImageMessage}
+          />
+        }
       </div>
     );
   }
 };
-
 export default ChatContent;
