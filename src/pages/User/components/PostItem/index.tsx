@@ -6,6 +6,7 @@ import usePostItem from './usePostItem';
 
 const PostItem = ({ post }: any): ReactElement => {
   const { handleClickPost, openEditPost, openDeletePost } = usePostItem(post);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   return (
     <>
       <Col sm={4} className="flex" onClick={() => { void handleClickPost() }}>
@@ -13,14 +14,14 @@ const PostItem = ({ post }: any): ReactElement => {
           <Col className="post-item">
             <div className="post-overlay"></div>
 
-            <div className="content">
+            {currentUser.id === post.user.id && <div className="content">
               <span className="editIcon" onClick={(event) => { void openEditPost(event) }}>
                 <Edit />
               </span>
               <span className="deleteIcon" onClick={(event) => { void openDeletePost(event) }}>
                 <Delete />
               </span>
-            </div>
+            </div>}
             {post.images.length === 0 ? <div className="no-image"></div> : <div>
               {
                 post.images[0].split('.')[post.images[0].split('.').length - 1] === 'mp4' ? (
