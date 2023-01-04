@@ -23,25 +23,15 @@ export const usePostItem = (): any => {
     let isLiked = false;
     if (post.likes.filter(user => user.id === userId).length > 0) { isLiked = true }
     if (isLiked) {
-      const actionUnLike = handleLike({ userId, postId });
-      await dispatch(actionUnLike).unwrap();
-    } else {
       const actionLike = handleDislike({ userId, postId });
       await dispatch(actionLike).unwrap();
+    } else {
+      const actionUnLike = handleLike({ userId, postId });
+      await dispatch(actionUnLike).unwrap();
       // Thông báo lượt like mới cho chủ post
     }
   };
 
-  // const showAllLikesModel = async (a): Promise<void> => {
-  //   const action = getListUser(a);
-  //   await dispatch(action).unwrap();
-  // };
-
-  // const handleWatchMore = (e) => {
-  //   e.target.previousElementSibling.style.overflow = 'auto';
-  //   e.target.previousElementSibling.style.display = 'block';
-  //   e.target.style.display = 'none';
-  // };
   return {
     showDetail,
     handleLikePost
