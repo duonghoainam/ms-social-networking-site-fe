@@ -14,6 +14,8 @@ import { usePostItem } from './hooks/usePostItem';
 import PostItem from './components/PostItem/PostItem';
 import Category from './components/Category/Category';
 import { addNewComment } from './state/homeActions';
+import LazyLoad from 'react-lazyload';
+import PostSkeleton from '../../components/SkeletonLoading/PostSkeleton';
 
 const HomePage = (): ReactElement => {
   const { listPost, listComment, isLoading, loadListPostFail } = useSelector((state: AppState) => {
@@ -45,12 +47,14 @@ const HomePage = (): ReactElement => {
                 <Col md={{ span: 7 }}>
                   {listPost.map((post: any, index: number) => {
                     return (
-                      <PostItem
-                        key={index}
-                        post={post}
-                        handleLikePost={handleLikePost}
-                        showDetail={showDetail}
-                      />
+                      <LazyLoad key={index} placeholder={<PostSkeleton></PostSkeleton>}>
+                        <PostItem
+                          key={index}
+                          post={post}
+                          handleLikePost={handleLikePost}
+                          showDetail={showDetail}
+                        />
+                      </LazyLoad>
                     );
                   })}
                 </Col>
