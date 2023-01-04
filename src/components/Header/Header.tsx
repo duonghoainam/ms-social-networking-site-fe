@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 import './Header.scss';
 import {
   HomeOutlined,
@@ -12,38 +11,47 @@ import {
 } from '@material-ui/icons';
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
 import { logout } from '../../pages/Login/loginSlice';
 import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
+import userAPI from '../../api/user/UserApi';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-  const listUser = useSelector((state: AppState) => state.login.listUser).filter(
-    (user: any) => user.id !== currentUser.id
-  );
-  const navigateToProfile = async (): Promise<void> => {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    navigate(`/user/${currentUser.id.toString()}`);
+  const currentUserId: string = currentUser.id;
+
+  const navigateToProfile = (): void => {
+    navigate(`/user/${currentUserId}`);
     setSearchValue('');
+  };
+
+  const directToTargetUser = (userId: string): void => {
+    navigate(`/user/${userId}`);
   };
 
   const [users, setUsers] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
-  const handleSearch = (searchValue: string): void => {
+  const handleSearchValueChange = (searchValue: string): void => {
     setSearchValue(searchValue);
-    const searchUser = listUser.filter((user: any) => {
-      if (user.name.toLowerCase().includes(searchValue.toLowerCase()) as boolean) {
-        return user;
-      }
-      return null;
-    });
-    setUsers(searchUser);
+    if (typingTimeoutRef.current != null) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = setTimeout(() => {
+      // Fetch new users data to update users state
+      void fetchNewUsers(searchValue);
+    }, 500);
+  };
+
+  const fetchNewUsers = async (input: string): Promise<void> => {
+    if (input === '') return;
+    const result = await userAPI.searchUsers(input);
+    setUsers(result.data);
+    console.log(result.data);
   };
 
   const handleLogout = async (): Promise<void> => {
@@ -66,7 +74,7 @@ const Header = (): ReactElement => {
           <input
             type="text"
             placeholder="search..."
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => handleSearchValueChange(e.target.value)}
             value={searchValue}
           />
           {searchValue !== '' && (
@@ -91,8 +99,7 @@ const Header = (): ReactElement => {
               <div className="header__search__resultContainer">
                 {users.length !== 0 ? (
                   users.map((user: any, index: number) => (
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    <div key={index} >
+                    <div key={index} onClick={() => directToTargetUser(user.id)}>
                       <SingleDestination follow={user} forRenderSearch={true} key={index} />
                     </div>
                   ))
@@ -136,7 +143,7 @@ const Header = (): ReactElement => {
                   Trang cá nhân
                 </a>
               </li>
-              <li id="logout" onClick={handleLogout}>
+              <li id="logout" onClick={() => handleLogout}>
                 <LocalDiningOutlined />
                 <i> Đăng xuất</i>
               </li>
