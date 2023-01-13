@@ -1,12 +1,13 @@
 import { getApiUrl } from '../../utils/api.util';
 import axiosClient from '../AxiosClient';
 import { CreateCommentDto } from './type/create-comment.dto';
+import { GetHomePostsDto } from './type/get-home-posts.dto';
 import { LikeDto } from './type/like.dto';
 class PostAPI {
   // Post API
-  getHomePosts = (userId: string): any => {
+  getHomePosts = (params: GetHomePostsDto): any => {
     const url = `${getApiUrl()}/posts/home`;
-    return axiosClient.get(url, { params: { userId } });
+    return axiosClient.get(url, { params });
   };
 
   getUserPosts = (userId: string): any => {

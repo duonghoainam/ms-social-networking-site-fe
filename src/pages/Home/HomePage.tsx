@@ -18,13 +18,14 @@ import LazyLoad from 'react-lazyload';
 import PostSkeleton from '../../components/SkeletonLoading/PostSkeleton';
 
 const HomePage = (): ReactElement => {
+  useHomePage();
   const { listPost, listComment, isLoading, loadListPostFail } = useSelector((state: AppState) => {
     return state.home;
   });
-  useHomePage();
   const { showDetail, handleLikePost } = usePostItem();
   const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { hideDetail, handleLikePostComment } = usePostComment();
+
   return (
     <>
       <Container fluid>

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
 import { CreateCommentDto } from '../../../api/post/type/create-comment.dto';
+import { GetHomePostsDto } from '../../../api/post/type/get-home-posts.dto';
 import { LikeDto } from '../../../api/post/type/like.dto';
 import { FollowParams } from '../../../api/user/type/follow.params';
 import userAPI from '../../../api/user/UserApi';
@@ -8,9 +9,9 @@ import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
 
 // Post
-export const getHomePosts = createAsyncThunk('post/getPosts', async (userId: string) => {
+export const getHomePosts = createAsyncThunk('post/getPosts', async (params: GetHomePostsDto) => {
   try {
-    const response = await postAPI.getHomePosts(userId);
+    const response = await postAPI.getHomePosts(params);
     if (response.code >= 400) {
       showToastMessage(response.message, MessageToastType.ERROR);
     }
