@@ -16,15 +16,6 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk('auth/logout', async (params, thunkAPI) => {
-  try {
-    const response: any = await authAPI.logout(params);
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
 const LoginSlice = createSlice({
   name: 'login',
   initialState: {
@@ -58,25 +49,6 @@ const LoginSlice = createSlice({
       localStorage.setItem('accessToken', JSON.stringify(action.payload.data.accessToken));
       state.currentUser = action.payload.data.currentUser;
       localStorage.setItem('currentUser', JSON.stringify(action.payload.data.user));
-    },
-
-    // logout
-
-    [logout.fulfilled.toString()]: (state: AuthState, action: any) => {
-      state.loading = false;
-      state.isLogin = false;
-      state.currentUser = {};
-      state.listUser = [];
-      state.error = '';
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('currentUser');
-      // localStorage.removeItem('persist:root');
-    },
-
-    [logout.rejected.toString()]: (state: AuthState, action: any) => {
-      state.isLogin = true;
-      // localStorage.removeItem('accessToken');
-      // localStorage.removeItem('currentUser');
     }
   }
 });

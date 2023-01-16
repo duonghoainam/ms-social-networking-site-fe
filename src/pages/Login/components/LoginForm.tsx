@@ -29,8 +29,10 @@ const LoginForm = (): ReactElement => {
       const response: ApiResponse = await dispatch(login(values)).unwrap();
       if (response.code < 300) {
         showToastMessage('Login success', MessageToastType.SUCCESS);
+        navigate('/');
+      } else {
+        showToastMessage(response.message, MessageToastType.ERROR);
       }
-      navigate('/');
     } catch (error) {
       showToastMessage(error.message, MessageToastType.ERROR);
     }

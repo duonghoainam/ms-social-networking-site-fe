@@ -14,12 +14,9 @@ import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
-import { useAppDispatch } from '../../app/store';
-import { logout } from '../../pages/Login/loginSlice';
 import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
 
 const Header = (): ReactElement => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
@@ -47,11 +44,8 @@ const Header = (): ReactElement => {
   };
 
   const handleLogout = async (): Promise<void> => {
-    try {
-      await dispatch(logout()).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('currentUser');
     navigate('/login');
   };
 
