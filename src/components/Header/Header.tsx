@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import './Header.scss';
 import {
   HomeOutlined,
@@ -17,6 +17,8 @@ import { AppState } from '../../app/state.type';
 import { useAppDispatch } from '../../app/store';
 import { logout } from '../../pages/Login/loginSlice';
 import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
+import Notification from '../Notification/notification';
+import { socket } from '../../App';
 
 const Header = (): ReactElement => {
   const dispatch = useAppDispatch();
@@ -54,6 +56,17 @@ const Header = (): ReactElement => {
     }
     navigate('/login');
   };
+
+  useEffect(() => {
+    if (socket.connected) {
+      socket.emit('call', 'rooms.join', { join: currentUser.id });
+    } else {
+      socket.on('connect', function () {
+        socket.emit('call', 'rooms.join', { join: currentUser.id });
+      });
+      socket.connect();
+    }
+  }, []);
 
   return (
     <>
@@ -123,6 +136,7 @@ const Header = (): ReactElement => {
           <NavLink to="/new">
             <AddCircleOutline />
           </NavLink>
+          <Notification />
         </div>
 
         <div className="header__profile">

@@ -1,3 +1,4 @@
+import { NotificationState } from '../components/Notification/state/notificationSlice';
 import { ChatState } from '../pages/Chat/types/chatState.Type';
 
 export interface AppState {
@@ -6,4 +7,5 @@ export interface AppState {
   home: any;
   chat: ChatState;
   user: any;
+  notification: NotificationState;
 }
