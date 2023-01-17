@@ -30,6 +30,7 @@ export const useHomePage = (): any => {
   };
 
   useEffect(() => {
+    console.log('useEffect load post');
     void loadPosts();
   }, [pageNum]);
 
@@ -44,6 +45,7 @@ export const useHomePage = (): any => {
   };
 
   useEffect(() => {
+    console.log('useEffect handle scrolling');
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -54,6 +56,7 @@ export const useHomePage = (): any => {
   };
 
   useEffect(() => {
+    console.log('useEffect load recommend');
     void loadRecommend();
   }, []);
 };
