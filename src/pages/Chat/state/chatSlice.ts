@@ -76,8 +76,9 @@ const ChatSlice = createSlice({
       state.loading = false;
       state.error = false;
       const messages = state.messagesInConversation.map((mess: IMessage) => {
-        if (!mess.seenBy.some((userId: string) => userId === action.data._id))
+        if (!mess.seenBy.some((userId: string) => userId === action.data._id)) {
           mess.seenBy.push(action.payload._id);
+        }
         mess.seenByDetail.push(action.payload);
         return mess;
       });

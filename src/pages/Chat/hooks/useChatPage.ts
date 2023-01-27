@@ -11,10 +11,10 @@ import {
 } from '../state/chatSlice';
 import { IConversation } from '../types/IConversation';
 interface useChatPageType {
-  isOpenSetting: boolean;
-  setIsOpenSetting: React.Dispatch<React.SetStateAction<boolean>>;
-  isShowPopup: boolean;
-  setIsShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenSetting: boolean
+  setIsOpenSetting: React.Dispatch<React.SetStateAction<boolean>>
+  isShowPopup: boolean
+  setIsShowPopup: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const useChatPage = (): useChatPageType => {
@@ -42,8 +42,7 @@ export const useChatPage = (): useChatPageType => {
     });
     socket.on('newConversation', function (data: IConversation) {
       const memberIds = data.members.map((member) => member.id);
-      if (memberIds.some((memberId) => memberId === currentUser.id))
-        dispatch(newConversation(data));
+      if (memberIds.some((memberId) => memberId === currentUser.id)) { dispatch(newConversation(data)); }
     });
     socket.on('seenMessage', function (data: any) {
       dispatch(updateConversation(data));

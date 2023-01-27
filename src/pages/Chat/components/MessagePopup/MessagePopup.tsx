@@ -5,11 +5,11 @@ import { useMessagePopup } from './useMessagePopup';
 import SingleTag from '../SingleTag/SingleTag';
 import SingleDestination from '../SingleDestination/SingleDestination';
 interface MessagePopupProps {
-  setIsShowPopup?: React.Dispatch<React.SetStateAction<boolean>>;
-  type?: string;
-  listUserId?: any[];
-  setIsOpenSetting?: React.Dispatch<React.SetStateAction<boolean>>;
-  content?: Object;
+  setIsShowPopup?: React.Dispatch<React.SetStateAction<boolean>>
+  type?: string
+  listUserId?: any[]
+  setIsOpenSetting?: React.Dispatch<React.SetStateAction<boolean>>
+  content?: Object
 }
 
 const MessagePopup: React.FC<MessagePopupProps> = ({
@@ -67,9 +67,9 @@ const MessagePopup: React.FC<MessagePopupProps> = ({
               <Row className="messagePopup__destinations__tags">
                 {tags.length === 0
                   ? ''
-                  : tags.map((tag: { id: string; name: string }) => {
-                      return <SingleTag key={tag.id} tag={tag} />;
-                    })}
+                  : tags.map((tag: { id: string, name: string }) => {
+                    return <SingleTag key={tag.id} tag={tag} />;
+                  })}
               </Row>
               <Row className="messagePopup__destinations__input">
                 <input
