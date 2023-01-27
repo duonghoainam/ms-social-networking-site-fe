@@ -16,8 +16,8 @@ import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const initialValues: LoginParams = {
-  username: 'giathai1505@gmail.com',
-  password: 'my16022001'
+  username: '',
+  password: ''
 };
 
 const LoginForm = (): ReactElement => {
