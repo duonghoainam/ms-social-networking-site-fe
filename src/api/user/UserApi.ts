@@ -4,6 +4,11 @@ import { ApiResponse } from '../api-response.type';
 import { FollowParams } from './type/follow.params';
 
 class UserAPI {
+  searchUsers = async (input: string): Promise<any> => {
+    const url = `${getApiUrl()}/users/${input}`;
+    return await axiosClient.get(url, {});
+  };
+
   getUserInfo = async (userId: string): Promise<any> => {
     const url = `${getApiUrl()}/users/${userId}/`;
     return await axiosClient.get(url, {});
@@ -11,7 +16,6 @@ class UserAPI {
 
   updateUser = async (userId: string): Promise<any> => {
     const url = `${getApiUrl()}/users/${userId}/`;
-
     return await axiosClient.put(url, userId);
   };
 
@@ -49,11 +53,6 @@ class UserAPI {
     const url = `${getApiUrl()}/users/${params.userId as string}/posts`;
 
     return await axiosClient.get(url, params);
-  };
-
-  getPostsByUserId = async (params: any): Promise<any> => {
-    // const url = `${URL}/posts/user/${params}`;
-    // return await axiosClient.get(url, {});
   };
 
   getAllUsers = async (): Promise<any> => {

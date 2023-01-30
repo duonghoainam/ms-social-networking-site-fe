@@ -9,9 +9,7 @@ import {
   getPostComments,
   deleteComment
 } from './homeActions';
-import {
-  getUserById
-} from '../../User/state/userActions'
+import { getUserById } from '../../User/state/userActions';
 import { HomeState } from './homeSlice';
 
 export const extraReducers: any = {
@@ -23,7 +21,12 @@ export const extraReducers: any = {
     return { ...state, isLoading: false, loadListPostFail: true };
   },
   [getHomePosts.fulfilled.toString()]: (state: any, action: any) => {
-    return { ...state, listPost: action.payload.data, loadListPostFail: false, isLoading: false };
+    const temp1 = state.listPost;
+    const temp2 = action.payload.data;
+    const temp = [...temp1, ...temp2];
+    state.listPost = temp;
+    state.loadListPostFail = false;
+    state.isLoading = false;
   },
 
   // get all comment of post
@@ -75,10 +78,14 @@ export const extraReducers: any = {
     state.listPost = state.listPost.map((post: any) => {
       if (post._id === action.payload.data._id) {
         // post.likes = post.likes.filter((item: any) => item !== currentUser);
-        post.likes = post.likes.filter((user: User) => { return user.id !== currentUser.id });
+        post.likes = post.likes.filter((user: User) => {
+          return user.id !== currentUser.id;
+        });
         // Update state selectedPost if like in PostComment
         if (Boolean(state.selectedPost._id)) {
-          state.selectedPost.likes = state.selectedPost.likes.filter((user: User) => { return user.id !== currentUser.id });
+          state.selectedPost.likes = state.selectedPost.likes.filter((user: User) => {
+            return user.id !== currentUser.id;
+          });
         }
       }
       return post;
@@ -105,7 +112,9 @@ export const extraReducers: any = {
   [deleteComment.rejected.toString()]: (state: any, action: any) => {},
   [deleteComment.fulfilled.toString()]: (state: any, action: any) => {
     const deletedComment = action.payload.data;
-    state.listComment = state.listComment.filter((comment: any) => { return comment._id !== deletedComment._id });
+    state.listComment = state.listComment.filter((comment: any) => {
+      return comment._id !== deletedComment._id;
+    });
   },
 
   // Get user info
