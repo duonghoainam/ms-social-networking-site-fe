@@ -8,9 +8,9 @@ import { IConversation } from '../../types/IConversation';
 import { IUserInfo } from '../../types/IUserInfo';
 
 interface UseListChatR {
-  handleClick: any;
-  conversations: IConversation[];
-  currentUser: IUserInfo;
+  handleClick: any
+  conversations: IConversation[]
+  currentUser: IUserInfo
 }
 
 export const useListChat = (setIsOpenSetting: any): UseListChatR => {
@@ -22,7 +22,7 @@ export const useListChat = (setIsOpenSetting: any): UseListChatR => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   // const params = useParams();
 
-  function handleClick(id: string): void {
+  function handleClick (id: string): void {
     dispatch(getAllConversations(currentUser.id))
       .unwrap()
       .then((resultValue) => {})

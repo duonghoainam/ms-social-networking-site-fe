@@ -1,16 +1,5 @@
 const getApiUrl = (): string => {
-  let url: string;
-  switch (process.env.NODE_ENV) {
-    case 'production':
-      url = '';
-      break;
-    case 'development':
-      url = 'http://localhost:3000/api';
-      break;
-    default:
-      url = 'http://localhost:3000/api';
-      break;
-  }
+  const url: string = process.env.REACT_APP_BASE_API_URL ?? 'http://localhost:3000/api';
   return url;
 };
 export { getApiUrl };

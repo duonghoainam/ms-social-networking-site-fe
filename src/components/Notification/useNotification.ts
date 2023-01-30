@@ -45,7 +45,7 @@ export const UseNotification = (): UseNotificationReturn => {
       .then((resultValue) => {})
       .catch((rejectedValue) => {});
   }, [isOpen])
-  
+
   useEffect(() => {
     if (!socket.connected) socket.connect();
     socket.on('newNotification', function (data: INotification) {

@@ -12,8 +12,6 @@ import {
 } from '@material-ui/icons';
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
-import { useAppDispatch } from '../../app/store';
-import { logout } from '../../pages/Login/loginSlice';
 import SingleDestination from '../../pages/Chat/components/SingleDestination/SingleDestination';
 
 import userAPI from '../../api/user/UserApi';
@@ -21,7 +19,6 @@ import Notification from '../Notification/notification';
 import { socket } from '../../App';
 
 const Header = (): ReactElement => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
@@ -59,11 +56,8 @@ const Header = (): ReactElement => {
   };
 
   const handleLogout = async (): Promise<void> => {
-    try {
-      await dispatch(logout()).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('currentUser');
     navigate('/login');
   };
 

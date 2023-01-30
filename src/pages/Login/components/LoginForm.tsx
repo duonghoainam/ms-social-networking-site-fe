@@ -16,8 +16,8 @@ import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const initialValues: LoginParams = {
-  username: 'giathai1505@gmail.com',
-  password: 'my16022001'
+  username: '',
+  password: ''
 };
 
 const LoginForm = (): ReactElement => {
@@ -29,8 +29,10 @@ const LoginForm = (): ReactElement => {
       const response: ApiResponse = await dispatch(login(values)).unwrap();
       if (response.code < 300) {
         showToastMessage('Login success', MessageToastType.SUCCESS);
+        navigate('/');
+      } else {
+        showToastMessage(response.message, MessageToastType.ERROR);
       }
-      navigate('/');
     } catch (error) {
       showToastMessage(error.message, MessageToastType.ERROR);
     }
