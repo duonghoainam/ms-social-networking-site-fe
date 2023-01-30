@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import LoginReducer from '../pages/Login/loginSlice';
 import RegisterReducer from '../pages/Register/registerSlice';
 import ChatReducer from '../pages/Chat/state/chatSlice';
+import NotificationReducer from '../components/Notification/state/notificationSlice';
 // import { persistStore, persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   register: RegisterReducer,
   home: HomeReducer,
   chat: ChatReducer,
-  user: UserReducer
+  user: UserReducer,
+  notification: NotificationReducer
 });
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);

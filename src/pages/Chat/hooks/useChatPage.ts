@@ -42,7 +42,9 @@ export const useChatPage = (): useChatPageType => {
     });
     socket.on('newConversation', function (data: IConversation) {
       const memberIds = data.members.map((member) => member.id);
-      if (memberIds.some((memberId) => memberId === currentUser.id)) { dispatch(newConversation(data)); }
+      if (memberIds.some((memberId) => memberId === currentUser.id)) {
+        dispatch(newConversation(data));
+      }
     });
     socket.on('seenMessage', function (data: any) {
       dispatch(updateConversation(data));
@@ -64,17 +66,6 @@ export const useChatPage = (): useChatPageType => {
       // const action2 = getNotification();
       // await dispatch(action2).unwrap();
     })().catch((error: any) => console.log(error));
-  }, []);
-
-  useEffect(() => {
-    if (socket.connected) {
-      socket.emit('call', 'rooms.join', { join: currentUser.id });
-    } else {
-      socket.on('connect', function () {
-        socket.emit('call', 'rooms.join', { join: currentUser.id });
-      });
-      socket.connect();
-    }
   }, []);
 
   return {
