@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
-
 import { ModeComment, Forum, Favorite, ReplyAll, CreateNewFolder } from '@material-ui/icons';
 import { format } from 'timeago.js';
-
 import './Header.scss';
 import { Col, Row } from 'react-bootstrap';
+import { INotification } from '../../pages/Chat/types/INotification.Type';
+import { TypeNotify } from '../../constants/enums/notify-type.enum';
 // import {
 //   getCommentsByPostID,
 //   getPostById,
@@ -16,34 +16,33 @@ import { Col, Row } from 'react-bootstrap';
 // import { addActiveId } from '../../features/user/profileSlice';
 // import { useAppDispatch } from '../../app/store';
 
-const NotificationItem = ({ info, handleNum }: any): ReactElement => {
+const NotificationItem = ({ notification }: { notification: INotification }): ReactElement => {
   // const dispatch = useAppDispatch();
   // const navigate = useNavigate();
-  const { notiType, sender } = info;
   let content = '';
   let icon;
-  switch (notiType) {
-    case 1:
+  switch (notification.type) {
+    case TypeNotify.COMMENT:
       content = ' đã bình luận bài viết của bạn';
       icon = <ModeComment className="commentIcon" />;
       break;
-    case 2:
+    case TypeNotify.LIKE_POST:
       content = ' đã thích bài viết của bạn';
       icon = <Favorite className="tymIcon" />;
       break;
-    case 3:
+    case TypeNotify.FOLLOW:
       content = ' đã theo dõi bạn';
       icon = <ReplyAll className="followIcon" />;
       break;
-    case 4:
+    case TypeNotify.REPLY:
       content = ' đã phản hồi bình luận của bạn';
       icon = <Forum className="replyIcon" />;
       break;
-    case 5:
+    case TypeNotify.NEW_POST:
       content = ' vừa đăng bài viết mới';
       icon = <CreateNewFolder className="newIcon" />;
       break;
-    case 6:
+    case TypeNotify.LIKE_COMMENT:
       content = ' đã thích bình luận của bạn của bạn';
       icon = <Favorite className="tymIcon" />;
       break;
@@ -51,50 +50,29 @@ const NotificationItem = ({ info, handleNum }: any): ReactElement => {
       break;
   }
 
-  // const showPostDetail = async (postId: any, notId: any): Promise<any> => {
-  //   if (info.notiType === 3) {
-  //     dispatch(addActiveId(info.desId));
-  //     navigate('/account');
-  //   } else {
-  //     const actionIsSeen = seenNotification({ notiId });
-  //     await dispatch(actionIsSeen).unwrap();
-
-  //     const action2 = getPostById({ postId });
-  //     await dispatch(action2).unwrap();
-
-  //     const action1 = getCommentsByPostID(postId);
-  //     await dispatch(action1).unwrap();
-
-  //     const action = ShowDetail(postId);
-  //     dispatch(action);
-
-  //     socket.emit('joinComment', postId);
-  //   }
-  // };
-
   return (
-    <Row className={(info.isSeen as boolean) ? 'notificationItem' : 'notificationItem notSeen'}>
+    <Row className={notification.read ? 'notificationItem' : 'notificationItem notSeen'}>
       <Col md={3}>
         <div className="notificationItem_Img">
-          <img src={sender.avatar} alt="" />
+          <img src={notification.from.avatar} alt="" />
           {icon}
         </div>
       </Col>
 
       <Col md={9} style={{ padding: 0 }}>
         <div className="notificationContent">
-          <span className="commentName">{sender.name}</span> {content}.
+          <span className="commentName">{notification.from.name}</span> {content}.
           <div
             className="seePost"
             // onClick={() => showPostDetail(info.desId, info._id)}
           >
-            {info.notiType === 3 ? 'Xem trang cá nhân' : 'Xem bài viết'}
+            {notification.type === TypeNotify.FOLLOW ? 'Xem trang cá nhân' : 'Xem bài viết'}
           </div>
           <Row>
             <Col md={10}>
-              <div className="time">{format(info.createdAt)}</div>
+              <div className="time">{format(notification.createdAt)}</div>
             </Col>
-            {(info.isSeen as boolean) ? (
+            {notification.read ? (
               <></>
             ) : (
               <Col md={2}>
