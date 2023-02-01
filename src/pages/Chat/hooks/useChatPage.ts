@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { socket } from '../../../App';
+import { socket } from '../../../utils/api.util';
 import { useAppDispatch } from '../../../app/store';
 import {
   addMessage,

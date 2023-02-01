@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { socket } from '../../App';
+import { socket } from '../../utils/api.util';
 import { useAppDispatch } from '../../app/store';
 import { INotification } from '../../pages/Chat/types/INotification.Type';
 import { MessageToastType } from '../../components/MessageToast/typings.d';
@@ -35,15 +35,15 @@ export const UseNotification = (): UseNotificationReturn => {
   const handleDeleteNotification = (id: string): void => {
     dispatch(deleteNotification(id))
       .unwrap()
-      .then((resultValue) => {})
-      .catch((rejectedValue) => {});
+      .then((resultValue) => { })
+      .catch((rejectedValue) => { });
   }
 
   useEffect(() => {
     dispatch(getNotifications({ id: currentUser.id, pageIndex, pageSize }))
       .unwrap()
-      .then((resultValue) => {})
-      .catch((rejectedValue) => {});
+      .then((resultValue) => { })
+      .catch((rejectedValue) => { });
   }, [isOpen])
 
   useEffect(() => {
@@ -65,8 +65,8 @@ export const UseNotification = (): UseNotificationReturn => {
   const handleMarkAsReadAll = (): void => {
     dispatch(markAsReadAll({ userId: currentUser.id, pageIndex, pageSize }))
       .unwrap()
-      .then((resultValue) => {})
-      .catch((rejectedValue) => {});
+      .then((resultValue) => { })
+      .catch((rejectedValue) => { });
   }
 
   return {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { socket } from '../../../../App';
+import { socket } from '../../../../utils/api.util';
 import useImageUpload from '../../../../hooks/useImageUpload';
 import { IConversation } from '../../types/IConversation';
 
@@ -40,13 +40,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
       {
         content: 'Đã rời khỏi cuộc trò chuyện',
         conversation: params.id as string
-      },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('call success:', res);
-        }
       }
     );
   }
@@ -77,27 +70,13 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     socket.emit(
       'updateConversation',
       'conversations.updateConversationName',
-      { id: params.id as string, newName: text },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id: params.id as string, newName: text }
     );
     socket.emit(
       'createMessage',
       {
         content: `Đã thay đổi ảnh tên cuộc trò chuyện thành ${text}`,
         conversation: params.id as string
-      },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('call success:', res);
-        }
       }
     );
   }
@@ -119,13 +98,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
           {
             id: params.id as string,
             newAvatar: value
-          },
-          function (err: any, res: any) {
-            if (err != null) {
-              console.error(err);
-            } else {
-              console.log('deleted message success:', res);
-            }
           }
         );
 
@@ -134,13 +106,6 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
           {
             content: 'Đã thay đổi ảnh đại diện của nhóm',
             conversation: params.id as string
-          },
-          function (err: any, res: any) {
-            if (err != null) {
-              console.error(err);
-            } else {
-              console.log('call success:', res);
-            }
           }
         );
       })

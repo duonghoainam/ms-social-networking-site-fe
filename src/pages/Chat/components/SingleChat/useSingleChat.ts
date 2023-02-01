@@ -2,7 +2,7 @@ import TimeAgo from 'javascript-time-ago';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ChatAPI from '../../../../api/chat/ChatApi';
-import { socket } from '../../../../App';
+import { socket } from '../../../../utils/api.util';
 import { IConversation } from '../../types/IConversation';
 import { IMessage } from '../../types/IMessage';
 
@@ -18,7 +18,7 @@ export const useSingleChat = (
   const params = useParams();
   const timeAgo = new TimeAgo('en-US');
 
-  function handleClickSingleChat (): void {
+  function handleClickSingleChat(): void {
     setActive(true);
     handleClick(conversation._id);
   }

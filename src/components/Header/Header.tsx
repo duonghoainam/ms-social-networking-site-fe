@@ -16,7 +16,7 @@ import SingleDestination from '../../pages/Chat/components/SingleDestination/Sin
 
 import userAPI from '../../api/user/UserApi';
 import Notification from '../Notification/notification';
-import { socket } from '../../App';
+import { socket } from '../../utils/api.util';
 
 const Header = (): ReactElement => {
   const navigate = useNavigate();

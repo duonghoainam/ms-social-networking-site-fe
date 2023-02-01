@@ -1,11 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { socket } from '../../../../App';
-// import { createNotification, follow } from '../../../Home/homeSlice';
-// import { unFollow, addActiveId } from '../../profileSlice';
-import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 
 export const useFollowingItem = ({ user, setShowModal }: any): any => {

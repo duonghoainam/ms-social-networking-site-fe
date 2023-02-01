@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { socket } from '../../../../App';
+import { socket } from '../../../../utils/api.util';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 import {
@@ -156,13 +156,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           content: messageText,
           conversation: params.id as string,
           sender: currentUser.id
-        },
-        function (err: any, res: any) {
-          if (err != null) {
-            console.error(err);
-          } else {
-            console.log('call success:', res);
-          }
         }
       );
       setMessageText('');
@@ -177,14 +170,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     socket.emit(
       'updateMessage',
       'messages.deleteRest',
-      { id, sender: currentUser.id },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id, sender: currentUser.id }
     );
   };
 
@@ -197,30 +183,15 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     socket.emit(
       'updateMessage',
       'messages.reactMessage',
-      { id: messageId, reactBy: userId },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id: messageId, reactBy: userId }
     );
   };
 
   const handleUnReactMessage = (messageId: string, userId: string): void => {
-    // const result = await dispatch(unReactMessage({ id: messageId, reactBy: userId })).unwrap();
     socket.emit(
       'updateMessage',
       'messages.unReactMessage',
-      { id: messageId, reactBy: userId },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id: messageId, reactBy: userId }
     );
   };
 
@@ -292,13 +263,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           content: JSON.stringify(urls),
           conversation: params.id as string,
           sender: currentUser.id
-        },
-        function (err: any, res: any) {
-          if (err != null) {
-            console.error(err);
-          } else {
-            console.log('call success:', res);
-          }
         }
       );
       setIsOpenPopup(false);
