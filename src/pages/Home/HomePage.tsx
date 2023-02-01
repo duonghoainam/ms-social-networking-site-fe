@@ -26,7 +26,6 @@ const HomePage = (): ReactElement => {
   const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { hideDetail, handleLikePostComment } = usePostComment();
 
-  console.log('listpost: ', listPost)
   return (
     <>
       <Container fluid>

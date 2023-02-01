@@ -27,7 +27,6 @@ class PostAPI {
 
   updatePost = (params: any): any => {
     const { postId, ...data } = params
-    console.log(data);
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const url = `${getApiUrl()}/posts/${postId}`;
     return axiosClient.patch(url, data);

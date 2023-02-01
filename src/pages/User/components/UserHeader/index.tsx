@@ -26,7 +26,6 @@ const UserHeader = (): ReactElement => {
     // handleChangeAvt,
     handleSendMessage
   } = useUserHeader();
-
   return (
     <div>
       {(Boolean(showModal)) && <Dialog showModal={showModal} setShowModal={setShowModal} />}

@@ -118,7 +118,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const seenMess = async (id: string): Promise<any> => {
     try {
       const result = await dispatch(seenMessage({ messId: id })).unwrap();
-      console.log(result.seenMessage);
       return result.seenMessage;
     } catch (error) {
       console.log(error);

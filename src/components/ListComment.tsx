@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import CommentItem from './CommentItem/CommentItem';
-// import { socket } from '../../../App';
 
 const ListComment = ({ comments }: any): ReactElement => {
   return (

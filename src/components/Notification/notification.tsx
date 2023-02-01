@@ -4,16 +4,6 @@ import { UseNotification } from './useNotification';
 import { NotificationsNoneOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import NotificationItem from '../NotifyItem/NotificationItem';
-// import {
-//   getCommentsByPostID,
-//   getPostById,
-//   seenNotification,
-//   ShowDetail
-// } from '../../features/home/homeSlice';
-// import { socket } from '../../App';
-// import { useNavigate } from 'react-router-dom';
-// import { addActiveId } from '../../features/user/profileSlice';
-// import { useAppDispatch } from '../../app/store';
 
 const Notification = ({ info, handleNum }: any): ReactElement => {
   const {
