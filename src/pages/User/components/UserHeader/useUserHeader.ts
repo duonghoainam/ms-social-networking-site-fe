@@ -13,7 +13,7 @@ export const useUserHeader = (): any => {
   const [showModal, setShowModal] = useState(false);
   const [showModalFollow, setShowModalFollow] = useState(false);
   const [isShowFollowers, setIsShowFollowers] = useState(false);
-  const [isShowChangeAvataPopup, setIsShowChangeAvatarPopup] = useState(false);
+  const [isShowChangeAvatarPopup, setIsShowChangeAvatarPopup] = useState(false);
   const isFollow = (): boolean => {
     let isFollowed = false;
     followerList.forEach((user: any) => {
@@ -55,7 +55,7 @@ export const useUserHeader = (): any => {
     setShowModalFollow,
     isShowFollowers,
     setIsShowFollowers,
-    isShowChangeAvataPopup,
+    isShowChangeAvatarPopup,
     setIsShowChangeAvatarPopup,
     handleFollow,
     handleShowFollow,

@@ -17,7 +17,7 @@ export const getHomePosts = createAsyncThunk('post/getPosts', async (params: Get
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR);
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
   }
 });
 
@@ -29,7 +29,7 @@ export const getPostComments = createAsyncThunk('post/getComments', async (postI
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -41,7 +41,7 @@ export const handleLike = createAsyncThunk('post/Like', async (params: LikeDto) 
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -53,7 +53,7 @@ export const handleDislike = createAsyncThunk('post/UnLike', async (params: Like
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -65,7 +65,7 @@ export const addNewComment = createAsyncThunk('home/addNewComment', async (param
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -78,7 +78,7 @@ export const deleteComment = createAsyncThunk('comment/delete',
       }
       return response;
     } catch (error) {
-      showToastMessage('Unexpected error', MessageToastType.ERROR)
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
     }
   }
 );
@@ -93,7 +93,7 @@ export const getListRecommendedFriends = createAsyncThunk('user/getRecommendedFr
       }
       return response;
     } catch (error) {
-      showToastMessage('Unexpected error', MessageToastType.ERROR)
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
     }
   }
 );
@@ -106,6 +106,6 @@ export const handleFollow = createAsyncThunk('home/handleFollow', async (params:
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });

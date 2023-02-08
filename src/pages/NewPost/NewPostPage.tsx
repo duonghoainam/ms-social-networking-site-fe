@@ -27,7 +27,7 @@ const NewPostPage = (): ReactElement => {
 						<Row>
 							<div className="newHeader">
 								<h6>Tạo bài viết mới</h6>
-								<button className={`${listImage.length === 0 ? 'disabled' : ''}`} onClick={handleCreatePost}>
+								<button onClick={handleCreatePost}>
 									Chia sẻ
 								</button>
 							</div>

@@ -19,7 +19,7 @@ const UserHeader = (): ReactElement => {
     showModalFollow,
     isFollowed,
     isShowFollowers,
-    isShowChangeAvataPopup,
+    isShowChangeAvatarPopup,
     setIsShowChangeAvatarPopup,
     handleFollow,
     handleShowFollow,
@@ -36,9 +36,9 @@ const UserHeader = (): ReactElement => {
           isFollowers={isShowFollowers}
         />
       )}
-      {(Boolean(isShowChangeAvataPopup)) && (
+      {(Boolean(isShowChangeAvatarPopup)) && (
         <ChangeProfilePhotoPopup
-          showModal={isShowChangeAvataPopup}
+          showModal={isShowChangeAvatarPopup}
           setShowModal={setIsShowChangeAvatarPopup}
         />
       )}

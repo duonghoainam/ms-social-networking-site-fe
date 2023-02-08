@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './HomePage.scss';
-import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
@@ -32,7 +31,6 @@ const HomePage = (): ReactElement => {
         <Row>
           <Header></Header>
         </Row>
-        <ToastContainer />
       </Container>
       <Container style={{ marginTop: '100px' }}>
         {(loadListPostFail as boolean) ? (

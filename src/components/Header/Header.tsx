@@ -52,7 +52,6 @@ const Header = (): ReactElement => {
     if (input === '') return;
     const result = await userAPI.searchUsers(input);
     setUsers(result.data);
-    console.log(result.data);
   };
 
   const handleLogout = async (): Promise<void> => {
@@ -153,7 +152,7 @@ const Header = (): ReactElement => {
                   Trang cá nhân
                 </a>
               </li>
-              <li id="logout" onClick={() => handleLogout}>
+              <li id="logout" onClick={handleLogout}>
                 <LocalDiningOutlined />
                 <i> Đăng xuất</i>
               </li>

@@ -21,14 +21,13 @@ const useNewPostPage = (): any => {
       }
       const result = await postAPI.createPost(params);
       if (result.code < 300) {
+        navigate(`/user/${currentUser.id}`);
         showToastMessage(result.message, MessageToastType.SUCCESS);
       } else {
         showToastMessage(result.message, MessageToastType.ERROR);
       }
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      navigate(`/user/${currentUser.id}`);
     } catch (error) {
-      showToastMessage('Unexpected error', MessageToastType.ERROR);
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }
   };
 

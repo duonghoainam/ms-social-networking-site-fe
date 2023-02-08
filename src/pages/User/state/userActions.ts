@@ -35,7 +35,7 @@ export const getPostComments = createAsyncThunk('user/getComments', async (postI
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -47,7 +47,7 @@ export const handleLike = createAsyncThunk('user/Like', async (params: LikeDto) 
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -59,7 +59,7 @@ export const handleDislike = createAsyncThunk('user/UnLike', async (params: Like
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -71,7 +71,7 @@ export const addNewComment = createAsyncThunk('user/addNewComment', async (param
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -85,6 +85,6 @@ export const deletePost = createAsyncThunk('user/deletePost', async (postId: str
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });

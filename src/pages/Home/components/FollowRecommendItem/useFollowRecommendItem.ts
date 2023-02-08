@@ -29,7 +29,7 @@ export const useFollowRecommendItem = (): any => {
       }
       setIsFollow(!isFollow);
     } catch (error) {
-      showToastMessage('Unknown error', MessageToastType.ERROR);
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }
   };
 

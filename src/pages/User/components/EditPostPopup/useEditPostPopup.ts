@@ -36,7 +36,7 @@ const useEditPostPopup = (post: any): any => {
       }
       navigate('/');
     } catch (error) {
-      showToastMessage('Unexpected error', MessageToastType.ERROR);
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }
   }
   return {

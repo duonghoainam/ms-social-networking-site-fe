@@ -5,13 +5,14 @@ import { FollowParams } from './type/follow.params';
 
 class UserAPI {
   searchUsers = async (input: string): Promise<any> => {
-    const url = `${getApiUrl()}/users/${input}`;
-    return await axiosClient.get(url, {});
+    const url = `${getApiUrl()}/users`;
+    const params = { input };
+    return await axiosClient.get(url, { params });
   };
 
   getUserInfo = async (userId: string): Promise<any> => {
     const url = `${getApiUrl()}/users/${userId}/`;
-    return await axiosClient.get(url, {});
+    return await axiosClient.get(url);
   };
 
   updateUser = async (userId: string): Promise<any> => {

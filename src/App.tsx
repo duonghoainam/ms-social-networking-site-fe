@@ -8,6 +8,7 @@ import RegisterPage from './pages/Register/RegisterPage';
 import IndexChat from './pages/Chat';
 import NewPostPage from './pages/NewPost/NewPostPage';
 import UserPage from './pages/User/UserPage';
+import { ToastContainer } from 'react-toastify';
 
 function App (): ReactElement {
   return (
@@ -67,7 +68,7 @@ function App (): ReactElement {
             </AuthRoute>
           }></Route>
       </Routes>
-      <Outlet></Outlet>
+      <ToastContainer />
     </div>
   );
 }
