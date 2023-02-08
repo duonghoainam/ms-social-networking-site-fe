@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import ChatContent from './components/ChatContent/ChatContent';
@@ -12,11 +13,12 @@ function ChatPage (): any {
   const { isOpenSetting, setIsOpenSetting, isShowPopup, setIsShowPopup } = useChatPage();
   return (
 		<>
-			<Container fluid>
-				<Row>
-					<Header></Header>
-				</Row>
-			</Container>
+      <Container fluid>
+        <Row>
+          <Header></Header>
+        </Row>
+        <ToastContainer />
+      </Container>
 			<Container style={{ marginTop: '100px' }}>
 				{isShowPopup && <MessagePopup setIsShowPopup={setIsShowPopup} type="create" />}
 				<Row>

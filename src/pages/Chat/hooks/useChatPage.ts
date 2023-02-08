@@ -31,6 +31,12 @@ export const useChatPage = (): useChatPageType => {
 
   useEffect(() => {
     if (!socket.connected) socket.connect();
+    socket.removeAllListeners('newMessage');
+    socket.removeAllListeners('updateMessage');
+    socket.removeAllListeners('updateConversation');
+    socket.removeAllListeners('newConversation');
+    socket.removeAllListeners('leaveConversation');
+
     socket.on('newMessage', function (data: any) {
       dispatch(addMessage(data));
     });

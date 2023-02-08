@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import PrivateRoute from './components/ControlRoute/PrivateRoute';
 import HomePage from './pages/Home/HomePage';
@@ -9,11 +9,25 @@ import RegisterPage from './pages/Register/RegisterPage';
 import IndexChat from './pages/Chat';
 import NewPostPage from './pages/NewPost/NewPostPage';
 import UserPage from './pages/User/UserPage';
+import { getSocketUrl } from './utils/api.util';
 
-// export const socket = io.connect('https://server-social-ie213.herokuapp.com');
-export const socket = io('http://localhost:3003');
+export const socket = io(getSocketUrl());
 
 function App (): ReactElement {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '{}');
+  useEffect(() => {
+    if (currentUser?.id !== undefined) {
+      if (socket.connected) {
+        socket.emit('call', 'rooms.join', { join: currentUser.id });
+      } else {
+        socket.on('connect', function () {
+          socket.emit('call', 'rooms.join', { join: currentUser.id });
+        });
+        socket.connect();
+      }
+    }
+  }, []);
+
   return (
     <div className="App">
       <Routes>

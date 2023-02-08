@@ -66,7 +66,7 @@ const NotificationItem = ({ notification }: { notification: INotification }): Re
             className="seePost"
             // onClick={() => showPostDetail(info.desId, info._id)}
           >
-            {notification.type === TypeNotify.FOLLOW ? 'Xem trang cá nhân' : 'Xem bài viết'}
+            {notification.type === TypeNotify.FOLLOW ? 'Xem trang cá nhân' : ''}
           </div>
           <Row>
             <Col md={10}>

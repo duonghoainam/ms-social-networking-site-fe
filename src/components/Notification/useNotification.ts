@@ -48,6 +48,7 @@ export const UseNotification = (): UseNotificationReturn => {
 
   useEffect(() => {
     if (!socket.connected) socket.connect();
+    socket.removeAllListeners('newNotification');
     socket.on('newNotification', function (data: INotification) {
       dispatch(addNotification(data));
       showToastMessage('Bạn có một thông báo mới!', MessageToastType.SUCCESS);
