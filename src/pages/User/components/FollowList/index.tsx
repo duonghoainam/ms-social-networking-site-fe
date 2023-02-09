@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import FollowerItem from '../FollowerItem';
 import './styles.scss';
-import FollowingItem from '../FollowingItem';
 import { useFollowList } from './useFollowList';
+import AccountItem from '../../../../components/AccountItem/AccountItem';
 
 const FollowList = ({ showModal, setShowModal, isFollowers }: any): ReactElement => {
   const { followerList, followingList, handleCloseDialog } = useFollowList(setShowModal);
@@ -20,12 +19,12 @@ const FollowList = ({ showModal, setShowModal, isFollowers }: any): ReactElement
           ? followerList.length === 0
             ? 'Danh sách trống!'
             : followerList.map((item: any, index: any) => (
-                <FollowerItem key={index} user={item} setShowModal={setShowModal} />
+              <AccountItem key={index} user={item} />
             ))
           : followingList.length === 0
             ? 'Danh sách trống!'
             : followingList.map((item: any, index: any) => (
-              <FollowingItem key={index} user={item} setShowModal={setShowModal} />
+              <AccountItem key={index} user={item} />
             ))}
       </Modal.Body>
     </Modal>
