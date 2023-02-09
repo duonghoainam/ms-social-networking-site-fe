@@ -30,10 +30,10 @@ export const useAccountItem = (user: any): any => {
       const result: ApiResponse = await userAPI.handleFollow(params);
       if (result.code < 300) {
         showToastMessage(result.message, MessageToastType.SUCCESS);
+        setIsFollow(!isFollow);
       } else {
         showToastMessage(result.message, MessageToastType.ERROR);
       }
-      setIsFollow(!isFollow);
     } catch (error) {
       showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }

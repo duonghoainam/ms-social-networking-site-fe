@@ -5,7 +5,7 @@ import { MessageToastType } from '../components/MessageToast/typings.d';
 const showToastMessage = (message: string, type: MessageToastType): void => {
   const option: ToastOptions = {
     position: toast.POSITION.TOP_RIGHT,
-    toastId: 'toast'
+    // toastId: 'toast'
   };
   switch (type) {
     case MessageToastType.ERROR:
