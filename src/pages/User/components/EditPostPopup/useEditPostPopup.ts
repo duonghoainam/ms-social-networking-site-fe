@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import postAPI from '../../../../api/post/PostApi';
+import { UpdatePostDto } from '../../../../api/post/type/update-post.dto';
 import { useAppDispatch } from '../../../../app/store';
 import { MessageToastType } from '../../../../components/MessageToast/typings.d';
 import { getFileTypeFromUrl } from '../../../../utils/string.util';
 import { showToastMessage } from '../../../../utils/toast.util';
+import { updatePost } from '../../state/userActions';
 import { setShowPostEdit } from '../../state/userSlice';
 
 const useEditPostPopup = (post: any): any => {
@@ -22,19 +22,15 @@ const useEditPostPopup = (post: any): any => {
   const handleEditPost = async (): Promise<void> => {
     try {
       const mediaUrls = listMedia.map((item: any) => item.url);
-      const params = {
+      const params: UpdatePostDto = {
         postId: post._id,
         content: valueInput,
         oldMedia: post.images,
         newMedia: mediaUrls
       }
-      const result = await postAPI.updatePost(params);
-      if (result.code < 300) {
-        showToastMessage(result.message, MessageToastType.SUCCESS);
-        await hideEditPost();
-      } else {
-        showToastMessage(result.message, MessageToastType.ERROR);
-      }
+      const updateAction = updatePost(params)
+      await dispatch(updateAction)
+      await hideEditPost()
     } catch (error) {
       showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }

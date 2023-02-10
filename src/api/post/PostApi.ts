@@ -3,6 +3,7 @@ import axiosClient from '../AxiosClient';
 import { CreateCommentDto } from './type/create-comment.dto';
 import { GetHomePostsDto } from './type/get-home-posts.dto';
 import { LikeDto } from './type/like.dto';
+import { UpdatePostDto } from './type/update-post.dto';
 class PostAPI {
   // Post API
   getHomePosts = (params: GetHomePostsDto): any => {
@@ -25,7 +26,7 @@ class PostAPI {
     return axiosClient.post(url, params);
   };
 
-  updatePost = (params: any): any => {
+  updatePost = (params: UpdatePostDto): any => {
     const { postId, ...data } = params
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const url = `${getApiUrl()}/posts/${postId}`;

@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
 import { CreateCommentDto } from '../../../api/post/type/create-comment.dto';
 import { LikeDto } from '../../../api/post/type/like.dto';
+import { UpdatePostDto } from '../../../api/post/type/update-post.dto';
 import userAPI from '../../../api/user/UserApi';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
@@ -68,6 +69,20 @@ export const addNewComment = createAsyncThunk('user/addNewComment', async (param
     const response = await postAPI.createComment(params);
     if (response.code >= 400) {
       showToastMessage(response.message, MessageToastType.ERROR);
+    }
+    return response;
+  } catch (error) {
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
+  }
+});
+
+export const updatePost = createAsyncThunk('user/updatePost', async (params: UpdatePostDto) => {
+  try {
+    const response = await postAPI.updatePost(params);
+    if (response.code >= 400) {
+      showToastMessage(response.message, MessageToastType.ERROR);
+    } else {
+      showToastMessage(response.message, MessageToastType.SUCCESS);
     }
     return response;
   } catch (error) {
