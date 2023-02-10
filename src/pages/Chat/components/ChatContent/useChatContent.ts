@@ -14,7 +14,7 @@ import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
 import { IImage } from '../../types/IImage.Type'
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
-import useImageUpload from '../../../../hooks/useImageUpload';
+import useImageUpload from '../../../../hooks/useMediaUpload';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);

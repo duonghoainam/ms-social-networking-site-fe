@@ -2,14 +2,14 @@ import React, { ReactElement } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Header from '../../components/Header/Header';
 import NewPostContent from './components/NewPostContent';
-import NewPostImage from './components/NewPostImage/NewPostImage';
+import NewPostMedia from './components/NewPostMedia/NewPostMedia';
 import useNewPostPage from './hooks/useNewPostPage';
 import './NewPostPage.scss';
 
 const NewPostPage = (): ReactElement => {
   const {
-    listImage,
-    setListImages,
+    listMedia,
+    setListMedia,
     valueInput,
     setValueInput,
     handleCreatePost
@@ -34,7 +34,7 @@ const NewPostPage = (): ReactElement => {
 						</Row>
 						<Row>
 							<Col md={7} className="newImgWrapper">
-								<NewPostImage listImage={listImage} setListImages={setListImages} />
+								<NewPostMedia listMedia={listMedia} setListMedia={setListMedia} />
 							</Col>
 							<Col md={5}>
 								<NewPostContent valueInput={valueInput} setValueInput={setValueInput} />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { socket } from '../../../../utils/api.util';
-import useImageUpload from '../../../../hooks/useImageUpload';
+import useImageUpload from '../../../../hooks/useMediaUpload';
 import { IConversation } from '../../types/IConversation';
 
 interface useChatSettingReturn {

@@ -66,7 +66,7 @@ const ChatContent = ({
         <div className="rightPanel__conversation" ref={chatContentRef} onScroll={handleScroll}>
           {isFetchingMessages && (
             <img
-              src="https://res.cloudinary.com/wjbucloud/image/upload/v1653588935/Ball-Drop-Preloader-1-1_kvobub.gif"
+              src={process.env.REACT_APP_MEDIA_UPLOAD_URL}
               style={{ width: '50px', height: 'auto', alignSelf: 'center' }}></img>
           )}
           {messages

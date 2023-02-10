@@ -5,7 +5,7 @@ import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
 
 const useNewPostPage = (): any => {
-  const [listImage, setListImages] = useState<string[]>([]);
+  const [listMedia, setListMedia] = useState<string[]>([]);
   const [valueInput, setValueInput] = useState<string>('content');
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
@@ -13,7 +13,7 @@ const useNewPostPage = (): any => {
 
   const handleCreatePost = async (): Promise<void> => {
     try {
-      const imagesUrls = listImage.map((item: any) => item.url);
+      const imagesUrls = listMedia.map((item: any) => item.url);
       const params = {
         user: currentUser.id,
         content: valueInput,
@@ -32,8 +32,8 @@ const useNewPostPage = (): any => {
   };
 
   return {
-    listImage,
-    setListImages,
+    listMedia,
+    setListMedia,
     valueInput,
     setValueInput,
     handleCreatePost
