@@ -84,14 +84,23 @@ export const deleteComment = createAsyncThunk('comment/delete',
 );
 
 // follow actions
-export const getListRecommendedFriends = createAsyncThunk('user/getRecommendedFriends',
+export const getListRecommendedFollowings = createAsyncThunk('user/getRecommendedFriends',
   async (userId: string) => {
     try {
-      const response = await userAPI.getListRecommend(userId);
+      const response: any = await userAPI.getListRecommend(userId);
+      const items =  await Promise.all(response.data.map(async (item: any)=> {
+        const getPostResponse = await postAPI.getUserPosts(item.user.id);
+        const getFollowingsResponse = await userAPI.getFollowings(item.user.id);
+        const getFollowersResponse = await userAPI.getFollowers(item.user.id);
+        item.user.followings = getFollowingsResponse.data.length
+        item.user.followers = getFollowersResponse.data.length
+        item.posts = getPostResponse.data
+        return item;
+      }))
       if (response.code >= 400) {
         showToastMessage(response.message, MessageToastType.ERROR);
       }
-      return response;
+      return items;
     } catch (error) {
       showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
     }

@@ -8,7 +8,7 @@ import { FollowingAction } from '../../../../constants/enums/following-action.en
 import { showToastMessage } from '../../../../utils/toast.util';
 
 export const useFollowRecommendItem = (): any => {
-  // const [isShowRecommend, setIsShowRecommend] = useState(false);
+  const [isShowRecommend, setIsShowRecommend] = useState(false);
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const navigate = useNavigate();
   const [isFollow, setIsFollow] = useState(false);
@@ -32,15 +32,24 @@ export const useFollowRecommendItem = (): any => {
       showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }
   };
+  const showRecommend = () => {
+    setIsShowRecommend(true);
+  };
+
+  const hideRecommend = () => {
+    setIsShowRecommend(false);
+  };
 
   const handleShowProfile = (): void => {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     navigate(`/user/${currentUser.id.toString()}`);
   };
   return {
     isFollow,
     setIsFollow,
     handleShowProfile,
-    handleFollow
+    handleFollow,
+    isShowRecommend,
+    showRecommend,
+    hideRecommend
   };
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../../app/store';
-import { getHomePosts, getListRecommendedFriends } from '../state/homeActions';
+import { getHomePosts, getListRecommendedFollowings } from '../state/homeActions';
 import postAPI from '../../../api/post/PostApi';
 import { GetHomePostsDto } from '../../../api/post/type/get-home-posts.dto';
 
@@ -48,7 +48,7 @@ export const useHomePage = (): any => {
 
   // Load recommend friends
   const loadRecommend = async (): Promise<void> => {
-    await dispatch(getListRecommendedFriends(currentUser.id)).unwrap();
+    await dispatch(getListRecommendedFollowings(currentUser.id)).unwrap();
   };
 
   useEffect(() => {

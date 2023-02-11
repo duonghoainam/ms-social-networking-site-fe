@@ -5,7 +5,7 @@ import {
   handleLike,
   handleDislike,
   addNewComment,
-  getListRecommendedFriends,
+  getListRecommendedFollowings,
   getPostComments,
   deleteComment
 } from './homeActions';
@@ -41,14 +41,14 @@ export const extraReducers: any = {
   },
 
   // get recommend
-  [getListRecommendedFriends.pending.toString()]: (state: HomeState, action: any) => {
+  [getListRecommendedFollowings.pending.toString()]: (state: HomeState, action: any) => {
     return { ...state, isLoading: true };
   },
-  [getListRecommendedFriends.rejected.toString()]: (state: any, action: any) => {
+  [getListRecommendedFollowings.rejected.toString()]: (state: any, action: any) => {
     return { ...state, isLoading: false };
   },
-  [getListRecommendedFriends.fulfilled.toString()]: (state: any, action: any) => {
-    return { ...state, listRecommend: action.payload.data, isLoading: false };
+  [getListRecommendedFollowings.fulfilled.toString()]: (state: any, action: any) => {
+    return { ...state, listRecommend: action.payload, isLoading: false };
   },
 
   // handle like post

@@ -2,9 +2,8 @@ import React, { ReactElement } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import './UserSummary.scss';
 
-const UserSummary = ({ user }: any): ReactElement => {
-  const posts: any[] = [];
-  const isLoading = true;
+const UserSummary = ({ user, posts }: any): ReactElement => {
+  const POSTS_LIMIT = 3;
   return (
     <div className="summary">
       <Row className="summary_header">
@@ -21,31 +20,22 @@ const UserSummary = ({ user }: any): ReactElement => {
           <p>Bài viết</p>
         </Col>
         <Col>
-          <p className="num">{user.followers.length}</p>
+          <p className="num">{user.followers}</p>
           <p>Người theo dõi</p>
         </Col>
         <Col>
+          <p className="num">{user.followings}</p>
           <p>Đang theo dõi</p>
-          <p className="num">{user.following.length}</p>
         </Col>
       </Row>
       <Row className="summary_image text-center">
-        {(isLoading as boolean) ? (
-          <Spinner animation="grow" variant="success" />
-        ) : (
-          <>
-            {posts.map((item: any, index: number) => {
-              if (index < 3) {
-                return (
-                  <Col key={index}>
-                    <img src={item.images[0]} alt="" />
-                  </Col>
-                );
-              }
-              return null;
-            })}
-          </>
-        )}
+        {posts.slice(0, POSTS_LIMIT).map((item: any, index: number) => {
+          return (
+            <Col key={index}>
+              <img src={item.images[0]} alt="" />
+            </Col>
+          )
+        })}
       </Row>
     </div>
   );
