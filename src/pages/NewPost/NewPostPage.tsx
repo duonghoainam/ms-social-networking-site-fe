@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import Header from '../../components/Header/Header';
 import NewPostContent from './components/NewPostContent';
 import NewPostMedia from './components/NewPostMedia/NewPostMedia';
@@ -20,6 +21,7 @@ const NewPostPage = (): ReactElement => {
 				<Row>
 					<Header></Header>
 				</Row>
+				<ToastContainer />
 			</Container>
 			<Container style={{ marginTop: '115px' }}>
 				<Row>
