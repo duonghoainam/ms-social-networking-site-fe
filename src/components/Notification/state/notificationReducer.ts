@@ -31,7 +31,6 @@ export const extraReducers = {
     state.error = false;
   },
   [markAsReadAll.fulfilled.toString()]: (state: any, action: any) => {
-    console.log('accccc', action.payload)
     state.loading = false;
     state.notifications = action.payload;
     state.error = false;

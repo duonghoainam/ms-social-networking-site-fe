@@ -5,16 +5,7 @@ import './Header.scss';
 import { Col, Row } from 'react-bootstrap';
 import { INotification } from '../../pages/Chat/types/INotification.Type';
 import { TypeNotify } from '../../constants/enums/notify-type.enum';
-// import {
-//   getCommentsByPostID,
-//   getPostById,
-//   seenNotification,
-//   ShowDetail
-// } from '../../features/home/homeSlice';
-// import { socket } from '../../App';
-// import { useNavigate } from 'react-router-dom';
-// import { addActiveId } from '../../features/user/profileSlice';
-// import { useAppDispatch } from '../../app/store';
+
 
 const NotificationItem = ({ notification }: { notification: INotification }): ReactElement => {
   // const dispatch = useAppDispatch();

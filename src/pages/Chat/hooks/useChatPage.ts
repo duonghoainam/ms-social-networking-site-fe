@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { socket } from '../../../App';
+import { socket } from '../../../utils/api.util';
 import { useAppDispatch } from '../../../app/store';
 import {
   addMessage,
@@ -25,9 +25,6 @@ export const useChatPage = (): useChatPageType => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const params = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    document.title = 'Inbox • Chats';
-  }, []);
 
   useEffect(() => {
     if (!socket.connected) socket.connect();
@@ -62,17 +59,6 @@ export const useChatPage = (): useChatPageType => {
       }
     });
   }, [socket, params.id]);
-
-  useEffect(() => {
-    document.title = 'Inbox • Chats';
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      // const action2 = getNotification();
-      // await dispatch(action2).unwrap();
-    })().catch((error: any) => console.log(error));
-  }, []);
 
   return {
     isOpenSetting,

@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './HomePage.scss';
-import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../app/state.type';
 import Header from '../../components/Header/Header';
@@ -26,14 +25,12 @@ const HomePage = (): ReactElement => {
   const { isShowPostDetail, selectedPost } = useSelector((state: AppState) => state.home);
   const { hideDetail, handleLikePostComment } = usePostComment();
 
-  console.log('listpost: ', listPost)
   return (
     <>
       <Container fluid>
         <Row>
           <Header></Header>
         </Row>
-        <ToastContainer />
       </Container>
       <Container style={{ marginTop: '100px' }}>
         {(loadListPostFail as boolean) ? (

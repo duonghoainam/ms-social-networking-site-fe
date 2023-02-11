@@ -4,14 +4,12 @@ import PrivateRoute from './components/ControlRoute/PrivateRoute';
 import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import AuthRoute from './components/ControlRoute/AuthRoute';
-import { io } from 'socket.io-client';
 import RegisterPage from './pages/Register/RegisterPage';
 import IndexChat from './pages/Chat';
 import NewPostPage from './pages/NewPost/NewPostPage';
 import UserPage from './pages/User/UserPage';
-import { getSocketUrl } from './utils/api.util';
-
-export const socket = io(getSocketUrl());
+import { socket } from './utils/api.util';
+import { ToastContainer } from 'react-toastify';
 
 function App (): ReactElement {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '{}');
@@ -85,7 +83,7 @@ function App (): ReactElement {
             </AuthRoute>
           }></Route>
       </Routes>
-      <Outlet></Outlet>
+      <ToastContainer />
     </div>
   );
 }

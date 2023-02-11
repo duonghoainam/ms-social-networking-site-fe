@@ -7,7 +7,8 @@ import {
   handleLike,
   handleDislike,
   addNewComment,
-  deletePost
+  deletePost,
+  updatePost
 } from './userActions';
 
 export const extraReducers: any = {
@@ -114,10 +115,20 @@ export const extraReducers: any = {
       return post;
     });
   },
+  // Update post
+  [updatePost.pending.toString()]: (state: any) => { },
+  [updatePost.fulfilled.toString()]: (state: any, action: any) => {
+    state.posts = state.posts.map((post: any) => {
+      if (post._id === action.payload.data._id) post = action.payload.data
+      return post
+    })
+  },
+  [updatePost.rejected.toString()]: (state: any, action: any) => { },
 
+  // Delete post
   [deletePost.pending.toString()]: (state: any) => { },
   [deletePost.fulfilled.toString()]: (state: any, action: any) => {
     state.posts = state.posts.filter((post: any) => post._id !== action.payload.data._id)
   },
-  [getFollowerList.rejected.toString()]: (state: any, action: any) => { }
+  [deletePost.rejected.toString()]: (state: any, action: any) => { }
 };

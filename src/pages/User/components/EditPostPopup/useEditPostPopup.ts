@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import postAPI from '../../../../api/post/PostApi';
+import { UpdatePostDto } from '../../../../api/post/type/update-post.dto';
 import { useAppDispatch } from '../../../../app/store';
 import { MessageToastType } from '../../../../components/MessageToast/typings.d';
+import { getFileTypeFromUrl } from '../../../../utils/string.util';
 import { showToastMessage } from '../../../../utils/toast.util';
+import { updatePost } from '../../state/userActions';
 import { setShowPostEdit } from '../../state/userSlice';
 
 const useEditPostPopup = (post: any): any => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const initListImage = post.images.map((image: string) => { return { url: image, type: 'image' } })
-  const [listImage, setListImages] = useState<string[]>(initListImage);
+  const initListMedia = post.images.map((fileUrl: string) => { return { url: fileUrl, type: getFileTypeFromUrl(fileUrl) } })
+  const [listMedia, setListMedia] = useState<string[]>(initListMedia);
   const [valueInput, setValueInput] = useState<string>(post.content);
 
   const hideEditPost = async (): Promise<void> => {
@@ -21,27 +21,23 @@ const useEditPostPopup = (post: any): any => {
 
   const handleEditPost = async (): Promise<void> => {
     try {
-      const imagesUrls = listImage.map((item: any) => item.url);
-      const params = {
+      const mediaUrls = listMedia.map((item: any) => item.url);
+      const params: UpdatePostDto = {
         postId: post._id,
         content: valueInput,
-        oldImages: post.images,
-        images: imagesUrls
+        oldMedia: post.images,
+        newMedia: mediaUrls
       }
-      const result = await postAPI.updatePost(params);
-      if (result.code < 300) {
-        showToastMessage(result.message, MessageToastType.SUCCESS);
-      } else {
-        showToastMessage(result.message, MessageToastType.ERROR);
-      }
-      navigate('/');
+      const updateAction = updatePost(params)
+      await dispatch(updateAction)
+      await hideEditPost()
     } catch (error) {
-      showToastMessage('Unexpected error', MessageToastType.ERROR);
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }
   }
   return {
-    listImage,
-    setListImages,
+    listMedia,
+    setListMedia,
     handleEditPost,
     hideEditPost,
     valueInput,

@@ -5,7 +5,7 @@ import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
 
 const useNewPostPage = (): any => {
-  const [listImage, setListImages] = useState<string[]>([]);
+  const [listMedia, setListMedia] = useState<string[]>([]);
   const [valueInput, setValueInput] = useState<string>('content');
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
 
@@ -13,7 +13,7 @@ const useNewPostPage = (): any => {
 
   const handleCreatePost = async (): Promise<void> => {
     try {
-      const imagesUrls = listImage.map((item: any) => item.url);
+      const imagesUrls = listMedia.map((item: any) => item.url);
       const params = {
         user: currentUser.id,
         content: valueInput,
@@ -21,20 +21,19 @@ const useNewPostPage = (): any => {
       }
       const result = await postAPI.createPost(params);
       if (result.code < 300) {
+        navigate(`/user/${currentUser.id}`);
         showToastMessage(result.message, MessageToastType.SUCCESS);
       } else {
         showToastMessage(result.message, MessageToastType.ERROR);
       }
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      navigate(`/user/${currentUser.id}`);
     } catch (error) {
-      showToastMessage('Unexpected error', MessageToastType.ERROR);
+      showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR);
     }
   };
 
   return {
-    listImage,
-    setListImages,
+    listMedia,
+    setListMedia,
     valueInput,
     setValueInput,
     handleCreatePost

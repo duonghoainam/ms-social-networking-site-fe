@@ -3,14 +3,14 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import Header from '../../components/Header/Header';
 import NewPostContent from './components/NewPostContent';
-import NewPostImage from './components/NewPostImage/NewPostImage';
+import NewPostMedia from './components/NewPostMedia/NewPostMedia';
 import useNewPostPage from './hooks/useNewPostPage';
 import './NewPostPage.scss';
 
 const NewPostPage = (): ReactElement => {
   const {
-    listImage,
-    setListImages,
+    listMedia,
+    setListMedia,
     valueInput,
     setValueInput,
     handleCreatePost
@@ -29,14 +29,14 @@ const NewPostPage = (): ReactElement => {
 						<Row>
 							<div className="newHeader">
 								<h6>Tạo bài viết mới</h6>
-								<button className={`${listImage.length === 0 ? 'disabled' : ''}`} onClick={handleCreatePost}>
+								<button onClick={handleCreatePost}>
 									Chia sẻ
 								</button>
 							</div>
 						</Row>
 						<Row>
 							<Col md={7} className="newImgWrapper">
-								<NewPostImage listImage={listImage} setListImages={setListImages} />
+								<NewPostMedia listMedia={listMedia} setListMedia={setListMedia} />
 							</Col>
 							<Col md={5}>
 								<NewPostContent valueInput={valueInput} setValueInput={setValueInput} />

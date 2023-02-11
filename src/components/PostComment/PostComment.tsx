@@ -17,6 +17,7 @@ import AllLikesPopup from '../AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../AllLikesPopup/useAllLikesPopup';
 import CommentSkeleton from '../SkeletonLoading/CommentSkeleton';
 import AddComment from '../AddComment/AddComment';
+import { getFileTypeFromUrl } from '../../utils/string.util';
 
 const PostComment = ({
   isShowPostDetail,
@@ -41,17 +42,15 @@ const PostComment = ({
           <Carousel
             prevIcon={<FontAwesomeIcon icon={faCircleChevronLeft} />}
             nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
-            {selectedPost.images?.map((image: any, index: number) => {
+            {selectedPost.images?.map((fileUrl: any, index: number) => {
               return (
                 <Carousel.Item key={index}>
-                  {image.split('.')[image.split('.').length - 1] === 'mp4' ? (
-                    <video
-                      style={{ display: 'grid', placeItems: 'center', maxHeight: '100%' }}
-                      controls>
-                      <source src={image} type="video/mp4"></source>
+                  {getFileTypeFromUrl(fileUrl) === 'video' ? (
+                    <video style={{ height: '100%', width: '100%' }} controls>
+                      <source src={fileUrl}></source>
                     </video>
                   ) : (
-                    <img className="d-block w-100" src={image} alt="First slide" />
+                    <img className="d-block w-100" src={fileUrl} alt="First slide" />
                   )}
                 </Carousel.Item>
               );

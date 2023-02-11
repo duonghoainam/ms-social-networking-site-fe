@@ -9,7 +9,6 @@ import { login } from '../loginSlice';
 import { useAppDispatch } from '../../../app/store';
 import { AppState } from '../../../app/state.type';
 import { LoginParams } from '../../../api/auth/type/login.type';
-import { ToastContainer } from 'react-toastify';
 import { showToastMessage } from '../../../utils/toast.util';
 import { ApiResponse } from '../../../api/api-response.type';
 import FormikControl from '../../../components/FormikCustom/FormikControl';
@@ -93,7 +92,6 @@ const LoginForm = (): ReactElement => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };

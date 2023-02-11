@@ -18,19 +18,16 @@ export const useHomePage = (): any => {
         userId: currentUser.id,
         pageNumber: pageNum
       };
-      console.log('fetch data, page = ', pageNum);
       const response = await postAPI.getHomePosts(homePostsParams);
       if (response.data.length > 0) {
         await dispatch(getHomePosts(homePostsParams)).unwrap();
       } else {
-        console.log('this last post');
         setIsLastPost(true);
       }
     }
   };
 
   useEffect(() => {
-    console.log('useEffect load post');
     void loadPosts();
   }, [pageNum]);
 
@@ -45,7 +42,6 @@ export const useHomePage = (): any => {
   };
 
   useEffect(() => {
-    console.log('useEffect handle scrolling');
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -56,7 +52,6 @@ export const useHomePage = (): any => {
   };
 
   useEffect(() => {
-    console.log('useEffect load recommend');
     void loadRecommend();
   }, []);
 };

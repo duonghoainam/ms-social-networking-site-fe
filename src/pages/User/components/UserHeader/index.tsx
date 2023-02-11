@@ -5,6 +5,7 @@ import FollowList from '../FollowList';
 import Dialog from '../Dialog';
 import ChangeProfilePhotoPopup from '../ChangeProfilePhotoPopup';
 import './style.scss';
+import { UserShortcuts } from '../UserShortcuts';
 
 const UserHeader = (): ReactElement => {
   const {
@@ -17,16 +18,12 @@ const UserHeader = (): ReactElement => {
     setShowModal,
     setShowModalFollow,
     showModalFollow,
-    isFollowed,
     isShowFollowers,
-    isShowChangeAvataPopup,
+    isShowChangeAvatarPopup,
     setIsShowChangeAvatarPopup,
-    handleFollow,
-    handleShowFollow,
+    handleShowFollow
     // handleChangeAvt,
-    handleSendMessage
   } = useUserHeader();
-
   return (
     <div>
       {(Boolean(showModal)) && <Dialog showModal={showModal} setShowModal={setShowModal} />}
@@ -37,9 +34,9 @@ const UserHeader = (): ReactElement => {
           isFollowers={isShowFollowers}
         />
       )}
-      {(Boolean(isShowChangeAvataPopup)) && (
+      {(Boolean(isShowChangeAvatarPopup)) && (
         <ChangeProfilePhotoPopup
-          showModal={isShowChangeAvataPopup}
+          showModal={isShowChangeAvatarPopup}
           setShowModal={setIsShowChangeAvatarPopup}
         />
       )}
@@ -48,7 +45,7 @@ const UserHeader = (): ReactElement => {
           <div className="p-2">
             <div
               className="avatar__container"
-              // onClick={() => handleChangeAvt()}
+            // onClick={() => handleChangeAvt()}
             >
               <img src={userInfo.avatar} />
             </div>
@@ -59,34 +56,13 @@ const UserHeader = (): ReactElement => {
                 <div className="">
                   <div className="d-flex  flex-row ">
                     <div className="p-2 username ">{userInfo.name}</div>
-
                     {userInfo.id === currentUser.id ? (
-                      <></>
-                    ) : (
-                      <>
-                        {' '}
-                        <Button
-                          variant="outline-success"
-                          onClick={() => handleSendMessage(currentUser, userInfo)}
-                        >
-                          Nhắn tin
-                        </Button>
-                        <Button
-                          variant="outline-success"
-                          onClick={() => handleFollow(userInfo.id)}
-                        >
-                          {(Boolean(isFollowed)) ? 'Bỏ theo dõi' : 'Theo dõi'}
-                        </Button>
-                      </>
-                    )}
-
-                    {currentUser.id === userInfo.id && (
                       <Button variant="outline-success"
-                      onClick={() => setShowModal(true)}
+                        onClick={() => setShowModal(true)}
                       >
                         Sửa thông tin
                       </Button>
-                    )}
+                    ) : <UserShortcuts />}
                   </div>
                 </div>
               </div>
@@ -100,14 +76,14 @@ const UserHeader = (): ReactElement => {
                     className="p-2 follower"
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleShowFollow(true)}
-                    >
+                  >
                     <span>{followerList.length}</span>Người theo dõi
                   </div>
                   <div
                     className="p-2 following"
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleShowFollow(false)}
-                    >
+                  >
                     <span>{followingList.length}</span>Đang theo dõi
                   </div>
                 </div>

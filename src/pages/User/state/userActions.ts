@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import postAPI from '../../../api/post/PostApi';
 import { CreateCommentDto } from '../../../api/post/type/create-comment.dto';
 import { LikeDto } from '../../../api/post/type/like.dto';
+import { UpdatePostDto } from '../../../api/post/type/update-post.dto';
 import userAPI from '../../../api/user/UserApi';
 import { MessageToastType } from '../../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../../utils/toast.util';
@@ -35,7 +36,7 @@ export const getPostComments = createAsyncThunk('user/getComments', async (postI
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -47,7 +48,7 @@ export const handleLike = createAsyncThunk('user/Like', async (params: LikeDto) 
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -59,7 +60,7 @@ export const handleDislike = createAsyncThunk('user/UnLike', async (params: Like
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -71,7 +72,21 @@ export const addNewComment = createAsyncThunk('user/addNewComment', async (param
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
+  }
+});
+
+export const updatePost = createAsyncThunk('user/updatePost', async (params: UpdatePostDto) => {
+  try {
+    const response = await postAPI.updatePost(params);
+    if (response.code >= 400) {
+      showToastMessage(response.message, MessageToastType.ERROR);
+    } else {
+      showToastMessage(response.message, MessageToastType.SUCCESS);
+    }
+    return response;
+  } catch (error) {
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
 
@@ -85,6 +100,6 @@ export const deletePost = createAsyncThunk('user/deletePost', async (postId: str
     }
     return response;
   } catch (error) {
-    showToastMessage('Unexpected error', MessageToastType.ERROR)
+    showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });

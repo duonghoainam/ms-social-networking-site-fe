@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const useImageUpload = async (file: any): Promise<string> => {
-  const imageData = new FormData();
+const useMediaUpload = async (file: any): Promise<string> => {
+  const mediaData = new FormData();
   const uploadUrl = process.env.REACT_APP_MEDIA_UPLOAD_URL ?? 'http://localhost:3000/upload'
-  imageData.append('file', file);
-  const result = await axios.post(uploadUrl, imageData, {
+  mediaData.append('file', file);
+  const result = await axios.post(uploadUrl, mediaData, {
     headers: {
       'content-type': 'multipart/form-data'
     }
@@ -12,4 +12,4 @@ const useImageUpload = async (file: any): Promise<string> => {
   return result.data[0].data
 };
 
-export default useImageUpload;
+export default useMediaUpload;

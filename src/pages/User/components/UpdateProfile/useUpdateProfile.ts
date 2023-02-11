@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../../app/store';
 import { AppState } from '../../../../app/state.type';
 // import { updateUser } from '../../profileSlice';
 import { updateCurrentUser } from '../../../Login/loginSlice';
-import useImageUpload from '../../../../hooks/useImageUpload';
+import useImageUpload from '../../../../hooks/useMediaUpload';
 
 export const useUpdateProfile = (setShowModal: any): any => {
   const dispatch = useAppDispatch();

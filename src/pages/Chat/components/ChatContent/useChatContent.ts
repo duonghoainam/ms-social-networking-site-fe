@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { socket } from '../../../../App';
+import { socket } from '../../../../utils/api.util';
 import { AppState } from '../../../../app/state.type';
 import { useAppDispatch } from '../../../../app/store';
 import {
@@ -14,7 +14,7 @@ import { IConversation } from '../../types/IConversation';
 import { IUseChatContent } from '../../types/useChatContent.Type';
 import { IImage } from '../../types/IImage.Type'
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
-import useImageUpload from '../../../../hooks/useImageUpload';
+import useImageUpload from '../../../../hooks/useMediaUpload';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
@@ -118,7 +118,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const seenMess = async (id: string): Promise<any> => {
     try {
       const result = await dispatch(seenMessage({ messId: id })).unwrap();
-      console.log(result.seenMessage);
       return result.seenMessage;
     } catch (error) {
       console.log(error);
@@ -157,13 +156,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           content: messageText,
           conversation: params.id as string,
           sender: currentUser.id
-        },
-        function (err: any, res: any) {
-          if (err != null) {
-            console.error(err);
-          } else {
-            console.log('call success:', res);
-          }
         }
       );
       setMessageText('');
@@ -178,14 +170,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     socket.emit(
       'updateMessage',
       'messages.deleteRest',
-      { id, sender: currentUser.id },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id, sender: currentUser.id }
     );
   };
 
@@ -198,30 +183,15 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     socket.emit(
       'updateMessage',
       'messages.reactMessage',
-      { id: messageId, reactBy: userId },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id: messageId, reactBy: userId }
     );
   };
 
   const handleUnReactMessage = (messageId: string, userId: string): void => {
-    // const result = await dispatch(unReactMessage({ id: messageId, reactBy: userId })).unwrap();
     socket.emit(
       'updateMessage',
       'messages.unReactMessage',
-      { id: messageId, reactBy: userId },
-      function (err: any, res: any) {
-        if (err != null) {
-          console.error(err);
-        } else {
-          console.log('deleted message success:', res);
-        }
-      }
+      { id: messageId, reactBy: userId }
     );
   };
 
@@ -293,13 +263,6 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
           content: JSON.stringify(urls),
           conversation: params.id as string,
           sender: currentUser.id
-        },
-        function (err: any, res: any) {
-          if (err != null) {
-            console.error(err);
-          } else {
-            console.log('call success:', res);
-          }
         }
       );
       setIsOpenPopup(false);
