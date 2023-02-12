@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { getHomePosts, getListRecommendedFollowings } from '../state/homeActions';
 import postAPI from '../../../api/post/PostApi';
@@ -8,44 +8,6 @@ export const useHomePage = (): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const dispatch = useAppDispatch();
 
-  // Infinite scrolling
-  const [pageNum, setPageNum] = useState(1);
-  const [isLastPost, setIsLastPost] = useState(false);
-
-  const loadPosts = async (): Promise<void> => {
-    if (!isLastPost) {
-      const homePostsParams: GetHomePostsDto = {
-        userId: currentUser.id,
-        pageNumber: pageNum
-      };
-      const response = await postAPI.getHomePosts(homePostsParams);
-      if (response.data.length > 0) {
-        await dispatch(getHomePosts(homePostsParams)).unwrap();
-      } else {
-        setIsLastPost(true);
-      }
-    }
-  };
-
-  useEffect(() => {
-    void loadPosts();
-  }, [pageNum]);
-
-  const handleScroll = (): void => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight &&
-      !isLastPost
-    ) {
-      setPageNum((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Load recommend friends
   const loadRecommend = async (): Promise<void> => {
     await dispatch(getListRecommendedFollowings(currentUser.id)).unwrap();
@@ -54,4 +16,46 @@ export const useHomePage = (): any => {
   useEffect(() => {
     void loadRecommend();
   }, []);
+
+  // fix lazing loading
+  const observer = useRef<IntersectionObserver | null>(null);
+  let page = 1;
+  const homePostsParams: GetHomePostsDto = {
+    userId: currentUser.id,
+    pageNumber: page
+  };
+
+  useEffect(()=>{
+    dispatch(getHomePosts(homePostsParams)).unwrap()
+
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0,
+    };
+
+    observer.current = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          page += 1;
+          const homePostsParams: GetHomePostsDto = {
+            userId: currentUser.id,
+            pageNumber: page
+          };
+          dispatch(getHomePosts(homePostsParams)).unwrap()
+        }
+      });
+    }, options);
+
+    const observerTarget = document.querySelector('#observer-target');
+    if (observerTarget) {
+      observer.current.observe(observerTarget);
+    }
+
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, [dispatch])
 };
