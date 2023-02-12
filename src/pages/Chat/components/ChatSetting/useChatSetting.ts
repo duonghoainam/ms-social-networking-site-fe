@@ -33,15 +33,15 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
   const [isShowMessagePopup, setIsShowMessagePopup] = useState(false);
 
   function handleDeleteCon (): void {
-    socket.emit('leaveConversation', { conversation: params.id, member: currentUser.id });
-    handleClosePopup();
     socket.emit(
       'createMessage',
       {
-        content: 'Đã rời khỏi cuộc trò chuyện',
+        content: `${currentUser?.name} đã rời khỏi cuộc trò chuyện`,
         conversation: params.id as string
       }
     );
+    socket.emit('leaveConversation', { conversation: params.id, member: currentUser.id });
+    handleClosePopup();
   }
 
   function handleClosePopup (): void {
@@ -75,7 +75,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
     socket.emit(
       'createMessage',
       {
-        content: `Đã thay đổi ảnh tên cuộc trò chuyện thành ${text}`,
+        content: `${currentUser?.name} đã thay đổi tên cuộc trò chuyện thành "${text}"`,
         conversation: params.id as string
       }
     );
@@ -104,7 +104,7 @@ export const useChatSetting = (currentConversation: IConversation): useChatSetti
         socket.emit(
           'createMessage',
           {
-            content: 'Đã thay đổi ảnh đại diện của nhóm',
+            content: `${currentUser?.name} đã thay đổi ảnh đại diện của nhóm`,
             conversation: params.id as string
           }
         );

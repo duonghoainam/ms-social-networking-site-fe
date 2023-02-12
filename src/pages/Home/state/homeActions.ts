@@ -118,3 +118,27 @@ export const handleFollow = createAsyncThunk('home/handleFollow', async (params:
     showToastMessage('Đã có lỗi xảy ra', MessageToastType.ERROR)
   }
 });
+
+export const likeComment = createAsyncThunk('comment/Like', async ({ userId, postId, commentId }: { userId: string, postId: string, commentId: string }) => {
+  try {
+    const response = await postAPI.likeComment(userId, postId, commentId);
+    if (response.code >= 400) {
+      showToastMessage(response.message, MessageToastType.ERROR);
+    }
+    return response;
+  } catch (error) {
+    showToastMessage('Unexpected error', MessageToastType.ERROR)
+  }
+});
+
+export const unlikeComment = createAsyncThunk('comment/UnLike', async ({ userId, postId, commentId }: { userId: string, postId: string, commentId: string }) => {
+  try {
+    const response = await postAPI.unlikeComment(userId, postId, commentId);
+    if (response.code >= 400) {
+      showToastMessage(response.message, MessageToastType.ERROR);
+    }
+    return response;
+  } catch (error) {
+    showToastMessage('Unexpected error', MessageToastType.ERROR)
+  }
+});

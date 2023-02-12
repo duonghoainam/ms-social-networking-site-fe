@@ -4,20 +4,35 @@ import { UseNotification } from './useNotification';
 import { NotificationsNoneOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import NotificationItem from '../NotifyItem/NotificationItem';
+// import {
+//   getCommentsByPostID,
+//   getPostById,
+//   seenNotification,
+//   ShowDetail
+// } from '../../features/home/homeSlice';
+// import { socket } from '../../App';
+// import { useNavigate } from 'react-router-dom';
+// import { addActiveId } from '../../features/user/profileSlice';
+// import { useAppDispatch } from '../../app/store';
 
 const Notification = ({ info, handleNum }: any): ReactElement => {
   const {
     notifications,
     handleToggle,
     handleMarkAsReadAll,
-    isOpen
+    isOpen,
+    numOfNotifications
   } = UseNotification()
   if (isOpen) {
     return (
       <>
         <IconButton onClick={handleToggle}>
-          <NotificationsNoneOutlined
-          />
+          <NotificationsNoneOutlined />
+          {numOfNotifications > 0 ? (
+            <div className="notification__number">{numOfNotifications}</div>
+          ) : (
+            <></>
+          )}
         </IconButton>
       <div className="notification">
         <div className="notification__panel">
@@ -49,6 +64,11 @@ const Notification = ({ info, handleNum }: any): ReactElement => {
       <IconButton onClick={handleToggle}>
         <NotificationsNoneOutlined
         />
+        {numOfNotifications > 0 ? (
+            <div className="notification__number">{numOfNotifications}</div>
+        ) : (
+            <></>
+        )}
       </IconButton>
       <div className="notification"></div>
     </>

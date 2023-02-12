@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { socket } from '../../utils/api.util';
 import { useAppDispatch } from '../../app/store';
 import { INotification } from '../../pages/Chat/types/INotification.Type';
 import { MessageToastType } from '../../components/MessageToast/typings.d';
 import { showToastMessage } from '../../utils/toast.util';
 import { deleteNotification, getNotifications, markAsReadAll } from './state/notificationAction';
 import { addNotification } from './state/notificationSlice';
+import { socket } from '../../utils/api.util';
 
 interface UseNotificationReturn {
   notifications: INotification[]
@@ -16,6 +16,7 @@ interface UseNotificationReturn {
   handleToggle: any
   handleMarkAsReadAll: any
   isOpen: boolean
+  numOfNotifications: number
 }
 
 export const UseNotification = (): UseNotificationReturn => {
@@ -24,6 +25,7 @@ export const UseNotification = (): UseNotificationReturn => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [numOfNotifications, setNumOfNotifications] = useState(0);
 
   const notifications = useSelector((state: any) => state.notification.notifications);
   const [isOpen, setIsOpen] = useState(false);
@@ -35,16 +37,21 @@ export const UseNotification = (): UseNotificationReturn => {
   const handleDeleteNotification = (id: string): void => {
     dispatch(deleteNotification(id))
       .unwrap()
-      .then((resultValue) => { })
-      .catch((rejectedValue) => { });
+      .then((resultValue) => {})
+      .catch((rejectedValue) => {});
   }
 
   useEffect(() => {
     dispatch(getNotifications({ id: currentUser.id, pageIndex, pageSize }))
       .unwrap()
-      .then((resultValue) => { })
-      .catch((rejectedValue) => { });
+      .then((resultValue) => {})
+      .catch((rejectedValue) => {});
   }, [isOpen])
+
+  useEffect(() => {
+    const numUnread = notifications?.filter((n: any) => n.read === false && n.deleted === false);
+    setNumOfNotifications(numUnread?.length);
+  }, [notifications])
 
   useEffect(() => {
     if (!socket.connected) socket.connect();
@@ -66,8 +73,8 @@ export const UseNotification = (): UseNotificationReturn => {
   const handleMarkAsReadAll = (): void => {
     dispatch(markAsReadAll({ userId: currentUser.id, pageIndex, pageSize }))
       .unwrap()
-      .then((resultValue) => { })
-      .catch((rejectedValue) => { });
+      .then((resultValue) => {})
+      .catch((rejectedValue) => {});
   }
 
   return {
@@ -77,6 +84,7 @@ export const UseNotification = (): UseNotificationReturn => {
     handleDeleteNotification,
     handleToggle,
     handleMarkAsReadAll,
-    isOpen
+    isOpen,
+    numOfNotifications
   };
 };

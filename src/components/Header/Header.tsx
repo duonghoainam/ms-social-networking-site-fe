@@ -4,11 +4,11 @@ import './Header.scss';
 import {
   HomeOutlined,
   AddCircleOutline,
-  WhatsApp,
   AccountCircleOutlined,
   LocalDiningOutlined,
   SearchOutlined,
-  Close
+  Close,
+  Phone
 } from '@material-ui/icons';
 import IMAGES from '../../assets/images/imageStore';
 import { useNavigate, NavLink } from 'react-router-dom';
@@ -17,12 +17,21 @@ import SingleDestination from '../../pages/Chat/components/SingleDestination/Sin
 import userAPI from '../../api/user/UserApi';
 import Notification from '../Notification/notification';
 import { socket } from '../../utils/api.util';
+import { getAllConversations } from '../../pages/Chat/state/chatAction';
+import { IConversation } from '../../pages/Chat/types/IConversation';
+import { addMessage, newConversation, updateConversation } from '../../pages/Chat/state/chatSlice';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../app/state.type';
+import { useAppDispatch } from '../../app/store';
 
 const Header = (): ReactElement => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const currentUserId: string = currentUser.id;
+  const conversations = useSelector((state: AppState) => state.chat.conversations);
+  const [unReadConversations, setUnReadConversations] = useState(0);
 
   const navigateToProfile = (): void => {
     navigate(`/user/${currentUserId}`);
@@ -69,7 +78,53 @@ const Header = (): ReactElement => {
       });
       socket.connect();
     }
+
+    dispatch(getAllConversations(currentUser.id))
+      .unwrap()
+      .then((resultValue) => {})
+      .catch((rejectedValue) => {});
   }, []);
+
+  useEffect(() => {
+    if (!socket.connected) {
+      socket.connect();
+    }
+    socket.removeAllListeners('updateConversation');
+    socket.removeAllListeners('newConversation');
+    socket.removeAllListeners('newMessage');
+
+    socket.on('updateConversation', function (data: any) {
+      dispatch(updateConversation(data));
+    });
+    socket.on('newConversation', function (data: IConversation) {
+      const memberIds = data.members.map((member) => member.id);
+      if (memberIds.some((memberId) => memberId === currentUser.id)) {
+        dispatch(newConversation(data));
+      }
+    });
+    socket.on('newMessage', function (data: any) {
+      dispatch(addMessage(data));
+      if (data.sender !== currentUser.id) {
+        const currentConversation = conversations.find(con => con._id === data.conversation)
+        if (currentConversation != null && currentConversation !== undefined) {
+          const newConversation = { ...currentConversation, hasUnreadMessage: true }
+          dispatch(updateConversation(newConversation));
+        }
+      }
+    });
+
+    conversations.forEach(conversation => {
+      socket.emit('call', 'rooms.join', { join: conversation._id });
+    });
+
+    console.log('init header component')
+  }, [conversations]);
+
+  useEffect(() => {
+    const numOfReadConversations = conversations.filter(c => c.hasUnreadMessage).length;
+    setUnReadConversations(numOfReadConversations);
+  }, [conversations])
+
 
   return (
     <>
@@ -133,7 +188,14 @@ const Header = (): ReactElement => {
             <HomeOutlined />
           </NavLink>
           <NavLink to="/messenger">
-            <WhatsApp />
+            <div style={{ position: 'relative' }}>
+              <Phone />
+              {unReadConversations > 0 ? (
+              <div className="notification__number">{unReadConversations}</div>
+              ) : (
+              <></>
+              )}
+            </div>
           </NavLink>
           <NavLink to="/new">
             <AddCircleOutline />

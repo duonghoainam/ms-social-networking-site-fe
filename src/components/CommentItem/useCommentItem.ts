@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { deleteComment, getHomePosts } from '../../pages/Home/state/homeActions';
+import { useEffect, useState } from 'react';
+import { deleteComment, likeComment, unlikeComment } from '../../pages/Home/state/homeActions';
 import { useAppDispatch } from '../../app/store';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../app/state.type';
+import { userLikeComment, userUnlikeComment } from '../../pages/User/state/userActions';
 
 export const useCommentItem = (comment: any): any => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-  let [isLike] = useState(false);
-  isLike = comment.likes.includes(currentUser.id);
-
-  const [likeCount] = useState(comment.likes.length);
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '{}');
+  const { isShowPostDetail } = useSelector((state: AppState) => state.user);
+  const [isLike, setIsLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [isShowChildrenComment, setIsShowChildrenComment] = useState(false);
   const [isShowCmtOption, setIsShowCommentOption] = useState(false);
   let isCommentOfCurrentUser = false;
@@ -26,9 +28,34 @@ export const useCommentItem = (comment: any): any => {
     const actionDeleteComment = deleteComment(params);
     await dispacth(actionDeleteComment).unwrap();
 
-    const actionGetPosts = getHomePosts(currentUser.id);
-    await dispacth(actionGetPosts).unwrap();
+    // const actionGetPosts = getHomePosts(currentUser.id);
+    // await dispacth(actionGetPosts).unwrap();
   }
+
+  const handleLikeComment = async (): Promise<void> => {
+    if (isShowPostDetail === true) {
+      const actionLikeComment = userLikeComment({ userId: currentUser.id, postId: comment.postId, commentId: comment._id });
+      await dispacth(actionLikeComment).unwrap();
+    } else {
+      const actionLikeComment = likeComment({ userId: currentUser.id, postId: comment.postId, commentId: comment._id });
+      await dispacth(actionLikeComment).unwrap();
+    }
+  }
+
+  const handleUnLikeComment = async (): Promise<void> => {
+    if (isShowPostDetail === true) {
+      const actionLikeComment = userUnlikeComment({ userId: currentUser.id, postId: comment.postId, commentId: comment._id });
+      await dispacth(actionLikeComment).unwrap();
+    } else {
+      const actionUnlikeComment = unlikeComment({ userId: currentUser.id, postId: comment.postId, commentId: comment._id });
+      await dispacth(actionUnlikeComment).unwrap();
+    }
+  }
+
+  useEffect(() => {
+    setIsLike(comment.likes.includes(currentUser.id))
+    setLikeCount(comment.likes.length)
+  }, [comment])
 
   return {
     isLike,
@@ -39,6 +66,8 @@ export const useCommentItem = (comment: any): any => {
     setIsShowCommentOption,
     isCanEditAndDelete,
     setIsCanEditAndDelete,
-    handleDeleteComment
+    handleDeleteComment,
+    handleLikeComment,
+    handleUnLikeComment
   };
 };
