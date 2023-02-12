@@ -8,11 +8,13 @@ import { useAppDispatch } from '../../../app/store';
 import { RegisterParams } from '../../../api/auth/type/register.type';
 import FormikControl from '../../../components/FormikCustom/FormikControl';
 import { register } from '../registerSlice';
+import { showToastMessage } from '../../../utils/toast.util';
+import { MessageToastType } from '../../../components/MessageToast/typings.d';
 
 const initialValues = {
-  username: 'giathai1505@gmail.com',
-  password: 'my16022001',
-  name: 'Gia Thái',
+  username: '',
+  password: '',
+  name: '',
   gender: 'male'
 };
 
@@ -22,11 +24,15 @@ const RegisterForm = (): ReactElement => {
 
   const handleSubmit = async (values: RegisterParams): Promise<void> => {
     try {
-      const result = await dispatch(register(values)).unwrap();
-      alert(result.message);
-      navigate('/login');
+      const response = await dispatch(register(values)).unwrap();
+      if(response.code <= 300){
+        showToastMessage("Đăng ký thành công", MessageToastType.SUCCESS)
+        navigate('/login');
+      }else{
+        showToastMessage(response.message, MessageToastType.ERROR)
+      }
     } catch (error) {
-      alert(error.message);
+      showToastMessage(error.message, MessageToastType.ERROR)
     }
   };
 
