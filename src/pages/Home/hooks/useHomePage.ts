@@ -26,7 +26,7 @@ export const useHomePage = (): any => {
   };
 
   useEffect(()=>{
-    dispatch(getHomePosts(homePostsParams)).unwrap()
+    // dispatch(getHomePosts(homePostsParams)).unwrap()
 
     const options = {
       root: null,
