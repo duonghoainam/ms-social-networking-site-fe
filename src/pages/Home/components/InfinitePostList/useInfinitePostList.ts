@@ -8,6 +8,7 @@ export const useInfinitePostList = (): any => {
   const dispatch = useAppDispatch()
   const observer = useRef<IntersectionObserver | null>(null);
   let page = 1;
+  let isLastPost = false
  
   const [isLoading, setIsLoading] = useState(false)
 
@@ -19,6 +20,7 @@ export const useInfinitePostList = (): any => {
     };
 
     observer.current = new IntersectionObserver((entries) => {
+      if (isLastPost) return
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           page += 1;
@@ -27,8 +29,11 @@ export const useInfinitePostList = (): any => {
             pageNumber: page
           };
           setIsLoading(true);
-          dispatch(getHomePosts(homePostsParams)).unwrap().then(() => {
+          dispatch(getHomePosts(homePostsParams)).then((result) => {
             setIsLoading(false);
+            if (result.payload.data.length === 0) {
+              isLastPost = true;
+            }
           });
         }
       });
@@ -46,5 +51,5 @@ export const useInfinitePostList = (): any => {
     };
   }, [dispatch])
 
-  return { isLoading };
+  return { isLoading, isLastPost };
 };

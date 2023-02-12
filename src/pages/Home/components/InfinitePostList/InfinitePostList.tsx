@@ -15,7 +15,7 @@ const InfinitePostList = ():ReactElement => {
 
   // hook
   const { showDetail, handleLikePost } = usePostItem();
-  const {isLoading} = useInfinitePostList()
+  const {isLoading, isLastPost} = useInfinitePostList()
 
   return(
     <>
@@ -32,6 +32,7 @@ const InfinitePostList = ():ReactElement => {
         );
       })}
       {isLoading && <div><PostSkeleton/></div>}
+      {isLastPost && <div>No more posts</div>}
     </>
   )
 }
