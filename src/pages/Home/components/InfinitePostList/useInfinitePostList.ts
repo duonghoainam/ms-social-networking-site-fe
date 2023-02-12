@@ -3,7 +3,6 @@ import { getHomePosts } from '../../state/homeActions';
 import { useAppDispatch } from '../../../../app/store';
 import { GetHomePostsDto } from '../../../../api/post/type/get-home-posts.dto';
 
-
 export const useInfinitePostList = (): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const dispatch = useAppDispatch()

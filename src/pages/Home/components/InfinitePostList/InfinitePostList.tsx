@@ -21,7 +21,7 @@ const InfinitePostList = ():ReactElement => {
     <>
       {listPost.map((post: any, index: number) => {
         return (
-          <LazyLoad key={index} placeholder={<PostSkeleton></PostSkeleton>}>
+          <LazyLoad key={index} offset={500} placeholder={<PostSkeleton></PostSkeleton>}>
             <PostItem
               key={index}
               post={post}
