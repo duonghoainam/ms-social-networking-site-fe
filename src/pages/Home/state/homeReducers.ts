@@ -23,12 +23,7 @@ export const extraReducers: any = {
     return { ...state, isLoading: false, loadListPostFail: true };
   },
   [getHomePosts.fulfilled.toString()]: (state: any, action: any) => {
-    const temp1 = state.listPost;
-    const temp2 = action.payload.data;
-    const temp = [...temp1, ...temp2];
-    state.listPost = temp;
-    state.loadListPostFail = false;
-    state.isLoading = false;
+    return {...state, listPost: [...state.listPost, ...action.payload.data], loadListPostFail: false, isLoading: false}
   },
 
   // get all comment of post
