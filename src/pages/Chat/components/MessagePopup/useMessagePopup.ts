@@ -86,7 +86,7 @@ export const useMessagePopup = (
         member: tag.id
       });
       socket.emit('createMessage', {
-        content: `Đã thêm ${tag.name as string} vào cuộc trò chuyện`,
+        content: `${currentUser?.name} đã thêm ${tag.name as string} vào cuộc trò chuyện`,
         conversation: params.id as string
       });
     });

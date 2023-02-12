@@ -77,12 +77,12 @@ class PostAPI {
 
   likeComment = (userId: string, postId: string, commentId: string): any => {
     const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}/like`;
-    return axiosClient.get(url, { params: { commentId, userId } });
+    return axiosClient.patch(url, { commentId, userId });
   };
 
   unlikeComment = (userId: string, postId: string, commentId: string): any => {
     const url = `${getApiUrl()}/posts/${postId}/comments/${commentId}/unlike`;
-    return axiosClient.get(url, { params: { commentId, userId } });
+    return axiosClient.patch(url, { commentId, userId });
   };
 }
 

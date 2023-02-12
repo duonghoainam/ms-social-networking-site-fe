@@ -7,7 +7,9 @@ import {
   addNewComment,
   getListRecommendedFollowings,
   getPostComments,
-  deleteComment
+  deleteComment,
+  likeComment,
+  unlikeComment
 } from './homeActions';
 import { getUserById } from '../../User/state/userActions';
 import { HomeState } from './homeSlice';
@@ -115,6 +117,46 @@ export const extraReducers: any = {
     state.listComment = state.listComment.filter((comment: any) => {
       return comment._id !== deletedComment._id;
     });
+  },
+
+  // Delete comment
+  [deleteComment.pending.toString()]: (state: any, action: any) => {},
+  [deleteComment.rejected.toString()]: (state: any, action: any) => {},
+  [deleteComment.fulfilled.toString()]: (state: any, action: any) => {
+    const deletedComment = action.payload.data;
+    state.listComment = state.listComment.filter((comment: any) => {
+      return comment._id !== deletedComment._id;
+    });
+  },
+
+  // like comment
+  [likeComment.pending.toString()]: (state: any, action: any) => {},
+  [likeComment.rejected.toString()]: (state: any, action: any) => {},
+  [likeComment.fulfilled.toString()]: (state: any, action: any) => {
+    const updatedComment = action.payload.data;
+    const index = state.listComment.findIndex((cmt: any) => cmt._id === updatedComment._id)
+    const newComments = [...state.listComment];
+    if (index < 0) {
+      newComments.push(updatedComment);
+    } else {
+      newComments[index] = updatedComment;
+    }
+    state.listComment = newComments;
+  },
+
+  // like comment
+  [unlikeComment.pending.toString()]: (state: any, action: any) => {},
+  [unlikeComment.rejected.toString()]: (state: any, action: any) => {},
+  [unlikeComment.fulfilled.toString()]: (state: any, action: any) => {
+    const updatedComment = action.payload.data;
+    const index = state.listComment.findIndex((cmt: any) => cmt._id === updatedComment._id)
+    const newComments = [...state.listComment];
+    if (index < 0) {
+      newComments.push(updatedComment);
+    } else {
+      newComments[index] = updatedComment;
+    }
+    state.listComment = newComments;
   },
 
   // Get user info

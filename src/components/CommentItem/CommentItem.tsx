@@ -22,7 +22,9 @@ const CommentItem = ({ comment }: any): ReactElement => {
     isShowCmtOption,
     setIsShowCommentOption,
     isCanEditAndDelete,
-    handleDeleteComment
+    handleDeleteComment,
+    handleLikeComment,
+    handleUnLikeComment
   } = useCommentItem(comment);
 
   return (
@@ -46,11 +48,11 @@ const CommentItem = ({ comment }: any): ReactElement => {
             {(isLike as boolean) ? (
               <Favorite
                 className="likeActive"
-                // oClick={async () => await handleLikeCmt(comment._id, comment.user._id)}
+                onClick={handleUnLikeComment}
               />
             ) : (
               <FavoriteBorderOutlined
-              // onClick={async () => await handleLikeCmt(comment._id)}
+              onClick={handleLikeComment}
               />
             )}
 
@@ -89,9 +91,6 @@ const CommentItem = ({ comment }: any): ReactElement => {
                       onClick={() => handleDeleteComment()}
                     >
                       Xóa
-                    </li>
-                    <li>
-                      Báo cáo
                     </li>
                   </ul>
                 </div>

@@ -8,7 +8,9 @@ import {
   handleDislike,
   addNewComment,
   deletePost,
-  updatePost
+  updatePost,
+  userLikeComment,
+  userUnlikeComment
 } from './userActions';
 
 export const extraReducers: any = {
@@ -130,5 +132,35 @@ export const extraReducers: any = {
   [deletePost.fulfilled.toString()]: (state: any, action: any) => {
     state.posts = state.posts.filter((post: any) => post._id !== action.payload.data._id)
   },
-  [deletePost.rejected.toString()]: (state: any, action: any) => { }
+  [deletePost.rejected.toString()]: (state: any, action: any) => { },
+
+  // like comment
+  [userLikeComment.pending.toString()]: (state: any, action: any) => {},
+  [userLikeComment.rejected.toString()]: (state: any, action: any) => {},
+  [userLikeComment.fulfilled.toString()]: (state: any, action: any) => {
+    const updatedComment = action.payload.data;
+    const index = state.comments.findIndex((cmt: any) => cmt._id === updatedComment._id)
+    const newComments = [...state.comments];
+    if (index < 0) {
+      newComments.push(updatedComment);
+    } else {
+      newComments[index] = updatedComment;
+    }
+    state.comments = newComments;
+  },
+
+  // like comment
+  [userUnlikeComment.pending.toString()]: (state: any, action: any) => {},
+  [userUnlikeComment.rejected.toString()]: (state: any, action: any) => {},
+  [userUnlikeComment.fulfilled.toString()]: (state: any, action: any) => {
+    const updatedComment = action.payload.data;
+    const index = state.comments.findIndex((cmt: any) => cmt._id === updatedComment._id)
+    const newComments = [...state.comments];
+    if (index < 0) {
+      newComments.push(updatedComment);
+    } else {
+      newComments[index] = updatedComment;
+    }
+    state.comments = newComments;
+  }
 };

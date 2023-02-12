@@ -3,11 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { socket } from '../../../utils/api.util';
 import { useAppDispatch } from '../../../app/store';
 import {
-  addMessage,
   leaveConversation,
   newConversation,
-  updateConversation,
-  updateMessage
+  updateConversation
 } from '../state/chatSlice';
 import { IConversation } from '../types/IConversation';
 interface useChatPageType {
@@ -28,18 +26,10 @@ export const useChatPage = (): useChatPageType => {
 
   useEffect(() => {
     if (!socket.connected) socket.connect();
-    socket.removeAllListeners('newMessage');
-    socket.removeAllListeners('updateMessage');
     socket.removeAllListeners('updateConversation');
     socket.removeAllListeners('newConversation');
     socket.removeAllListeners('leaveConversation');
 
-    socket.on('newMessage', function (data: any) {
-      dispatch(addMessage(data));
-    });
-    socket.on('updateMessage', function (data: any) {
-      dispatch(updateMessage(data));
-    });
     socket.on('updateConversation', function (data: any) {
       dispatch(updateConversation(data));
     });
@@ -48,9 +38,6 @@ export const useChatPage = (): useChatPageType => {
       if (memberIds.some((memberId) => memberId === currentUser.id)) {
         dispatch(newConversation(data));
       }
-    });
-    socket.on('seenMessage', function (data: any) {
-      dispatch(updateConversation(data));
     });
     socket.on('leaveConversation', function (data: any) {
       if (data.members.findIndex((member: any) => member.id === currentUser.id) === -1) {

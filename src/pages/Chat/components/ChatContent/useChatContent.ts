@@ -15,6 +15,7 @@ import { IUseChatContent } from '../../types/useChatContent.Type';
 import { IImage } from '../../types/IImage.Type'
 import { TypeMessage } from '../../../../constants/enums/chat-type.enum';
 import useImageUpload from '../../../../hooks/useMediaUpload';
+import { addMessage, updateConversation, updateMessage } from '../../state/chatSlice';
 export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const [messageText, setMessageText] = useState<string>('');
   const conversations = useSelector((state: AppState) => state.chat.conversations);
@@ -27,7 +28,8 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     avatar: 'string',
     updatedAt: '',
     createdAt: '',
-    createdBy: ''
+    createdBy: '',
+    hasUnreadMessage: false
   };
   const [currentConversation, setCurrentConversation] = useState(initialCurrentConversation);
   const [conversationName, setConversationName] = useState('');
@@ -63,7 +65,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
         const result = await dispatch(
           getMoreConversationMessages({ id: conId, page: page + 1 })
         ).unwrap();
-        if (result != null || result.length === 0) {
+        if (result == null || result.length === 0) {
           setIsEnough(true);
         } else {
           setPage(page + 1);
@@ -71,7 +73,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       }
     } else {
       if (
-        chatContentRef.current !== null
+        chatContentRef.current !== null && e.target.scrollTop < (e.target.scrollHeight - e.target.offsetHeight - 10)
       ) {
         setShowScrollButton(true);
       } else {
@@ -93,14 +95,16 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
       // };
     };
     initData().catch((error) => console.log(error));
-  }, [params.id]);
+  }, [params.id, conversations]);
 
   const getMessagesInCons = async (): Promise<void> => {
     try {
       // socket.emit('joinRoom', params.id);
       dispatch(getConversationMessages({ id: params.id as string, page }))
         .unwrap()
-        .then((resultValue) => { })
+        .then((resultValue) => {
+          handleScrollBottom();
+        })
         .catch((rejectedValue) => { });
     } catch (error) {
       console.log(error);
@@ -175,8 +179,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   };
 
   const handleScrollBottom = (): void => {
-    // ref.current?.scrollIntoView({ behavior: 'smooth' });
-    setShowScrollButton(false);
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleReactMessage = (messageId: string, userId: string): void => {
@@ -279,6 +282,41 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
   const handleClosePopup = (): void => {
     setIsOpenPopup(false);
   }
+
+  useEffect(() => {
+    if (!socket.connected) {
+      socket.connect();
+    }
+    socket.removeAllListeners('newMessage');
+    socket.removeAllListeners('updateMessage');
+    socket.removeAllListeners('seenMessage');
+
+    socket.on('newMessage', function (data: any) {
+      dispatch(addMessage(data));
+      let hasUnreadMessage = true;
+      if (currentConversation._id === data.conversation) {
+        seenAll().catch(err => console.log(err));
+        hasUnreadMessage = false;
+      }
+      if (data.sender !== currentUser.id) {
+        const oldConversation = conversations.find(con => con._id === data.conversation)
+        if (oldConversation != null && oldConversation !== undefined) {
+          const newConversation = { ...oldConversation, hasUnreadMessage }
+          dispatch(updateConversation(newConversation));
+        }
+      }
+      setTimeout(() => {
+        handleScrollBottom();
+      }, 10)
+    });
+
+    socket.on('updateMessage', function (data: any) {
+      dispatch(updateMessage(data));
+    });
+    socket.on('seenMessage', function (data: any) {
+      dispatch(updateConversation(data));
+    });
+  }, [currentConversation])
 
   return {
     messages,

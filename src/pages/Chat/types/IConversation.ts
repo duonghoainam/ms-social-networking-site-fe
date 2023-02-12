@@ -9,4 +9,5 @@ export interface IConversation {
   updatedAt: string;
   createdAt: string;
   createdBy: string;
+  hasUnreadMessage: boolean;
 }
