@@ -117,7 +117,6 @@ const Header = (): ReactElement => {
       socket.emit('call', 'rooms.join', { join: conversation._id });
     });
 
-    console.log('init header component')
   }, [conversations]);
 
   useEffect(() => {
