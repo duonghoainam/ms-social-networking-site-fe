@@ -7,7 +7,7 @@ export const useInfinitePostList = (): any => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
   const dispatch = useAppDispatch()
   const observer = useRef<IntersectionObserver | null>(null);
-  let page = 1;
+  let page = 0;
   let isLastPost = false
  
   const [isLoading, setIsLoading] = useState(false)

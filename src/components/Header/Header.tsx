@@ -129,7 +129,7 @@ const Header = (): ReactElement => {
     <>
       <header className="header">
         <div className="header__logo" onClick={() => navigate('/')}>
-          <img src={IMAGES.logo} alt="" />
+          <img src={IMAGES.logo} alt="Logo" style={{ maxWidth: '95px', height: 'auto' }}/>
         </div>
         <div className="header__search">
           <SearchOutlined className="concho" />
