@@ -13,6 +13,7 @@ export interface IUseChatContent {
   chatContentRef: any;
   ref: any;
   messageText: string;
+  setMessageText: any;
   handleScroll: any;
   handleScrollBottom: any;
   handleChange: any;

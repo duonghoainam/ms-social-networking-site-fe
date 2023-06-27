@@ -366,12 +366,12 @@ h6 {
         display: flex;
         place-items: center;
         position: relative;
-        padding: 0 1.5rem;
+        // padding: 0 1.5rem;
         & input {
             width: 100%;
             outline: none;
             padding: 10px 0;
-            padding-left: 40px;
+            padding-left: 80px;
             padding-right: 80px;
             border-radius: 20px;
         }

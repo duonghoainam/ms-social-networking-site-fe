@@ -4,12 +4,18 @@ import '../Chat.scss';
 import { Button } from 'react-bootstrap';
 import MessagePopup from '../MessagePopup/MessagePopup';
 
-function DefaultContent (): React.ReactElement {
+function DefaultContent(): React.ReactElement {
   const [isShowPopup, setIsShowPopup] = useState(false);
   return (
     <div className="rightPanel default">
       <div className="rightPanel__iconSendMessageWrapper">
-        <SendOutlined className="rightPanel__iconSendMessageWrapper__iconSendMessage" />
+        <SendOutlined
+          className="rightPanel__iconSendMessageWrapper__iconSendMessage"
+          onClick={() => {
+            // navigator.clipboard.writeText(`http://localhost:8000/user/${post._id}`);
+            // alert('Copied to clipboard');
+          }}
+        />
       </div>
       <h5>Tin nhắn của bạn</h5>
       <p>Gửi hình ảnh và tin nhắn cho bạn bè hoặc nhóm của bạn.</p>

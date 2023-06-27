@@ -74,7 +74,11 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
               )}
               <AddCommentOutlined onClick={() => showDetail(post)} />
               <SendOutlined
-              // onClick={() => setIsShowMessagePopup(true)}
+                // onClick={() => setIsShowMessagePopup(true)}
+                onClick={() => {
+                  navigator.clipboard.writeText(`http://localhost:8000/user/${post.user.id}`);
+                  alert('Copied to clipboard')
+                }}
               />
             </Col>
             <Col md={3} style={{ textAlign: 'right' }}>

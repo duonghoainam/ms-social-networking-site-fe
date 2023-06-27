@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { InfoOutlined, ArrowDownward } from '@material-ui/icons';
@@ -11,6 +11,9 @@ import ChatSetting from '../ChatSetting/ChatSetting';
 import Message from '../Message/Message';
 import { faFileImage } from '@fortawesome/free-solid-svg-icons';
 import ImageMessagePopup from '../ImageMessagePopup/ImageMessagePopup';
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import { Col, Row } from 'react-bootstrap';
+import { TagFacesOutlined } from '@material-ui/icons';
 
 const ChatContent = ({
   isOpenSetting,
@@ -30,6 +33,7 @@ const ChatContent = ({
     chatContentRef,
     ref,
     messageText,
+    setMessageText,
     isTyping,
     showScrollButton,
     handleScroll,
@@ -46,6 +50,12 @@ const ChatContent = ({
     handleRemoveImage,
     handleClosePopup
   } = useChatContent(setIsOpenSetting);
+
+  const [showEmoji, setShowEmoji] = useState(false);
+
+  const handleEmojiClick = (emojiData: EmojiClickData, event: MouseEvent): void => {
+    setMessageText((value: string) => value + emojiData.emoji);
+  };
 
   if (isOpenSetting) {
     return (
@@ -103,18 +113,27 @@ const ChatContent = ({
           <div ref={ref} />
         </div>
         <div className="rightPanel__inputContainer">
-          <input
-            id="image-input"
-            type="file"
-            onChange={handleChangeImages}
-            multiple
-          />
-          <label htmlFor="image-input" className='rightPanel__inputContainer__icon image'>
-            <FontAwesomeIcon
-              icon={faFileImage}
-              size="lg"
-              cursor="pointer"
-            />
+          <input id="image-input" type="file" onChange={handleChangeImages} multiple />
+          <div className="rightPanel__inputContainer__icon" style={{ paddingLeft: '8px' }}>
+            <Row>
+              <Col md={12} id="emojiIcon">
+                <TagFacesOutlined
+                  style={{ color: 'black' }}
+                  onClick={() => setShowEmoji(!showEmoji)}
+                />
+              </Col>
+              {showEmoji && (
+                <div style={{ zIndex: '1' }}>
+                  <EmojiPicker
+                    onEmojiClick={handleEmojiClick}
+                    width="100%"
+                    height="400px"></EmojiPicker>
+                </div>
+              )}
+            </Row>
+          </div>
+          <label htmlFor="image-input" className="rightPanel__inputContainer__icon image">
+            <FontAwesomeIcon icon={faFileImage} size="lg" cursor="pointer" />
           </label>
           <input
             type="text"
@@ -133,15 +152,14 @@ const ChatContent = ({
             />
           )}
         </div>
-        {
-          (Boolean(isOpenPopup)) &&
+        {Boolean(isOpenPopup) && (
           <ImageMessagePopup
             images={images}
             closePopup={handleClosePopup}
             removeImage={handleRemoveImage}
             submit={submitImageMessage}
           />
-        }
+        )}
       </div>
     );
   }

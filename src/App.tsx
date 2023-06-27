@@ -46,6 +46,12 @@ function App (): ReactElement {
           </PrivateRoute>
         }></Route>
 
+        <Route path="/user/:id/:_id" element={
+          <PrivateRoute>
+            <UserPage />
+          </PrivateRoute>
+        }></Route>
+
         {/* Chat */}
         <Route
           path="/messenger/*"

@@ -328,6 +328,7 @@ export const useChatContent = (setIsOpenSetting: any): IUseChatContent => {
     chatContentRef,
     ref,
     messageText,
+    setMessageText,
     images,
     isOpenPopup,
     handleScroll,

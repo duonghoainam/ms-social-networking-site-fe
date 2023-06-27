@@ -27,12 +27,10 @@ const PostComment = ({
   handleLikePost,
   addCommentAction
 }: any): ReactElement => {
-  const {
-    currentUser,
-    isShowMessagePopup,
-    setIsShowMessagePopup
-  } = usePostComment();
-  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ selectedPost });
+  const { currentUser, isShowMessagePopup, setIsShowMessagePopup } = usePostComment();
+  const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({
+    selectedPost
+  });
 
   return (
     <div className="detail" style={{ display: (isShowPostDetail as boolean) ? '' : 'none' }}>
@@ -70,7 +68,8 @@ const PostComment = ({
                 <Col className="postItem__react">
                   <Row className="reactIcon">
                     <Col md={9}>
-                      {selectedPost.likes.filter((user: any) => user.id === currentUser.id).length > 0 ? (
+                      {selectedPost.likes.filter((user: any) => user.id === currentUser.id).length >
+                      0 ? (
                         <Favorite
                           style={{ color: '#ed4956' }}
                           onClick={() => handleLikePost(selectedPost._id, currentUser.id)}
@@ -81,7 +80,13 @@ const PostComment = ({
                         />
                       )}
                       <SendOutlined
-                      // onClick={() => setIsShowMessagePopup(true)}
+                        onClick={() => {
+                          {
+                            navigator.clipboard.writeText(`http://localhost:8000/user/${selectedPost.user.id}`);
+                            // setIsShowMessagePopup(true);
+                            alert('Copied to clipboard');
+                          }
+                        }}
                       />
                     </Col>
                   </Row>
@@ -94,7 +99,11 @@ const PostComment = ({
             <div className="postItem__content__caption">{selectedPost.content}</div>
 
             <div className="postItem__content__time">{format(selectedPost.createdAt)}</div>
-            <AddComment addCommentAction={addCommentAction} postId={selectedPost._id} postUserId={selectedPost.user.id} />
+            <AddComment
+              addCommentAction={addCommentAction}
+              postId={selectedPost._id}
+              postUserId={selectedPost.user.id}
+            />
           </div>
         </div>
       </div>
@@ -102,7 +111,11 @@ const PostComment = ({
         <FontAwesomeIcon icon={faCircleXmark} />
       </div>
       {(isShowAllLikesPopup as boolean) && (
-        <AllLikesPopup post={selectedPost} isShow={isShowAllLikesPopup} hidePopup={hideAllLikesPopup} />
+        <AllLikesPopup
+          post={selectedPost}
+          isShow={isShowAllLikesPopup}
+          hidePopup={hideAllLikesPopup}
+        />
       )}
       {(isShowMessagePopup as boolean) && (
         <MessagePopup
