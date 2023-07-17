@@ -20,6 +20,8 @@ import { useAllLikesPopup } from '../../../../components/AllLikesPopup/useAllLik
 import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
 import { getFileTypeFromUrl } from '../../../../utils/string.util';
 import { AppState } from '../../../../app/state.type';
+import { setGridView } from '../../../Home/state/homeSlice';
+import { useAppDispatch } from '../../../../app/store';
 
 import {
   faCircleXmark,
@@ -36,7 +38,8 @@ import {
 const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
   const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem(post);
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
-  const { latitude, longitude, weather } = useSelector((state: AppState) => state.home);
+  const { latitude, longitude, weather, isGridView } = useSelector((state: AppState) => state.home);
+  const dispatch = useAppDispatch();
   
   function handleDateData(timestamp: any): React.ReactNode {
     var date = new Date(timestamp * 1000);
@@ -44,7 +47,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
     console.log(formattedDate);
     return formattedDate;
   }
-
+  
   return (
     <>
       <Row className="postItem">
@@ -52,7 +55,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
           <PostHeader post={post} />
         </Col>
         <Col md={12} className="postItem__slide">
-          <Carousel
+            {(!isGridView) && (<Carousel
             prevIcon={<FontAwesomeIcon icon={faCircleChevronLeft} />}
             nextIcon={<FontAwesomeIcon icon={faCircleChevronRight} />}>
             {post.images.map((fileUrl: string, index: number) => {
@@ -68,8 +71,26 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
                 </Carousel.Item>
               );
             })}
-          </Carousel>
-          
+          </Carousel>)}
+          {(isGridView)&&(<section className="business-area__container" data-cursor="-inverse">
+              <div className="container-full">
+                  <div className="business-area__images">
+                    <div className="business-area__images--grid">
+                      {(post.images.length >= 1) && (<img className="d-block w-100" src={post.images[0]} alt="First slide" />)}
+                      {(post.images.length >= 2) && (<img className="d-block w-100" src={post.images[1]} alt="First slide" />)}
+                      {(post.images.length >= 3) && (<img className="d-block w-100" src={post.images[2]} alt="First slide" />)}
+                      {(post.images.length == 4) && (<img className="d-block w-100" src={post.images[3]} alt="First slide" />)}
+                      {(post.images.length > 4) && 
+                      (<div style={{position: "relative"}}>
+                        <div style={{position: "absolute", fontSize: "40px", color:"white" ,display:"flex", width: "100%", height: "100%", justifyContent: "center", alignItems: "center", background: "rgba(0,0,0,0.58)", borderRadius: "14px"}}>
+                          +{post.images.length - 4}
+                        </div>
+                        <img className="d-block w-100" src={post.images[3]} alt="First slide" />
+                      </div>)}
+                    </div>
+                  </div>
+              </div>
+            </section>)}
         </Col>
         <Col className="postItem__react">
           <Row className="reactIcon">
@@ -98,7 +119,8 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
               />
             </Col>
             <Col md={3} style={{ textAlign: 'right' }}>
-              <BookmarkBorderOutlined />
+              <BookmarkBorderOutlined  onClick={() => {const hide = setGridView(!isGridView); dispatch(hide);
+              }}/>
             </Col>
           </Row>
         </Col>
@@ -107,11 +129,6 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
             {post.likes.length} lượt thích
           </div>
           <div className="postItem__post__caption">{post.content}</div>
-          {/* {isOverflow() && (
-            <span className="postItem__post__watchMoreBtn" onClick={(e) => handleWatchMore(e)}>
-              Xem thêm
-            </span>
-          )} */}
           <div className="postItem__post__allCmt" onClick={() => showDetail(post)}>
             Xem tất cả {post.comments.length} bình luận
           </div>

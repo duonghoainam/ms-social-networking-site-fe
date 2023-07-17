@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { createSlice } from '@reduxjs/toolkit';
 import { Post } from '../../../api/post/type/post.type';
 import { User } from '../../../api/user/type/user.type';
@@ -15,6 +14,7 @@ export interface HomeState {
   isShowPostDetail: boolean;
   selectedPost: Post;
   isLoading: boolean;
+  isGridView: boolean;
   loadListPostFail: boolean;
 }
 const initialState: HomeState = {
@@ -28,6 +28,7 @@ const initialState: HomeState = {
   selectedPost: {} as Post,
   isShowPostDetail: false,
   isLoadComment: true,
+  isGridView: true,
   loadListPostFail: false
 };
 
@@ -51,12 +52,15 @@ const HomeSlice = createSlice({
       console.log('weathherererererr', action.payload);
       return { ...state, weather: action.payload };
     },  
+    setGridView: (state: any, action: any): void => {
+      return { ...state, isGridView: action.payload };
+    },
   },
   extraReducers
 });
 // Action creators are generated for each case reducer function
 const { reducer: HomeReducer, actions } = HomeSlice;
 
-export const { setSelectedPost, setShowPostDetail, setLat, setLon, setWeather } = actions;
+export const { setSelectedPost, setShowPostDetail, setLat, setLon, setWeather, setGridView } = actions;
 
 export default HomeReducer;
