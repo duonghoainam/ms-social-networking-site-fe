@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import PrivateRoute from './components/ControlRoute/PrivateRoute';
 import HomePage from './pages/Home/HomePage';
@@ -13,7 +13,33 @@ import { ToastContainer } from 'react-toastify';
 
 function App (): ReactElement {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '{}');
+  const [location, setLocation] = useState(null);
+  const [weather, setWeather] = useState(null);
+  // function success(position: { coords: { latitude: Number; longitude: Number; }; }) {
+  //   const latitude = position.coords.latitude;
+  //   const longitude = position.coords.longitude;
+  //   // setLocation({ latitude, longitude });
+  //   console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+  //   // Make API call to OpenWeatherMap
+  //3939e70924ddd1b2d6be0af2eadbe89c
+  //   fetch(` https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2362412ca7fdf9417036bad5e2b45dfe&units=metric`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setWeather(data);
+  //       console.log(data);
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+
+  // function error() {
+  //   console.log("Unable to retrieve your location");
+  // } 
   useEffect(() => {
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(success, error);
+    // } else {
+    //   console.log("Geolocation not supported");
+    // }
     if (currentUser?.id !== undefined) {
       if (socket.connected) {
         socket.emit('call', 'rooms.join', { join: currentUser.id });

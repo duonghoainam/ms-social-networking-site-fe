@@ -19,6 +19,7 @@ const useUserPost = (): any => {
     void loadUserPosts();
   }, [id]);
 
+
   const hidePostDetail = async (): Promise<void> => {
     const hide = setShowPostDetail(false);
     await dispatch(hide);

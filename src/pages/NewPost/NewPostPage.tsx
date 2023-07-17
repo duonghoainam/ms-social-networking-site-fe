@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import Header from '../../components/Header/Header';

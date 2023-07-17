@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { ReactElement } from 'react';
 import { Carousel, Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import './PostItem.scss';
 import {
   FavoriteBorderOutlined,
@@ -18,7 +19,12 @@ import AllLikesPopup from '../../../../components/AllLikesPopup/AllLikesPopup';
 import { useAllLikesPopup } from '../../../../components/AllLikesPopup/useAllLikesPopup';
 import MessagePopup from '../../../Chat/components/MessagePopup/MessagePopup';
 import { getFileTypeFromUrl } from '../../../../utils/string.util';
+import { AppState } from '../../../../app/state.type';
 
+import {
+  faCircleXmark,
+  faMapLocation
+} from '@fortawesome/free-solid-svg-icons';
 /**
  * post params are logic for to manage state, call data for a post item
  * @param post post data
@@ -30,6 +36,15 @@ import { getFileTypeFromUrl } from '../../../../utils/string.util';
 const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
   const { currentUser, setIsShowMessagePopup, isShowMessagePopup } = usePostItem(post);
   const { isShowAllLikesPopup, hideAllLikesPopup, showAllLikesPopup } = useAllLikesPopup({ post });
+  const { latitude, longitude, weather } = useSelector((state: AppState) => state.home);
+  
+  function handleDateData(timestamp: any): React.ReactNode {
+    var date = new Date(timestamp * 1000);
+    var formattedDate = date.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'UTC' });
+    console.log(formattedDate);
+    return formattedDate;
+  }
+
   return (
     <>
       <Row className="postItem">
@@ -54,6 +69,7 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
               );
             })}
           </Carousel>
+          
         </Col>
         <Col className="postItem__react">
           <Row className="reactIcon">
@@ -100,6 +116,12 @@ const PostItem = ({ post, handleLikePost, showDetail }: any): ReactElement => {
             Xem tất cả {post.comments.length} bình luận
           </div>
           <div className="postItem__post__time">{format(post.createdAt)}</div>
+          <FontAwesomeIcon icon={faMapLocation} size="lg" cursor="pointer" /> 
+          <a href={`https://maps.google.com?q=${latitude},${longitude}`} target="_blank" className="postItem__post__time">  {weather?.name} - {weather?.sys?.country}</a> 
+          {/* if (weather?.weather != null) <div className="postItem__post__time">{weather?.main.temp} {String.fromCharCode(176)}C - wind speed: {weather?.wind?.speed}</div> */}
+          <div className="postItem__post__time">{weather?.weather != null? weather?.weather[0]?.main + ' - ' + weather?.weather[0]?.description + ' - ': ''} {weather?.main?.temp} {String.fromCharCode(176)}C - wind speed: {weather?.wind?.speed}</div>
+          
+          {/* - {} //{handleDateData(weather?.sys?.sunrise)} */}
         </Col>
         {/* <ReportModal postId={post.user._id} /> */}
       </Row>
